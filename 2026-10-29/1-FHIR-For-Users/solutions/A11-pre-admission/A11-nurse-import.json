@@ -1,0 +1,492 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "soln-A11-nurse-import",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assemble-expectation",
+      "valueCode": "assemble-child"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    }
+  ],
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-patient-reported",
+  "version": "0.2.0",
+  "name": "PAMPatientReported",
+  "title": "PAM module — Patient-reported (from the pre-admission form)",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-28",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 1 (synthetic demo, not for clinical use)",
+  "description": "Scenario A11, nurse side: pre-populates from the patient's latest completed A11 pre-admission QuestionnaireResponse (x-fhir-query + FHIRPath).",
+  "item": [
+    {
+      "linkId": "pam-patient-reported",
+      "text": "Patient-reported (pre-admission form)",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "paResponse",
+            "language": "application/x-fhir-query",
+            "expression": "QuestionnaireResponse?subject=Patient/{{%patient.id}}&status=completed&_sort=-authored&_count=50"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "pam-patient-reported-module",
+          "text": "Module",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            }
+          ],
+          "initial": [
+            {
+              "valueString": "pam-patient-reported|0.2.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-source",
+          "text": "Patient's form",
+          "type": "string",
+          "readOnly": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%paResponse.entry.resource.where(questionnaire.startsWith('https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A11-pre-admission')).first().select('Completed ' + authored.toString().substring(0, 10) + ' (QuestionnaireResponse/' + id + ')')"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-none",
+          "text": "The patient hasn't completed a pre-admission form yet.",
+          "type": "display",
+          "enableWhen": [
+            {
+              "question": "pam-pr-source",
+              "operator": "exists",
+              "answerBoolean": false
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-transfusion-accept",
+          "text": "Would accept a blood transfusion",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%paResponse.entry.resource.where(questionnaire.startsWith('https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A11-pre-admission')).first().repeat(item).where(linkId = 'pam-pa-transfusion-accept').answer.value"
+              }
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                "code": "accept",
+                "display": "Yes, I would accept a blood transfusion"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                "code": "some",
+                "display": "Only some blood products"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                "code": "refuse",
+                "display": "No, I would not accept any blood products"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                "code": "unsure",
+                "display": "I'm not sure — I'd like to talk about it"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-products",
+          "text": "Blood products the patient would accept",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "check-box"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%paResponse.entry.resource.where(questionnaire.startsWith('https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A11-pre-admission')).first().repeat(item).where(linkId = 'pam-pa-products').answer.value"
+              }
+            }
+          ],
+          "repeats": true,
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "116863004",
+                "display": "Red blood cells"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "180208003",
+                "display": "Platelets"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "13569004",
+                "display": "Plasma"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "116795008",
+                "display": "Cryoprecipitate"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "116788004",
+                "display": "Albumin"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "233568002",
+                "display": "Cell salvage (your own blood, collected during the operation and given back)"
+              }
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "pam-pr-transfusion-accept",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                "code": "some"
+              }
+            },
+            {
+              "question": "pam-pr-transfusion-accept",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                "code": "refuse"
+              }
+            }
+          ],
+          "enableBehavior": "any"
+        },
+        {
+          "linkId": "pam-pr-directive",
+          "text": "Advance Health Directive about blood products",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%paResponse.entry.resource.where(questionnaire.startsWith('https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A11-pre-admission')).first().repeat(item).where(linkId = 'pam-pa-directive').answer.value"
+              }
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                "code": "Y",
+                "display": "Yes"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                "code": "N",
+                "display": "No"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                "code": "asked-unknown",
+                "display": "Not sure"
+              }
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "pam-pr-transfusion-accept",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                "code": "some"
+              }
+            },
+            {
+              "question": "pam-pr-transfusion-accept",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                "code": "refuse"
+              }
+            }
+          ],
+          "enableBehavior": "any"
+        },
+        {
+          "linkId": "pam-pr-transfusion-reaction",
+          "text": "Previous transfusion reaction",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%paResponse.entry.resource.where(questionnaire.startsWith('https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A11-pre-admission')).first().repeat(item).where(linkId = 'pam-pa-transfusion-reaction').answer.value"
+              }
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                "code": "Y",
+                "display": "Yes"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                "code": "N",
+                "display": "No"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                "code": "asked-unknown",
+                "display": "Not sure"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-iron-infusion",
+          "text": "Previous iron infusion",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%paResponse.entry.resource.where(questionnaire.startsWith('https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A11-pre-admission')).first().repeat(item).where(linkId = 'pam-pa-iron-infusion').answer.value"
+              }
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                "code": "Y",
+                "display": "Yes"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                "code": "N",
+                "display": "No"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                "code": "asked-unknown",
+                "display": "Not sure"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-blood-thinners",
+          "text": "Blood thinners (patient-reported)",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "iif(%paResponse.entry.resource.where(questionnaire.startsWith('https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A11-pre-admission')).first().repeat(item).where(linkId = 'pam-pa-blood-thinners').answer.value.code = 'Y', 'Yes: ' + %paResponse.entry.resource.where(questionnaire.startsWith('https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A11-pre-admission')).first().repeat(item).where(linkId = 'pam-pa-blood-thinners-names').answer.value.first(), %paResponse.entry.resource.where(questionnaire.startsWith('https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A11-pre-admission')).first().repeat(item).where(linkId = 'pam-pa-blood-thinners').answer.value.display)"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-diet",
+          "text": "Diet",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%paResponse.entry.resource.where(questionnaire.startsWith('https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A11-pre-admission')).first().repeat(item).where(linkId = 'pam-pa-diet-type').answer.value"
+              }
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "36823005",
+                "display": "I eat meat"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "1379271000168105",
+                "display": "I eat fish but not meat (pescatarian)"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "765021002",
+                "display": "Vegetarian (no meat or fish)"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "1255165006",
+                "display": "Vegan (no food from animals)"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-talk",
+          "text": "Wants to talk to the blood management nurse",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%paResponse.entry.resource.where(questionnaire.startsWith('https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A11-pre-admission')).first().repeat(item).where(linkId = 'pam-pa-talk').answer.value"
+              }
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                "code": "Y",
+                "display": "Yes"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                "code": "N",
+                "display": "No"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

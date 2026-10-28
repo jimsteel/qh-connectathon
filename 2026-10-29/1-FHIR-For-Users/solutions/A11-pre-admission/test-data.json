@@ -1,0 +1,495 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "soln-A11-patient-1",
+        "extension": [
+          {
+            "url": "http://hl7.org.au/fhir/StructureDefinition/interpreter-required",
+            "valueBoolean": false
+          }
+        ],
+        "identifier": [
+          {
+            "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
+            "value": "SOLNA11001"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MC",
+                  "display": "Patient's Medicare number"
+                }
+              ],
+              "text": "Patient's Medicare number"
+            },
+            "system": "http://ns.electronichealth.net.au/id/medicare-number",
+            "value": "0000000111"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "given": [
+              "Grace"
+            ],
+            "family": "Preadmit-A11"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "0400 000 111",
+            "use": "mobile"
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1966-03-02",
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "12 Example Street"
+            ],
+            "city": "Kedron",
+            "state": "QLD",
+            "postalCode": "4031",
+            "country": "AU"
+          }
+        ],
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "en-AU",
+                  "display": "English (Australia)"
+                }
+              ],
+              "text": "English"
+            },
+            "preferred": true
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/soln-A11-patient-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "QuestionnaireResponse",
+        "status": "completed",
+        "questionnaire": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A11-pre-admission|0.2.0",
+        "item": [
+          {
+            "linkId": "pam-pre-admission",
+            "text": "Before your operation",
+            "item": [
+              {
+                "linkId": "pam-pre-admission-module",
+                "text": "Module",
+                "answer": [
+                  {
+                    "valueString": "pam-pre-admission|0.2.0"
+                  }
+                ]
+              },
+              {
+                "linkId": "pam-pa-about",
+                "text": "About you",
+                "item": [
+                  {
+                    "linkId": "pam-pa-name",
+                    "text": "Your name",
+                    "answer": [
+                      {
+                        "valueString": "Grace Preadmit-A11"
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-dob",
+                    "text": "Your date of birth",
+                    "answer": [
+                      {
+                        "valueDate": "1966-03-02"
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-sex",
+                    "text": "Your sex",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://hl7.org/fhir/administrative-gender",
+                          "code": "female",
+                          "display": "Female"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-medicare",
+                    "text": "Your Medicare number",
+                    "answer": [
+                      {
+                        "valueString": "0000000111"
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-phone",
+                    "text": "Best phone number to reach you",
+                    "answer": [
+                      {
+                        "valueString": "0400 000 111"
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-address",
+                    "text": "Your home address",
+                    "answer": [
+                      {
+                        "valueString": "12 Example Street, Kedron QLD 4031"
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-language",
+                    "text": "The language you prefer to speak",
+                    "answer": [
+                      {
+                        "valueString": "English"
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-interpreter",
+                    "text": "Do you need an interpreter?",
+                    "answer": [
+                      {
+                        "valueBoolean": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "linkId": "pam-pa-health",
+                "text": "Your health",
+                "item": [
+                  {
+                    "linkId": "pam-pa-told-anaemia",
+                    "text": "Has a doctor ever told you that you have low iron or anaemia (a low blood count)?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-iron-tablets",
+                    "text": "Have you taken iron tablets or iron liquid in the last year?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-iron-infusion",
+                    "text": "Have you ever had an iron drip (iron infusion)?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "N",
+                          "display": "No"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-tired",
+                    "text": "In the last month, have you felt more tired or short of breath than usual?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-bruising",
+                    "text": "Do you bruise easily, or bleed for a long time after a small cut?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "N",
+                          "display": "No"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-gut-bleeding",
+                    "text": "Have you noticed blood in your poo, black poo, or vomited blood?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "N",
+                          "display": "No"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-heavy-periods",
+                    "text": "Do you have heavy periods?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-blood-thinners",
+                    "text": "Do you take any medicine that thins your blood? (for example warfarin, apixaban (Eliquis), rivaroxaban (Xarelto), clopidogrel or aspirin)",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-blood-thinners-names",
+                    "text": "Which ones?",
+                    "answer": [
+                      {
+                        "valueString": "Aspirin 100 mg daily"
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-kidney",
+                    "text": "Has a doctor told you that you have kidney problems?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "N",
+                          "display": "No"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "linkId": "pam-pa-diet",
+                "text": "Food and diet",
+                "item": [
+                  {
+                    "linkId": "pam-pa-diet-type",
+                    "text": "Which best describes how you eat?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://snomed.info/sct",
+                          "code": "765021002",
+                          "display": "Vegetarian (no meat or fish)"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-tea-coffee",
+                    "text": "Do you usually drink tea or coffee with your meals?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-appetite",
+                    "text": "Have you lost your appetite or lost weight without trying in the last 3 months?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "N",
+                          "display": "No"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "linkId": "pam-pa-transfusion",
+                "text": "Blood transfusion",
+                "item": [
+                  {
+                    "linkId": "pam-pa-transfused-before",
+                    "text": "Have you ever had a blood transfusion?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "N",
+                          "display": "No"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-transfusion-accept",
+                    "text": "If you needed a blood transfusion during or after your operation, would you accept it?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                          "code": "some",
+                          "display": "Only some blood products"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-products",
+                    "text": "Which of these would you accept? Tick all that apply.",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://snomed.info/sct",
+                          "code": "116788004",
+                          "display": "Albumin"
+                        }
+                      },
+                      {
+                        "valueCoding": {
+                          "system": "http://snomed.info/sct",
+                          "code": "233568002",
+                          "display": "Cell salvage (your own blood, collected during the operation and given back)"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-transfusion-reason",
+                    "text": "Can you tell us why? You don't have to.",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-reason",
+                          "code": "religious",
+                          "display": "Religious beliefs (for example, Jehovah's Witness)"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-directive",
+                    "text": "Do you have an Advance Health Directive or another signed document about blood products?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-talk",
+                    "text": "Would you like to talk to the blood management nurse before your operation?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "linkId": "pam-pa-done",
+                "text": "Finishing up",
+                "item": [
+                  {
+                    "linkId": "pam-pa-completed-by",
+                    "text": "Who filled in this form?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/form-completed-by",
+                          "code": "patient",
+                          "display": "Me (the patient)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/soln-A11-patient-1"
+        },
+        "id": "soln-A11-qr-1",
+        "authored": "2026-10-28T09:30:00+10:00",
+        "author": {
+          "reference": "Patient/soln-A11-patient-1"
+        },
+        "source": {
+          "reference": "Patient/soln-A11-patient-1"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "QuestionnaireResponse/soln-A11-qr-1"
+      }
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "soln-A9-patient-1",
+        "identifier": [
+          {
+            "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
+            "value": "SOLNA9001"
+          }
+        ],
+        "name": [{ "use": "official", "given": ["Fiona"], "family": "Followup-A9" }],
+        "gender": "female",
+        "birthDate": "1958-05-14",
+        "address": [{ "use": "home", "city": "Chermside", "state": "QLD", "postalCode": "4032", "country": "AU" }]
+      },
+      "request": { "method": "PUT", "url": "Patient/soln-A9-patient-1" }
+    },
+    {
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "soln-A9-referral-1",
+        "status": "completed",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [{ "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/referral-source", "code": "surgeon", "display": "Surgeon" }],
+            "text": "Surgeon"
+          }
+        ],
+        "code": { "coding": [{ "system": "http://snomed.info/sct", "code": "3457005", "display": "Patient referral" }], "text": "Patient referral" },
+        "subject": { "reference": "Patient/soln-A9-patient-1" },
+        "authoredOn": "2026-09-01",
+        "performer": [{ "reference": "Organization/pam-blood-management" }],
+        "reasonCode": [{ "coding": [{ "system": "http://snomed.info/sct", "code": "271737000", "display": "Anaemia" }], "text": "Anaemia" }]
+      },
+      "request": { "method": "PUT", "url": "ServiceRequest/soln-A9-referral-1" }
+    },
+    {
+      "resource": {
+        "resourceType": "EpisodeOfCare",
+        "id": "soln-A9-episode-1",
+        "status": "active",
+        "type": [
+          {
+            "coding": [{ "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/episode-type", "code": "pam", "display": "Preoperative anaemia management" }],
+            "text": "Preoperative anaemia management"
+          }
+        ],
+        "patient": { "reference": "Patient/soln-A9-patient-1" },
+        "managingOrganization": { "reference": "Organization/pam-blood-management" },
+        "period": { "start": "2026-09-01" },
+        "referralRequest": [{ "reference": "ServiceRequest/soln-A9-referral-1" }],
+        "careManager": { "reference": "Practitioner/pam-nurse-2" }
+      },
+      "request": { "method": "PUT", "url": "EpisodeOfCare/soln-A9-episode-1" }
+    },
+    {
+      "resource": {
+        "resourceType": "Task",
+        "id": "soln-A9-task-1",
+        "status": "completed",
+        "intent": "order",
+        "code": {
+          "coding": [{ "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/task-type", "code": "follow-up", "display": "Review" }],
+          "text": "Review"
+        },
+        "description": "Review referral and book IV iron",
+        "focus": { "reference": "EpisodeOfCare/soln-A9-episode-1" },
+        "for": { "reference": "Patient/soln-A9-patient-1" },
+        "owner": { "reference": "Practitioner/pam-nurse-2" },
+        "authoredOn": "2026-09-01",
+        "restriction": { "period": { "end": "2026-09-08" } },
+        "note": [{ "time": "2026-09-04", "text": "Hb 104 g/L, ferritin 18 ug/L: iron deficiency anaemia. Ferric carboxymaltose 1000 mg booked for 10/09." }]
+      },
+      "request": { "method": "PUT", "url": "Task/soln-A9-task-1" }
+    },
+    {
+      "resource": {
+        "resourceType": "Task",
+        "id": "soln-A9-task-2",
+        "status": "requested",
+        "intent": "order",
+        "code": {
+          "coding": [{ "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/task-type", "code": "follow-up", "display": "Follow up post-treatment bloods" }],
+          "text": "Follow up post-treatment bloods"
+        },
+        "description": "Follow up post-treatment bloods",
+        "focus": { "reference": "EpisodeOfCare/soln-A9-episode-1" },
+        "for": { "reference": "Patient/soln-A9-patient-1" },
+        "owner": { "reference": "Practitioner/pam-nurse-2" },
+        "authoredOn": "2026-09-10",
+        "restriction": { "period": { "end": "2026-10-08" } },
+        "note": [{ "time": "2026-09-10", "text": "Infusion given 10/09, no reaction. Repeat FBC and iron studies in 4 weeks." }]
+      },
+      "request": { "method": "PUT", "url": "Task/soln-A9-task-2" }
+    }
+  ]
+}

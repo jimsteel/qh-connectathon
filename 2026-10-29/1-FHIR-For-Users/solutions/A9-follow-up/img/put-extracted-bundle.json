@@ -1,0 +1,87 @@
+{
+  "resourceType": "Bundle",
+  "id": "sdc-template-extract-d34e2f12f070",
+  "meta": {
+    "tag": [
+      {
+        "code": "@aehrc/sdc-template-extract:generated",
+        "system": "urn:aehrc:sdc-template-extract"
+      }
+    ]
+  },
+  "type": "transaction",
+  "timestamp": "2026-10-28T13:00:36.867Z",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:af05fd5e-9546-40b6-a20a-17dde90bed96",
+      "resource": {
+        "resourceType": "Parameters",
+        "parameter": [
+          {
+            "name": "operation",
+            "part": [
+              {
+                "name": "type",
+                "valueCode": "replace"
+              },
+              {
+                "name": "path",
+                "valueString": "Task.status"
+              },
+              {
+                "name": "value",
+                "valueCode": "completed"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PATCH",
+        "url": "Task/soln-A9-task-2"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:fac03fac-4c8c-491d-a9da-b7252bf7ba9f",
+      "resource": {
+        "resourceType": "EpisodeOfCare",
+        "id": "soln-A9-episode-1",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/episode-type",
+                "code": "pam",
+                "display": "Preoperative anaemia management"
+              }
+            ],
+            "text": "Preoperative anaemia management"
+          }
+        ],
+        "patient": {
+          "reference": "Patient/soln-A9-patient-1"
+        },
+        "managingOrganization": {
+          "reference": "Organization/pam-blood-management"
+        },
+        "period": {
+          "start": "2026-09-01",
+          "end": "2026-10-28"
+        },
+        "referralRequest": [
+          {
+            "reference": "ServiceRequest/soln-A9-referral-1"
+          }
+        ],
+        "careManager": {
+          "reference": "Practitioner/pam-nurse-2"
+        },
+        "status": "finished"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "EpisodeOfCare/soln-A9-episode-1"
+      }
+    }
+  ]
+}

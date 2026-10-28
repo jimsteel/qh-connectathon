@@ -1,0 +1,133 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "status": "in-progress",
+  "questionnaire": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A11-nurse-standalone|0.2.0",
+  "item": [
+    {
+      "linkId": "pam-patient-reported",
+      "text": "Patient-reported (pre-admission form)",
+      "item": [
+        {
+          "linkId": "pam-patient-reported-module",
+          "text": "Module",
+          "answer": [
+            {
+              "valueString": "pam-patient-reported|0.2.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-source",
+          "text": "Patient's form",
+          "answer": [
+            {
+              "valueString": "Completed 2026-10-28 (QuestionnaireResponse/soln-A11-qr-1)"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-transfusion-accept",
+          "text": "Would accept a blood transfusion",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                "code": "some",
+                "display": "Only some blood products"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-products",
+          "text": "Blood products the patient would accept",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "116788004",
+                "display": "Albumin"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "233568002",
+                "display": "Cell salvage (your own blood, collected during the operation and given back)"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-directive",
+          "text": "Advance Health Directive about blood products",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                "code": "Y",
+                "display": "Yes"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-iron-infusion",
+          "text": "Previous iron infusion",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                "code": "N",
+                "display": "No"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-blood-thinners",
+          "text": "Blood thinners (patient-reported)",
+          "answer": [
+            {
+              "valueString": "Yes: Aspirin 100 mg daily"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-diet",
+          "text": "Diet",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "765021002",
+                "display": "Vegetarian (no meat or fish)"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pr-talk",
+          "text": "Wants to talk to the blood management nurse",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                "code": "Y",
+                "display": "Yes"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "subject": {
+    "type": "Patient",
+    "reference": "Patient/soln-A11-patient-1",
+    "display": "Grace Preadmit-A11"
+  },
+  "meta": {
+    "source": "https://smartforms.csiro.au"
+  }
+}

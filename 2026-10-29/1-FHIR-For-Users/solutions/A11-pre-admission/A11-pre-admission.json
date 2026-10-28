@@ -1,0 +1,1329 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "soln-A11-pre-admission",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    }
+  ],
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A11-pre-admission",
+  "version": "0.2.0",
+  "name": "PAMPreAdmissionPatient",
+  "title": "Before your operation: your blood and iron health",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-28",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 1 (synthetic demo, not for clinical use)",
+  "description": "Scenario A11: a patient-facing pre-admission form in plain language (history, diet, transfusion wishes). Its QuestionnaireResponse is what the nurse's forms pre-populate from.",
+  "item": [
+    {
+      "linkId": "pam-pre-admission",
+      "text": "Before your operation",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "pam-pre-admission-module",
+          "text": "Module",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            }
+          ],
+          "initial": [
+            {
+              "valueString": "pam-pre-admission|0.2.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pa-intro",
+          "text": "This form takes about 5 minutes. Your answers go to the blood management nurse, who will look at them before your pre-admission appointment.",
+          "type": "display"
+        },
+        {
+          "linkId": "pam-pa-about",
+          "text": "About you",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-pa-about-intro",
+              "text": "We have filled in some details from your hospital record. Please check them and fix anything that is wrong.",
+              "type": "display"
+            },
+            {
+              "linkId": "pam-pa-name",
+              "text": "Your name",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.name.where(use = 'official').union(%patient.name).first().select(given.first() + ' ' + family)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-dob",
+              "text": "Your date of birth",
+              "type": "date",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.birthDate"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-sex",
+              "text": "Your sex",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.gender"
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "female",
+                    "display": "Female"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "male",
+                    "display": "Male"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "other",
+                    "display": "Other"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "unknown",
+                    "display": "Prefer not to say"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-medicare",
+              "text": "Your Medicare number",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.identifier.where(system = 'http://ns.electronichealth.net.au/id/medicare-number').value.first()"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-phone",
+              "text": "Best phone number to reach you",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.telecom.where(system = 'phone').where(use = 'mobile').union(%patient.telecom.where(system = 'phone')).value.first()"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-address",
+              "text": "Your home address",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.address.where(use = 'home').union(%patient.address).first().select(iif(line.exists(), line.join(', ') + ', ', '') & city & ' ' & state & ' ' & postalCode)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-language",
+              "text": "The language you prefer to speak",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.communication.where(preferred = true).union(%patient.communication).first().language.select(text | coding.display).first()"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-interpreter",
+              "text": "Do you need an interpreter?",
+              "type": "boolean",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.extension.where(url = 'http://hl7.org.au/fhir/StructureDefinition/interpreter-required').value"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pa-health",
+          "text": "Your health",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-pa-told-anaemia",
+              "text": "Has a doctor ever told you that you have low iron or anaemia (a low blood count)?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                    "code": "asked-unknown",
+                    "display": "Not sure"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-iron-tablets",
+              "text": "Have you taken iron tablets or iron liquid in the last year?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                    "code": "asked-unknown",
+                    "display": "Not sure"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-iron-infusion",
+              "text": "Have you ever had an iron drip (iron infusion)?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                    "code": "asked-unknown",
+                    "display": "Not sure"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-iron-infusion-when",
+              "text": "Roughly when was your last iron drip?",
+              "type": "string",
+              "enableWhen": [
+                {
+                  "question": "pam-pa-iron-infusion",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-iron-infusion-reaction",
+              "text": "Did you have a reaction to the iron drip?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                    "code": "asked-unknown",
+                    "display": "Not sure"
+                  }
+                }
+              ],
+              "enableWhen": [
+                {
+                  "question": "pam-pa-iron-infusion",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-tired",
+              "text": "In the last month, have you felt more tired or short of breath than usual?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                    "code": "asked-unknown",
+                    "display": "Not sure"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-bruising",
+              "text": "Do you bruise easily, or bleed for a long time after a small cut?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                    "code": "asked-unknown",
+                    "display": "Not sure"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-gut-bleeding",
+              "text": "Have you noticed blood in your poo, black poo, or vomited blood?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                    "code": "asked-unknown",
+                    "display": "Not sure"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-heavy-periods",
+              "text": "Do you have heavy periods?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/pre-admission",
+                    "code": "no-periods",
+                    "display": "I don't have periods any more"
+                  }
+                }
+              ],
+              "enableWhen": [
+                {
+                  "question": "pam-pa-sex",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "female"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-blood-thinners",
+              "text": "Do you take any medicine that thins your blood? (for example warfarin, apixaban (Eliquis), rivaroxaban (Xarelto), clopidogrel or aspirin)",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                    "code": "asked-unknown",
+                    "display": "Not sure"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-blood-thinners-names",
+              "text": "Which ones?",
+              "type": "string",
+              "enableWhen": [
+                {
+                  "question": "pam-pa-blood-thinners",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-kidney",
+              "text": "Has a doctor told you that you have kidney problems?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                    "code": "asked-unknown",
+                    "display": "Not sure"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pa-diet",
+          "text": "Food and diet",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-pa-diet-intro",
+              "text": "Iron comes from the food you eat. These questions help us understand your iron levels.",
+              "type": "display"
+            },
+            {
+              "linkId": "pam-pa-diet-type",
+              "text": "Which best describes how you eat?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "36823005",
+                    "display": "I eat meat"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "1379271000168105",
+                    "display": "I eat fish but not meat (pescatarian)"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "765021002",
+                    "display": "Vegetarian (no meat or fish)"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "1255165006",
+                    "display": "Vegan (no food from animals)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-red-meat",
+              "text": "How often do you eat red meat (beef, lamb, pork or kangaroo)?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/red-meat-frequency",
+                    "code": "most-days",
+                    "display": "Most days"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/red-meat-frequency",
+                    "code": "weekly",
+                    "display": "1 to 3 times a week"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/red-meat-frequency",
+                    "code": "rarely",
+                    "display": "Less than once a week"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/red-meat-frequency",
+                    "code": "never",
+                    "display": "Never"
+                  }
+                }
+              ],
+              "enableWhen": [
+                {
+                  "question": "pam-pa-diet-type",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "36823005"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-tea-coffee",
+              "text": "Do you usually drink tea or coffee with your meals?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-appetite",
+              "text": "Have you lost your appetite or lost weight without trying in the last 3 months?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                    "code": "asked-unknown",
+                    "display": "Not sure"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-diet-other",
+              "text": "Is there any food you can't or don't eat (for example allergies, religious or cultural reasons)?",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pa-transfusion",
+          "text": "Blood transfusion",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-pa-transfusion-intro",
+              "text": "Sometimes people need a blood transfusion during or after an operation. The team will try to avoid it, for example by treating low iron before your surgery. We want to know your wishes in advance.",
+              "type": "display"
+            },
+            {
+              "linkId": "pam-pa-transfused-before",
+              "text": "Have you ever had a blood transfusion?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                    "code": "asked-unknown",
+                    "display": "Not sure"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-transfusion-reaction",
+              "text": "Did you have a reaction to the transfusion?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                    "code": "asked-unknown",
+                    "display": "Not sure"
+                  }
+                }
+              ],
+              "enableWhen": [
+                {
+                  "question": "pam-pa-transfused-before",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-transfusion-accept",
+              "text": "If you needed a blood transfusion during or after your operation, would you accept it?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "required": true,
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                    "code": "accept",
+                    "display": "Yes, I would accept a blood transfusion"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                    "code": "some",
+                    "display": "Only some blood products"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                    "code": "refuse",
+                    "display": "No, I would not accept any blood products"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                    "code": "unsure",
+                    "display": "I'm not sure — I'd like to talk about it"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-products",
+              "text": "Which of these would you accept? Tick all that apply.",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "check-box"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "repeats": true,
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "116863004",
+                    "display": "Red blood cells"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "180208003",
+                    "display": "Platelets"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "13569004",
+                    "display": "Plasma"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "116795008",
+                    "display": "Cryoprecipitate"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "116788004",
+                    "display": "Albumin"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "233568002",
+                    "display": "Cell salvage (your own blood, collected during the operation and given back)"
+                  }
+                }
+              ],
+              "enableWhen": [
+                {
+                  "question": "pam-pa-transfusion-accept",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                    "code": "some"
+                  }
+                },
+                {
+                  "question": "pam-pa-transfusion-accept",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                    "code": "refuse"
+                  }
+                }
+              ],
+              "enableBehavior": "any"
+            },
+            {
+              "linkId": "pam-pa-transfusion-reason",
+              "text": "Can you tell us why? You don't have to.",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-reason",
+                    "code": "religious",
+                    "display": "Religious beliefs (for example, Jehovah's Witness)"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-reason",
+                    "code": "personal",
+                    "display": "Personal or cultural reasons"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-reason",
+                    "code": "past-reaction",
+                    "display": "I had a bad reaction before"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-reason",
+                    "code": "prefer-not",
+                    "display": "I'd prefer not to say"
+                  }
+                }
+              ],
+              "enableWhen": [
+                {
+                  "question": "pam-pa-transfusion-accept",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                    "code": "some"
+                  }
+                },
+                {
+                  "question": "pam-pa-transfusion-accept",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                    "code": "refuse"
+                  }
+                }
+              ],
+              "enableBehavior": "any"
+            },
+            {
+              "linkId": "pam-pa-directive",
+              "text": "Do you have an Advance Health Directive or another signed document about blood products?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason",
+                    "code": "asked-unknown",
+                    "display": "Not sure"
+                  }
+                }
+              ],
+              "enableWhen": [
+                {
+                  "question": "pam-pa-transfusion-accept",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                    "code": "some"
+                  }
+                },
+                {
+                  "question": "pam-pa-transfusion-accept",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                    "code": "refuse"
+                  }
+                }
+              ],
+              "enableBehavior": "any"
+            },
+            {
+              "linkId": "pam-pa-talk",
+              "text": "Would you like to talk to the blood management nurse before your operation?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pa-transfusion-other",
+              "text": "Is there anything else you'd like us to know?",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pa-done",
+          "text": "Finishing up",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-pa-completed-by",
+              "text": "Who filled in this form?",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/form-completed-by",
+                    "code": "patient",
+                    "display": "Me (the patient)"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/form-completed-by",
+                    "code": "family",
+                    "display": "A family member or carer"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/form-completed-by",
+                    "code": "interpreter",
+                    "display": "Me, with help from an interpreter"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,758 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "soln-A9-standalone-put",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    }
+  ],
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A9-standalone-put",
+  "version": "0.2.0",
+  "name": "PAMFollowUpStandalonePut",
+  "title": "A9 Follow-up and status (standalone, EpisodeOfCare by PUT)",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-28",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 1 (synthetic demo, not for clinical use)",
+  "description": "Scenario A9: pre-populates the referral date, current status, previous notes and the open follow-up; calculates days with the blood management team and the follow-up due date; extracts a follow-up Task, completes the previous one and updates the EpisodeOfCare status with a PUT (resourceId + ifMatch).",
+  "contained": [
+    {
+      "resourceType": "Parameters",
+      "id": "PAMCompletePreviousTaskPatch",
+      "parameter": [
+        {
+          "name": "operation",
+          "part": [
+            {
+              "name": "type",
+              "valueCode": "replace"
+            },
+            {
+              "name": "path",
+              "valueString": "Task.status"
+            },
+            {
+              "name": "value",
+              "valueCode": "completed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "resourceType": "Task",
+      "id": "PAMFollowUpTaskTemplate",
+      "status": "requested",
+      "intent": "order",
+      "code": {
+        "coding": [
+          {
+            "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/task-type",
+            "code": "follow-up",
+            "display": "Follow-up"
+          }
+        ],
+        "_text": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "item.where(linkId='pam-fu-task-type').answer.value"
+            }
+          ]
+        }
+      },
+      "_description": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "item.where(linkId='pam-fu-task-type').answer.value"
+          }
+        ]
+      },
+      "focus": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "'EpisodeOfCare/' + %resource.repeat(item).where(linkId='pam-fu-episode-id').answer.value"
+            }
+          ]
+        }
+      },
+      "for": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "owner": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.repeat(item).where(linkId='pam-fu-care-manager').answer.value"
+            }
+          ]
+        }
+      },
+      "_authoredOn": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      },
+      "restriction": {
+        "period": {
+          "_end": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-fu-due').answer.value.toString()"
+              }
+            ]
+          }
+        }
+      },
+      "note": [
+        {
+          "_time": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "iif(item.where(linkId='pam-fu-note').answer.exists(), now().toString(), {})"
+              }
+            ]
+          },
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-fu-note').answer.value"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "resourceType": "EpisodeOfCare",
+      "id": "PAMEpisodeOfCareTemplate",
+      "_status": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "answer.value.code"
+          }
+        ]
+      },
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/episode-type",
+              "code": "pam",
+              "display": "Preoperative anaemia management"
+            }
+          ],
+          "text": "Preoperative anaemia management"
+        }
+      ],
+      "patient": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "managingOrganization": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.repeat(item).where(linkId='pam-fu-episode-org').answer.value"
+            }
+          ]
+        }
+      },
+      "period": {
+        "_start": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.repeat(item).where(linkId='pam-fu-episode-start').answer.value.toString()"
+            }
+          ]
+        },
+        "_end": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "iif(%resource.repeat(item).where(linkId='pam-fu-episode-end').answer.value.exists(), %resource.repeat(item).where(linkId='pam-fu-episode-end').answer.value.toString(), iif(answer.value.code = 'finished', %resource.repeat(item).where(linkId='pam-fu-review-date').answer.value.toString(), {}))"
+            }
+          ]
+        }
+      },
+      "referralRequest": [
+        {
+          "_reference": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "%resource.repeat(item).where(linkId='pam-fu-episode-referral').answer.value"
+              }
+            ]
+          }
+        }
+      ],
+      "careManager": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.repeat(item).where(linkId='pam-fu-care-manager').answer.value"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "item": [
+    {
+      "linkId": "pam-follow-up",
+      "text": "Follow-up and status",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "fuEpisode",
+            "language": "application/x-fhir-query",
+            "expression": "EpisodeOfCare?patient={{%patient.id}}&type=https://aehrc.github.io/qh-connectathon/track1/CodeSystem/episode-type|pam&_sort=-date&_count=1"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "fuReferral",
+            "language": "application/x-fhir-query",
+            "expression": "ServiceRequest?patient={{%patient.id}}&code=http://snomed.info/sct|3457005&_sort=-authored&_count=1"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "fuTasks",
+            "language": "application/x-fhir-query",
+            "expression": "Task?patient={{%patient.id}}&code=https://aehrc.github.io/qh-connectathon/track1/CodeSystem/task-type|follow-up&_sort=authored-on&_count=50"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "pam-follow-up-module",
+          "text": "Module",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            }
+          ],
+          "initial": [
+            {
+              "valueString": "pam-follow-up|0.2.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-episode-id",
+          "text": "EpisodeOfCare id",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%fuEpisode.entry.resource.id"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-care-manager",
+          "text": "Care manager (reference)",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%fuEpisode.entry.resource.careManager.reference"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-episode-version",
+          "text": "EpisodeOfCare versionId",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%fuEpisode.entry.resource.meta.versionId"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-episode-start",
+          "text": "EpisodeOfCare period start",
+          "type": "date",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%fuEpisode.entry.resource.period.start"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-episode-end",
+          "text": "EpisodeOfCare period end",
+          "type": "date",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%fuEpisode.entry.resource.period.end"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-episode-org",
+          "text": "Managing organisation (reference)",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%fuEpisode.entry.resource.managingOrganization.reference"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-episode-referral",
+          "text": "Referral (reference)",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%fuEpisode.entry.resource.referralRequest.reference.first()"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-open-task-id",
+          "text": "Open follow-up Task id",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%fuTasks.entry.resource.where(status = 'requested' or status = 'ready' or status = 'in-progress').last().id"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+              "extension": [
+                {
+                  "url": "template",
+                  "valueReference": {
+                    "reference": "#PAMCompletePreviousTaskPatch"
+                  }
+                },
+                {
+                  "url": "https://smartforms.csiro.au/ig/StructureDefinition/TemplateExtractExtensionPatchRequestUrl",
+                  "valueString": "'Task/' + %resource.repeat(item).where(linkId='pam-fu-open-task-id').answer.value"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-history",
+          "text": "So far",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-fu-referral-date",
+              "text": "Referred to the blood management team on",
+              "type": "date",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%fuReferral.entry.exists(), %fuReferral.entry.resource.authoredOn, %fuEpisode.entry.resource.period.start).toString().substring(0, 10)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-fu-current-status",
+              "text": "Status before this review",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%fuEpisode.entry.resource.status"
+                  }
+                }
+              ],
+              "readOnly": true,
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/episode-of-care-status",
+                    "code": "active",
+                    "display": "Being managed"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/episode-of-care-status",
+                    "code": "finished",
+                    "display": "Cleared"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/episode-of-care-status",
+                    "code": "planned",
+                    "display": "Planned (not yet seen)"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/episode-of-care-status",
+                    "code": "waitlist",
+                    "display": "Waitlist"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/episode-of-care-status",
+                    "code": "onhold",
+                    "display": "On hold"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/episode-of-care-status",
+                    "code": "cancelled",
+                    "display": "Cancelled"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-fu-open-task-due",
+              "text": "Open follow-up was due on",
+              "type": "date",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%fuTasks.entry.resource.where(status = 'requested' or status = 'ready' or status = 'in-progress').last().restriction.period.end.toString().substring(0, 10)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-fu-previous-notes",
+              "text": "Previous follow-up notes",
+              "type": "text",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%fuTasks.entry.resource.note.select(iif(time.exists(), time.toString().substring(0, 10) + ': ', '') + text).join('\\n')"
+                  }
+                }
+              ],
+              "readOnly": true
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-review",
+          "text": "This review",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-fu-review-date",
+              "text": "Review date",
+              "type": "date",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "today()"
+                  }
+                }
+              ],
+              "required": true
+            },
+            {
+              "linkId": "pam-fu-days",
+              "text": "Days with the blood management team",
+              "type": "integer",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "d",
+                    "display": "days"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "(365 * ((%resource.repeat(item).where(linkId='pam-fu-review-date').answer.value).toString().substring(0, 4).toInteger() - ((((%resource.repeat(item).where(linkId='pam-fu-review-date').answer.value).toString().substring(5, 2).toInteger() + 9) mod 12) div 10)) + (((%resource.repeat(item).where(linkId='pam-fu-review-date').answer.value).toString().substring(0, 4).toInteger() - ((((%resource.repeat(item).where(linkId='pam-fu-review-date').answer.value).toString().substring(5, 2).toInteger() + 9) mod 12) div 10)) div 4) - (((%resource.repeat(item).where(linkId='pam-fu-review-date').answer.value).toString().substring(0, 4).toInteger() - ((((%resource.repeat(item).where(linkId='pam-fu-review-date').answer.value).toString().substring(5, 2).toInteger() + 9) mod 12) div 10)) div 100) + (((%resource.repeat(item).where(linkId='pam-fu-review-date').answer.value).toString().substring(0, 4).toInteger() - ((((%resource.repeat(item).where(linkId='pam-fu-review-date').answer.value).toString().substring(5, 2).toInteger() + 9) mod 12) div 10)) div 400) + (((((%resource.repeat(item).where(linkId='pam-fu-review-date').answer.value).toString().substring(5, 2).toInteger() + 9) mod 12) * 306 + 5) div 10) + (%resource.repeat(item).where(linkId='pam-fu-review-date').answer.value).toString().substring(8, 2).toInteger()) - (365 * ((%resource.repeat(item).where(linkId='pam-fu-referral-date').answer.value).toString().substring(0, 4).toInteger() - ((((%resource.repeat(item).where(linkId='pam-fu-referral-date').answer.value).toString().substring(5, 2).toInteger() + 9) mod 12) div 10)) + (((%resource.repeat(item).where(linkId='pam-fu-referral-date').answer.value).toString().substring(0, 4).toInteger() - ((((%resource.repeat(item).where(linkId='pam-fu-referral-date').answer.value).toString().substring(5, 2).toInteger() + 9) mod 12) div 10)) div 4) - (((%resource.repeat(item).where(linkId='pam-fu-referral-date').answer.value).toString().substring(0, 4).toInteger() - ((((%resource.repeat(item).where(linkId='pam-fu-referral-date').answer.value).toString().substring(5, 2).toInteger() + 9) mod 12) div 10)) div 100) + (((%resource.repeat(item).where(linkId='pam-fu-referral-date').answer.value).toString().substring(0, 4).toInteger() - ((((%resource.repeat(item).where(linkId='pam-fu-referral-date').answer.value).toString().substring(5, 2).toInteger() + 9) mod 12) div 10)) div 400) + (((((%resource.repeat(item).where(linkId='pam-fu-referral-date').answer.value).toString().substring(5, 2).toInteger() + 9) mod 12) * 306 + 5) div 10) + (%resource.repeat(item).where(linkId='pam-fu-referral-date').answer.value).toString().substring(8, 2).toInteger())"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-fu-status",
+              "text": "Status after this review",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%fuEpisode.entry.resource.status"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                  "extension": [
+                    {
+                      "url": "template",
+                      "valueReference": {
+                        "reference": "#PAMEpisodeOfCareTemplate"
+                      }
+                    },
+                    {
+                      "url": "resourceId",
+                      "valueString": "%resource.repeat(item).where(linkId='pam-fu-episode-id').answer.value"
+                    },
+                    {
+                      "url": "ifMatch",
+                      "valueString": "'W/\"' + %resource.repeat(item).where(linkId='pam-fu-episode-version').answer.value + '\"'"
+                    }
+                  ]
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "required": true,
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/episode-of-care-status",
+                    "code": "active",
+                    "display": "Being managed"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/episode-of-care-status",
+                    "code": "finished",
+                    "display": "Cleared"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-next",
+          "text": "Next follow-up",
+          "type": "group",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+              "extension": [
+                {
+                  "url": "template",
+                  "valueReference": {
+                    "reference": "#PAMFollowUpTaskTemplate"
+                  }
+                }
+              ]
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "pam-fu-status",
+              "operator": "=",
+              "answerCoding": {
+                "system": "http://hl7.org/fhir/episode-of-care-status",
+                "code": "active"
+              }
+            }
+          ],
+          "item": [
+            {
+              "linkId": "pam-fu-task-type",
+              "text": "Follow-up",
+              "type": "choice",
+              "required": true,
+              "initial": [
+                {
+                  "valueString": "Follow up post-treatment bloods"
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueString": "Follow up post-treatment bloods"
+                },
+                {
+                  "valueString": "Review"
+                },
+                {
+                  "valueString": "Phone call"
+                },
+                {
+                  "valueString": "Book IV iron infusion"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-fu-weeks",
+              "text": "Follow up in (weeks)",
+              "type": "integer",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "4"
+                  }
+                }
+              ],
+              "required": true
+            },
+            {
+              "linkId": "pam-fu-due",
+              "text": "Follow-up due",
+              "type": "date",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "(%resource.repeat(item).where(linkId='pam-fu-review-date').answer.value.toDate() + ((%resource.repeat(item).where(linkId='pam-fu-weeks').answer.value * 7).toString() + ' days').toQuantity()).toString()"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-fu-note",
+              "text": "Note for the follow-up",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

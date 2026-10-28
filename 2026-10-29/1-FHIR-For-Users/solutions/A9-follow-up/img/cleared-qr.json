@@ -1,0 +1,175 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "status": "in-progress",
+  "questionnaire": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A9-standalone|0.2.0",
+  "item": [
+    {
+      "linkId": "pam-follow-up",
+      "text": "Follow-up and status",
+      "item": [
+        {
+          "linkId": "pam-follow-up-module",
+          "text": "Module",
+          "answer": [
+            {
+              "valueString": "pam-follow-up|0.2.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-episode-id",
+          "text": "EpisodeOfCare id",
+          "answer": [
+            {
+              "valueString": "soln-A9-episode-1"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-care-manager",
+          "text": "Care manager (reference)",
+          "answer": [
+            {
+              "valueString": "Practitioner/pam-nurse-2"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-open-task-id",
+          "text": "Open follow-up Task id",
+          "answer": [
+            {
+              "valueString": "soln-A9-task-2"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-history",
+          "text": "So far",
+          "item": [
+            {
+              "linkId": "pam-fu-referral-date",
+              "text": "Referred to the blood management team on",
+              "answer": [
+                {
+                  "valueDate": "2026-09-01"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-fu-current-status",
+              "text": "Status before this review",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/episode-of-care-status",
+                    "code": "active",
+                    "display": "Being managed"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-fu-open-task-due",
+              "text": "Open follow-up was due on",
+              "answer": [
+                {
+                  "valueDate": "2026-10-08"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-fu-previous-notes",
+              "text": "Previous follow-up notes",
+              "answer": [
+                {
+                  "valueString": "2026-09-04: Hb 104 g/L, ferritin 18 ug/L: iron deficiency anaemia. Ferric carboxymaltose 1000 mg booked for 10/09.\n2026-09-10: Infusion given 10/09, no reaction. Repeat FBC and iron studies in 4 weeks."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-review",
+          "text": "This review",
+          "item": [
+            {
+              "linkId": "pam-fu-review-date",
+              "text": "Review date",
+              "answer": [
+                {
+                  "valueDate": "2026-10-28"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-fu-days",
+              "text": "Days with the blood management team",
+              "answer": [
+                {
+                  "id": "pam-fu-days-calculatedExpression-eCwtGW8ilOEpb9toIs5hJ",
+                  "valueInteger": 57
+                }
+              ]
+            },
+            {
+              "linkId": "pam-fu-status",
+              "text": "Status after this review",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/episode-of-care-status",
+                    "code": "finished",
+                    "display": "Cleared"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-fu-next",
+          "text": "Next follow-up",
+          "item": [
+            {
+              "linkId": "pam-fu-task-type",
+              "text": "Follow-up",
+              "answer": [
+                {
+                  "valueString": "Follow up post-treatment bloods"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-fu-weeks",
+              "text": "Follow up in (weeks)",
+              "answer": [
+                {
+                  "valueInteger": 4
+                }
+              ]
+            },
+            {
+              "linkId": "pam-fu-due",
+              "text": "Follow-up due",
+              "answer": [
+                {
+                  "id": "pam-fu-due-calculatedExpression-Nemxmdf7_WJn2I8-ARvS4",
+                  "valueDate": "2026-11-25"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "subject": {
+    "type": "Patient",
+    "reference": "Patient/soln-A9-patient-1",
+    "display": "Fiona Followup-A9"
+  },
+  "meta": {
+    "source": "https://smartforms.csiro.au"
+  }
+}

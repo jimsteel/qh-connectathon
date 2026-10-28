@@ -1,0 +1,95 @@
+{
+  "resourceType": "Bundle",
+  "id": "sdc-template-extract-7a06a4182f7c",
+  "meta": {
+    "tag": [
+      {
+        "code": "@aehrc/sdc-template-extract:generated",
+        "system": "urn:aehrc:sdc-template-extract"
+      }
+    ]
+  },
+  "type": "transaction",
+  "timestamp": "2026-10-28T13:00:12.281Z",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:952193b7-03a7-4b71-9066-a18e0615d0df",
+      "resource": {
+        "resourceType": "Parameters",
+        "parameter": [
+          {
+            "name": "operation",
+            "part": [
+              {
+                "name": "type",
+                "valueCode": "replace"
+              },
+              {
+                "name": "path",
+                "valueString": "Task.status"
+              },
+              {
+                "name": "value",
+                "valueCode": "completed"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PATCH",
+        "url": "Task/soln-A9-task-2"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:4f19d596-5b80-451c-822a-262fde90c759",
+      "resource": {
+        "resourceType": "Parameters",
+        "parameter": [
+          {
+            "name": "operation",
+            "part": [
+              {
+                "name": "type",
+                "valueCode": "replace"
+              },
+              {
+                "name": "path",
+                "valueString": "EpisodeOfCare.status"
+              },
+              {
+                "name": "value",
+                "valueCode": "finished"
+              }
+            ]
+          },
+          {
+            "name": "operation",
+            "part": [
+              {
+                "name": "type",
+                "valueCode": "add"
+              },
+              {
+                "name": "path",
+                "valueString": "EpisodeOfCare.period"
+              },
+              {
+                "name": "name",
+                "valueString": "end"
+              },
+              {
+                "name": "value",
+                "valueDateTime": "2026-10-28"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PATCH",
+        "url": "EpisodeOfCare/soln-A9-episode-1"
+      }
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "resourceType": "Bundle",
+  "id": "sdc-template-extract-e51e1f925b32",
+  "meta": {
+    "tag": [
+      {
+        "code": "@aehrc/sdc-template-extract:generated",
+        "system": "urn:aehrc:sdc-template-extract"
+      }
+    ]
+  },
+  "type": "transaction",
+  "timestamp": "2026-10-28T13:02:32.145Z",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:632e0b8e-11ca-4c64-91a9-2db1efd55bb5",
+      "resource": {
+        "resourceType": "Parameters",
+        "parameter": [
+          {
+            "name": "operation",
+            "part": [
+              {
+                "name": "type",
+                "valueCode": "replace"
+              },
+              {
+                "name": "path",
+                "valueString": "Task.status"
+              },
+              {
+                "name": "value",
+                "valueCode": "completed"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PATCH",
+        "url": "Task/soln-A9-task-2"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:25e93e7c-e5a6-434b-8285-528fa3ebac6a",
+      "resource": {
+        "resourceType": "Task",
+        "status": "requested",
+        "intent": "order",
+        "code": {
+          "coding": [
+            {
+              "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/task-type",
+              "code": "follow-up",
+              "display": "Follow-up"
+            }
+          ],
+          "text": "Follow up post-treatment bloods"
+        },
+        "focus": {
+          "reference": "EpisodeOfCare/soln-A9-episode-1"
+        },
+        "for": {
+          "reference": "Patient/soln-A9-patient-1"
+        },
+        "owner": {
+          "reference": "Practitioner/pam-nurse-2"
+        },
+        "note": [
+          {
+            "time": "2026-10-28T23:02:32.143+10:00",
+            "text": "Hb 118 today. Recheck FBC and iron studies in 6 weeks."
+          }
+        ],
+        "restriction": {
+          "period": {
+            "end": "2026-12-09"
+          }
+        },
+        "description": "Follow up post-treatment bloods",
+        "authoredOn": "2026-10-28T23:02:32.142+10:00"
+      },
+      "request": {
+        "method": "POST",
+        "url": "Task"
+      }
+    }
+  ]
+}
