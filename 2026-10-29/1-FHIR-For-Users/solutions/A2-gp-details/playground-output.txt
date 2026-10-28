@@ -1,0 +1,49 @@
+shot 01-prepopulated.png
+PASS prepop pam-gp-current-name  ["Dr Ruth Ambrose"]
+PASS prepop pam-gp-current-practice  ["Chermside Family Practice (synthetic)"]
+PASS prepop pam-gp-current-phone  ["07 3000 0101"]
+PASS prepop pam-gp-current-provider  ["0000001A"]
+PASS prepop pam-gp-current-ref  ["PractitionerRole/soln-A2-role-ambrose"]
+PASS prepop pam-gp-referring-name  ["Dr Lucy Tran"]
+PASS prepop pam-gp-referring-practice  ["Aspley Road Surgery (synthetic)"]
+PASS prepop pam-gp-referring-ref  ["PractitionerRole/soln-A2-role-tran"]
+PASS prepop pam-gp-referring-date  ["2026-10-01"]
+PASS prepop pam-gp-admission-name  ["Dr Omar Haddad"]
+PASS prepop pam-gp-admission-practice  ["Kedron Medical Centre (synthetic)"]
+PASS prepop pam-gp-admission-ref  ["PractitionerRole/soln-A2-role-haddad"]
+PASS prepop pam-gp-admission-date  ["2026-08-10"]
+PASS prepop pam-gp-new-display  ["Dr Ruth Ambrose"]
+PASS prepop source = current
+PASS unchanged -> modified-only extract has no entries  bundle with 0 entries
+shot 02-admission-selected.png
+shot 03-extracted-patch.png
+PASS one PATCH entry to Patient/soln-A2-patient-1  [{"method":"PATCH","url":"Patient/soln-A2-patient-1"}]
+PASS patch: replace Patient.generalPractitioner -> haddad  [{"name":"type","valueCode":"replace"},{"name":"path","valueString":"Patient.generalPractitioner"},{"name":"name","valueString":"generalPractitioner"},{"name":"value","valueReference":{"reference":"PractitionerRole/soln-A2-role-haddad","display":"Dr Omar Haddad"}}]
+shot 04-write-back-dialog.png
+write back: {
+  label: 'WRITE BACK (1 ENTRY)',
+  msg: 'Write back to https://gw.interop.community/QHConnectathon2026/open successful. See Network tab for response'
+}
+PASS write back reported success  Write back to https://gw.interop.community/QHConnectathon2026/open successful. See Network tab for response
+PASS Meld: patient 1 GP is now Dr Omar Haddad  [{"reference":"PractitionerRole/soln-A2-role-haddad","display":"Dr Omar Haddad"}]
+PASS close the loop: GP on record = Dr Omar Haddad  Dr Omar Haddad
+shot 05-close-the-loop.png
+PASS patient 2: no GP, no source pre-selected  {"pam-gp-details-module":["pam-gp-details|0.2.0"]}
+shot 06-manual-entry.png
+shot 07-extracted-manual.png
+PASS manual: PUT Practitioner, PUT PractitionerRole, PATCH Patient  ["PATCH Patient/soln-A2-patient-2","PUT Practitioner/soln-A2-gp-testmanual-kim-0000009z","PUT PractitionerRole/soln-A2-gp-testmanual-kim-0000009z-role"]
+PASS manual Practitioner content  {"resourceType":"Practitioner","id":"soln-A2-gp-testmanual-kim-0000009z","identifier":[{"system":"http://ns.electronichealth.net.au/id/medicare-provider-number","value":"0000009Z"}],"name":[{"use":"official","given":["Kim"],"prefix":["Dr"],"family":"Testmanual"}]}
+PASS manual PractitionerRole content  {"resourceType":"PractitionerRole","id":"soln-A2-gp-testmanual-kim-0000009z-role","active":true,"practitioner":{"reference":"Practitioner/soln-A2-gp-testmanual-kim-0000009z","display":"Dr Kim Testmanual"},"organization":{"display":"Nundah Test Clinic"},"code":[{"coding":[{"system":"http://snomed.info/sct","code":"62247001","display":"General practitioner"}]}],"telecom":[{"system":"phone","use":"work","value":"07 3000 0909"}]}
+PASS manual PATCH: add generalPractitioner  [{"name":"type","valueCode":"add"},{"name":"path","valueString":"Patient"},{"name":"name","valueString":"generalPractitioner"},{"name":"value","valueReference":{"reference":"PractitionerRole/soln-A2-gp-testmanual-kim-0000009z-role","display":"Dr Kim Testmanual"}}]
+shot 08-write-back-manual-dialog.png
+write back: {
+  label: 'WRITE BACK (3 ENTRIES)',
+  msg: 'Write back to https://gw.interop.community/QHConnectathon2026/open successful. See Network tab for response'
+}
+PASS manual write back reported success  Write back to https://gw.interop.community/QHConnectathon2026/open successful. See Network tab for response
+PASS Meld: patient 2 GP = manual PractitionerRole  [{"reference":"PractitionerRole/soln-A2-gp-testmanual-kim-0000009z-role","display":"Dr Kim Testmanual"}]
+PASS Meld: manual PractitionerRole exists  PractitionerRole
+reset test data: 200
+cleanup DELETE PractitionerRole/soln-A2-gp-testmanual-kim-0000009z-role -> 200
+cleanup DELETE Practitioner/soln-A2-gp-testmanual-kim-0000009z -> 200
+ALL PASS

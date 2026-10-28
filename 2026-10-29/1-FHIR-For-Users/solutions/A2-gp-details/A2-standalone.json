@@ -1,0 +1,850 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "soln-A2-standalone",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    }
+  ],
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A2-standalone",
+  "version": "0.2.0",
+  "name": "PAMGpDetailsStandalone",
+  "title": "A2 GP details — standalone test form",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-28",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 1 (synthetic demo, not for clinical use)",
+  "description": "The A2 solution module on its own (it needs no root-form variables).",
+  "contained": [
+    {
+      "resourceType": "Parameters",
+      "id": "PAMGpPatchTemplate",
+      "parameter": [
+        {
+          "name": "operation",
+          "part": [
+            {
+              "name": "type",
+              "_valueCode": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                    "valueString": "iif(repeat(item).where(linkId='pam-gp-current-ref').answer.value.exists(), 'replace', 'add')"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "path",
+              "_valueString": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                    "valueString": "iif(repeat(item).where(linkId='pam-gp-current-ref').answer.value.exists(), 'Patient.generalPractitioner', 'Patient')"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "name",
+              "valueString": "generalPractitioner"
+            },
+            {
+              "name": "value",
+              "valueReference": {
+                "_reference": {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                      "valueString": "iif(repeat(item).where(linkId='pam-gp-source').answer.value.code = 'current', repeat(item).where(linkId='pam-gp-current-ref').answer.value, iif(repeat(item).where(linkId='pam-gp-source').answer.value.code = 'referring', repeat(item).where(linkId='pam-gp-referring-ref').answer.value, iif(repeat(item).where(linkId='pam-gp-source').answer.value.code = 'admission', repeat(item).where(linkId='pam-gp-admission-ref').answer.value, iif(repeat(item).where(linkId='pam-gp-source').answer.value.code = 'manual' and repeat(item).where(linkId='pam-gp-manual-family').answer.value.exists(), 'PractitionerRole/' + 'soln-A2-gp-' + (repeat(item).where(linkId='pam-gp-manual-family').answer.value.lower() + iif(repeat(item).where(linkId='pam-gp-manual-given').answer.value.exists(), '-' + repeat(item).where(linkId='pam-gp-manual-given').answer.value.lower(), '') + iif(repeat(item).where(linkId='pam-gp-manual-provider').answer.value.exists(), '-' + repeat(item).where(linkId='pam-gp-manual-provider').answer.value.lower(), '')).replaceMatches('[^a-z0-9-]', '').substring(0, 50) + '-role', {}))))"
+                    }
+                  ]
+                },
+                "_display": {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                      "valueString": "iif(repeat(item).where(linkId='pam-gp-source').answer.value.code = 'current', repeat(item).where(linkId='pam-gp-current-name').answer.value, iif(repeat(item).where(linkId='pam-gp-source').answer.value.code = 'referring', repeat(item).where(linkId='pam-gp-referring-name').answer.value, iif(repeat(item).where(linkId='pam-gp-source').answer.value.code = 'admission', repeat(item).where(linkId='pam-gp-admission-name').answer.value, iif(repeat(item).where(linkId='pam-gp-source').answer.value.code = 'manual' and repeat(item).where(linkId='pam-gp-manual-family').answer.value.exists(), 'Dr ' + iif(repeat(item).where(linkId='pam-gp-manual-given').answer.value.exists(), repeat(item).where(linkId='pam-gp-manual-given').answer.value + ' ', '') + repeat(item).where(linkId='pam-gp-manual-family').answer.value, {}))))"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "resourceType": "Practitioner",
+      "id": "PAMGpPractitionerTemplate",
+      "identifier": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractContext",
+              "valueString": "item.where(linkId='pam-gp-manual-provider').answer"
+            }
+          ],
+          "system": "http://ns.electronichealth.net.au/id/medicare-provider-number",
+          "_value": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "value"
+              }
+            ]
+          }
+        }
+      ],
+      "name": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractContext",
+              "valueString": "item.where(linkId='pam-gp-manual-name')"
+            }
+          ],
+          "use": "official",
+          "prefix": [
+            "Dr"
+          ],
+          "_family": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-gp-manual-family').answer.value.first()"
+              }
+            ]
+          },
+          "given": [
+            null
+          ],
+          "_given": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                  "valueString": "item.where(linkId='pam-gp-manual-given').answer.value"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "resourceType": "PractitionerRole",
+      "id": "PAMGpRoleTemplate",
+      "active": true,
+      "practitioner": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "'Practitioner/' + 'soln-A2-gp-' + (repeat(item).where(linkId='pam-gp-manual-family').answer.value.lower() + iif(repeat(item).where(linkId='pam-gp-manual-given').answer.value.exists(), '-' + repeat(item).where(linkId='pam-gp-manual-given').answer.value.lower(), '') + iif(repeat(item).where(linkId='pam-gp-manual-provider').answer.value.exists(), '-' + repeat(item).where(linkId='pam-gp-manual-provider').answer.value.lower(), '')).replaceMatches('[^a-z0-9-]', '').substring(0, 50)"
+            }
+          ]
+        },
+        "_display": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "'Dr ' + iif(repeat(item).where(linkId='pam-gp-manual-given').answer.exists(), repeat(item).where(linkId='pam-gp-manual-given').answer.value + ' ', '') + repeat(item).where(linkId='pam-gp-manual-family').answer.value"
+            }
+          ]
+        }
+      },
+      "organization": {
+        "_display": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "item.where(linkId='pam-gp-manual-practice').answer.value"
+            }
+          ]
+        }
+      },
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "62247001",
+              "display": "General practitioner"
+            }
+          ]
+        }
+      ],
+      "telecom": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractContext",
+              "valueString": "item.where(linkId='pam-gp-manual-phone').answer"
+            }
+          ],
+          "system": "phone",
+          "use": "work",
+          "_value": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "value"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "item": [
+    {
+      "linkId": "pam-gp",
+      "text": "GP details",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "gpCurrent",
+            "language": "application/x-fhir-query",
+            "expression": "Patient?_id={{%patient.id}}&_include=Patient:general-practitioner&_include:iterate=PractitionerRole:practitioner&_include:iterate=PractitionerRole:organization"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "gpReferral",
+            "language": "application/x-fhir-query",
+            "expression": "ServiceRequest?patient={{%patient.id}}&code=http://snomed.info/sct|3457005&_sort=-authored&_count=1&_include=ServiceRequest:requester&_include:iterate=PractitionerRole:practitioner&_include:iterate=PractitionerRole:organization"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "gpAdmission",
+            "language": "application/x-fhir-query",
+            "expression": "Encounter?patient={{%patient.id}}&class=http://terminology.hl7.org/CodeSystem/v3-ActCode|IMP&_sort=-date&_count=1&_include=Encounter:participant&_include:iterate=PractitionerRole:practitioner&_include:iterate=PractitionerRole:organization"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "gpCurrentRef",
+            "language": "text/fhirpath",
+            "expression": "%gpCurrent.entry.resource.where(resourceType='Patient').generalPractitioner.first()"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "gpCurrentTarget",
+            "language": "text/fhirpath",
+            "expression": "%gpCurrent.entry.where(fullUrl.endsWith('/' + %gpCurrentRef.reference)).resource"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "gpCurrentPrac",
+            "language": "text/fhirpath",
+            "expression": "%gpCurrent.entry.where(fullUrl.endsWith('/' + iif(%gpCurrentTarget.resourceType = 'PractitionerRole', %gpCurrentTarget.practitioner.reference, %gpCurrentRef.reference))).resource.where(resourceType='Practitioner')"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "gpCurrentOrg",
+            "language": "text/fhirpath",
+            "expression": "%gpCurrent.entry.where(fullUrl.endsWith('/' + iif(%gpCurrentTarget.resourceType = 'PractitionerRole', %gpCurrentTarget.organization.reference, %gpCurrentRef.reference))).resource.where(resourceType='Organization')"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "gpReferringRef",
+            "language": "text/fhirpath",
+            "expression": "%gpReferral.entry.resource.where(resourceType='ServiceRequest').requester"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "gpReferringTarget",
+            "language": "text/fhirpath",
+            "expression": "%gpReferral.entry.where(fullUrl.endsWith('/' + %gpReferringRef.reference)).resource"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "gpReferringPrac",
+            "language": "text/fhirpath",
+            "expression": "%gpReferral.entry.where(fullUrl.endsWith('/' + iif(%gpReferringTarget.resourceType = 'PractitionerRole', %gpReferringTarget.practitioner.reference, %gpReferringRef.reference))).resource.where(resourceType='Practitioner')"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "gpReferringOrg",
+            "language": "text/fhirpath",
+            "expression": "%gpReferral.entry.where(fullUrl.endsWith('/' + iif(%gpReferringTarget.resourceType = 'PractitionerRole', %gpReferringTarget.organization.reference, %gpReferringRef.reference))).resource.where(resourceType='Organization')"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "gpAdmissionRef",
+            "language": "text/fhirpath",
+            "expression": "%gpAdmission.entry.resource.where(resourceType='Encounter').participant.where(type.coding.where(system='http://snomed.info/sct' and code='62247001').exists()).individual.first()"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "gpAdmissionTarget",
+            "language": "text/fhirpath",
+            "expression": "%gpAdmission.entry.where(fullUrl.endsWith('/' + %gpAdmissionRef.reference)).resource"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "gpAdmissionPrac",
+            "language": "text/fhirpath",
+            "expression": "%gpAdmission.entry.where(fullUrl.endsWith('/' + iif(%gpAdmissionTarget.resourceType = 'PractitionerRole', %gpAdmissionTarget.practitioner.reference, %gpAdmissionRef.reference))).resource.where(resourceType='Practitioner')"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "gpAdmissionOrg",
+            "language": "text/fhirpath",
+            "expression": "%gpAdmission.entry.where(fullUrl.endsWith('/' + iif(%gpAdmissionTarget.resourceType = 'PractitionerRole', %gpAdmissionTarget.organization.reference, %gpAdmissionRef.reference))).resource.where(resourceType='Organization')"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+          "extension": [
+            {
+              "url": "template",
+              "valueReference": {
+                "reference": "#PAMGpPatchTemplate"
+              }
+            },
+            {
+              "url": "https://smartforms.csiro.au/ig/StructureDefinition/TemplateExtractExtensionPatchRequestUrl",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      ],
+      "item": [
+        {
+          "linkId": "pam-gp-details-module",
+          "text": "Module",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            }
+          ],
+          "initial": [
+            {
+              "valueString": "pam-gp-details|0.2.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-gp-current",
+          "text": "GP on record",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-gp-current-name",
+              "text": "Name",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%gpCurrentPrac.exists(), %gpCurrentPrac.name.first().select(iif(prefix.exists(), prefix.first() + ' ', '') + given.first() + ' ' + family), %gpCurrentRef.display)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-gp-current-practice",
+              "text": "Practice",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%gpCurrentOrg.exists(), %gpCurrentOrg.name, %gpCurrentTarget.where(resourceType='PractitionerRole').organization.display)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-gp-current-phone",
+              "text": "Phone",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "(%gpCurrentTarget.where(resourceType='PractitionerRole').telecom.where(system='phone') | %gpCurrentOrg.telecom.where(system='phone') | %gpCurrentPrac.telecom.where(system='phone')).value.first()"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-gp-current-provider",
+              "text": "Provider number",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%gpCurrentPrac.identifier.where(system='http://ns.electronichealth.net.au/id/medicare-provider-number').value.first()"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-gp-current-ref",
+              "text": "Reference",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%gpCurrentRef.reference"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-gp-current-none",
+              "text": "No GP on record for this patient.",
+              "type": "display",
+              "enableWhen": [
+                {
+                  "question": "pam-gp-current-ref",
+                  "operator": "exists",
+                  "answerBoolean": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-gp-source",
+          "text": "Which GP should be recorded?",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "iif(%gpCurrentRef.exists(), 'current', {})"
+              }
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/gp-source",
+                "code": "current",
+                "display": "Keep the GP on record"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/gp-source",
+                "code": "referring",
+                "display": "Referring doctor"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/gp-source",
+                "code": "admission",
+                "display": "GP from the latest admission"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/gp-source",
+                "code": "manual",
+                "display": "Enter the GP manually"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-gp-referring",
+          "text": "Referring doctor (latest referral)",
+          "type": "group",
+          "enableWhen": [
+            {
+              "question": "pam-gp-source",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/gp-source",
+                "code": "referring",
+                "display": "Referring doctor"
+              }
+            }
+          ],
+          "item": [
+            {
+              "linkId": "pam-gp-referring-name",
+              "text": "Name",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%gpReferringPrac.exists(), %gpReferringPrac.name.first().select(iif(prefix.exists(), prefix.first() + ' ', '') + given.first() + ' ' + family), %gpReferringRef.display)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-gp-referring-practice",
+              "text": "Practice",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%gpReferringOrg.exists(), %gpReferringOrg.name, %gpReferringTarget.where(resourceType='PractitionerRole').organization.display)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-gp-referring-phone",
+              "text": "Phone",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "(%gpReferringTarget.where(resourceType='PractitionerRole').telecom.where(system='phone') | %gpReferringOrg.telecom.where(system='phone') | %gpReferringPrac.telecom.where(system='phone')).value.first()"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-gp-referring-provider",
+              "text": "Provider number",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%gpReferringPrac.identifier.where(system='http://ns.electronichealth.net.au/id/medicare-provider-number').value.first()"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-gp-referring-ref",
+              "text": "Reference",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%gpReferringRef.reference"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-gp-referring-date",
+              "text": "Referral date",
+              "type": "date",
+              "readOnly": true,
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%gpReferral.entry.resource.where(resourceType='ServiceRequest').authoredOn.toString().substring(0, 10)"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-gp-admission",
+          "text": "GP recorded on the latest admission",
+          "type": "group",
+          "enableWhen": [
+            {
+              "question": "pam-gp-source",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/gp-source",
+                "code": "admission",
+                "display": "GP from the latest admission"
+              }
+            }
+          ],
+          "item": [
+            {
+              "linkId": "pam-gp-admission-name",
+              "text": "Name",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%gpAdmissionPrac.exists(), %gpAdmissionPrac.name.first().select(iif(prefix.exists(), prefix.first() + ' ', '') + given.first() + ' ' + family), %gpAdmissionRef.display)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-gp-admission-practice",
+              "text": "Practice",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%gpAdmissionOrg.exists(), %gpAdmissionOrg.name, %gpAdmissionTarget.where(resourceType='PractitionerRole').organization.display)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-gp-admission-phone",
+              "text": "Phone",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "(%gpAdmissionTarget.where(resourceType='PractitionerRole').telecom.where(system='phone') | %gpAdmissionOrg.telecom.where(system='phone') | %gpAdmissionPrac.telecom.where(system='phone')).value.first()"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-gp-admission-provider",
+              "text": "Provider number",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%gpAdmissionPrac.identifier.where(system='http://ns.electronichealth.net.au/id/medicare-provider-number').value.first()"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-gp-admission-ref",
+              "text": "Reference",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%gpAdmissionRef.reference"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-gp-admission-date",
+              "text": "Admitted",
+              "type": "date",
+              "readOnly": true,
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%gpAdmission.entry.resource.where(resourceType='Encounter').period.start.toString().substring(0, 10)"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-gp-manual",
+          "text": "Enter the GP",
+          "type": "group",
+          "enableWhen": [
+            {
+              "question": "pam-gp-source",
+              "operator": "=",
+              "answerCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/gp-source",
+                "code": "manual",
+                "display": "Enter the GP manually"
+              }
+            }
+          ],
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+              "extension": [
+                {
+                  "url": "template",
+                  "valueReference": {
+                    "reference": "#PAMGpPractitionerTemplate"
+                  }
+                },
+                {
+                  "url": "resourceId",
+                  "valueString": "'soln-A2-gp-' + (repeat(item).where(linkId='pam-gp-manual-family').answer.value.lower() + iif(repeat(item).where(linkId='pam-gp-manual-given').answer.value.exists(), '-' + repeat(item).where(linkId='pam-gp-manual-given').answer.value.lower(), '') + iif(repeat(item).where(linkId='pam-gp-manual-provider').answer.value.exists(), '-' + repeat(item).where(linkId='pam-gp-manual-provider').answer.value.lower(), '')).replaceMatches('[^a-z0-9-]', '').substring(0, 50)"
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+              "extension": [
+                {
+                  "url": "template",
+                  "valueReference": {
+                    "reference": "#PAMGpRoleTemplate"
+                  }
+                },
+                {
+                  "url": "resourceId",
+                  "valueString": "'soln-A2-gp-' + (repeat(item).where(linkId='pam-gp-manual-family').answer.value.lower() + iif(repeat(item).where(linkId='pam-gp-manual-given').answer.value.exists(), '-' + repeat(item).where(linkId='pam-gp-manual-given').answer.value.lower(), '') + iif(repeat(item).where(linkId='pam-gp-manual-provider').answer.value.exists(), '-' + repeat(item).where(linkId='pam-gp-manual-provider').answer.value.lower(), '')).replaceMatches('[^a-z0-9-]', '').substring(0, 50) + '-role'"
+                }
+              ]
+            }
+          ],
+          "item": [
+            {
+              "linkId": "pam-gp-manual-name",
+              "text": "Name",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "pam-gp-manual-given",
+                  "text": "Given name",
+                  "type": "string"
+                },
+                {
+                  "linkId": "pam-gp-manual-family",
+                  "text": "Family name",
+                  "type": "string",
+                  "required": true
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-manual-provider",
+              "text": "Medicare provider number",
+              "type": "string"
+            },
+            {
+              "linkId": "pam-gp-manual-practice",
+              "text": "Practice",
+              "type": "string"
+            },
+            {
+              "linkId": "pam-gp-manual-phone",
+              "text": "Practice phone",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-gp-new-display",
+          "text": "GP to be recorded",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "iif(%resource.repeat(item).where(linkId='pam-gp-source').answer.value.code = 'current', %resource.repeat(item).where(linkId='pam-gp-current-name').answer.value, iif(%resource.repeat(item).where(linkId='pam-gp-source').answer.value.code = 'referring', %resource.repeat(item).where(linkId='pam-gp-referring-name').answer.value, iif(%resource.repeat(item).where(linkId='pam-gp-source').answer.value.code = 'admission', %resource.repeat(item).where(linkId='pam-gp-admission-name').answer.value, iif(%resource.repeat(item).where(linkId='pam-gp-source').answer.value.code = 'manual' and %resource.repeat(item).where(linkId='pam-gp-manual-family').answer.value.exists(), 'Dr ' + iif(%resource.repeat(item).where(linkId='pam-gp-manual-given').answer.value.exists(), %resource.repeat(item).where(linkId='pam-gp-manual-given').answer.value + ' ', '') + %resource.repeat(item).where(linkId='pam-gp-manual-family').answer.value, {}))))"
+              }
+            }
+          ],
+          "readOnly": true
+        }
+      ]
+    }
+  ]
+}

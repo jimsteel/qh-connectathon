@@ -1,0 +1,249 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "status": "in-progress",
+  "questionnaire": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A1-standalone|0.2.0",
+  "item": [
+    {
+      "linkId": "pam-patient",
+      "text": "Patient details",
+      "item": [
+        {
+          "linkId": "pam-patient-details-module",
+          "text": "Module",
+          "answer": [
+            {
+              "valueString": "pam-patient-details|0.2.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-name",
+          "text": "Name",
+          "answer": [
+            {
+              "valueString": "Anna Testdetails"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-dob",
+          "text": "Date of birth",
+          "answer": [
+            {
+              "valueDate": "1956-07-21"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-age",
+          "text": "Age",
+          "answer": [
+            {
+              "id": "pam-age-calculatedExpression-5OM44yIOFpqRXnzG9tZyR",
+              "valueInteger": 70
+            }
+          ]
+        },
+        {
+          "linkId": "pam-sex",
+          "text": "Sex",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://hl7.org/fhir/administrative-gender",
+                "code": "female",
+                "display": "Female"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-medicare",
+          "text": "Medicare number",
+          "answer": [
+            {
+              "valueString": "0000099901"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-indigenous",
+          "text": "Indigenous status",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+                "code": "4",
+                "display": "Neither Aboriginal nor Torres Strait Islander origin"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-interpreter",
+          "text": "Interpreter required",
+          "answer": [
+            {
+              "valueBoolean": true
+            }
+          ]
+        },
+        {
+          "linkId": "pam-language",
+          "text": "Preferred language",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "urn:ietf:bcp:47",
+                "code": "el",
+                "display": "Greek"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-phone",
+          "text": "Phone",
+          "answer": [
+            {
+              "valueString": "0400 000 111"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-address",
+          "text": "Address",
+          "item": [
+            {
+              "linkId": "pam-addr-line",
+              "text": "Street address",
+              "answer": [
+                {
+                  "valueString": "12 Example Street, Unit 3"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-addr-suburb",
+              "text": "Suburb",
+              "answer": [
+                {
+                  "valueString": "Chermside"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-addr-state",
+              "text": "State",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-states-territories-1",
+                    "code": "QLD",
+                    "display": "Queensland"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-addr-postcode",
+              "text": "Postcode",
+              "answer": [
+                {
+                  "valueString": "4032"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-nok",
+          "text": "Next of kin",
+          "item": [
+            {
+              "linkId": "pam-nok-name",
+              "text": "Name",
+              "answer": [
+                {
+                  "valueString": "Sofia Testdetails"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-nok-relationship",
+              "text": "Relationship",
+              "answer": [
+                {
+                  "valueString": "Daughter"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-nok-phone",
+              "text": "Phone",
+              "answer": [
+                {
+                  "valueString": "0400 000 222"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-hw-last",
+          "text": "Height and weight on record",
+          "answer": [
+            {
+              "valueString": "Latest on record: 162 cm (2026-09-15), 68.4 kg (2026-09-15)"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-height",
+          "text": "Height",
+          "answer": [
+            {
+              "valueDecimal": 162
+            }
+          ]
+        },
+        {
+          "linkId": "pam-weight",
+          "text": "Weight",
+          "answer": [
+            {
+              "valueDecimal": 68.4
+            }
+          ]
+        },
+        {
+          "linkId": "pam-hw-date",
+          "text": "Height and weight measured on",
+          "answer": [
+            {
+              "valueDate": "2026-10-28"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-bmi",
+          "text": "BMI",
+          "answer": [
+            {
+              "id": "pam-bmi-calculatedExpression--dv8XJySIon4ZCUM8x7AK",
+              "valueDecimal": 26.1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "subject": {
+    "type": "Patient",
+    "reference": "Patient/soln-A1-patient-1",
+    "display": "Anna Testdetails"
+  },
+  "meta": {
+    "source": "https://smartforms.csiro.au"
+  }
+}

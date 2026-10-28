@@ -1,0 +1,289 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "soln-A1-patient-1",
+        "extension": [
+          {
+            "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+            "valueCoding": {
+              "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+              "code": "4",
+              "display": "Neither Aboriginal nor Torres Strait Islander origin"
+            }
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+            "valueBoolean": true
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MC"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/medicare-number",
+            "value": "0000099901"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "given": [
+              "Anna"
+            ],
+            "family": "Testdetails"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "07 3000 1111",
+            "use": "home"
+          },
+          {
+            "system": "phone",
+            "value": "0400 000 111",
+            "use": "mobile"
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1956-07-21",
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "12 Example Street",
+              "Unit 3"
+            ],
+            "city": "Chermside",
+            "state": "QLD",
+            "postalCode": "4032",
+            "country": "AU"
+          }
+        ],
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "el",
+                  "display": "Greek"
+                }
+              ]
+            },
+            "preferred": true
+          }
+        ],
+        "contact": [
+          {
+            "relationship": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0131",
+                    "code": "N",
+                    "display": "Next-of-Kin"
+                  }
+                ]
+              },
+              {
+                "text": "Daughter"
+              }
+            ],
+            "name": {
+              "given": [
+                "Sofia"
+              ],
+              "family": "Testdetails"
+            },
+            "telecom": [
+              {
+                "system": "phone",
+                "value": "0400 000 222",
+                "use": "mobile"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/soln-A1-patient-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A1-patient-1-height-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8302-2",
+              "display": "Body height"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A1-patient-1"
+        },
+        "effectiveDateTime": "2026-03-02",
+        "valueQuantity": {
+          "value": 163,
+          "unit": "cm",
+          "system": "http://unitsofmeasure.org",
+          "code": "cm"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A1-patient-1-height-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A1-patient-1-weight-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "29463-7",
+              "display": "Body weight"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A1-patient-1"
+        },
+        "effectiveDateTime": "2026-03-02",
+        "valueQuantity": {
+          "value": 71.0,
+          "unit": "kg",
+          "system": "http://unitsofmeasure.org",
+          "code": "kg"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A1-patient-1-weight-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A1-patient-1-height-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8302-2",
+              "display": "Body height"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A1-patient-1"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "valueQuantity": {
+          "value": 162,
+          "unit": "cm",
+          "system": "http://unitsofmeasure.org",
+          "code": "cm"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A1-patient-1-height-2"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A1-patient-1-weight-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "29463-7",
+              "display": "Body weight"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A1-patient-1"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "valueQuantity": {
+          "value": 68.4,
+          "unit": "kg",
+          "system": "http://unitsofmeasure.org",
+          "code": "kg"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A1-patient-1-weight-2"
+      }
+    }
+  ]
+}

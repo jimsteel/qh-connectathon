@@ -1,0 +1,52 @@
+{
+  "resourceType": "Bundle",
+  "id": "sdc-template-extract-22c5597b1565",
+  "meta": {
+    "tag": [
+      {
+        "code": "@aehrc/sdc-template-extract:generated",
+        "system": "urn:aehrc:sdc-template-extract"
+      }
+    ]
+  },
+  "type": "transaction",
+  "timestamp": "2026-10-28T13:52:54.952Z",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:d6bf52b8-5e32-46f5-a420-f67060aba9d4",
+      "resource": {
+        "resourceType": "Parameters",
+        "parameter": [
+          {
+            "name": "operation",
+            "part": [
+              {
+                "name": "type",
+                "valueCode": "replace"
+              },
+              {
+                "name": "path",
+                "valueString": "Patient.generalPractitioner"
+              },
+              {
+                "name": "name",
+                "valueString": "generalPractitioner"
+              },
+              {
+                "name": "value",
+                "valueReference": {
+                  "reference": "PractitionerRole/soln-A2-role-haddad",
+                  "display": "Dr Omar Haddad"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PATCH",
+        "url": "Patient/soln-A2-patient-1"
+      }
+    }
+  ]
+}

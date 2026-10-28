@@ -1,0 +1,118 @@
+{
+  "resourceType": "Bundle",
+  "id": "sdc-template-extract-073014e43453",
+  "meta": {
+    "tag": [
+      {
+        "code": "@aehrc/sdc-template-extract:generated",
+        "system": "urn:aehrc:sdc-template-extract"
+      }
+    ]
+  },
+  "type": "transaction",
+  "timestamp": "2026-10-28T13:54:14.373Z",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:15468b59-a40e-4d0d-af06-7395e51ee293",
+      "resource": {
+        "resourceType": "Parameters",
+        "parameter": [
+          {
+            "name": "operation",
+            "part": [
+              {
+                "name": "type",
+                "valueCode": "add"
+              },
+              {
+                "name": "path",
+                "valueString": "Patient"
+              },
+              {
+                "name": "name",
+                "valueString": "generalPractitioner"
+              },
+              {
+                "name": "value",
+                "valueReference": {
+                  "reference": "PractitionerRole/soln-A2-gp-testmanual-kim-0000009z-role",
+                  "display": "Dr Kim Testmanual"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PATCH",
+        "url": "Patient/soln-A2-patient-2"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:afb709b3-7cda-4a62-b7ea-288de8cd3f33",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "soln-A2-gp-testmanual-kim-0000009z",
+        "identifier": [
+          {
+            "system": "http://ns.electronichealth.net.au/id/medicare-provider-number",
+            "value": "0000009Z"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "given": [
+              "Kim"
+            ],
+            "prefix": [
+              "Dr"
+            ],
+            "family": "Testmanual"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/soln-A2-gp-testmanual-kim-0000009z"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:59750478-7831-45a0-89f2-744ce3006850",
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "soln-A2-gp-testmanual-kim-0000009z-role",
+        "active": true,
+        "practitioner": {
+          "reference": "Practitioner/soln-A2-gp-testmanual-kim-0000009z",
+          "display": "Dr Kim Testmanual"
+        },
+        "organization": {
+          "display": "Nundah Test Clinic"
+        },
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "62247001",
+                "display": "General practitioner"
+              }
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "use": "work",
+            "value": "07 3000 0909"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "PractitionerRole/soln-A2-gp-testmanual-kim-0000009z-role"
+      }
+    }
+  ]
+}

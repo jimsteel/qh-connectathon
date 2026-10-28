@@ -1,0 +1,12 @@
+GET https://gw.interop.community/QHConnectathon2026/open/Questionnaire?_count=500&_sort=-date&
+GET https://gw.interop.community/QHConnectathon2026/open/metadata
+GET https://gw.interop.community/QHConnectathon2026/open/Patient?_count=100
+GET https://gw.interop.community/QHConnectathon2026/open/Practitioner?_count=100
+GET https://gw.interop.community/QHConnectathon2026/open/Encounter?patient=soln-A2-patient-2&_count=100
+GET https://gw.interop.community/QHConnectathon2026/open/Patient?_id=soln-A2-patient-2&_include=Patient:general-practitioner&_include:iterate=PractitionerRole:practitioner&_include:iterate=PractitionerRole:organization
+GET https://gw.interop.community/QHConnectathon2026/open/ServiceRequest?patient=soln-A2-patient-2&code=http://snomed.info/sct%7C3457005&_sort=-authored&_count=1&_include=ServiceRequest:requester&_include:iterate=PractitionerRole:practitioner&_include:iterate=PractitionerRole:organization
+GET https://gw.interop.community/QHConnectathon2026/open/Encounter?patient=soln-A2-patient-2&class=http://terminology.hl7.org/CodeSystem/v3-ActCode%7CIMP&_sort=-date&_count=1&_include=Encounter:participant&_include:iterate=PractitionerRole:practitioner&_include:iterate=PractitionerRole:organization
+GET https://gw.interop.community/QHConnectathon2026/open/Patient?_id=soln-A2-patient-2&_include=Patient:general-practitioner&_include:iterate=PractitionerRole:practitioner&_include:iterate=PractitionerRole:organization
+GET https://gw.interop.community/QHConnectathon2026/open/ServiceRequest?patient=soln-A2-patient-2&code=http://snomed.info/sct%7C3457005&_sort=-authored&_count=1&_include=ServiceRequest:requester&_include:iterate=PractitionerRole:practitioner&_include:iterate=PractitionerRole:organization
+GET https://gw.interop.community/QHConnectathon2026/open/Encounter?patient=soln-A2-patient-2&class=http://terminology.hl7.org/CodeSystem/v3-ActCode%7CIMP&_sort=-date&_count=1&_include=Encounter:participant&_include:iterate=PractitionerRole:practitioner&_include:iterate=PractitionerRole:organization
+POST https://gw.interop.community/QHConnectathon2026/open

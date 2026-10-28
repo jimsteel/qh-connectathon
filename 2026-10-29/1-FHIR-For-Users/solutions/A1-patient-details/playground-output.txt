@@ -1,0 +1,37 @@
+shot 01-prepopulated.png
+PASS name  Anna Testdetails
+PASS dob  1956-07-21
+PASS age (calculated)  70
+PASS sex
+PASS medicare
+PASS indigenous status  [{"system":"https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1","code":"4","display":"Neither Aboriginal nor Torres Strait Islander origin"}]
+PASS interpreter
+PASS language  [{"system":"urn:ietf:bcp:47","code":"el","display":"Greek"}]
+PASS phone (mobile first)  0400 000 111
+PASS address line  12 Example Street, Unit 3
+PASS suburb
+PASS state  [{"system":"https://healthterminologies.gov.au/fhir/CodeSystem/australian-states-territories-1","code":"QLD","display":"Queensland"}]
+PASS postcode
+PASS nok name  Sofia Testdetails
+PASS nok relationship  Daughter
+PASS nok phone
+PASS height (latest)  162
+PASS weight (latest)  68.4
+PASS on record summary  Latest on record: 162 cm (2026-09-15), 68.4 kg (2026-09-15)
+PASS measured on = today  2026-10-28
+PASS BMI (calculated)  26.1
+PASS unchanged form -> modified-only extract has no entries  bundle with 0 entries
+shot 02-extracted-modified-only.png
+PASS modified-only extract: exactly one Observation (weight)  ["29463-7"]
+PASS weight Observation content  {"resourceType":"Observation","status":"final","category":[{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/observation-category","code":"vital-signs","display":"Vital Signs"}]}],"code":{"coding":[{"system":"http://loinc.org","code":"29463-7","display":"Body weight"}],"text":"Body weight"},"subject":{"reference":"Patient/soln-A1-patient-1"},"valueQuantity":{"unit":"kg","system":"http://unitsofmeasure.org","code":"kg","value":66.2},"effectiveDateTime":"2026-10-28"}
+PASS full extract: height + weight  ["8302-2","29463-7"]
+shot 03-write-back-dialog.png
+write back: {
+  label: 'WRITE BACK (1 ENTRY)',
+  msg: 'Write back to https://gw.interop.community/QHConnectathon2026/open successful. See Network tab for response'
+}
+shot 04-written-back.png
+PASS written back to Meld  856 66.2
+PASS close the loop: weight 66.2 pre-populated  66.2
+cleanup DELETE Observation/856 -> 200
+ALL PASS

@@ -1,0 +1,224 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "status": "in-progress",
+  "questionnaire": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A2-standalone|0.2.0",
+  "item": [
+    {
+      "linkId": "pam-gp",
+      "text": "GP details",
+      "item": [
+        {
+          "linkId": "pam-gp-details-module",
+          "text": "Module",
+          "answer": [
+            {
+              "valueString": "pam-gp-details|0.2.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-gp-current",
+          "text": "GP on record",
+          "item": [
+            {
+              "linkId": "pam-gp-current-name",
+              "text": "Name",
+              "answer": [
+                {
+                  "valueString": "Dr Ruth Ambrose"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-current-practice",
+              "text": "Practice",
+              "answer": [
+                {
+                  "valueString": "Chermside Family Practice (synthetic)"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-current-phone",
+              "text": "Phone",
+              "answer": [
+                {
+                  "valueString": "07 3000 0101"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-current-provider",
+              "text": "Provider number",
+              "answer": [
+                {
+                  "valueString": "0000001A"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-current-ref",
+              "text": "Reference",
+              "answer": [
+                {
+                  "valueString": "PractitionerRole/soln-A2-role-ambrose"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-gp-source",
+          "text": "Which GP should be recorded?",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/gp-source",
+                "code": "current",
+                "display": "Keep the GP on record"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-gp-referring",
+          "text": "Referring doctor (latest referral)",
+          "item": [
+            {
+              "linkId": "pam-gp-referring-name",
+              "text": "Name",
+              "answer": [
+                {
+                  "valueString": "Dr Lucy Tran"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-referring-practice",
+              "text": "Practice",
+              "answer": [
+                {
+                  "valueString": "Aspley Road Surgery (synthetic)"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-referring-phone",
+              "text": "Phone",
+              "answer": [
+                {
+                  "valueString": "07 3000 0303"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-referring-provider",
+              "text": "Provider number",
+              "answer": [
+                {
+                  "valueString": "0000003C"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-referring-ref",
+              "text": "Reference",
+              "answer": [
+                {
+                  "valueString": "PractitionerRole/soln-A2-role-tran"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-referring-date",
+              "text": "Referral date",
+              "answer": [
+                {
+                  "valueDate": "2026-10-01"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-gp-admission",
+          "text": "GP recorded on the latest admission",
+          "item": [
+            {
+              "linkId": "pam-gp-admission-name",
+              "text": "Name",
+              "answer": [
+                {
+                  "valueString": "Dr Omar Haddad"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-admission-practice",
+              "text": "Practice",
+              "answer": [
+                {
+                  "valueString": "Kedron Medical Centre (synthetic)"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-admission-phone",
+              "text": "Phone",
+              "answer": [
+                {
+                  "valueString": "07 3000 0202"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-admission-provider",
+              "text": "Provider number",
+              "answer": [
+                {
+                  "valueString": "0000002B"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-admission-ref",
+              "text": "Reference",
+              "answer": [
+                {
+                  "valueString": "PractitionerRole/soln-A2-role-haddad"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-admission-date",
+              "text": "Admitted",
+              "answer": [
+                {
+                  "valueDate": "2026-08-10"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-gp-new-display",
+          "text": "GP to be recorded",
+          "answer": [
+            {
+              "id": "pam-gp-new-display-calculatedExpression-aqTaaOnoDczuyo4ysgYk6",
+              "valueString": "Dr Ruth Ambrose"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "subject": {
+    "type": "Patient",
+    "reference": "Patient/soln-A2-patient-1",
+    "display": "Gina Testgp"
+  },
+  "meta": {
+    "source": "https://smartforms.csiro.au"
+  }
+}
