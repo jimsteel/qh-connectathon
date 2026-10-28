@@ -1,0 +1,47 @@
+{
+  "resourceType": "ViewDefinition",
+  "id": "soln-B9-patient-demographics",
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/ViewDefinition/patient_demographics",
+  "name": "patient_demographics",
+  "title": "Patient demographics (PAM 17–19)",
+  "status": "draft",
+  "description": "One row per patient: sex, birth date, home postcode.",
+  "resource": "Patient",
+  "select": [
+    {
+      "column": [
+        {
+          "name": "patient_id",
+          "path": "getResourceKey()",
+          "type": "string"
+        },
+        {
+          "name": "gender",
+          "path": "gender",
+          "type": "code"
+        },
+        {
+          "name": "birth_date",
+          "path": "birthDate",
+          "type": "date"
+        },
+        {
+          "name": "postcode",
+          "path": "address.where(use = 'home').postalCode.first()",
+          "type": "string",
+          "description": "Home address postcode"
+        },
+        {
+          "name": "suburb",
+          "path": "address.where(use = 'home').city.first()",
+          "type": "string"
+        },
+        {
+          "name": "state",
+          "path": "address.where(use = 'home').state.first()",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Launching…</title>
+<script src="https://cdn.jsdelivr.net/npm/fhirclient@2.6.3/build/fhir-client.min.js"></script></head>
+<body>
+<p>Launching…</p>
+<script>
+  // Register in Meld with launch URI .../launch.html and redirect URI .../ (this folder, trailing slash).
+  const CLIENT_ID = 'PUT-YOUR-CLIENT-ID-HERE';
+  FHIR.oauth2.authorize({
+    clientId: CLIENT_ID,
+    // Population view: user-level read (SMART v1 scopes for Meld). 'launch' only for an EHR launch.
+    scope: (new URLSearchParams(location.search).has('launch') ? 'launch ' : '') + 'openid fhirUser online_access user/*.read',
+    redirectUri: './'
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+age_band,gender,patients
+50-59,female,1
+50-59,male,6
+60-69,female,4
+60-69,male,4
+70-79,female,1
+70-79,male,2
+80+,female,2
+<50,female,3
+<50,male,4

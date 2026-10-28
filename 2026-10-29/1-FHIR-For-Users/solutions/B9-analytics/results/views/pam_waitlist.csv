@@ -1,0 +1,41 @@
+waitlist_id,patient_id,category,unit_id,procedure_code,procedure,surgery_date,authored_on,status
+ServiceRequest/pam-001-surgery,Patient/pam-001,3,Organization/pam-unit-orthopaedics,609588000,Total knee replacement,2025-10-21,2025-06-14,active
+ServiceRequest/pam-002-surgery,Patient/pam-002,2,Organization/pam-unit-orthopaedics,50172003,Lumbar spinal fusion,2026-03-30,2026-01-29,active
+ServiceRequest/pam-003-surgery,Patient/pam-003,1,Organization/pam-unit-gynaecology,116143008,Total abdominal hysterectomy,2026-04-21,2026-03-11,active
+ServiceRequest/pam-004-surgery,Patient/pam-004,1,Organization/pam-unit-gynaecology,116143008,Total abdominal hysterectomy,2025-11-27,2025-07-31,active
+ServiceRequest/pam-005-surgery,Patient/pam-005,1,Organization/pam-unit-colorectal,4558008,Anterior resection of rectum,2025-08-15,2025-06-16,active
+ServiceRequest/pam-006-surgery,Patient/pam-006,2,Organization/pam-unit-gynaecology,116143008,Total abdominal hysterectomy,2026-05-02,2026-02-03,active
+ServiceRequest/pam-007-surgery,Patient/pam-007,1,Organization/pam-unit-urology,26294005,Radical prostatectomy,2026-04-15,2026-01-06,active
+ServiceRequest/pam-008-surgery,Patient/pam-008,2,Organization/pam-unit-gynaecology,116143008,Total abdominal hysterectomy,2026-03-10,2025-12-07,active
+ServiceRequest/pam-009-surgery,Patient/pam-009,1,Organization/pam-unit-cardiothoracic,232717009,Coronary artery bypass graft,2026-03-15,2025-12-11,active
+ServiceRequest/pam-010-surgery,Patient/pam-010,2,Organization/pam-unit-cardiothoracic,232717009,Coronary artery bypass graft,2025-11-15,2025-09-17,active
+ServiceRequest/pam-011-surgery,Patient/pam-011,1,Organization/pam-unit-cardiothoracic,232717009,Coronary artery bypass graft,2025-10-27,2025-06-25,active
+ServiceRequest/pam-012-surgery,Patient/pam-012,2,Organization/pam-unit-gynaecology,116143008,Total abdominal hysterectomy,2026-09-19,2026-06-02,active
+ServiceRequest/pam-013-surgery,Patient/pam-013,1,Organization/pam-unit-colorectal,4558008,Anterior resection of rectum,2025-12-20,2025-11-01,active
+ServiceRequest/pam-014-surgery,Patient/pam-014,2,Organization/pam-unit-colorectal,359571009,Right hemicolectomy,2026-07-10,2026-03-12,active
+ServiceRequest/pam-015-surgery,Patient/pam-015,2,Organization/pam-unit-urology,26294005,Radical prostatectomy,2025-10-30,2025-07-10,active
+ServiceRequest/pam-016-surgery,Patient/pam-016,3,Organization/pam-unit-urology,26294005,Radical prostatectomy,2025-11-25,2025-08-18,active
+ServiceRequest/pam-017-surgery,Patient/pam-017,2,Organization/pam-unit-cardiothoracic,232717009,Coronary artery bypass graft,2025-12-03,2025-07-12,active
+ServiceRequest/pam-018-surgery,Patient/pam-018,2,Organization/pam-unit-urology,26294005,Radical prostatectomy,2026-03-24,2026-01-23,active
+ServiceRequest/pam-019-surgery,Patient/pam-019,1,Organization/pam-unit-gynaecology,116143008,Total abdominal hysterectomy,2026-09-17,2026-07-05,active
+ServiceRequest/pam-020-surgery,Patient/pam-020,3,Organization/pam-unit-orthopaedics,50172003,Lumbar spinal fusion,2025-09-24,2025-06-13,active
+ServiceRequest/pam-021-surgery,Patient/pam-021,1,Organization/pam-unit-urology,26294005,Radical prostatectomy,2025-12-19,2025-08-01,active
+ServiceRequest/pam-022-surgery,Patient/pam-022,3,Organization/pam-unit-urology,26294005,Radical prostatectomy,2026-02-15,2025-11-13,active
+ServiceRequest/pam-023-surgery,Patient/pam-023,2,Organization/pam-unit-orthopaedics,609588000,Total knee replacement,2026-03-13,2025-12-26,active
+ServiceRequest/pam-024-surgery,Patient/pam-024,1,Organization/pam-unit-urology,26294005,Radical prostatectomy,2026-01-29,2025-11-30,active
+ServiceRequest/pam-025-surgery,Patient/pam-025,1,Organization/pam-unit-urology,26294005,Radical prostatectomy,2026-01-14,2025-09-24,active
+ServiceRequest/pam-026-surgery,Patient/pam-026,1,Organization/pam-unit-colorectal,4558008,Anterior resection of rectum,2025-11-30,2025-07-23,active
+ServiceRequest/pam-027-surgery,Patient/pam-027,2,Organization/pam-unit-urology,26294005,Radical prostatectomy,2026-09-13,2026-06-26,active
+ServiceRequest/pam-028-surgery,Patient/pam-028,2,Organization/pam-unit-gynaecology,116143008,Total abdominal hysterectomy,2026-09-29,2026-06-18,active
+ServiceRequest/pam-029-surgery,Patient/pam-029,3,Organization/pam-unit-colorectal,4558008,Anterior resection of rectum,2025-12-21,2025-09-02,active
+ServiceRequest/pam-030-surgery,Patient/pam-030,2,Organization/pam-unit-cardiothoracic,232717009,Coronary artery bypass graft,2026-03-11,2025-12-28,active
+ServiceRequest/pam-031-surgery,Patient/pam-031,2,Organization/pam-unit-urology,26294005,Radical prostatectomy,2026-01-01,2025-10-16,active
+ServiceRequest/pam-032-surgery,Patient/pam-032,3,Organization/pam-unit-gynaecology,116143008,Total abdominal hysterectomy,2026-11-06,2026-08-20,active
+ServiceRequest/pam-033-surgery,Patient/pam-033,2,Organization/pam-unit-cardiothoracic,232717009,Coronary artery bypass graft,2026-11-03,2026-07-03,active
+ServiceRequest/pam-034-surgery,Patient/pam-034,2,Organization/pam-unit-gynaecology,116143008,Total abdominal hysterectomy,2026-12-24,2026-09-02,active
+ServiceRequest/pam-035-surgery,Patient/pam-035,1,Organization/pam-unit-gynaecology,116143008,Total abdominal hysterectomy,2026-11-29,2026-08-09,active
+ServiceRequest/pam-036-surgery,Patient/pam-036,2,Organization/pam-unit-colorectal,359571009,Right hemicolectomy,2026-11-17,2026-07-31,active
+ServiceRequest/pam-037-surgery,Patient/pam-037,3,Organization/pam-unit-colorectal,359571009,Right hemicolectomy,2026-12-07,2026-08-10,active
+ServiceRequest/pam-038-surgery,Patient/pam-038,2,Organization/pam-unit-orthopaedics,50172003,Lumbar spinal fusion,2026-10-30,2026-08-20,active
+ServiceRequest/pam-039-surgery,Patient/pam-039,1,Organization/pam-unit-cardiothoracic,232717009,Coronary artery bypass graft,2026-10-31,2026-08-20,active
+ServiceRequest/pam-040-surgery,Patient/pam-040,1,Organization/pam-unit-orthopaedics,609588000,Total knee replacement,2026-11-01,2026-08-30,active

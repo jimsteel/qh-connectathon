@@ -1,0 +1,151 @@
+{
+  "resourceType": "MeasureReport",
+  "id": "soln-B9-report-cleared-6-weeks-2025-07-01-2026-06-30",
+  "status": "complete",
+  "type": "summary",
+  "measure": "https://aehrc.github.io/qh-connectathon/track1/solutions/Measure/pam-cleared-6-weeks|0.1.0",
+  "date": "2026-10-28T12:58:10.407Z",
+  "period": {
+    "start": "2025-07-01",
+    "end": "2026-06-30"
+  },
+  "group": [
+    {
+      "population": [
+        {
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "initial-population"
+              }
+            ]
+          },
+          "count": 27
+        },
+        {
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "denominator"
+              }
+            ]
+          },
+          "count": 27
+        },
+        {
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "numerator"
+              }
+            ]
+          },
+          "count": 21
+        }
+      ],
+      "measureScore": {
+        "value": 0.778
+      },
+      "stratifier": [
+        {
+          "code": [
+            {
+              "text": "Sex"
+            }
+          ],
+          "stratum": [
+            {
+              "value": {
+                "text": "female"
+              },
+              "population": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "initial-population"
+                      }
+                    ]
+                  },
+                  "count": 11
+                },
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "denominator"
+                      }
+                    ]
+                  },
+                  "count": 11
+                },
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "numerator"
+                      }
+                    ]
+                  },
+                  "count": 8
+                }
+              ],
+              "measureScore": {
+                "value": 0.727
+              }
+            },
+            {
+              "value": {
+                "text": "male"
+              },
+              "population": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "initial-population"
+                      }
+                    ]
+                  },
+                  "count": 16
+                },
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "denominator"
+                      }
+                    ]
+                  },
+                  "count": 16
+                },
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "numerator"
+                      }
+                    ]
+                  },
+                  "count": 13
+                }
+              ],
+              "measureScore": {
+                "value": 0.813
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

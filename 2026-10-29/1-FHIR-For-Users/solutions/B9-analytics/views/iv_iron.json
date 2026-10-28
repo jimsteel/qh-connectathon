@@ -1,0 +1,51 @@
+{
+  "resourceType": "ViewDefinition",
+  "id": "soln-B9-iv-iron",
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/ViewDefinition/iv_iron",
+  "name": "iv_iron",
+  "title": "IV iron orders (PAM 14)",
+  "status": "draft",
+  "description": "One row per IV iron order: product (AMT) and dose.",
+  "resource": "MedicationRequest",
+  "select": [
+    {
+      "column": [
+        {
+          "name": "request_id",
+          "path": "getResourceKey()",
+          "type": "string"
+        },
+        {
+          "name": "patient_id",
+          "path": "subject.getReferenceKey(Patient)",
+          "type": "string"
+        },
+        {
+          "name": "product_code",
+          "path": "medication.ofType(CodeableConcept).coding.first().code",
+          "type": "code"
+        },
+        {
+          "name": "product",
+          "path": "medication.ofType(CodeableConcept).coding.first().display",
+          "type": "string"
+        },
+        {
+          "name": "authored_on",
+          "path": "authoredOn",
+          "type": "dateTime"
+        },
+        {
+          "name": "dose_mg",
+          "path": "dosageInstruction.first().doseAndRate.first().dose.ofType(Quantity).value",
+          "type": "decimal"
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "code"
+        }
+      ]
+    }
+  ]
+}

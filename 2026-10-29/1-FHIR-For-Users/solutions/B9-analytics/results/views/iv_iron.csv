@@ -1,0 +1,32 @@
+request_id,patient_id,product_code,product,authored_on,dose_mg,status
+MedicationRequest/pam-001-iv-iron,Patient/pam-001,1086251000168104,"Iron (as ferric derisomaltose) 100 mg/mL injection, vial",2025-08-13,1242,completed
+MedicationRequest/pam-002-iv-iron,Patient/pam-002,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-02-15,1401,completed
+MedicationRequest/pam-003-iv-iron,Patient/pam-003,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-03-25,1659,completed
+MedicationRequest/pam-007-iv-iron,Patient/pam-007,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-01-27,736,completed
+MedicationRequest/pam-010-iv-iron,Patient/pam-010,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2025-10-21,966,completed
+MedicationRequest/pam-011-iv-iron,Patient/pam-011,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2025-08-21,1281,completed
+MedicationRequest/pam-012-iv-iron,Patient/pam-012,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-07-31,1720,completed
+MedicationRequest/pam-013-iv-iron,Patient/pam-013,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2025-11-26,1412,completed
+MedicationRequest/pam-018-iv-iron,Patient/pam-018,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-02-27,943,completed
+MedicationRequest/pam-019-iv-iron,Patient/pam-019,1086251000168104,"Iron (as ferric derisomaltose) 100 mg/mL injection, vial",2026-07-26,1806,completed
+MedicationRequest/pam-020-iv-iron,Patient/pam-020,1086251000168104,"Iron (as ferric derisomaltose) 100 mg/mL injection, vial",2025-08-12,1154,completed
+MedicationRequest/pam-021-iv-iron,Patient/pam-021,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2025-09-30,920,completed
+MedicationRequest/pam-022-iv-iron,Patient/pam-022,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-01-03,1107,completed
+MedicationRequest/pam-023-iv-iron,Patient/pam-023,1086251000168104,"Iron (as ferric derisomaltose) 100 mg/mL injection, vial",2026-02-11,1593,completed
+MedicationRequest/pam-024-iv-iron,Patient/pam-024,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-01-03,793,completed
+MedicationRequest/pam-026-iv-iron,Patient/pam-026,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2025-09-25,1603,completed
+MedicationRequest/pam-028-iv-iron,Patient/pam-028,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-07-31,1002,completed
+MedicationRequest/pam-029-iv-iron,Patient/pam-029,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2025-10-07,935,completed
+MedicationRequest/pam-030-iv-iron,Patient/pam-030,1086251000168104,"Iron (as ferric derisomaltose) 100 mg/mL injection, vial",2026-02-12,1188,completed
+MedicationRequest/pam-031-iv-iron,Patient/pam-031,1086251000168104,"Iron (as ferric derisomaltose) 100 mg/mL injection, vial",2025-11-15,788,completed
+MedicationRequest/pam-032-iv-iron,Patient/pam-032,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-09-25,1301,completed
+MedicationRequest/pam-033-iv-iron,Patient/pam-033,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-09-02,1501,completed
+MedicationRequest/pam-034-iv-iron,Patient/pam-034,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-10-12,1337,completed
+MedicationRequest/pam-035-iv-iron,Patient/pam-035,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-09-25,1141,completed
+MedicationRequest/pam-036-iv-iron,Patient/pam-036,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-10-02,1271,completed
+MedicationRequest/pam-037-iv-iron,Patient/pam-037,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-09-23,1024,completed
+MedicationRequest/pam-039-iv-iron,Patient/pam-039,1086251000168104,"Iron (as ferric derisomaltose) 100 mg/mL injection, vial",2026-09-09,1287,completed
+MedicationRequest/pam-040-iv-iron,Patient/pam-040,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-10-03,1101,completed
+MedicationRequest/3,Patient/pam-034,1312141000168105,"Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial",2026-10-06T12:49:17.588+10:00,20,active
+MedicationRequest/5,Patient/pam-034,1086251000168104,"Iron (as ferric derisomaltose) 100 mg/mL injection, vial",2026-10-08T09:38:15.224+10:00,100,active
+MedicationRequest/7,Patient/pam-034,1086251000168104,"Iron (as ferric derisomaltose) 100 mg/mL injection, vial",2026-10-08T10:35:26.243+10:00,200,active

@@ -1,0 +1,11 @@
+PASS  patients referred: app 40 / FHIR 40
+PASS  sex: app {"female":20,"male":20} / FHIR {"female":20,"male":20}
+PASS  age bands female: app [5,4,5,2,4] / FHIR [5,4,5,2,4]
+PASS  age bands male: app [5,8,5,2,0] / FHIR [5,8,5,2,0]
+PASS  patients per postcode: app {"4012":5,"4020":4,"4030":3,"4031":6,"4032":2,"4034":4,"4053":1,"4500":3,"4503":4,"4509":4,"4510":4} / FHIR {"4012":5,"4020":4,"4030":3,"4031":6,"4032":2,"4034":4,"4053":1,"4500":3,"4503":4,"4509":4,"4510":4}
+PASS  every postcode in the data has a centroid (433 QLD postal areas bundled): app [] / FHIR []
+PASS  filter directorate=surgical: sex: app {"female":8,"male":15} / FHIR {"female":8,"male":15}
+PASS  filter category=1&source=surgeon: sex: app {"female":5,"male":2} / FHIR {"female":5,"male":2}
+PASS  no page errors: app [] / FHIR []
+
+ALL PASS

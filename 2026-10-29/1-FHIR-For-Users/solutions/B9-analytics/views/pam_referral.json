@@ -1,0 +1,52 @@
+{
+  "resourceType": "ViewDefinition",
+  "id": "soln-B9-pam-referral",
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/ViewDefinition/pam_referral",
+  "name": "pam_referral",
+  "title": "Referrals to blood management (PAM 9–13)",
+  "status": "draft",
+  "description": "One row per referral to the blood management service (SNOMED CT 3457005 Patient referral).",
+  "resource": "ServiceRequest",
+  "select": [
+    {
+      "column": [
+        {
+          "name": "referral_id",
+          "path": "getResourceKey()",
+          "type": "string"
+        },
+        {
+          "name": "patient_id",
+          "path": "subject.getReferenceKey(Patient)",
+          "type": "string"
+        },
+        {
+          "name": "authored_on",
+          "path": "authoredOn",
+          "type": "dateTime",
+          "description": "Referral date: the timeframe filter"
+        },
+        {
+          "name": "referral_source",
+          "path": "category.coding.where(system = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/referral-source').code.first()",
+          "type": "code"
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "code"
+        },
+        {
+          "name": "reason",
+          "path": "reasonCode.coding.where(system = 'http://snomed.info/sct').code.first()",
+          "type": "code"
+        }
+      ]
+    }
+  ],
+  "where": [
+    {
+      "path": "code.coding.where(system = 'http://snomed.info/sct' and code = '3457005').exists()"
+    }
+  ]
+}

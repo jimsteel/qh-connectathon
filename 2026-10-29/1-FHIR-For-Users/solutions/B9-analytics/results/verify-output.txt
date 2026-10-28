@@ -1,0 +1,37 @@
+PASS  ViewDefinition iv_iron.json — MedicationRequest, 7 columns
+PASS  ViewDefinition lab_result.json — Observation, 6 columns
+PASS  ViewDefinition pam_diagnosis.json — Condition, 5 columns
+PASS  ViewDefinition pam_episode.json — EpisodeOfCare, 6 columns
+PASS  ViewDefinition pam_referral.json — ServiceRequest, 6 columns
+PASS  ViewDefinition pam_waitlist.json — ServiceRequest, 9 columns
+PASS  ViewDefinition patient_demographics.json — Patient, 6 columns
+PASS  Measure anaemia-corrected.json — proportion
+PASS  Measure cleared-6-weeks.json — proportion
+PASS  Measure referrals.json — cohort
+PASS  anaemia-corrected.json population initial-population evaluates on 42 bundles
+PASS  anaemia-corrected.json population denominator evaluates on 42 bundles
+PASS  anaemia-corrected.json population numerator evaluates on 42 bundles
+PASS  anaemia-corrected.json stratifier Sex evaluates on 42 bundles
+PASS  cleared-6-weeks.json population initial-population evaluates on 42 bundles
+PASS  cleared-6-weeks.json population denominator evaluates on 42 bundles
+PASS  cleared-6-weeks.json population numerator evaluates on 42 bundles
+PASS  cleared-6-weeks.json stratifier Sex evaluates on 42 bundles
+PASS  referrals.json population initial-population evaluates on 42 bundles
+PASS  referrals.json stratifier Waitlist category evaluates on 42 bundles
+PASS  referrals.json stratifier Surgical unit evaluates on 42 bundles
+PASS  referrals.json stratifier Referral source evaluates on 42 bundles
+PASS  MeasureReports are for the same period as the KPIs
+PASS  referrals: total (MeasureReport vs SQL) — 27 vs 27
+PASS  referrals by waitlist category — {"1":11,"2":11,"3":5} vs {"1":11,"2":11,"3":5}
+PASS  referrals by unit — {"Organization/pam-unit-cardiothoracic":5,"Organization/pam-unit-colorectal":5,"Organization/pam-unit-gynaecology":4,"Organization/pam-unit-orthopaedics":4,"Organization/pam-unit-urology":9} vs {"Organization/pam-unit-cardiothoracic":5,"Organization/pam-unit-colorectal":5,"Organization/pam-unit-gynaecology":4,"Organization/pam-unit-orthopaedics":4,"Organization/pam-unit-urology":9}
+PASS  referrals by source — {"anaesthetist":2,"gp":1,"preadmission":9,"surgeon":15} vs {"anaesthetist":2,"gp":1,"preadmission":9,"surgeon":15}
+PASS  anaemia corrected by sex: [numerator, denominator] — {"female":[2,7],"male":[4,7]} vs {"female":[2,7],"male":[4,7]}
+PASS  cleared within 42 days: [numerator, denominator] — [21,27] vs [21,27]
+PASS  PAM 6 being managed: SQL vs EpisodeOfCare?status=active&type=pam — 8 vs 8
+PASS  PAM 13 referrals from surgeon: SQL vs ServiceRequest search — 15 vs 15
+PASS  PAM 13 referrals from preadmission: SQL vs ServiceRequest search — 9 vs 9
+PASS  PAM 13 referrals from anaesthetist: SQL vs ServiceRequest search — 2 vs 2
+PASS  PAM 13 referrals from gp: SQL vs ServiceRequest search — 1 vs 1
+PASS  lab_result view: Hb rows vs Observation?code=718-7 — 69 vs 69
+
+ALL PASS

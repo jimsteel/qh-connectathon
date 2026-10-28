@@ -1,0 +1,109 @@
+{
+  "resourceType": "Measure",
+  "id": "soln-B9-measure-cleared-6-weeks",
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/Measure/pam-cleared-6-weeks",
+  "version": "0.1.0",
+  "name": "PAMCleared6Weeks",
+  "title": "Cleared within six weeks (PAM 7)",
+  "status": "draft",
+  "experimental": true,
+  "publisher": "QH FHIR Connectathon 2026 — Track 1 (synthetic, not for clinical use)",
+  "description": "Of the PAM episodes that started in the period and have finished, the proportion finished within 42 days of starting. (Median days with the team is in the SQL on FHIR KPIs: FHIRPath has no date difference, so a continuous-variable measure needs CQL.)",
+  "usage": "Criteria are FHIRPath (text/fhirpath), evaluated once per patient with the context set to a Bundle of that patient's resources (as Patient/$everything would return). %periodStart and %periodEnd hold the measurement period as 'YYYY-MM-DD' strings. Uses defineVariable() and sort() from FHIRPath 3.0 (fhirpath.js 4+). Evaluated by ../evaluate-measures.mjs; a production version would use CQL on a server with $evaluate-measure.",
+  "subjectCodeableConcept": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/resource-types",
+        "code": "Patient"
+      }
+    ]
+  },
+  "scoring": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/measure-scoring",
+        "code": "proportion"
+      }
+    ]
+  },
+  "type": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/measure-type",
+          "code": "process"
+        }
+      ]
+    }
+  ],
+  "group": [
+    {
+      "population": [
+        {
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "initial-population"
+              }
+            ]
+          },
+          "description": "Episode started in the period",
+          "criteria": {
+            "language": "text/fhirpath",
+            "expression": "entry.resource.ofType(EpisodeOfCare).where(type.coding.where(system = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/episode-type' and code = 'pam').exists() and period.start.toDate() >= %periodStart.toDate() and period.start.toDate() <= %periodEnd.toDate()).exists()"
+          }
+        },
+        {
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "denominator"
+              }
+            ]
+          },
+          "description": "Episode finished (cleared)",
+          "criteria": {
+            "language": "text/fhirpath",
+            "expression": "entry.resource.ofType(EpisodeOfCare).where(type.coding.where(system = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/episode-type' and code = 'pam').exists() and period.start.toDate() >= %periodStart.toDate() and period.start.toDate() <= %periodEnd.toDate()).where(status = 'finished' and period.end.exists()).exists()"
+          }
+        },
+        {
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "numerator"
+              }
+            ]
+          },
+          "description": "Finished within 42 days",
+          "criteria": {
+            "language": "text/fhirpath",
+            "expression": "entry.resource.ofType(EpisodeOfCare).where(type.coding.where(system = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/episode-type' and code = 'pam').exists() and period.start.toDate() >= %periodStart.toDate() and period.start.toDate() <= %periodEnd.toDate()).where(status = 'finished' and period.end.exists() and (period.end.toDate() - 42 days) <= period.start.toDate()).exists()"
+          }
+        }
+      ],
+      "stratifier": [
+        {
+          "code": {
+            "text": "Sex"
+          },
+          "criteria": {
+            "language": "text/fhirpath",
+            "expression": "entry.resource.ofType(Patient).gender"
+          }
+        }
+      ]
+    }
+  ],
+  "improvementNotation": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/measure-improvement-notation",
+        "code": "increase"
+      }
+    ]
+  }
+}

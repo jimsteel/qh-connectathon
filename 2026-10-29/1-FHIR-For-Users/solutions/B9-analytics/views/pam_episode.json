@@ -1,0 +1,51 @@
+{
+  "resourceType": "ViewDefinition",
+  "id": "soln-B9-pam-episode",
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/ViewDefinition/pam_episode",
+  "name": "pam_episode",
+  "title": "Episodes with the blood management team (PAM 6, 7)",
+  "status": "draft",
+  "description": "One row per PAM episode: being managed (active) or cleared (finished), with its period.",
+  "resource": "EpisodeOfCare",
+  "select": [
+    {
+      "column": [
+        {
+          "name": "episode_id",
+          "path": "getResourceKey()",
+          "type": "string"
+        },
+        {
+          "name": "patient_id",
+          "path": "patient.getReferenceKey(Patient)",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "code"
+        },
+        {
+          "name": "period_start",
+          "path": "period.start",
+          "type": "dateTime"
+        },
+        {
+          "name": "period_end",
+          "path": "period.end",
+          "type": "dateTime"
+        },
+        {
+          "name": "care_manager_id",
+          "path": "careManager.getReferenceKey(Practitioner)",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "where": [
+    {
+      "path": "type.coding.where(system = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/episode-type' and code = 'pam').exists()"
+    }
+  ]
+}

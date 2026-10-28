@@ -1,0 +1,43 @@
+patient_id,gender,birth_date,postcode,suburb,state
+Patient/pam-spike-1,female,1961-04-12,,,
+Patient/pam-001,male,1949-03-14,4012,Nundah,QLD
+Patient/pam-002,female,1985-12-07,4012,Nundah,QLD
+Patient/pam-003,female,1940-12-12,4030,Windsor,QLD
+Patient/pam-004,female,1961-06-19,4020,Redcliffe,QLD
+Patient/pam-005,female,1959-03-21,4030,Windsor,QLD
+Patient/pam-006,female,1940-02-24,4030,Windsor,QLD
+Patient/pam-007,male,1977-08-13,4020,Redcliffe,QLD
+Patient/pam-008,female,1977-07-04,4509,North Lakes,QLD
+Patient/pam-009,male,1967-07-16,4510,Caboolture,QLD
+Patient/pam-010,female,1978-07-24,4031,Kedron,QLD
+Patient/pam-011,male,1965-03-25,4032,Chermside,QLD
+Patient/pam-012,female,1987-04-29,4510,Caboolture,QLD
+Patient/pam-013,female,1964-06-29,4031,Kedron,QLD
+Patient/pam-014,female,1969-10-21,4031,Kedron,QLD
+Patient/pam-015,male,1950-01-24,4510,Caboolture,QLD
+Patient/pam-016,male,1978-02-06,4012,Nundah,QLD
+Patient/pam-017,male,1978-03-08,4509,North Lakes,QLD
+Patient/pam-018,male,1966-01-02,4034,Aspley,QLD
+Patient/pam-019,female,1973-11-03,4031,Kedron,QLD
+Patient/pam-020,female,1954-02-06,4503,Kallangur,QLD
+Patient/pam-021,male,1971-12-04,4503,Kallangur,QLD
+Patient/pam-022,male,1975-02-25,4034,Aspley,QLD
+Patient/pam-023,female,1958-01-28,4500,Strathpine,QLD
+Patient/pam-024,male,1958-08-21,4503,Kallangur,QLD
+Patient/pam-025,male,1968-12-20,4012,Nundah,QLD
+Patient/pam-026,male,1985-03-04,4031,Kedron,QLD
+Patient/pam-027,male,1970-09-28,4500,Strathpine,QLD
+Patient/pam-028,female,1950-09-24,4012,Nundah,QLD
+Patient/pam-029,male,1967-01-09,4020,Redcliffe,QLD
+Patient/pam-030,male,1972-08-01,4500,Strathpine,QLD
+Patient/pam-031,male,1957-05-01,4509,North Lakes,QLD
+Patient/pam-032,female,1939-10-19,4503,Kallangur,QLD
+Patient/pam-033,male,1962-07-09,4034,Aspley,QLD
+Patient/pam-034,female,1956-12-20,4031,Kedron,QLD
+Patient/pam-035,female,1975-09-09,4509,North Lakes,QLD
+Patient/pam-036,female,1943-09-30,4053,Stafford,QLD
+Patient/pam-037,male,1979-09-06,4510,Caboolture,QLD
+Patient/pam-038,male,1973-04-17,4032,Chermside,QLD
+Patient/pam-039,female,1969-03-27,4034,Aspley,QLD
+Patient/pam-040,female,1978-03-10,4020,Redcliffe,QLD
+Patient/pam-demo,female,1961-04-09,4031,Kedron,QLD

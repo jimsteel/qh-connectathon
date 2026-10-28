@@ -1,0 +1,41 @@
+{
+  "resourceType": "ViewDefinition",
+  "id": "soln-B9-pam-diagnosis",
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/ViewDefinition/pam_diagnosis",
+  "name": "pam_diagnosis",
+  "title": "Diagnoses (PAM 10)",
+  "status": "draft",
+  "description": "One row per diagnosis (SNOMED CT-AU).",
+  "resource": "Condition",
+  "select": [
+    {
+      "column": [
+        {
+          "name": "condition_id",
+          "path": "getResourceKey()",
+          "type": "string"
+        },
+        {
+          "name": "patient_id",
+          "path": "subject.getReferenceKey(Patient)",
+          "type": "string"
+        },
+        {
+          "name": "code",
+          "path": "code.coding.where(system = 'http://snomed.info/sct').code.first()",
+          "type": "code"
+        },
+        {
+          "name": "display",
+          "path": "code.coding.where(system = 'http://snomed.info/sct').display.first()",
+          "type": "string"
+        },
+        {
+          "name": "recorded_date",
+          "path": "recordedDate",
+          "type": "dateTime"
+        }
+      ]
+    }
+  ]
+}

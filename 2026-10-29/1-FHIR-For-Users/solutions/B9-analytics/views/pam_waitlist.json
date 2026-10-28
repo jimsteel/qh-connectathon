@@ -1,0 +1,68 @@
+{
+  "resourceType": "ViewDefinition",
+  "id": "soln-B9-pam-waitlist",
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/ViewDefinition/pam_waitlist",
+  "name": "pam_waitlist",
+  "title": "Surgical waitlist entries",
+  "status": "draft",
+  "description": "One row per surgical waitlist entry: elective category, surgical unit, procedure, booked date.",
+  "resource": "ServiceRequest",
+  "select": [
+    {
+      "column": [
+        {
+          "name": "waitlist_id",
+          "path": "getResourceKey()",
+          "type": "string"
+        },
+        {
+          "name": "patient_id",
+          "path": "subject.getReferenceKey(Patient)",
+          "type": "string"
+        },
+        {
+          "name": "category",
+          "path": "category.coding.where(system = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category').code.first()",
+          "type": "code",
+          "description": "Elective (waitlist) category 1–3"
+        },
+        {
+          "name": "unit_id",
+          "path": "performer.first().getReferenceKey(Organization)",
+          "type": "string",
+          "description": "Surgical unit (Organization)"
+        },
+        {
+          "name": "procedure_code",
+          "path": "code.coding.where(system = 'http://snomed.info/sct').code.first()",
+          "type": "code"
+        },
+        {
+          "name": "procedure",
+          "path": "code.coding.where(system = 'http://snomed.info/sct').display.first()",
+          "type": "string"
+        },
+        {
+          "name": "surgery_date",
+          "path": "occurrence.ofType(dateTime)",
+          "type": "dateTime"
+        },
+        {
+          "name": "authored_on",
+          "path": "authoredOn",
+          "type": "dateTime"
+        },
+        {
+          "name": "status",
+          "path": "status",
+          "type": "code"
+        }
+      ]
+    }
+  ],
+  "where": [
+    {
+      "path": "category.coding.where(system = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category').exists()"
+    }
+  ]
+}

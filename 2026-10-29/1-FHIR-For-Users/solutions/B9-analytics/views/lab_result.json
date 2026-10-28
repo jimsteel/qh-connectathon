@@ -1,0 +1,58 @@
+{
+  "resourceType": "ViewDefinition",
+  "id": "soln-B9-lab-result",
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/ViewDefinition/lab_result",
+  "name": "lab_result",
+  "title": "Pathology results (PAM 15, 16)",
+  "status": "draft",
+  "description": "One row per numeric laboratory result (Hb, ferritin, TSAT, CRP).",
+  "resource": "Observation",
+  "select": [
+    {
+      "column": [
+        {
+          "name": "observation_id",
+          "path": "getResourceKey()",
+          "type": "string"
+        },
+        {
+          "name": "patient_id",
+          "path": "subject.getReferenceKey(Patient)",
+          "type": "string"
+        },
+        {
+          "name": "loinc",
+          "path": "code.coding.where(system = 'http://loinc.org').code.first()",
+          "type": "code"
+        },
+        {
+          "name": "effective",
+          "path": "effective.ofType(dateTime)",
+          "type": "dateTime"
+        },
+        {
+          "name": "value",
+          "path": "value.ofType(Quantity).value",
+          "type": "decimal"
+        },
+        {
+          "name": "unit",
+          "path": "value.ofType(Quantity).code",
+          "type": "code",
+          "description": "UCUM unit"
+        }
+      ]
+    }
+  ],
+  "where": [
+    {
+      "path": "category.coding.where(code = 'laboratory').exists()"
+    },
+    {
+      "path": "value.ofType(Quantity).exists()"
+    },
+    {
+      "path": "status = 'final'"
+    }
+  ]
+}

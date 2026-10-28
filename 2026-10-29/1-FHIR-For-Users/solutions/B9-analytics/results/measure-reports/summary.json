@@ -1,0 +1,56 @@
+{
+  "periodStart": "2025-07-01",
+  "periodEnd": "2026-06-30",
+  "summary": [
+    {
+      "measure": "Anaemia corrected before surgery (PAM 15)",
+      "initial-population": 27,
+      "denominator": 14,
+      "numerator": 6,
+      "score": 0.429,
+      "strata": {
+        "Sex": {
+          "female": "2/7",
+          "male": "4/7"
+        }
+      }
+    },
+    {
+      "measure": "Cleared within six weeks (PAM 7)",
+      "initial-population": 27,
+      "denominator": 27,
+      "numerator": 21,
+      "score": 0.778,
+      "strata": {
+        "Sex": {
+          "female": "8/11",
+          "male": "13/16"
+        }
+      }
+    },
+    {
+      "measure": "Referrals to blood management (PAM 9, 12)",
+      "initial-population": 27,
+      "strata": {
+        "Waitlist category": {
+          "1": 11,
+          "2": 11,
+          "3": 5
+        },
+        "Surgical unit": {
+          "Organization/pam-unit-cardiothoracic": 5,
+          "Organization/pam-unit-colorectal": 5,
+          "Organization/pam-unit-gynaecology": 4,
+          "Organization/pam-unit-orthopaedics": 4,
+          "Organization/pam-unit-urology": 9
+        },
+        "Referral source": {
+          "anaesthetist": 2,
+          "gp": 1,
+          "preadmission": 9,
+          "surgeon": 15
+        }
+      }
+    }
+  ]
+}

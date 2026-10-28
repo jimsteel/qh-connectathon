@@ -1,0 +1,50 @@
+PASS  no filters                                 truth=40 cohort=40 _has=40 
+PASS  directorate=surgical                       truth=23 cohort=23 _has=23 
+PASS  directorate=womens                         truth=10 cohort=10 _has=10 
+PASS  directorate=heart-lung                     truth= 7 cohort= 7 _has= 7 
+PASS  unit=Orthopaedics                          truth= 6 cohort= 6 _has= 6 
+PASS  unit=Colorectal                            truth= 7 cohort= 7 _has= 7 
+PASS  unit=Gynaecology                           truth=10 cohort=10 _has=10 
+PASS  unit=Cardiothoracic                        truth= 7 cohort= 7 _has= 7 
+PASS  unit=Urology                               truth=10 cohort=10 _has=10 
+PASS  category=1                                 truth=15 cohort=15 _has=15 
+PASS  category=2                                 truth=18 cohort=18 _has=18 
+PASS  category=3                                 truth= 7 cohort= 7 _has= 7 
+PASS  source=surgeon                             truth=21 cohort=21 _has=21 
+PASS  source=preadmission                        truth=12 cohort=12 _has=12 
+PASS  source=anaesthetist                        truth= 5 cohort= 5 _has= 5 
+PASS  source=gp                                  truth= 2 cohort= 2 _has= 2 
+PASS  timeframe FY2025-26                        truth=27 cohort=27 _has=30 (_has differs)
+PASS  timeframe FY2025-26 Q2                     truth= 8 cohort= 8 _has=12 (_has differs)
+PASS  timeframe FY2026-27                        truth=13 cohort=13 _has=13 
+PASS  surgical + category 2                      truth= 9 cohort= 9 _has= 9 
+PASS  orthopaedics + surgeon + FY2025-26         truth= 3 cohort= 3 _has= 3 
+PASS  womens directorate + urology unit (empty)  truth= 0 cohort= 0 _has= - 
+PASS  Hb Observations for 'surgical + category 2': patient= chunks 16, patient:Patient._has 16
+
+ALL PASS (23 checks, 68 HTTP requests to https://gw.interop.community/QHConnectathon2026/open)
+
+| Filters | Truth | cohort() | `_has` | cohort() vs truth | `_has` vs truth |
+|---|---|---|---|---|---|
+| no filters | 40 | 40 | 40 | PASS | same |
+| directorate=surgical | 23 | 23 | 23 | PASS | same |
+| directorate=womens | 10 | 10 | 10 | PASS | same |
+| directorate=heart-lung | 7 | 7 | 7 | PASS | same |
+| unit=Orthopaedics | 6 | 6 | 6 | PASS | same |
+| unit=Colorectal | 7 | 7 | 7 | PASS | same |
+| unit=Gynaecology | 10 | 10 | 10 | PASS | same |
+| unit=Cardiothoracic | 7 | 7 | 7 | PASS | same |
+| unit=Urology | 10 | 10 | 10 | PASS | same |
+| category=1 | 15 | 15 | 15 | PASS | same |
+| category=2 | 18 | 18 | 18 | PASS | same |
+| category=3 | 7 | 7 | 7 | PASS | same |
+| source=surgeon | 21 | 21 | 21 | PASS | same |
+| source=preadmission | 12 | 12 | 12 | PASS | same |
+| source=anaesthetist | 5 | 5 | 5 | PASS | same |
+| source=gp | 2 | 2 | 2 | PASS | same |
+| timeframe FY2025-26 | 27 | 27 | 30 | PASS | DIFFERS |
+| timeframe FY2025-26 Q2 | 8 | 8 | 12 | PASS | DIFFERS |
+| timeframe FY2026-27 | 13 | 13 | 13 | PASS | same |
+| surgical + category 2 | 9 | 9 | 9 | PASS | same |
+| orthopaedics + surgeon + FY2025-26 | 3 | 3 | 3 | PASS | same |
+| womens directorate + urology unit (empty) | 0 | 0 | - | PASS | n/a |

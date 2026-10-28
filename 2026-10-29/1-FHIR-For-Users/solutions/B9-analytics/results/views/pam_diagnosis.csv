@@ -1,0 +1,36 @@
+condition_id,patient_id,code,display,recorded_date
+Condition/pam-001-diagnosis,Patient/pam-001,87522002,Iron deficiency anaemia,2025-08-06
+Condition/pam-002-diagnosis,Patient/pam-002,87522002,Iron deficiency anaemia,2026-02-09
+Condition/pam-003-diagnosis,Patient/pam-003,87522002,Iron deficiency anaemia,2026-03-22
+Condition/pam-007-diagnosis,Patient/pam-007,35240004,Iron deficiency,2026-01-22
+Condition/pam-008-diagnosis,Patient/pam-008,234347009,Anaemia of chronic disease,2026-01-23
+Condition/pam-010-diagnosis,Patient/pam-010,35240004,Iron deficiency,2025-10-16
+Condition/pam-011-diagnosis,Patient/pam-011,87522002,Iron deficiency anaemia,2025-08-09
+Condition/pam-012-diagnosis,Patient/pam-012,87522002,Iron deficiency anaemia,2026-07-20
+Condition/pam-013-diagnosis,Patient/pam-013,87522002,Iron deficiency anaemia,2025-11-18
+Condition/pam-014-diagnosis,Patient/pam-014,234347009,Anaemia of chronic disease,2026-04-14
+Condition/pam-015-diagnosis,Patient/pam-015,234347009,Anaemia of chronic disease,2025-08-17
+Condition/pam-018-diagnosis,Patient/pam-018,35240004,Iron deficiency,2026-02-22
+Condition/pam-019-diagnosis,Patient/pam-019,87522002,Iron deficiency anaemia,2026-07-14
+Condition/pam-020-diagnosis,Patient/pam-020,87522002,Iron deficiency anaemia,2025-08-02
+Condition/pam-021-diagnosis,Patient/pam-021,87522002,Iron deficiency anaemia,2025-09-22
+Condition/pam-022-diagnosis,Patient/pam-022,87522002,Iron deficiency anaemia,2025-12-26
+Condition/pam-023-diagnosis,Patient/pam-023,87522002,Iron deficiency anaemia,2026-02-01
+Condition/pam-024-diagnosis,Patient/pam-024,35240004,Iron deficiency,2025-12-24
+Condition/pam-026-diagnosis,Patient/pam-026,87522002,Iron deficiency anaemia,2025-09-19
+Condition/pam-027-diagnosis,Patient/pam-027,234347009,Anaemia of chronic disease,2026-07-23
+Condition/pam-028-diagnosis,Patient/pam-028,87522002,Iron deficiency anaemia,2026-07-20
+Condition/pam-029-diagnosis,Patient/pam-029,35240004,Iron deficiency,2025-10-03
+Condition/pam-030-diagnosis,Patient/pam-030,87522002,Iron deficiency anaemia,2026-01-31
+Condition/pam-031-diagnosis,Patient/pam-031,35240004,Iron deficiency,2025-11-12
+Condition/pam-032-diagnosis,Patient/pam-032,87522002,Iron deficiency anaemia,2026-09-15
+Condition/pam-033-diagnosis,Patient/pam-033,87522002,Iron deficiency anaemia,2026-08-28
+Condition/pam-034-diagnosis,Patient/pam-034,87522002,Iron deficiency anaemia,2026-10-05
+Condition/pam-035-diagnosis,Patient/pam-035,87522002,Iron deficiency anaemia,2026-09-22
+Condition/pam-036-diagnosis,Patient/pam-036,87522002,Iron deficiency anaemia,2026-09-23
+Condition/pam-037-diagnosis,Patient/pam-037,87522002,Iron deficiency anaemia,2026-09-18
+Condition/pam-038-diagnosis,Patient/pam-038,234347009,Anaemia of chronic disease,2026-09-24
+Condition/pam-039-diagnosis,Patient/pam-039,87522002,Iron deficiency anaemia,2026-09-04
+Condition/pam-040-diagnosis,Patient/pam-040,87522002,Iron deficiency anaemia,2026-09-23
+Condition/685,Patient/pam-034,,,2026-10-06T14:06:45.443+10:00
+Condition/6,Patient/pam-034,,,2026-10-08T10:35:26.241+10:00

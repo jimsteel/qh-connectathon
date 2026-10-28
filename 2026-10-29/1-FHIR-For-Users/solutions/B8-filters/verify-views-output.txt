@@ -1,0 +1,23 @@
+-- none
+PASS  cohort: page ["pam-001","pam-002","pam-003","pam-004","pam-005","pam-006","pam-007","pam-008","pam-009","pam-010","pam-011","pam-012","pam-013","pam-014","pam-015","pam-016","pam-017","pam-018","pam-019","pam-020","pam-021","pam-022","pam-023","pam-024","pam-025","pam-026","pam-027","pam-028","pam-029","pam-030","pam-031","pam-032","pam-033","pam-034","pam-035","pam-036","pam-037","pam-038","pam-039","pam-040"] / FHIR ["pam-001","pam-002","pam-003","pam-004","pam-005","pam-006","pam-007","pam-008","pam-009","pam-010","pam-011","pam-012","pam-013","pam-014","pam-015","pam-016","pam-017","pam-018","pam-019","pam-020","pam-021","pam-022","pam-023","pam-024","pam-025","pam-026","pam-027","pam-028","pam-029","pam-030","pam-031","pam-032","pam-033","pam-034","pam-035","pam-036","pam-037","pam-038","pam-039","pam-040"]
+PASS  view 1 referrals by unit: page {"pam-unit-cardiothoracic":7,"pam-unit-colorectal":7,"pam-unit-gynaecology":10,"pam-unit-orthopaedics":6,"pam-unit-urology":10} / FHIR {"pam-unit-cardiothoracic":7,"pam-unit-colorectal":7,"pam-unit-gynaecology":10,"pam-unit-orthopaedics":6,"pam-unit-urology":10}
+PASS  view 1 referrals by source: page {"anaesthetist":5,"gp":2,"preadmission":12,"surgeon":21} / FHIR {"anaesthetist":5,"gp":2,"preadmission":12,"surgeon":21}
+PASS  view 2 Hb observations / patients with Hb / with post / median rise: page [65,40,25,15] / FHIR [65,40,25,15]
+-- surgical directorate, category 2
+PASS  cohort: page ["pam-002","pam-014","pam-015","pam-018","pam-023","pam-027","pam-031","pam-036","pam-038"] / FHIR ["pam-002","pam-014","pam-015","pam-018","pam-023","pam-027","pam-031","pam-036","pam-038"]
+PASS  view 1 referrals by unit: page {"pam-unit-colorectal":2,"pam-unit-orthopaedics":3,"pam-unit-urology":4} / FHIR {"pam-unit-colorectal":2,"pam-unit-orthopaedics":3,"pam-unit-urology":4}
+PASS  view 1 referrals by source: page {"anaesthetist":2,"gp":1,"preadmission":2,"surgeon":4} / FHIR {"anaesthetist":2,"gp":1,"preadmission":2,"surgeon":4}
+PASS  view 2 Hb observations / patients with Hb / with post / median rise: page [16,9,7,12] / FHIR [16,9,7,12]
+-- referred by surgeon in FY 2025-26
+PASS  cohort: page ["pam-001","pam-002","pam-003","pam-004","pam-005","pam-006","pam-010","pam-016","pam-017","pam-018","pam-022","pam-023","pam-024","pam-025","pam-030"] / FHIR ["pam-001","pam-002","pam-003","pam-004","pam-005","pam-006","pam-010","pam-016","pam-017","pam-018","pam-022","pam-023","pam-024","pam-025","pam-030"]
+PASS  view 1 referrals by unit: page {"pam-unit-cardiothoracic":3,"pam-unit-colorectal":1,"pam-unit-gynaecology":3,"pam-unit-orthopaedics":3,"pam-unit-urology":5} / FHIR {"pam-unit-cardiothoracic":3,"pam-unit-colorectal":1,"pam-unit-gynaecology":3,"pam-unit-orthopaedics":3,"pam-unit-urology":5}
+PASS  view 1 referrals by source: page {"surgeon":15} / FHIR {"surgeon":15}
+PASS  view 2 Hb observations / patients with Hb / with post / median rise: page [24,15,9,19] / FHIR [24,15,9,19]
+-- Gynaecology unit
+PASS  cohort: page ["pam-003","pam-004","pam-006","pam-008","pam-012","pam-019","pam-028","pam-032","pam-034","pam-035"] / FHIR ["pam-003","pam-004","pam-006","pam-008","pam-012","pam-019","pam-028","pam-032","pam-034","pam-035"]
+PASS  view 1 referrals by unit: page {"pam-unit-gynaecology":10} / FHIR {"pam-unit-gynaecology":10}
+PASS  view 1 referrals by source: page {"anaesthetist":1,"preadmission":2,"surgeon":7} / FHIR {"anaesthetist":1,"preadmission":2,"surgeon":7}
+PASS  view 2 Hb observations / patients with Hb / with post / median rise: page [15,10,5,23] / FHIR [15,10,5,23]
+PASS  no page errors: page [] / FHIR []
+
+ALL PASS

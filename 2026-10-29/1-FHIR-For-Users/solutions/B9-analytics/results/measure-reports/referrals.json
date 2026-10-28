@@ -1,0 +1,274 @@
+{
+  "resourceType": "MeasureReport",
+  "id": "soln-B9-report-referrals-2025-07-01-2026-06-30",
+  "status": "complete",
+  "type": "summary",
+  "measure": "https://aehrc.github.io/qh-connectathon/track1/solutions/Measure/pam-referrals|0.1.0",
+  "date": "2026-10-28T12:58:10.412Z",
+  "period": {
+    "start": "2025-07-01",
+    "end": "2026-06-30"
+  },
+  "group": [
+    {
+      "population": [
+        {
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "initial-population"
+              }
+            ]
+          },
+          "count": 27
+        }
+      ],
+      "stratifier": [
+        {
+          "code": [
+            {
+              "text": "Waitlist category"
+            }
+          ],
+          "stratum": [
+            {
+              "value": {
+                "text": "1"
+              },
+              "population": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "initial-population"
+                      }
+                    ]
+                  },
+                  "count": 11
+                }
+              ]
+            },
+            {
+              "value": {
+                "text": "2"
+              },
+              "population": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "initial-population"
+                      }
+                    ]
+                  },
+                  "count": 11
+                }
+              ]
+            },
+            {
+              "value": {
+                "text": "3"
+              },
+              "population": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "initial-population"
+                      }
+                    ]
+                  },
+                  "count": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": [
+            {
+              "text": "Surgical unit"
+            }
+          ],
+          "stratum": [
+            {
+              "value": {
+                "text": "Organization/pam-unit-cardiothoracic"
+              },
+              "population": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "initial-population"
+                      }
+                    ]
+                  },
+                  "count": 5
+                }
+              ]
+            },
+            {
+              "value": {
+                "text": "Organization/pam-unit-colorectal"
+              },
+              "population": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "initial-population"
+                      }
+                    ]
+                  },
+                  "count": 5
+                }
+              ]
+            },
+            {
+              "value": {
+                "text": "Organization/pam-unit-gynaecology"
+              },
+              "population": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "initial-population"
+                      }
+                    ]
+                  },
+                  "count": 4
+                }
+              ]
+            },
+            {
+              "value": {
+                "text": "Organization/pam-unit-orthopaedics"
+              },
+              "population": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "initial-population"
+                      }
+                    ]
+                  },
+                  "count": 4
+                }
+              ]
+            },
+            {
+              "value": {
+                "text": "Organization/pam-unit-urology"
+              },
+              "population": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "initial-population"
+                      }
+                    ]
+                  },
+                  "count": 9
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "code": [
+            {
+              "text": "Referral source"
+            }
+          ],
+          "stratum": [
+            {
+              "value": {
+                "text": "anaesthetist"
+              },
+              "population": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "initial-population"
+                      }
+                    ]
+                  },
+                  "count": 2
+                }
+              ]
+            },
+            {
+              "value": {
+                "text": "gp"
+              },
+              "population": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "initial-population"
+                      }
+                    ]
+                  },
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "value": {
+                "text": "preadmission"
+              },
+              "population": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "initial-population"
+                      }
+                    ]
+                  },
+                  "count": 9
+                }
+              ]
+            },
+            {
+              "value": {
+                "text": "surgeon"
+              },
+              "population": [
+                {
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                        "code": "initial-population"
+                      }
+                    ]
+                  },
+                  "count": 15
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

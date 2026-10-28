@@ -1,0 +1,89 @@
+{
+  "resourceType": "Measure",
+  "id": "soln-B9-measure-referrals",
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/Measure/pam-referrals",
+  "version": "0.1.0",
+  "name": "PAMReferrals",
+  "title": "Referrals to blood management (PAM 9, 12)",
+  "status": "draft",
+  "experimental": true,
+  "publisher": "QH FHIR Connectathon 2026 — Track 1 (synthetic, not for clinical use)",
+  "description": "Patients referred to the blood management service in the measurement period, by waitlist category and surgical unit.",
+  "usage": "Criteria are FHIRPath (text/fhirpath), evaluated once per patient with the context set to a Bundle of that patient's resources (as Patient/$everything would return). %periodStart and %periodEnd hold the measurement period as 'YYYY-MM-DD' strings. Uses defineVariable() and sort() from FHIRPath 3.0 (fhirpath.js 4+). Evaluated by ../evaluate-measures.mjs; a production version would use CQL on a server with $evaluate-measure.",
+  "subjectCodeableConcept": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/resource-types",
+        "code": "Patient"
+      }
+    ]
+  },
+  "scoring": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/measure-scoring",
+        "code": "cohort"
+      }
+    ]
+  },
+  "type": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/measure-type",
+          "code": "process"
+        }
+      ]
+    }
+  ],
+  "group": [
+    {
+      "population": [
+        {
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "initial-population"
+              }
+            ]
+          },
+          "description": "Patients with a referral authored in the period and a surgical waitlist entry",
+          "criteria": {
+            "language": "text/fhirpath",
+            "expression": "entry.resource.ofType(ServiceRequest).where(code.coding.where(system = 'http://snomed.info/sct' and code = '3457005').exists() and authoredOn.toDate() >= %periodStart.toDate() and authoredOn.toDate() <= %periodEnd.toDate()).exists() and entry.resource.ofType(ServiceRequest).where(category.coding.where(system = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category').exists()).exists()"
+          }
+        }
+      ],
+      "stratifier": [
+        {
+          "code": {
+            "text": "Waitlist category"
+          },
+          "criteria": {
+            "language": "text/fhirpath",
+            "expression": "entry.resource.ofType(ServiceRequest).where(category.coding.where(system = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category').exists()).category.coding.where(system = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category').code.first()"
+          }
+        },
+        {
+          "code": {
+            "text": "Surgical unit"
+          },
+          "criteria": {
+            "language": "text/fhirpath",
+            "expression": "entry.resource.ofType(ServiceRequest).where(category.coding.where(system = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category').exists()).performer.reference.first()"
+          }
+        },
+        {
+          "code": {
+            "text": "Referral source"
+          },
+          "criteria": {
+            "language": "text/fhirpath",
+            "expression": "entry.resource.ofType(ServiceRequest).where(code.coding.where(system = 'http://snomed.info/sct' and code = '3457005').exists() and authoredOn.toDate() >= %periodStart.toDate() and authoredOn.toDate() <= %periodEnd.toDate()).category.coding.where(system = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/referral-source').code.first()"
+          }
+        }
+      ]
+    }
+  ]
+}
