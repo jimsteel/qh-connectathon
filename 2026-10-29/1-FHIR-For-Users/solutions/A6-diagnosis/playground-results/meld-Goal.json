@@ -1,0 +1,40 @@
+[
+  {
+    "resourceType": "Goal",
+    "id": "774",
+    "lifecycleStatus": "active",
+    "description": {
+      "text": "Haemoglobin at least 130 g/L before surgery"
+    },
+    "subject": {
+      "reference": "Patient/soln-A6-patient-1"
+    },
+    "startDate": "2026-10-28",
+    "target": [
+      {
+        "measure": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ]
+        },
+        "detailQuantity": {
+          "value": 130,
+          "comparator": ">=",
+          "unit": "g/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/L"
+        },
+        "dueDate": "2026-12-03"
+      }
+    ],
+    "note": [
+      {
+        "text": "Requested by: Surgeon"
+      }
+    ]
+  }
+]

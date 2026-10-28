@@ -1,0 +1,212 @@
+{
+  "resourceType": "Bundle",
+  "id": "sdc-template-extract-93a4a544afd5",
+  "meta": {
+    "tag": [
+      {
+        "code": "@aehrc/sdc-template-extract:generated",
+        "system": "urn:aehrc:sdc-template-extract"
+      }
+    ]
+  },
+  "type": "transaction",
+  "timestamp": "2026-10-28T13:07:47.766Z",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:a8eedf34-df58-4fb5-b598-fd2f76accdd7",
+      "resource": {
+        "resourceType": "Condition",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "encounter-diagnosis",
+                "display": "Encounter Diagnosis"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "234347009",
+              "display": "Anaemia of chronic disease"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A6-patient-1"
+        },
+        "note": [
+          {
+            "text": "Pathway (PAM decision support): Anaemia with inflammation (CRP > 10 mg/L) and possible functional iron deficiency (ferritin 100–300 µg/L, TSAT < 20%): anaemia of chronic disease; consider IV iron and medical review"
+          }
+        ],
+        "recordedDate": "2026-10-28T23:07:47.760+10:00"
+      },
+      "request": {
+        "method": "POST",
+        "url": "Condition"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:532ea110-3fd5-48a5-b41c-432e06dbbc24",
+      "resource": {
+        "resourceType": "Condition",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "encounter-diagnosis",
+                "display": "Encounter Diagnosis"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "724556004",
+              "display": "Iron deficiency anaemia due to blood loss"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A6-patient-1"
+        },
+        "note": [
+          {
+            "text": "Pathway (PAM decision support): Anaemia with inflammation (CRP > 10 mg/L) and possible functional iron deficiency (ferritin 100–300 µg/L, TSAT < 20%): anaemia of chronic disease; consider IV iron and medical review"
+          }
+        ],
+        "recordedDate": "2026-10-28T23:07:47.762+10:00"
+      },
+      "request": {
+        "method": "POST",
+        "url": "Condition"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c3d8ba19-eb13-4b68-96e7-79e93c39cde3",
+      "resource": {
+        "resourceType": "Flag",
+        "status": "active",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/flag-category",
+                "code": "safety",
+                "display": "Safety"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "708129006",
+              "display": "Transfusion of blood product refused for religious reason"
+            }
+          ],
+          "text": "Limited consent to blood products: declines Red blood cells, blood product, Platelet product. Reason: Religious belief (e.g. Jehovah's Witness). Accepts albumin and cell salvage; advance health directive on file"
+        },
+        "subject": {
+          "reference": "Patient/soln-A6-patient-1"
+        },
+        "period": {
+          "start": "2026-10-28"
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "Flag"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:91032ca0-95a9-483f-a627-6b6d4924f600",
+      "resource": {
+        "resourceType": "Goal",
+        "lifecycleStatus": "active",
+        "description": {
+          "text": "Haemoglobin at least 130 g/L before surgery"
+        },
+        "subject": {
+          "reference": "Patient/soln-A6-patient-1"
+        },
+        "target": [
+          {
+            "measure": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "718-7",
+                  "display": "Hemoglobin [Mass/volume] in Blood"
+                }
+              ]
+            },
+            "detailQuantity": {
+              "comparator": ">=",
+              "unit": "g/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "g/L",
+              "value": 130
+            },
+            "dueDate": "2026-12-03"
+          }
+        ],
+        "note": [
+          {
+            "text": "Requested by: Surgeon"
+          }
+        ],
+        "startDate": "2026-10-28"
+      },
+      "request": {
+        "method": "POST",
+        "url": "Goal"
+      }
+    }
+  ]
+}

@@ -1,0 +1,3437 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "soln-A6-pam-assembled",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "sexCode",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-sex').answer.value.code"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "dob",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-dob').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "heightCm",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-height').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "weightKg",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-weight').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "hb",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-hb').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "ferritin",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-ferritin').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "tsat",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-tsat').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "crp",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-crp').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "hbThreshold",
+        "language": "text/fhirpath",
+        "expression": "iif(%sexCode = 'male', 130, 120)"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "actualHb",
+        "language": "text/fhirpath",
+        "expression": "%hb"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "idealWeight",
+        "language": "text/fhirpath",
+        "expression": "iif(%sexCode = 'male', 50, 45.5) + 0.9 * (%heightCm - 152.4)"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "weight",
+        "language": "text/fhirpath",
+        "expression": "iif(%weightKg < %idealWeight, %weightKg, %idealWeight)"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "targetHb",
+        "language": "text/fhirpath",
+        "expression": "iif(%weight < 35, 130, 150)"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "ironStores",
+        "language": "text/fhirpath",
+        "expression": "iif(%weight < 35, 15 * %weight, 500)"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "mcv",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-mcv').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "egfr",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-egfr').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "anaemia",
+        "language": "text/fhirpath",
+        "expression": "%hb <= %hbThreshold"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "ironDeficiency",
+        "language": "text/fhirpath",
+        "expression": "%ferritin < 100 or (%tsat < 20 and %ferritin >= 100 and %ferritin <= 300)"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "inflammation",
+        "language": "text/fhirpath",
+        "expression": "%crp > 10"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "pathway",
+        "language": "text/fhirpath",
+        "expression": "iif(%anaemia.empty() or %ironDeficiency.empty(), {}, iif(%anaemia, iif(%ferritin < 100, 'ida', iif(%ironDeficiency, iif(%inflammation, 'acd', 'ida'), 'anaemia')), iif(%ironDeficiency, 'id', 'none')))"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "suggestedDxCode",
+        "language": "text/fhirpath",
+        "expression": "iif(%pathway = 'ida', '87522002', iif(%pathway = 'acd', '234347009', iif(%pathway = 'id', '35240004', iif(%pathway = 'anaemia', '271737000', {}))))"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-patient-details|0.1.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-gp-details|0.1.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-proposed-surgery|0.1.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-history|0.1.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-pathology|0.2.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-diagnosis|0.2.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-treatment|0.1.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-education|0.1.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-follow-up|0.1.0"
+    }
+  ],
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A6-pam-assembled",
+  "version": "0.2.0-assembled",
+  "name": "PreoperativeAnaemiaManagement",
+  "title": "PAM form assembled with the A5 + A6 solution modules (test)",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-06",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 1 (synthetic demo, not for clinical use)",
+  "description": "Starter form for track 1: a few working items per module, with scaffolding for the rest.",
+  "item": [
+    {
+      "linkId": "pam-tabs",
+      "text": "Preoperative anaemia management",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                "code": "tab-container"
+              }
+            ]
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "pam-patient",
+          "text": "Patient details",
+          "type": "group",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "obsHeight",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|8302-2&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "obsWeight",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|29463-7&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            }
+          ],
+          "item": [
+            {
+              "linkId": "pam-patient-details-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-patient-details|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-name",
+              "text": "Name",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.name.first().given.first() + ' ' + %patient.name.first().family"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-dob",
+              "text": "Date of birth",
+              "type": "date",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.birthDate"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-age",
+              "text": "Age",
+              "type": "integer",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "a",
+                    "display": "years"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "today().toString().substring(0,4).toInteger() - %dob.toString().substring(0,4).toInteger() - iif(today().toString().substring(5,5) < %dob.toString().substring(5,5), 1, 0)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-sex",
+              "text": "Sex",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.gender"
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "female",
+                    "display": "Female"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "male",
+                    "display": "Male"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "other",
+                    "display": "Other"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "unknown",
+                    "display": "Unknown"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-medicare",
+              "text": "Medicare number",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.identifier.where(system='http://ns.electronichealth.net.au/id/medicare-number').value.first()"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-height",
+              "text": "Height",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "cm",
+                    "display": "cm"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%obsHeight.entry.resource.value.value"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-weight",
+              "text": "Weight",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "kg",
+                    "display": "kg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%obsWeight.entry.resource.value.value"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-bmi",
+              "text": "BMI",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "kg/m2",
+                    "display": "kg/m²"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "(%weightKg / ((%heightCm / 100).power(2))).round(1)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-patient-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A1: the rest of Patient details. Indigenous status, interpreter required, preferred language, address and contacts — from the Patient; Write height and weight back as Observations when they are measured in clinic; Next of kin / emergency contact (RelatedPerson)",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A1</a>: the rest of Patient details</p><ul style=\"margin:0;padding-left:20px\"><li>Indigenous status, interpreter required, preferred language, address and contacts — from the Patient</li><li>Write height and weight back as Observations when they are measured in clinic</li><li>Next of kin / emergency contact (RelatedPerson)</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-gp",
+          "text": "GP details",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-gp-details-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-gp-details|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A2: GP details. Pre-populate the GP from Patient.generalPractitioner (Practitioner / PractitionerRole); Choose the source: referring doctor, GP from the latest admission, or manual entry (enableWhen); Write back an updated Patient.generalPractitioner",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A2</a>: GP details</p><ul style=\"margin:0;padding-left:20px\"><li>Pre-populate the GP from Patient.generalPractitioner (Practitioner / PractitionerRole)</li><li>Choose the source: referring doctor, GP from the latest admission, or manual entry (enableWhen)</li><li>Write back an updated Patient.generalPractitioner</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-surgery",
+          "text": "Proposed surgery",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-proposed-surgery-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-proposed-surgery|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-surgery-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A3: Proposed surgery and referral. Pre-populate procedure, surgeon, unit, category and booked date from the waitlist ServiceRequest; Calculate days until surgery; Write back the referral to the blood management service (ServiceRequest)",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A3</a>: Proposed surgery and referral</p><ul style=\"margin:0;padding-left:20px\"><li>Pre-populate procedure, surgeon, unit, category and booked date from the waitlist ServiceRequest</li><li>Calculate days until surgery</li><li>Write back the referral to the blood management service (ServiceRequest)</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-history",
+          "text": "History",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-history-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-history|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-history-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A4: Past medical and surgical history. Pre-populate Conditions, Procedures, medications and allergies; SNOMED CT-AU value sets bound with ECL on Ontoserver; enableWhen trees for follow-up questions (e.g. GI symptoms → gastroscopy / colonoscopy)",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A4</a>: Past medical and surgical history</p><ul style=\"margin:0;padding-left:20px\"><li>Pre-populate Conditions, Procedures, medications and allergies</li><li>SNOMED CT-AU value sets bound with ECL on Ontoserver</li><li>enableWhen trees for follow-up questions (e.g. GI symptoms → gastroscopy / colonoscopy)</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pathology",
+          "text": "Pathology",
+          "type": "group",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "latestHb",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|718-7&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "latestFerritin",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|2276-4&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "latestTsat",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|2502-3&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "latestCrp",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|1988-5&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "latestMcv",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|787-2&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "latestB12",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|14685-2&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "latestFolate",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|14732-2&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "latestEgfr",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|62238-1,http://loinc.org|98979-8&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "pathHistory",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|718-7,http://loinc.org|2276-4,http://loinc.org|2502-3,http://loinc.org|1988-5,http://loinc.org|787-2,http://loinc.org|14685-2,http://loinc.org|14732-2,http://loinc.org|62238-1,http://loinc.org|98979-8&patient={{%patient.id}}&_sort=-date&_count=200"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "pathIvIron",
+                "language": "application/x-fhir-query",
+                "expression": "MedicationRequest?patient={{%patient.id}}&_sort=-authoredon&_count=50"
+              }
+            }
+          ],
+          "item": [
+            {
+              "linkId": "pam-pathology-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-pathology|0.2.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-latest",
+              "text": "Latest results",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "pam-hb",
+                  "text": "Haemoglobin (Hb)",
+                  "type": "decimal",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "g/L",
+                        "display": "g/L"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestHb.entry.resource.value.value"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hb-date",
+                  "text": "Haemoglobin: collected",
+                  "type": "date",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestHb.entry.resource.effective.toString().substring(0, 10)"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                },
+                {
+                  "linkId": "pam-ferritin",
+                  "text": "Ferritin",
+                  "type": "decimal",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "ug/L",
+                        "display": "µg/L"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestFerritin.entry.resource.value.value"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-ferritin-date",
+                  "text": "Ferritin: collected",
+                  "type": "date",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestFerritin.entry.resource.effective.toString().substring(0, 10)"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                },
+                {
+                  "linkId": "pam-tsat",
+                  "text": "Transferrin saturation (TSAT)",
+                  "type": "decimal",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "%",
+                        "display": "%"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestTsat.entry.resource.value.value"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-tsat-date",
+                  "text": "Transferrin saturation: collected",
+                  "type": "date",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestTsat.entry.resource.effective.toString().substring(0, 10)"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                },
+                {
+                  "linkId": "pam-crp",
+                  "text": "C-reactive protein (CRP)",
+                  "type": "decimal",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "mg/L",
+                        "display": "mg/L"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestCrp.entry.resource.value.value"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-crp-date",
+                  "text": "C-reactive protein: collected",
+                  "type": "date",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestCrp.entry.resource.effective.toString().substring(0, 10)"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                },
+                {
+                  "linkId": "pam-mcv",
+                  "text": "Mean cell volume (MCV)",
+                  "type": "decimal",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "fL",
+                        "display": "fL"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestMcv.entry.resource.value.value"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-mcv-date",
+                  "text": "Mean cell volume: collected",
+                  "type": "date",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestMcv.entry.resource.effective.toString().substring(0, 10)"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                },
+                {
+                  "linkId": "pam-b12",
+                  "text": "Vitamin B12",
+                  "type": "decimal",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "pmol/L",
+                        "display": "pmol/L"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestB12.entry.resource.value.value"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-b12-date",
+                  "text": "Vitamin B12: collected",
+                  "type": "date",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestB12.entry.resource.effective.toString().substring(0, 10)"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                },
+                {
+                  "linkId": "pam-folate",
+                  "text": "Folate (serum)",
+                  "type": "decimal",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "nmol/L",
+                        "display": "nmol/L"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestFolate.entry.resource.value.value"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-folate-date",
+                  "text": "Folate: collected",
+                  "type": "date",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestFolate.entry.resource.effective.toString().substring(0, 10)"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                },
+                {
+                  "linkId": "pam-egfr",
+                  "text": "eGFR",
+                  "type": "decimal",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "mL/min/{1.73_m2}",
+                        "display": "mL/min/1.73 m²"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestEgfr.entry.resource.value.value"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-egfr-date",
+                  "text": "eGFR: collected",
+                  "type": "date",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%latestEgfr.entry.resource.effective.toString().substring(0, 10)"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-compare",
+              "text": "Initial vs post-treatment",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "pam-path-compare-intro",
+                  "type": "display",
+                  "text": "Initial = latest result on or before the most recent IV iron order; post-treatment = latest result after it. With no IV iron order: initial = earliest result, post-treatment = latest.",
+                  "_text": {
+                    "extension": [
+                      {
+                        "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                        "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Initial = latest result on or before the most recent IV iron order; post-treatment = latest result after it. With no IV iron order: initial = earliest result, post-treatment = latest.</p></div>"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "linkId": "pam-path-treatment-date",
+                  "text": "Most recent IV iron order",
+                  "type": "date",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                },
+                {
+                  "linkId": "pam-hb-compare",
+                  "text": "Haemoglobin (Hb)",
+                  "type": "group",
+                  "item": [
+                    {
+                      "linkId": "pam-hb-initial",
+                      "text": "Initial",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "g/L",
+                            "display": "g/L"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '718-7').exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '718-7').exists()).last())).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-hb-initial-date",
+                      "text": "Initial: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '718-7').exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '718-7').exists()).last())).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-hb-post",
+                      "text": "Post-treatment",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "g/L",
+                            "display": "g/L"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '718-7').exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '718-7').exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '718-7').exists()).first(), {}))).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-hb-post-date",
+                      "text": "Post-treatment: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '718-7').exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '718-7').exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '718-7').exists()).first(), {}))).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-hb-change",
+                      "text": "Change",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "g/L",
+                            "display": "g/L"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(%resource.repeat(item).where(linkId='pam-hb-post').answer.value - %resource.repeat(item).where(linkId='pam-hb-initial').answer.value).round(1)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-ferritin-compare",
+                  "text": "Ferritin",
+                  "type": "group",
+                  "item": [
+                    {
+                      "linkId": "pam-ferritin-initial",
+                      "text": "Initial",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "ug/L",
+                            "display": "µg/L"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2276-4').exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2276-4').exists()).last())).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-ferritin-initial-date",
+                      "text": "Initial: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2276-4').exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2276-4').exists()).last())).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-ferritin-post",
+                      "text": "Post-treatment",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "ug/L",
+                            "display": "µg/L"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2276-4').exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2276-4').exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2276-4').exists()).first(), {}))).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-ferritin-post-date",
+                      "text": "Post-treatment: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2276-4').exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2276-4').exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2276-4').exists()).first(), {}))).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-ferritin-change",
+                      "text": "Change",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "ug/L",
+                            "display": "µg/L"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(%resource.repeat(item).where(linkId='pam-ferritin-post').answer.value - %resource.repeat(item).where(linkId='pam-ferritin-initial').answer.value).round(1)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-tsat-compare",
+                  "text": "Transferrin saturation (TSAT)",
+                  "type": "group",
+                  "item": [
+                    {
+                      "linkId": "pam-tsat-initial",
+                      "text": "Initial",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "%",
+                            "display": "%"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2502-3').exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2502-3').exists()).last())).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-tsat-initial-date",
+                      "text": "Initial: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2502-3').exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2502-3').exists()).last())).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-tsat-post",
+                      "text": "Post-treatment",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "%",
+                            "display": "%"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2502-3').exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2502-3').exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2502-3').exists()).first(), {}))).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-tsat-post-date",
+                      "text": "Post-treatment: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2502-3').exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2502-3').exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '2502-3').exists()).first(), {}))).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-tsat-change",
+                      "text": "Change",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "%",
+                            "display": "%"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(%resource.repeat(item).where(linkId='pam-tsat-post').answer.value - %resource.repeat(item).where(linkId='pam-tsat-initial').answer.value).round(1)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-crp-compare",
+                  "text": "C-reactive protein (CRP)",
+                  "type": "group",
+                  "item": [
+                    {
+                      "linkId": "pam-crp-initial",
+                      "text": "Initial",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "mg/L",
+                            "display": "mg/L"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '1988-5').exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '1988-5').exists()).last())).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-crp-initial-date",
+                      "text": "Initial: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '1988-5').exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '1988-5').exists()).last())).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-crp-post",
+                      "text": "Post-treatment",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "mg/L",
+                            "display": "mg/L"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '1988-5').exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '1988-5').exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '1988-5').exists()).first(), {}))).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-crp-post-date",
+                      "text": "Post-treatment: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '1988-5').exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '1988-5').exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '1988-5').exists()).first(), {}))).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-crp-change",
+                      "text": "Change",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "mg/L",
+                            "display": "mg/L"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(%resource.repeat(item).where(linkId='pam-crp-post').answer.value - %resource.repeat(item).where(linkId='pam-crp-initial').answer.value).round(1)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-mcv-compare",
+                  "text": "Mean cell volume (MCV)",
+                  "type": "group",
+                  "item": [
+                    {
+                      "linkId": "pam-mcv-initial",
+                      "text": "Initial",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "fL",
+                            "display": "fL"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '787-2').exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '787-2').exists()).last())).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-mcv-initial-date",
+                      "text": "Initial: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '787-2').exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '787-2').exists()).last())).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-mcv-post",
+                      "text": "Post-treatment",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "fL",
+                            "display": "fL"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '787-2').exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '787-2').exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '787-2').exists()).first(), {}))).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-mcv-post-date",
+                      "text": "Post-treatment: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '787-2').exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '787-2').exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '787-2').exists()).first(), {}))).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-mcv-change",
+                      "text": "Change",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "fL",
+                            "display": "fL"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(%resource.repeat(item).where(linkId='pam-mcv-post').answer.value - %resource.repeat(item).where(linkId='pam-mcv-initial').answer.value).round(1)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-b12-compare",
+                  "text": "Vitamin B12",
+                  "type": "group",
+                  "item": [
+                    {
+                      "linkId": "pam-b12-initial",
+                      "text": "Initial",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "pmol/L",
+                            "display": "pmol/L"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14685-2').exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14685-2').exists()).last())).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-b12-initial-date",
+                      "text": "Initial: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14685-2').exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14685-2').exists()).last())).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-b12-post",
+                      "text": "Post-treatment",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "pmol/L",
+                            "display": "pmol/L"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14685-2').exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14685-2').exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14685-2').exists()).first(), {}))).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-b12-post-date",
+                      "text": "Post-treatment: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14685-2').exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14685-2').exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14685-2').exists()).first(), {}))).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-b12-change",
+                      "text": "Change",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "pmol/L",
+                            "display": "pmol/L"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(%resource.repeat(item).where(linkId='pam-b12-post').answer.value - %resource.repeat(item).where(linkId='pam-b12-initial').answer.value).round(1)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-folate-compare",
+                  "text": "Folate (serum)",
+                  "type": "group",
+                  "item": [
+                    {
+                      "linkId": "pam-folate-initial",
+                      "text": "Initial",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "nmol/L",
+                            "display": "nmol/L"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14732-2').exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14732-2').exists()).last())).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-folate-initial-date",
+                      "text": "Initial: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14732-2').exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14732-2').exists()).last())).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-folate-post",
+                      "text": "Post-treatment",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "nmol/L",
+                            "display": "nmol/L"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14732-2').exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14732-2').exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14732-2').exists()).first(), {}))).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-folate-post-date",
+                      "text": "Post-treatment: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14732-2').exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14732-2').exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and code = '14732-2').exists()).first(), {}))).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-folate-change",
+                      "text": "Change",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "nmol/L",
+                            "display": "nmol/L"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(%resource.repeat(item).where(linkId='pam-folate-post').answer.value - %resource.repeat(item).where(linkId='pam-folate-initial').answer.value).round(1)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-egfr-compare",
+                  "text": "eGFR",
+                  "type": "group",
+                  "item": [
+                    {
+                      "linkId": "pam-egfr-initial",
+                      "text": "Initial",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "mL/min/{1.73_m2}",
+                            "display": "mL/min/1.73 m²"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and (code = '62238-1' or code = '98979-8')).exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and (code = '62238-1' or code = '98979-8')).exists()).last())).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-egfr-initial-date",
+                      "text": "Initial: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and (code = '62238-1' or code = '98979-8')).exists()).where(effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and (code = '62238-1' or code = '98979-8')).exists()).last())).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-egfr-post",
+                      "text": "Post-treatment",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "mL/min/{1.73_m2}",
+                            "display": "mL/min/1.73 m²"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and (code = '62238-1' or code = '98979-8')).exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and (code = '62238-1' or code = '98979-8')).exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and (code = '62238-1' or code = '98979-8')).exists()).first(), {}))).value.value"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-egfr-post-date",
+                      "text": "Post-treatment: collected",
+                      "type": "date",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and (code = '62238-1' or code = '98979-8')).exists()).where(effective.toString().substring(0, 10) > %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10)).first(), iif(%pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and (code = '62238-1' or code = '98979-8')).exists()).count() > 1, %pathHistory.entry.resource.where(code.coding.where(system = 'http://loinc.org' and (code = '62238-1' or code = '98979-8')).exists()).first(), {}))).effective.toString().substring(0, 10)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    },
+                    {
+                      "linkId": "pam-egfr-change",
+                      "text": "Change",
+                      "type": "decimal",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                          "valueCoding": {
+                            "system": "http://unitsofmeasure.org",
+                            "code": "mL/min/{1.73_m2}",
+                            "display": "mL/min/1.73 m²"
+                          }
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                          "valueExpression": {
+                            "language": "text/fhirpath",
+                            "expression": "(%resource.repeat(item).where(linkId='pam-egfr-post').answer.value - %resource.repeat(item).where(linkId='pam-egfr-initial').answer.value).round(1)"
+                          }
+                        }
+                      ],
+                      "readOnly": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "type": "group",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemPopulationContext",
+                  "valueExpression": {
+                    "name": "pathResult",
+                    "language": "text/fhirpath",
+                    "expression": "%pathHistory.entry.resource"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "gtable"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "repeats": true,
+              "readOnly": true,
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "type": "date",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%pathResult.effective.toString().substring(0, 10)"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "type": "string",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "iif(%pathResult.code.coding.where(system = 'http://loinc.org').code.first() = '718-7', 'Haemoglobin (Hb)', iif(%pathResult.code.coding.where(system = 'http://loinc.org').code.first() = '2276-4', 'Ferritin', iif(%pathResult.code.coding.where(system = 'http://loinc.org').code.first() = '2502-3', 'Transferrin saturation (TSAT)', iif(%pathResult.code.coding.where(system = 'http://loinc.org').code.first() = '1988-5', 'C-reactive protein (CRP)', iif(%pathResult.code.coding.where(system = 'http://loinc.org').code.first() = '787-2', 'Mean cell volume (MCV)', iif(%pathResult.code.coding.where(system = 'http://loinc.org').code.first() = '14685-2', 'Vitamin B12', iif(%pathResult.code.coding.where(system = 'http://loinc.org').code.first() = '14732-2', 'Folate (serum)', iif(%pathResult.code.coding.where(system = 'http://loinc.org').code.first() = '62238-1', 'eGFR', iif(%pathResult.code.coding.where(system = 'http://loinc.org').code.first() = '98979-8', 'eGFR', %pathResult.code.text)))))))))"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "type": "decimal",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%pathResult.value.value"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "type": "string",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%pathResult.value.unit"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "type": "string",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "iif(%pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10).exists(), iif(%pathResult.effective.toString().substring(0, 10) <= %pathIvIron.entry.resource.where(status != 'entered-in-error' and status != 'cancelled' and dosageInstruction.route.coding.where(system = 'http://snomed.info/sct' and code = '47625008').exists() and (medication.text | medication.coding.display).where(lower().matches('.*(iron|ferr|ferumoxytol|ferinject|monofer|venofer).*')).exists()).authoredOn.first().toString().substring(0, 10), 'Before', 'After'), {})"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "type": "string",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%pathResult.performer.display.first()"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                }
+              ]
+            },
+            {
+              "linkId": "pam-ext",
+              "text": "Results from an external lab",
+              "type": "group",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                  "extension": [
+                    {
+                      "url": "template",
+                      "valueReference": {
+                        "reference": "#PAMExternalResultTemplate"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "repeats": true,
+              "item": [
+                {
+                  "linkId": "pam-ext-test",
+                  "text": "Test",
+                  "type": "choice",
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "system": "http://loinc.org",
+                        "code": "718-7",
+                        "display": "Haemoglobin (Hb), g/L"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://loinc.org",
+                        "code": "2276-4",
+                        "display": "Ferritin, µg/L"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://loinc.org",
+                        "code": "2502-3",
+                        "display": "Transferrin saturation (TSAT), %"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://loinc.org",
+                        "code": "1988-5",
+                        "display": "C-reactive protein (CRP), mg/L"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://loinc.org",
+                        "code": "787-2",
+                        "display": "Mean cell volume (MCV), fL"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://loinc.org",
+                        "code": "14685-2",
+                        "display": "Vitamin B12, pmol/L"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://loinc.org",
+                        "code": "14732-2",
+                        "display": "Folate (serum), nmol/L"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://loinc.org",
+                        "code": "62238-1",
+                        "display": "eGFR, mL/min/1.73 m²"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-ext-value",
+                  "text": "Result (in the unit shown with the test)",
+                  "type": "decimal"
+                },
+                {
+                  "linkId": "pam-ext-date",
+                  "text": "Collected",
+                  "type": "date"
+                },
+                {
+                  "linkId": "pam-ext-lab",
+                  "text": "Laboratory",
+                  "type": "string"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-diagnosis-section",
+          "text": "Diagnosis",
+          "type": "group",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "dxWaitlist",
+                "language": "application/x-fhir-query",
+                "expression": "ServiceRequest?patient={{%patient.id}}&status=active&_count=50"
+              }
+            }
+          ],
+          "item": [
+            {
+              "linkId": "pam-diagnosis-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-diagnosis|0.2.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-findings-intro",
+              "type": "display",
+              "text": "Findings, calculated from the pathology results and sex",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Findings</b>, calculated from the pathology results and sex (decision rules from the track's FHIR mapping; to confirm with Metro North)</p></div>"
+                  }
+                ]
+              }
+            },
+            {
+              "linkId": "pam-anaemia",
+              "text": "Anaemia (Hb ≤ 130 g/L male, ≤ 120 g/L female)",
+              "type": "boolean",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%anaemia"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-anaemia-severity",
+              "text": "Anaemia severity (WHO)",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%anaemia, iif(%hb < 80, 'Severe (Hb < 80 g/L)', iif(%hb < 110, 'Moderate (Hb 80–109 g/L)', 'Mild (Hb 110 g/L to the threshold)')), {})"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-iron-deficiency",
+              "text": "Iron deficiency (ferritin < 100 µg/L, or TSAT < 20% with ferritin 100–300 µg/L)",
+              "type": "boolean",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%ironDeficiency"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-inflammation",
+              "text": "Inflammation (CRP > 10 mg/L)",
+              "type": "boolean",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%inflammation"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-pathway",
+              "text": "Pathway",
+              "type": "text",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%pathway.exists(), iif(%pathway = 'ida', 'Iron deficiency anaemia: iron replacement (see Treatment)', iif(%pathway = 'acd', 'Anaemia with inflammation (CRP > 10 mg/L) and possible functional iron deficiency (ferritin 100–300 µg/L, TSAT < 20%): anaemia of chronic disease; consider IV iron and medical review', iif(%pathway = 'id', 'Iron deficiency without anaemia: consider iron replacement', iif(%pathway = 'anaemia', 'Anaemia without iron deficiency: look for other causes (B12, folate, renal function, haematology review)', iif(%pathway = 'none', 'No anaemia or iron deficiency: no blood management intervention needed', {}))))) & iif(%pathway = 'anaemia', iif(%mcv > 100, '. Macrocytic (MCV > 100 fL)', iif(%mcv < 80, '. Microcytic (MCV < 80 fL)', '')) & iif(%egfr < 60, '. eGFR < 60: consider anaemia of chronic kidney disease', ''), ''), {})"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-diagnosis-suggested",
+              "text": "Suggested diagnosis",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%suggestedDxCode.exists(), iif(%suggestedDxCode = '87522002', 'Iron deficiency anaemia (SNOMED CT 87522002)', iif(%suggestedDxCode = '234347009', 'Anaemia of chronic disease (SNOMED CT 234347009)', iif(%suggestedDxCode = '35240004', 'Iron deficiency (SNOMED CT 35240004)', iif(%suggestedDxCode = '271737000', 'Anaemia (SNOMED CT 271737000)', {})))), iif(%pathway = 'none', 'None: no anaemia or iron deficiency', {}))"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-diagnosis",
+              "text": "Diagnosis (confirm)",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                  "extension": [
+                    {
+                      "url": "template",
+                      "valueReference": {
+                        "reference": "#PAMDiagnosisTemplate"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "87522002",
+                    "display": "Iron deficiency anaemia"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "35240004",
+                    "display": "Iron deficiency"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "234347009",
+                    "display": "Anaemia of chronic disease"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "707323002",
+                    "display": "Anaemia in chronic kidney disease"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "271737000",
+                    "display": "Anaemia"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-diagnosis-differs",
+              "type": "display",
+              "text": "The diagnosis differs from the suggested one: check the findings.",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p style=\"color:#B9531A\"><b>The diagnosis differs from the suggested one</b>: check the findings.</p></div>"
+                  }
+                ]
+              },
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%suggestedDxCode.exists() and %resource.repeat(item).where(linkId='pam-diagnosis').answer.value.exists() and %resource.repeat(item).where(linkId='pam-diagnosis').answer.value.code != %suggestedDxCode"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-diagnosis-other",
+              "text": "Other diagnosis (search SNOMED CT-AU)",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                  "extension": [
+                    {
+                      "url": "template",
+                      "valueReference": {
+                        "reference": "#PAMOtherDiagnosisTemplate"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "autocomplete"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerValueSet": "http://snomed.info/sct/32506021000036107?fhir_vs=ecl/<< 271737000 OR << 35240004"
+            },
+            {
+              "linkId": "pam-blood-products",
+              "text": "Blood products",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "pam-blood-consent",
+                  "text": "Consent to blood products",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "radio-button"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                        "code": "full",
+                        "display": "Consents to all blood products"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                        "code": "limited",
+                        "display": "Limited consent: accepts some blood products only"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                        "code": "refused",
+                        "display": "Refuses all blood products"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-blood-declined",
+                  "text": "Products declined",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "check-box"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "repeats": true,
+                  "enableWhen": [
+                    {
+                      "question": "pam-blood-consent",
+                      "operator": "=",
+                      "answerCoding": {
+                        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                        "code": "limited",
+                        "display": "Limited consent: accepts some blood products only"
+                      }
+                    }
+                  ],
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "126242007",
+                        "display": "Red blood cells, blood product"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "256395009",
+                        "display": "Platelet product"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "346447007",
+                        "display": "Fresh frozen plasma"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "256401009",
+                        "display": "Cryoprecipitate"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "789265003",
+                        "display": "Albumin human only product"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "714569001",
+                        "display": "Normal immunoglobulin"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-blood-reason",
+                  "text": "Reason",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "radio-button"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "enableBehavior": "any",
+                  "enableWhen": [
+                    {
+                      "question": "pam-blood-consent",
+                      "operator": "=",
+                      "answerCoding": {
+                        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                        "code": "limited",
+                        "display": "Limited consent: accepts some blood products only"
+                      }
+                    },
+                    {
+                      "question": "pam-blood-consent",
+                      "operator": "=",
+                      "answerCoding": {
+                        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                        "code": "refused",
+                        "display": "Refuses all blood products"
+                      }
+                    }
+                  ],
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-refusal-reason",
+                        "code": "religious",
+                        "display": "Religious belief (e.g. Jehovah's Witness)"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-refusal-reason",
+                        "code": "personal",
+                        "display": "Personal preference"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-refusal-reason",
+                        "code": "other",
+                        "display": "Other"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-blood-details",
+                  "text": "Details (e.g. advance health directive, products accepted)",
+                  "type": "text",
+                  "enableBehavior": "any",
+                  "enableWhen": [
+                    {
+                      "question": "pam-blood-consent",
+                      "operator": "=",
+                      "answerCoding": {
+                        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                        "code": "limited",
+                        "display": "Limited consent: accepts some blood products only"
+                      }
+                    },
+                    {
+                      "question": "pam-blood-consent",
+                      "operator": "=",
+                      "answerCoding": {
+                        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                        "code": "refused",
+                        "display": "Refuses all blood products"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-blood-flag",
+                  "text": "Blood product alert",
+                  "type": "string",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                      "valueBoolean": true
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%resource.repeat(item).where(linkId='pam-blood-consent').answer.value.where(code = 'limited' or code = 'refused').display"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                      "extension": [
+                        {
+                          "url": "template",
+                          "valueReference": {
+                            "reference": "#PAMBloodProductFlagTemplate"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "readOnly": true
+                }
+              ]
+            },
+            {
+              "linkId": "pam-target-hb-group",
+              "text": "Requested target haemoglobin",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "pam-target-hb",
+                  "text": "Target Hb before surgery",
+                  "type": "decimal",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "g/L",
+                        "display": "g/L"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                      "extension": [
+                        {
+                          "url": "template",
+                          "valueReference": {
+                            "reference": "#PAMTargetHbGoalTemplate"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-target-hb-gap",
+                  "text": "Increase needed from the latest Hb",
+                  "type": "decimal",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "g/L",
+                        "display": "g/L"
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "iif(%resource.repeat(item).where(linkId='pam-target-hb').answer.value.exists() and %hb.exists(), iif(%resource.repeat(item).where(linkId='pam-target-hb').answer.value > %hb, %resource.repeat(item).where(linkId='pam-target-hb').answer.value - %hb, 0), {})"
+                      }
+                    }
+                  ],
+                  "readOnly": true
+                },
+                {
+                  "linkId": "pam-target-hb-by",
+                  "text": "Requested by",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "radio-button"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/target-hb-requester",
+                        "code": "surgeon",
+                        "display": "Surgeon"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/target-hb-requester",
+                        "code": "anaesthetist",
+                        "display": "Anaesthetist"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/target-hb-requester",
+                        "code": "haematologist",
+                        "display": "Haematologist"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/target-hb-requester",
+                        "code": "patient",
+                        "display": "Patient"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-target-hb-due",
+                  "text": "By (booked surgery date)",
+                  "type": "date",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%dxWaitlist.entry.resource.where(category.coding.where(system = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category').exists()).occurrence.first().toString().substring(0, 10)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-treatment",
+          "text": "Treatment",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-treatment-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-treatment|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-ganzoni-intro",
+              "type": "display",
+              "text": "Total iron dose (Ganzoni)",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Total iron dose (Ganzoni)</b> = weight × (target Hb − actual Hb) × 0.24 + iron stores</p></div>"
+                  }
+                ]
+              }
+            },
+            {
+              "linkId": "pam-ideal-weight",
+              "text": "Ideal body weight",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "kg",
+                    "display": "kg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%idealWeight.round(1)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-dosing-weight",
+              "text": "Dosing weight (lower of actual and ideal body weight)",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "kg",
+                    "display": "kg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%weight.round(1)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-ganzoni",
+              "text": "Calculated total iron dose",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mg",
+                    "display": "mg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%actualHb >= %targetHb, 0, (%weight * (%targetHb - %actualHb) * 0.24 + %ironStores).round(0))"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-iv-iron",
+              "text": "IV iron order",
+              "type": "group",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                  "extension": [
+                    {
+                      "url": "template",
+                      "valueReference": {
+                        "reference": "#PAMIVIronTemplate"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "item": [
+                {
+                  "linkId": "pam-iron-product",
+                  "text": "Product",
+                  "type": "choice",
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "1312141000168105",
+                        "display": "Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "1086251000168104",
+                        "display": "Iron (as ferric derisomaltose) 100 mg/mL injection, vial"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-iron-dose",
+                  "text": "Prescribed dose",
+                  "type": "decimal",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "mg",
+                        "display": "mg"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-treatment-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A7: the rest of Treatment. Confirm the dosing-weight rule against the REDCap specification; Cap the dose per infusion and split into infusions; book the day-unit infusion (ServiceRequest / Appointment); AMT value set from Ontoserver; oral iron, ESA and transfusion options",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A7</a>: the rest of Treatment</p><ul style=\"margin:0;padding-left:20px\"><li>Confirm the dosing-weight rule against the REDCap specification</li><li>Cap the dose per infusion and split into infusions; book the day-unit infusion (ServiceRequest / Appointment)</li><li>AMT value set from Ontoserver; oral iron, ESA and transfusion options</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-education",
+          "text": "Patient education",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-education-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-education|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-education-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A8: Patient education. Delivery method and materials given (multi-select); Write back what was given (Communication or Procedure)",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A8</a>: Patient education</p><ul style=\"margin:0;padding-left:20px\"><li>Delivery method and materials given (multi-select)</li><li>Write back what was given (Communication or Procedure)</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-follow-up",
+          "text": "Follow-up and status",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-follow-up-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-follow-up|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-follow-up-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A9: Follow-up and status. Pre-populate previous notes, status and referral date; Days with the blood management team; follow-up due date; Write back a follow-up Task and the EpisodeOfCare status (being managed / cleared)",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A9</a>: Follow-up and status</p><ul style=\"margin:0;padding-left:20px\"><li>Pre-populate previous notes, status and referral date</li><li>Days with the blood management team; follow-up due date</li><li>Write back a follow-up Task and the EpisodeOfCare status (being managed / cleared)</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "contained": [
+    {
+      "resourceType": "Observation",
+      "id": "PAMExternalResultTemplate",
+      "status": "final",
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+              "code": "laboratory",
+              "display": "Laboratory"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "_code": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                  "valueString": "item.where(linkId='pam-ext-test').answer.value.code"
+                }
+              ]
+            },
+            "_display": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                  "valueString": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'Hemoglobin [Mass/volume] in Blood', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'Ferritin [Mass/volume] in Serum or Plasma', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', 'Iron saturation [Mass Fraction] in Serum or Plasma', iif(item.where(linkId='pam-ext-test').answer.value.code = '1988-5', 'C reactive protein [Mass/volume] in Serum or Plasma', iif(item.where(linkId='pam-ext-test').answer.value.code = '787-2', 'MCV [Entitic mean volume] in Red Blood Cells by Automated count', iif(item.where(linkId='pam-ext-test').answer.value.code = '14685-2', 'Cobalamin (Vitamin B12) [Moles/volume] in Serum or Plasma', iif(item.where(linkId='pam-ext-test').answer.value.code = '14732-2', 'Folate [Moles/volume] in Serum or Plasma', iif(item.where(linkId='pam-ext-test').answer.value.code = '62238-1', 'Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI)/1.73 sq M', {}))))))))"
+                }
+              ]
+            }
+          }
+        ],
+        "_text": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'Haemoglobin (Hb)', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'Ferritin', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', 'Transferrin saturation (TSAT)', iif(item.where(linkId='pam-ext-test').answer.value.code = '1988-5', 'C-reactive protein (CRP)', iif(item.where(linkId='pam-ext-test').answer.value.code = '787-2', 'Mean cell volume (MCV)', iif(item.where(linkId='pam-ext-test').answer.value.code = '14685-2', 'Vitamin B12', iif(item.where(linkId='pam-ext-test').answer.value.code = '14732-2', 'Folate (serum)', iif(item.where(linkId='pam-ext-test').answer.value.code = '62238-1', 'eGFR', {}))))))))"
+            }
+          ]
+        }
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_effectiveDateTime": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "item.where(linkId='pam-ext-date').answer.value.toString()"
+          }
+        ]
+      },
+      "performer": [
+        {
+          "_display": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-ext-lab').answer.value"
+              }
+            ]
+          }
+        }
+      ],
+      "valueQuantity": {
+        "_value": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "item.where(linkId='pam-ext-value').answer.value"
+            }
+          ]
+        },
+        "system": "http://unitsofmeasure.org",
+        "_code": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'ug/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', iif(item.where(linkId='pam-ext-test').answer.value.code = '1988-5', 'mg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '787-2', 'fL', iif(item.where(linkId='pam-ext-test').answer.value.code = '14685-2', 'pmol/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '14732-2', 'nmol/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '62238-1', 'mL/min/{1.73_m2}', {}))))))))"
+            }
+          ]
+        },
+        "_unit": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'µg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', iif(item.where(linkId='pam-ext-test').answer.value.code = '1988-5', 'mg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '787-2', 'fL', iif(item.where(linkId='pam-ext-test').answer.value.code = '14685-2', 'pmol/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '14732-2', 'nmol/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '62238-1', 'mL/min/1.73 m²', {}))))))))"
+            }
+          ]
+        }
+      },
+      "note": [
+        {
+          "text": "Entered by hand from an external laboratory report (PAM form)."
+        }
+      ]
+    },
+    {
+      "resourceType": "Condition",
+      "id": "PAMDiagnosisTemplate",
+      "clinicalStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+            "code": "active",
+            "display": "Active"
+          }
+        ]
+      },
+      "verificationStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+            "code": "confirmed",
+            "display": "Confirmed"
+          }
+        ]
+      },
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_recordedDate": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      },
+      "note": [
+        {
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "iif(%resource.repeat(item).where(linkId='pam-pathway').answer.value.exists(), 'Pathway (PAM decision support): ' & %resource.repeat(item).where(linkId='pam-pathway').answer.value, {})"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "resourceType": "Condition",
+      "id": "PAMOtherDiagnosisTemplate",
+      "clinicalStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+            "code": "active",
+            "display": "Active"
+          }
+        ]
+      },
+      "verificationStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+            "code": "confirmed",
+            "display": "Confirmed"
+          }
+        ]
+      },
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_recordedDate": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      },
+      "note": [
+        {
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "iif(%resource.repeat(item).where(linkId='pam-pathway').answer.value.exists(), 'Pathway (PAM decision support): ' & %resource.repeat(item).where(linkId='pam-pathway').answer.value, {})"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "resourceType": "Flag",
+      "id": "PAMBloodProductFlagTemplate",
+      "status": "active",
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/flag-category",
+              "code": "safety",
+              "display": "Safety"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "_code": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                  "valueString": "iif(%resource.repeat(item).where(linkId='pam-blood-reason').answer.value.code = 'religious', '708129006', '699054003')"
+                }
+              ]
+            },
+            "_display": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                  "valueString": "iif(%resource.repeat(item).where(linkId='pam-blood-reason').answer.value.code = 'religious', 'Transfusion of blood product refused for religious reason', 'Administration of blood product declined')"
+                }
+              ]
+            }
+          }
+        ],
+        "_text": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "iif(%resource.repeat(item).where(linkId='pam-blood-consent').answer.value.code = 'refused', 'Refuses all blood products', 'Limited consent to blood products' & iif(%resource.repeat(item).where(linkId='pam-blood-declined').answer.value.exists(), ': declines ' & %resource.repeat(item).where(linkId='pam-blood-declined').answer.value.display.join(', '), '')) & iif(%resource.repeat(item).where(linkId='pam-blood-reason').answer.value.exists(), '. Reason: ' & %resource.repeat(item).where(linkId='pam-blood-reason').answer.value.display, '') & iif(%resource.repeat(item).where(linkId='pam-blood-details').answer.value.exists(), '. ' & %resource.repeat(item).where(linkId='pam-blood-details').answer.value, '')"
+            }
+          ]
+        }
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "period": {
+        "_start": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "today().toString()"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resourceType": "Goal",
+      "id": "PAMTargetHbGoalTemplate",
+      "lifecycleStatus": "active",
+      "description": {
+        "_text": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "'Haemoglobin at least ' & answer.value.toString() & ' g/L before surgery'"
+            }
+          ]
+        }
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_startDate": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "today().toString()"
+          }
+        ]
+      },
+      "target": [
+        {
+          "measure": {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "718-7",
+                "display": "Hemoglobin [Mass/volume] in Blood"
+              }
+            ]
+          },
+          "detailQuantity": {
+            "comparator": ">=",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                  "valueString": "answer.value"
+                }
+              ]
+            },
+            "unit": "g/L",
+            "system": "http://unitsofmeasure.org",
+            "code": "g/L"
+          },
+          "_dueDate": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "%resource.repeat(item).where(linkId='pam-target-hb-due').answer.value.toString()"
+              }
+            ]
+          }
+        }
+      ],
+      "note": [
+        {
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "iif(%resource.repeat(item).where(linkId='pam-target-hb-by').answer.value.exists(), 'Requested by: ' & %resource.repeat(item).where(linkId='pam-target-hb-by').answer.value.display, {})"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "resourceType": "MedicationRequest",
+      "id": "PAMIVIronTemplate",
+      "status": "active",
+      "intent": "order",
+      "medicationCodeableConcept": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-iron-product').answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_authoredOn": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      },
+      "dosageInstruction": [
+        {
+          "route": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "47625008",
+                "display": "Intravenous route"
+              }
+            ]
+          },
+          "doseAndRate": [
+            {
+              "doseQuantity": {
+                "_value": {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                      "valueString": "item.where(linkId='pam-iron-dose').answer.value"
+                    }
+                  ]
+                },
+                "unit": "mg",
+                "system": "http://unitsofmeasure.org",
+                "code": "mg"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

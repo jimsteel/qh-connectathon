@@ -1,0 +1,326 @@
+{
+ "resourceType": "Bundle",
+ "type": "transaction",
+ "entry": [
+  {
+   "resource": {
+    "resourceType": "Patient",
+    "id": "soln-A6-patient-1",
+    "identifier": [
+     {
+      "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
+      "value": "SOLN-A6-1"
+     }
+    ],
+    "name": [
+     {
+      "use": "official",
+      "given": [
+       "Arlo"
+      ],
+      "family": "Diagtest"
+     }
+    ],
+    "gender": "male",
+    "birthDate": "1950-07-21",
+    "address": [
+     {
+      "use": "home",
+      "city": "Kedron",
+      "state": "QLD",
+      "postalCode": "4031",
+      "country": "AU"
+     }
+    ]
+   },
+   "request": {
+    "method": "PUT",
+    "url": "Patient/soln-A6-patient-1"
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Observation",
+    "id": "soln-A6-p1-hb",
+    "status": "final",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+        "code": "laboratory",
+        "display": "Laboratory"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "718-7",
+       "display": "Hemoglobin [Mass/volume] in Blood"
+      }
+     ]
+    },
+    "subject": {
+     "reference": "Patient/soln-A6-patient-1"
+    },
+    "effectiveDateTime": "2026-10-05",
+    "valueQuantity": {
+     "value": 118,
+     "unit": "g/L",
+     "system": "http://unitsofmeasure.org",
+     "code": "g/L"
+    }
+   },
+   "request": {
+    "method": "PUT",
+    "url": "Observation/soln-A6-p1-hb"
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Observation",
+    "id": "soln-A6-p1-ferritin",
+    "status": "final",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+        "code": "laboratory",
+        "display": "Laboratory"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "2276-4",
+       "display": "Ferritin [Mass/volume] in Serum or Plasma"
+      }
+     ]
+    },
+    "subject": {
+     "reference": "Patient/soln-A6-patient-1"
+    },
+    "effectiveDateTime": "2026-10-05",
+    "valueQuantity": {
+     "value": 160,
+     "unit": "µg/L",
+     "system": "http://unitsofmeasure.org",
+     "code": "ug/L"
+    }
+   },
+   "request": {
+    "method": "PUT",
+    "url": "Observation/soln-A6-p1-ferritin"
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Observation",
+    "id": "soln-A6-p1-tsat",
+    "status": "final",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+        "code": "laboratory",
+        "display": "Laboratory"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "2502-3",
+       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+      }
+     ]
+    },
+    "subject": {
+     "reference": "Patient/soln-A6-patient-1"
+    },
+    "effectiveDateTime": "2026-10-05",
+    "valueQuantity": {
+     "value": 14,
+     "unit": "%",
+     "system": "http://unitsofmeasure.org",
+     "code": "%"
+    }
+   },
+   "request": {
+    "method": "PUT",
+    "url": "Observation/soln-A6-p1-tsat"
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Observation",
+    "id": "soln-A6-p1-crp",
+    "status": "final",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+        "code": "laboratory",
+        "display": "Laboratory"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "1988-5",
+       "display": "C reactive protein [Mass/volume] in Serum or Plasma"
+      }
+     ]
+    },
+    "subject": {
+     "reference": "Patient/soln-A6-patient-1"
+    },
+    "effectiveDateTime": "2026-10-05",
+    "valueQuantity": {
+     "value": 28,
+     "unit": "mg/L",
+     "system": "http://unitsofmeasure.org",
+     "code": "mg/L"
+    }
+   },
+   "request": {
+    "method": "PUT",
+    "url": "Observation/soln-A6-p1-crp"
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Observation",
+    "id": "soln-A6-p1-mcv",
+    "status": "final",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+        "code": "laboratory",
+        "display": "Laboratory"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "787-2",
+       "display": "MCV [Entitic mean volume] in Red Blood Cells by Automated count"
+      }
+     ]
+    },
+    "subject": {
+     "reference": "Patient/soln-A6-patient-1"
+    },
+    "effectiveDateTime": "2026-10-05",
+    "valueQuantity": {
+     "value": 84,
+     "unit": "fL",
+     "system": "http://unitsofmeasure.org",
+     "code": "fL"
+    }
+   },
+   "request": {
+    "method": "PUT",
+    "url": "Observation/soln-A6-p1-mcv"
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Observation",
+    "id": "soln-A6-p1-egfr",
+    "status": "final",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+        "code": "laboratory",
+        "display": "Laboratory"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "62238-1",
+       "display": "Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI)/1.73 sq M"
+      }
+     ]
+    },
+    "subject": {
+     "reference": "Patient/soln-A6-patient-1"
+    },
+    "effectiveDateTime": "2026-10-05",
+    "valueQuantity": {
+     "value": 55,
+     "unit": "mL/min/1.73 m²",
+     "system": "http://unitsofmeasure.org",
+     "code": "mL/min/{1.73_m2}"
+    }
+   },
+   "request": {
+    "method": "PUT",
+    "url": "Observation/soln-A6-p1-egfr"
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "ServiceRequest",
+    "id": "soln-A6-p1-surgery",
+    "status": "active",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category",
+        "code": "2",
+        "display": "Category 2"
+       }
+      ],
+      "text": "Category 2"
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "52734007",
+       "display": "Total hip replacement"
+      }
+     ]
+    },
+    "subject": {
+     "reference": "Patient/soln-A6-patient-1"
+    },
+    "occurrenceDateTime": "2026-12-03",
+    "authoredOn": "2026-09-20"
+   },
+   "request": {
+    "method": "PUT",
+    "url": "ServiceRequest/soln-A6-p1-surgery"
+   }
+  }
+ ]
+}

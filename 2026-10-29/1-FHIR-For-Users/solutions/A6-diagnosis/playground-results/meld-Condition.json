@@ -1,0 +1,104 @@
+[
+  {
+    "resourceType": "Condition",
+    "id": "772",
+    "clinicalStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+          "code": "active",
+          "display": "Active"
+        }
+      ]
+    },
+    "verificationStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+          "code": "confirmed",
+          "display": "Confirmed"
+        }
+      ]
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+            "code": "encounter-diagnosis",
+            "display": "Encounter Diagnosis"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "724556004",
+          "display": "Iron deficiency anaemia due to blood loss"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/soln-A6-patient-1"
+    },
+    "recordedDate": "2026-10-28T23:07:47.762+10:00",
+    "note": [
+      {
+        "text": "Pathway (PAM decision support): Anaemia with inflammation (CRP > 10 mg/L) and possible functional iron deficiency (ferritin 100–300 µg/L, TSAT < 20%): anaemia of chronic disease; consider IV iron and medical review"
+      }
+    ]
+  },
+  {
+    "resourceType": "Condition",
+    "id": "771",
+    "clinicalStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+          "code": "active",
+          "display": "Active"
+        }
+      ]
+    },
+    "verificationStatus": {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+          "code": "confirmed",
+          "display": "Confirmed"
+        }
+      ]
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+            "code": "encounter-diagnosis",
+            "display": "Encounter Diagnosis"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "234347009",
+          "display": "Anaemia of chronic disease"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/soln-A6-patient-1"
+    },
+    "recordedDate": "2026-10-28T23:07:47.760+10:00",
+    "note": [
+      {
+        "text": "Pathway (PAM decision support): Anaemia with inflammation (CRP > 10 mg/L) and possible functional iron deficiency (ferritin 100–300 µg/L, TSAT < 20%): anaemia of chronic disease; consider IV iron and medical review"
+      }
+    ]
+  }
+]

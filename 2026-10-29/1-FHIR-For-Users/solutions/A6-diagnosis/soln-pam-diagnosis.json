@@ -1,0 +1,948 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "soln-pam-diagnosis",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assemble-expectation",
+      "valueCode": "assemble-child"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    }
+  ],
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-diagnosis",
+  "version": "0.2.0",
+  "name": "PAMDiagnosis",
+  "title": "PAM module — Diagnosis and decision support (full solution)",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-28",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 1 (synthetic demo, not for clinical use)",
+  "description": "Full solution for scenario A6: anaemia, iron deficiency and inflammation and the pathway classification as calculated expressions (sex-specific Hb thresholds); a suggested SNOMED CT-AU diagnosis written back as a Condition; limited consent / refusal of blood products as a Flag; a requested target Hb as a Goal. Needs the root variables in root-variables.json. Extends pam-diagnosis 0.1.0. Synthetic demo, not for clinical use.",
+  "item": [
+    {
+      "linkId": "pam-diagnosis-section",
+      "text": "Diagnosis",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "dxWaitlist",
+            "language": "application/x-fhir-query",
+            "expression": "ServiceRequest?patient={{%patient.id}}&status=active&_count=50"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "pam-diagnosis-module",
+          "text": "Module",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            }
+          ],
+          "initial": [
+            {
+              "valueString": "pam-diagnosis|0.2.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-findings-intro",
+          "type": "display",
+          "text": "Findings, calculated from the pathology results and sex",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Findings</b>, calculated from the pathology results and sex (decision rules from the track's FHIR mapping; to confirm with Metro North)</p></div>"
+              }
+            ]
+          }
+        },
+        {
+          "linkId": "pam-anaemia",
+          "text": "Anaemia (Hb ≤ 130 g/L male, ≤ 120 g/L female)",
+          "type": "boolean",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%anaemia"
+              }
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "pam-anaemia-severity",
+          "text": "Anaemia severity (WHO)",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "iif(%anaemia, iif(%hb < 80, 'Severe (Hb < 80 g/L)', iif(%hb < 110, 'Moderate (Hb 80–109 g/L)', 'Mild (Hb 110 g/L to the threshold)')), {})"
+              }
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "pam-iron-deficiency",
+          "text": "Iron deficiency (ferritin < 100 µg/L, or TSAT < 20% with ferritin 100–300 µg/L)",
+          "type": "boolean",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%ironDeficiency"
+              }
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "pam-inflammation",
+          "text": "Inflammation (CRP > 10 mg/L)",
+          "type": "boolean",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%inflammation"
+              }
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "pam-pathway",
+          "text": "Pathway",
+          "type": "text",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "iif(%pathway.exists(), iif(%pathway = 'ida', 'Iron deficiency anaemia: iron replacement (see Treatment)', iif(%pathway = 'acd', 'Anaemia with inflammation (CRP > 10 mg/L) and possible functional iron deficiency (ferritin 100–300 µg/L, TSAT < 20%): anaemia of chronic disease; consider IV iron and medical review', iif(%pathway = 'id', 'Iron deficiency without anaemia: consider iron replacement', iif(%pathway = 'anaemia', 'Anaemia without iron deficiency: look for other causes (B12, folate, renal function, haematology review)', iif(%pathway = 'none', 'No anaemia or iron deficiency: no blood management intervention needed', {}))))) & iif(%pathway = 'anaemia', iif(%mcv > 100, '. Macrocytic (MCV > 100 fL)', iif(%mcv < 80, '. Microcytic (MCV < 80 fL)', '')) & iif(%egfr < 60, '. eGFR < 60: consider anaemia of chronic kidney disease', ''), ''), {})"
+              }
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "pam-diagnosis-suggested",
+          "text": "Suggested diagnosis",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "iif(%suggestedDxCode.exists(), iif(%suggestedDxCode = '87522002', 'Iron deficiency anaemia (SNOMED CT 87522002)', iif(%suggestedDxCode = '234347009', 'Anaemia of chronic disease (SNOMED CT 234347009)', iif(%suggestedDxCode = '35240004', 'Iron deficiency (SNOMED CT 35240004)', iif(%suggestedDxCode = '271737000', 'Anaemia (SNOMED CT 271737000)', {})))), iif(%pathway = 'none', 'None: no anaemia or iron deficiency', {}))"
+              }
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "pam-diagnosis",
+          "text": "Diagnosis (confirm)",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+              "extension": [
+                {
+                  "url": "template",
+                  "valueReference": {
+                    "reference": "#PAMDiagnosisTemplate"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button"
+                  }
+                ]
+              }
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "87522002",
+                "display": "Iron deficiency anaemia"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "35240004",
+                "display": "Iron deficiency"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "234347009",
+                "display": "Anaemia of chronic disease"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "707323002",
+                "display": "Anaemia in chronic kidney disease"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "271737000",
+                "display": "Anaemia"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-diagnosis-differs",
+          "type": "display",
+          "text": "The diagnosis differs from the suggested one: check the findings.",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p style=\"color:#B9531A\"><b>The diagnosis differs from the suggested one</b>: check the findings.</p></div>"
+              }
+            ]
+          },
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%suggestedDxCode.exists() and %resource.repeat(item).where(linkId='pam-diagnosis').answer.value.exists() and %resource.repeat(item).where(linkId='pam-diagnosis').answer.value.code != %suggestedDxCode"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-diagnosis-other",
+          "text": "Other diagnosis (search SNOMED CT-AU)",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+              "extension": [
+                {
+                  "url": "template",
+                  "valueReference": {
+                    "reference": "#PAMOtherDiagnosisTemplate"
+                  }
+                }
+              ]
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "autocomplete"
+                  }
+                ]
+              }
+            }
+          ],
+          "answerValueSet": "http://snomed.info/sct/32506021000036107?fhir_vs=ecl/<< 271737000 OR << 35240004"
+        },
+        {
+          "linkId": "pam-blood-products",
+          "text": "Blood products",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-blood-consent",
+              "text": "Consent to blood products",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                    "code": "full",
+                    "display": "Consents to all blood products"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                    "code": "limited",
+                    "display": "Limited consent: accepts some blood products only"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                    "code": "refused",
+                    "display": "Refuses all blood products"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-blood-declined",
+              "text": "Products declined",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "check-box"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "repeats": true,
+              "enableWhen": [
+                {
+                  "question": "pam-blood-consent",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                    "code": "limited",
+                    "display": "Limited consent: accepts some blood products only"
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "126242007",
+                    "display": "Red blood cells, blood product"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "256395009",
+                    "display": "Platelet product"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "346447007",
+                    "display": "Fresh frozen plasma"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "256401009",
+                    "display": "Cryoprecipitate"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "789265003",
+                    "display": "Albumin human only product"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "714569001",
+                    "display": "Normal immunoglobulin"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-blood-reason",
+              "text": "Reason",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "enableBehavior": "any",
+              "enableWhen": [
+                {
+                  "question": "pam-blood-consent",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                    "code": "limited",
+                    "display": "Limited consent: accepts some blood products only"
+                  }
+                },
+                {
+                  "question": "pam-blood-consent",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                    "code": "refused",
+                    "display": "Refuses all blood products"
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-refusal-reason",
+                    "code": "religious",
+                    "display": "Religious belief (e.g. Jehovah's Witness)"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-refusal-reason",
+                    "code": "personal",
+                    "display": "Personal preference"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-refusal-reason",
+                    "code": "other",
+                    "display": "Other"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-blood-details",
+              "text": "Details (e.g. advance health directive, products accepted)",
+              "type": "text",
+              "enableBehavior": "any",
+              "enableWhen": [
+                {
+                  "question": "pam-blood-consent",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                    "code": "limited",
+                    "display": "Limited consent: accepts some blood products only"
+                  }
+                },
+                {
+                  "question": "pam-blood-consent",
+                  "operator": "=",
+                  "answerCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                    "code": "refused",
+                    "display": "Refuses all blood products"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-blood-flag",
+              "text": "Blood product alert",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.repeat(item).where(linkId='pam-blood-consent').answer.value.where(code = 'limited' or code = 'refused').display"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                  "extension": [
+                    {
+                      "url": "template",
+                      "valueReference": {
+                        "reference": "#PAMBloodProductFlagTemplate"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "readOnly": true
+            }
+          ]
+        },
+        {
+          "linkId": "pam-target-hb-group",
+          "text": "Requested target haemoglobin",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-target-hb",
+              "text": "Target Hb before surgery",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "g/L",
+                    "display": "g/L"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                  "extension": [
+                    {
+                      "url": "template",
+                      "valueReference": {
+                        "reference": "#PAMTargetHbGoalTemplate"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-target-hb-gap",
+              "text": "Increase needed from the latest Hb",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "g/L",
+                    "display": "g/L"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%resource.repeat(item).where(linkId='pam-target-hb').answer.value.exists() and %hb.exists(), iif(%resource.repeat(item).where(linkId='pam-target-hb').answer.value > %hb, %resource.repeat(item).where(linkId='pam-target-hb').answer.value - %hb, 0), {})"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-target-hb-by",
+              "text": "Requested by",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/target-hb-requester",
+                    "code": "surgeon",
+                    "display": "Surgeon"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/target-hb-requester",
+                    "code": "anaesthetist",
+                    "display": "Anaesthetist"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/target-hb-requester",
+                    "code": "haematologist",
+                    "display": "Haematologist"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/target-hb-requester",
+                    "code": "patient",
+                    "display": "Patient"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-target-hb-due",
+              "text": "By (booked surgery date)",
+              "type": "date",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%dxWaitlist.entry.resource.where(category.coding.where(system = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category').exists()).occurrence.first().toString().substring(0, 10)"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "contained": [
+    {
+      "resourceType": "Condition",
+      "id": "PAMDiagnosisTemplate",
+      "clinicalStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+            "code": "active",
+            "display": "Active"
+          }
+        ]
+      },
+      "verificationStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+            "code": "confirmed",
+            "display": "Confirmed"
+          }
+        ]
+      },
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_recordedDate": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      },
+      "note": [
+        {
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "iif(%resource.repeat(item).where(linkId='pam-pathway').answer.value.exists(), 'Pathway (PAM decision support): ' & %resource.repeat(item).where(linkId='pam-pathway').answer.value, {})"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "resourceType": "Condition",
+      "id": "PAMOtherDiagnosisTemplate",
+      "clinicalStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+            "code": "active",
+            "display": "Active"
+          }
+        ]
+      },
+      "verificationStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+            "code": "confirmed",
+            "display": "Confirmed"
+          }
+        ]
+      },
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_recordedDate": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      },
+      "note": [
+        {
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "iif(%resource.repeat(item).where(linkId='pam-pathway').answer.value.exists(), 'Pathway (PAM decision support): ' & %resource.repeat(item).where(linkId='pam-pathway').answer.value, {})"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "resourceType": "Flag",
+      "id": "PAMBloodProductFlagTemplate",
+      "status": "active",
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/flag-category",
+              "code": "safety",
+              "display": "Safety"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "_code": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                  "valueString": "iif(%resource.repeat(item).where(linkId='pam-blood-reason').answer.value.code = 'religious', '708129006', '699054003')"
+                }
+              ]
+            },
+            "_display": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                  "valueString": "iif(%resource.repeat(item).where(linkId='pam-blood-reason').answer.value.code = 'religious', 'Transfusion of blood product refused for religious reason', 'Administration of blood product declined')"
+                }
+              ]
+            }
+          }
+        ],
+        "_text": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "iif(%resource.repeat(item).where(linkId='pam-blood-consent').answer.value.code = 'refused', 'Refuses all blood products', 'Limited consent to blood products' & iif(%resource.repeat(item).where(linkId='pam-blood-declined').answer.value.exists(), ': declines ' & %resource.repeat(item).where(linkId='pam-blood-declined').answer.value.display.join(', '), '')) & iif(%resource.repeat(item).where(linkId='pam-blood-reason').answer.value.exists(), '. Reason: ' & %resource.repeat(item).where(linkId='pam-blood-reason').answer.value.display, '') & iif(%resource.repeat(item).where(linkId='pam-blood-details').answer.value.exists(), '. ' & %resource.repeat(item).where(linkId='pam-blood-details').answer.value, '')"
+            }
+          ]
+        }
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "period": {
+        "_start": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "today().toString()"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resourceType": "Goal",
+      "id": "PAMTargetHbGoalTemplate",
+      "lifecycleStatus": "active",
+      "description": {
+        "_text": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "'Haemoglobin at least ' & answer.value.toString() & ' g/L before surgery'"
+            }
+          ]
+        }
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_startDate": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "today().toString()"
+          }
+        ]
+      },
+      "target": [
+        {
+          "measure": {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "718-7",
+                "display": "Hemoglobin [Mass/volume] in Blood"
+              }
+            ]
+          },
+          "detailQuantity": {
+            "comparator": ">=",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                  "valueString": "answer.value"
+                }
+              ]
+            },
+            "unit": "g/L",
+            "system": "http://unitsofmeasure.org",
+            "code": "g/L"
+          },
+          "_dueDate": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "%resource.repeat(item).where(linkId='pam-target-hb-due').answer.value.toString()"
+              }
+            ]
+          }
+        }
+      ],
+      "note": [
+        {
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "iif(%resource.repeat(item).where(linkId='pam-target-hb-by').answer.value.exists(), 'Requested by: ' & %resource.repeat(item).where(linkId='pam-target-hb-by').answer.value.display, {})"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

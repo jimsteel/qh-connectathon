@@ -1,0 +1,788 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "status": "in-progress",
+  "questionnaire": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A6-pam-assembled|0.2.0-assembled",
+  "item": [
+    {
+      "linkId": "pam-tabs",
+      "text": "Preoperative anaemia management",
+      "item": [
+        {
+          "linkId": "pam-patient",
+          "text": "Patient details",
+          "item": [
+            {
+              "linkId": "pam-patient-details-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-patient-details|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-name",
+              "text": "Name",
+              "answer": [
+                {
+                  "valueString": "Arlo Diagtest"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-dob",
+              "text": "Date of birth",
+              "answer": [
+                {
+                  "valueDate": "1950-07-21"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-age",
+              "text": "Age",
+              "answer": [
+                {
+                  "id": "pam-age-calculatedExpression-eP33iJ0rXyxROIqOyTLVo",
+                  "valueInteger": 76
+                }
+              ]
+            },
+            {
+              "linkId": "pam-sex",
+              "text": "Sex",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "male",
+                    "display": "Male"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-gp",
+          "text": "GP details",
+          "item": [
+            {
+              "linkId": "pam-gp-details-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-gp-details|0.1.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-surgery",
+          "text": "Proposed surgery",
+          "item": [
+            {
+              "linkId": "pam-proposed-surgery-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-proposed-surgery|0.1.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-history",
+          "text": "History",
+          "item": [
+            {
+              "linkId": "pam-history-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-history|0.1.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pathology",
+          "text": "Pathology",
+          "item": [
+            {
+              "linkId": "pam-pathology-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-pathology|0.2.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-latest",
+              "text": "Latest results",
+              "item": [
+                {
+                  "linkId": "pam-hb",
+                  "text": "Haemoglobin (Hb)",
+                  "answer": [
+                    {
+                      "valueDecimal": 118
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hb-date",
+                  "text": "Haemoglobin: collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-05"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-ferritin",
+                  "text": "Ferritin",
+                  "answer": [
+                    {
+                      "valueDecimal": 160
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-ferritin-date",
+                  "text": "Ferritin: collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-05"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-tsat",
+                  "text": "Transferrin saturation (TSAT)",
+                  "answer": [
+                    {
+                      "valueDecimal": 14
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-tsat-date",
+                  "text": "Transferrin saturation: collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-05"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-crp",
+                  "text": "C-reactive protein (CRP)",
+                  "answer": [
+                    {
+                      "valueDecimal": 28
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-crp-date",
+                  "text": "C-reactive protein: collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-05"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-mcv",
+                  "text": "Mean cell volume (MCV)",
+                  "answer": [
+                    {
+                      "valueDecimal": 84
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-mcv-date",
+                  "text": "Mean cell volume: collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-05"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-egfr",
+                  "text": "eGFR",
+                  "answer": [
+                    {
+                      "valueDecimal": 55
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-egfr-date",
+                  "text": "eGFR: collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-05"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-compare",
+              "text": "Initial vs post-treatment",
+              "item": [
+                {
+                  "linkId": "pam-hb-compare",
+                  "text": "Haemoglobin (Hb)",
+                  "item": [
+                    {
+                      "linkId": "pam-hb-initial",
+                      "text": "Initial",
+                      "answer": [
+                        {
+                          "valueDecimal": 118
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-hb-initial-date",
+                      "text": "Initial: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-10-05"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-ferritin-compare",
+                  "text": "Ferritin",
+                  "item": [
+                    {
+                      "linkId": "pam-ferritin-initial",
+                      "text": "Initial",
+                      "answer": [
+                        {
+                          "valueDecimal": 160
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-ferritin-initial-date",
+                      "text": "Initial: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-10-05"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-tsat-compare",
+                  "text": "Transferrin saturation (TSAT)",
+                  "item": [
+                    {
+                      "linkId": "pam-tsat-initial",
+                      "text": "Initial",
+                      "answer": [
+                        {
+                          "valueDecimal": 14
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-tsat-initial-date",
+                      "text": "Initial: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-10-05"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-crp-compare",
+                  "text": "C-reactive protein (CRP)",
+                  "item": [
+                    {
+                      "linkId": "pam-crp-initial",
+                      "text": "Initial",
+                      "answer": [
+                        {
+                          "valueDecimal": 28
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-crp-initial-date",
+                      "text": "Initial: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-10-05"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-mcv-compare",
+                  "text": "Mean cell volume (MCV)",
+                  "item": [
+                    {
+                      "linkId": "pam-mcv-initial",
+                      "text": "Initial",
+                      "answer": [
+                        {
+                          "valueDecimal": 84
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-mcv-initial-date",
+                      "text": "Initial: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-10-05"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-egfr-compare",
+                  "text": "eGFR",
+                  "item": [
+                    {
+                      "linkId": "pam-egfr-initial",
+                      "text": "Initial",
+                      "answer": [
+                        {
+                          "valueDecimal": 55
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-egfr-initial-date",
+                      "text": "Initial: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-10-05"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-05"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Mean cell volume (MCV)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 84
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "fL"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-05"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "C-reactive protein (CRP)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 28
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "mg/L"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-05"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Haemoglobin (Hb)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 118
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "g/L"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-05"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Ferritin"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 160
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "µg/L"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-05"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Transferrin saturation (TSAT)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 14
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "%"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-05"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "eGFR"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 55
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "mL/min/1.73 m²"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-diagnosis-section",
+          "text": "Diagnosis",
+          "item": [
+            {
+              "linkId": "pam-diagnosis-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-diagnosis|0.2.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-anaemia",
+              "text": "Anaemia (Hb ≤ 130 g/L male, ≤ 120 g/L female)",
+              "answer": [
+                {
+                  "id": "pam-anaemia-calculatedExpression-yPm9-DWFTs5ic6T8e0grt",
+                  "valueBoolean": true
+                }
+              ]
+            },
+            {
+              "linkId": "pam-anaemia-severity",
+              "text": "Anaemia severity (WHO)",
+              "answer": [
+                {
+                  "id": "pam-anaemia-severity-calculatedExpression-dK51NWh8T2QiauTlO94Cc",
+                  "valueString": "Mild (Hb 110 g/L to the threshold)"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-deficiency",
+              "text": "Iron deficiency (ferritin < 100 µg/L, or TSAT < 20% with ferritin 100–300 µg/L)",
+              "answer": [
+                {
+                  "id": "pam-iron-deficiency-calculatedExpression-sW1aYniQKRFiF5W8Kr7AO",
+                  "valueBoolean": true
+                }
+              ]
+            },
+            {
+              "linkId": "pam-inflammation",
+              "text": "Inflammation (CRP > 10 mg/L)",
+              "answer": [
+                {
+                  "id": "pam-inflammation-calculatedExpression-M47HTzZZqcMax5_QbWDP6",
+                  "valueBoolean": true
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pathway",
+              "text": "Pathway",
+              "answer": [
+                {
+                  "id": "pam-pathway-calculatedExpression-5WWG4Y7_RPo24Xqpq9Ft9",
+                  "valueString": "Anaemia with inflammation (CRP > 10 mg/L) and possible functional iron deficiency (ferritin 100–300 µg/L, TSAT < 20%): anaemia of chronic disease; consider IV iron and medical review"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-diagnosis-suggested",
+              "text": "Suggested diagnosis",
+              "answer": [
+                {
+                  "id": "pam-diagnosis-suggested-calculatedExpression-JtD5j3kL6ctSskivmoDki",
+                  "valueString": "Anaemia of chronic disease (SNOMED CT 234347009)"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-target-hb-group",
+              "text": "Requested target haemoglobin",
+              "item": [
+                {
+                  "linkId": "pam-target-hb-due",
+                  "text": "By (booked surgery date)",
+                  "answer": [
+                    {
+                      "valueDate": "2026-12-03"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-treatment",
+          "text": "Treatment",
+          "item": [
+            {
+              "linkId": "pam-treatment-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-treatment|0.1.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-education",
+          "text": "Patient education",
+          "item": [
+            {
+              "linkId": "pam-education-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-education|0.1.0"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-follow-up",
+          "text": "Follow-up and status",
+          "item": [
+            {
+              "linkId": "pam-follow-up-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-follow-up|0.1.0"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "subject": {
+    "type": "Patient",
+    "reference": "Patient/soln-A6-patient-1",
+    "display": "Arlo Diagtest"
+  },
+  "meta": {
+    "source": "https://smartforms.csiro.au"
+  }
+}
