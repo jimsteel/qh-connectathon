@@ -1,0 +1,11 @@
+GET https://gw.interop.community/QHConnectathon2026/open/Questionnaire?_count=500&_sort=-date&
+GET https://gw.interop.community/QHConnectathon2026/open/Questionnaire?_count=500&_sort=-date&
+GET https://gw.interop.community/QHConnectathon2026/open/metadata
+GET https://gw.interop.community/QHConnectathon2026/open/Patient?_count=100
+GET https://gw.interop.community/QHConnectathon2026/open/Practitioner?_count=100
+GET https://gw.interop.community/QHConnectathon2026/open/Encounter?patient=soln-A3-patient-1&_count=100
+GET https://gw.interop.community/QHConnectathon2026/open/ServiceRequest?patient=soln-A3-patient-1&category=https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category|&status=active&_sort=occurrence&_include=ServiceRequest:requester&_include=ServiceRequest:performer
+GET https://gw.interop.community/QHConnectathon2026/open/ServiceRequest?patient=soln-A3-patient-1&code=http://snomed.info/sct|3457005&_sort=-authored&_count=1
+POST https://gw.interop.community/QHConnectathon2026/open
+GET https://gw.interop.community/QHConnectathon2026/open/ServiceRequest?patient=soln-A3-patient-1&category=https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category|&status=active&_sort=occurrence&_include=ServiceRequest:requester&_include=ServiceRequest:performer
+GET https://gw.interop.community/QHConnectathon2026/open/ServiceRequest?patient=soln-A3-patient-1&code=http://snomed.info/sct|3457005&_sort=-authored&_count=1

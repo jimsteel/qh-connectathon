@@ -1,0 +1,84 @@
+{
+  "resourceType": "Bundle",
+  "id": "sdc-template-extract-bd0b6fdf3e91",
+  "meta": {
+    "tag": [
+      {
+        "code": "@aehrc/sdc-template-extract:generated",
+        "system": "urn:aehrc:sdc-template-extract"
+      }
+    ]
+  },
+  "type": "transaction",
+  "timestamp": "2026-10-28T13:51:27.326Z",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:668c9e3c-ee65-4895-b333-ea72e57f897e",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/referral-source",
+                "code": "preadmission",
+                "display": "Pre-admission clinic"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "3457005",
+              "display": "Patient referral"
+            }
+          ],
+          "text": "Referral to the blood management service"
+        },
+        "subject": {
+          "reference": "Patient/soln-A3-patient-1"
+        },
+        "requester": {
+          "reference": "Practitioner/pam-surgeon-orthopaedics"
+        },
+        "performer": [
+          {
+            "reference": "Organization/pam-blood-management",
+            "display": "Blood Management Service (synthetic)"
+          }
+        ],
+        "reasonCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "87522002",
+                "display": "Iron deficiency anaemia"
+              }
+            ]
+          }
+        ],
+        "supportingInfo": [
+          {
+            "reference": "ServiceRequest/soln-A3-patient-1-surgery"
+          }
+        ],
+        "note": [
+          {
+            "text": "Hb 98 g/L, ferritin 12 ug/L at pre-admission clinic"
+          }
+        ],
+        "priority": "urgent",
+        "authoredOn": "2026-10-28"
+      },
+      "request": {
+        "method": "POST",
+        "url": "ServiceRequest"
+      }
+    }
+  ]
+}

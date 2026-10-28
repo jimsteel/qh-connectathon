@@ -1,0 +1,130 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "soln-A3-patient-1",
+        "name": [
+          {
+            "use": "official",
+            "given": [
+              "Avery"
+            ],
+            "family": "Solnthree"
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1957-03-14",
+        "address": [
+          {
+            "use": "home",
+            "city": "Chermside",
+            "state": "QLD",
+            "postalCode": "4032",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/soln-A3-patient-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "soln-A3-patient-1-surgery",
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category",
+                "code": "2",
+                "display": "Category 2"
+              }
+            ],
+            "text": "Category 2"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "52734007",
+              "display": "Total hip replacement"
+            }
+          ],
+          "text": "Total hip replacement"
+        },
+        "subject": {
+          "reference": "Patient/soln-A3-patient-1"
+        },
+        "occurrenceDateTime": "2026-11-18",
+        "authoredOn": "2026-09-02",
+        "requester": {
+          "reference": "Practitioner/pam-surgeon-orthopaedics"
+        },
+        "performer": [
+          {
+            "reference": "Organization/pam-unit-orthopaedics"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/soln-A3-patient-1-surgery"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "soln-A3-patient-1-surgery-old",
+        "status": "completed",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category",
+                "code": "3",
+                "display": "Category 3"
+              }
+            ],
+            "text": "Category 3"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "80146002",
+              "display": "Appendicectomy"
+            }
+          ],
+          "text": "Appendicectomy"
+        },
+        "subject": {
+          "reference": "Patient/soln-A3-patient-1"
+        },
+        "occurrenceDateTime": "2019-05-02",
+        "authoredOn": "2019-04-20",
+        "requester": {
+          "reference": "Practitioner/pam-surgeon-colorectal"
+        },
+        "performer": [
+          {
+            "reference": "Organization/pam-unit-colorectal"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/soln-A3-patient-1-surgery-old"
+      }
+    }
+  ]
+}

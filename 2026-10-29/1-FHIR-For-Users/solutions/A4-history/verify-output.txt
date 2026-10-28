@@ -1,0 +1,87 @@
+PASS query historyConditions (problem list only, not the encounter diagnosis)  ["soln-A4-patient-1-condition-1","soln-A4-patient-1-condition-2","soln-A4-patient-1-condition-3"]
+PASS query historyProcedures  ["soln-A4-patient-1-procedure-1","soln-A4-patient-1-procedure-2"]
+PASS query historyMedications (active only)  ["soln-A4-patient-1-medication-1","soln-A4-patient-1-medication-2"]
+PASS query historyAllergies  ["soln-A4-patient-1-allergy-1"]
+PASS rows: conditions  [{"code":["239873007"],"status":["active"],"onset":["2019-11-20"]},{"code":["433144002"],"status":["active"],"onset":["2021-05-10"]},{"code":["44054006"],"statu
+PASS rows: procedures  [{"code":["73761001"],"date":["2024-02-15"]},{"code":["80146002"],"date":["1989-07-10"]}]
+PASS rows: medications  [{"code":["134251000036103"],"dose":["5 mg twice daily"]},{"code":["23358011000036102"],"dose":["500 mg twice daily"]}]
+PASS rows: allergies  [{"code":["764146007"],"reaction":["271807003"],"criticality":["high"]}]
+PASS criticality code is one of the answerOptions  true
+PASS standalone pam-sex initial  ["female"]
+PASS sexCode (female)  ["female"]
+PASS HMB enabled for female  [true]
+PASS sexCode (male)  ["male"]
+PASS HMB enabled for male  [false]
+PASS HMB with no sex recorded -> not enabled (empty)  []
+PASS Condition from comorbidity: recordedDate = now()  true
+PASS Condition from comorbidity (CKD stage)  {".code.coding[0]":["433144002"],".subject._reference":["Patient/soln-A4-patient-1"],"ifNoneExist":["patient=soln-A4-patient-1&code=http://snomed.info/sct|43314
+PASS new Condition: recordedDate = now()  true
+PASS new Condition  {".clinicalStatus.coding[0]":["active"],".code.coding[0]":["84114007"],".subject._reference":["Patient/soln-A4-patient-1"],"._onsetDateTime":["2022-01-15"],"ifN
+PASS new Procedure  {".code.coding[0]":["52734007"],".subject._reference":["Patient/soln-A4-patient-1"],"._performedDateTime":["2012-04-03"],"ifNoneExist":["patient=soln-A4-patient
+PASS Endoscopy 1 (abnormal, with findings)  {".code.coding[0]":["386831001"],".subject._reference":["Patient/soln-A4-patient-1"],"._performedDateTime":["2026-09-01"],".note[0]._text":["Abnormal: Gastric u
+PASS Endoscopy 2 (normal, no findings)  {".code.coding[0]":["73761001"],".subject._reference":["Patient/soln-A4-patient-1"],"._performedDateTime":["2026-09-02"],".note[0]._text":["Normal"],"ifNoneExis
+PASS Transfusion  {".subject._reference":["Patient/soln-A4-patient-1"],"._performedDateTime":["2018-06-01"],".complication[0].coding[0]":["302972002"]}
+PASS every expression verified (identical text counts once)  []
+PASS enableWhen targets exist and answer types match  []
+PASS deepest enableWhen chain: pam-history-scope-findings <- pam-history-scope-result <- pam-history-gi-investigated <- pam-history-gi  true
+PASS standalone carries the same module group  true
+PASS no templateExtract item nested under a question  []
+PASS pam-history-condition-code: expands (129922 codes), SNOMED CT-AU  true
+PASS pam-history-condition-code: 433144002 in value set  true
+PASS pam-history-condition-code: 44054006 in value set  true
+PASS pam-history-condition-code: 239873007 in value set  true
+PASS pam-history-procedure-code: expands (24214 codes), SNOMED CT-AU  true
+PASS pam-history-procedure-code: 80146002 in value set  true
+PASS pam-history-procedure-code: 73761001 in value set  true
+PASS pam-history-procedure-code: 52734007 in value set  true
+PASS pam-history-procedure-code: 386831001 in value set  true
+PASS pam-history-medication-code: expands (10972 codes), SNOMED CT-AU  true
+PASS pam-history-medication-code: 134251000036103 in value set  true
+PASS pam-history-medication-code: 23358011000036102 in value set  true
+PASS pam-history-medication-code: 703906002 in value set  true
+PASS pam-history-allergy-code: expands (32498 codes), SNOMED CT-AU  true
+PASS pam-history-allergy-code: 764146007 in value set  true
+PASS pam-history-allergy-reaction: expands (129922 codes), SNOMED CT-AU  true
+PASS pam-history-allergy-reaction: 271807003 in value set  true
+PASS pam-history-antithrombotic-med: expands (42 codes), SNOMED CT-AU  true
+PASS pam-history-antithrombotic-med: 703906002 in value set  true
+PASS pam-history-antithrombotic-med: 48603004 in value set  true
+PASS pam-history-antithrombotic-med: 7947003 in value set  true
+PASS pam-history-antithrombotic-med: 108979001 in value set  true
+PASS pam-history-antithrombotic-med: 23358011000036102 NOT in value set  false
+PASS pam-history-antithrombotic-med: 21522001 NOT in value set  false
+PASS pam-history-transfusion-reaction-type: expands (37 codes), SNOMED CT-AU  true
+PASS pam-history-transfusion-reaction-type: 302972002 in value set  true
+PASS pam-history-cancer-type: expands (6175 codes), SNOMED CT-AU  true
+PASS pam-history-cancer-type: 363346000 in value set  true
+PASS pam-history-coag-type: expands (276 codes), SNOMED CT-AU  true
+PASS pam-history-coag-type: 64779008 in value set  true
+PASS pam-history-liver-type: expands (663 codes), SNOMED CT-AU  true
+PASS pam-history-liver-type: 235856003 in value set  true
+PASS pam-history-new-condition-code: expands (129922 codes), SNOMED CT-AU  true
+PASS pam-history-new-condition-code: 84114007 in value set  true
+PASS pam-history-new-procedure-code: expands (24214 codes), SNOMED CT-AU  true
+PASS pam-history-new-procedure-code: 52734007 in value set  true
+PASS pam-history-gi-symptoms: 2901004 display  "Melaena"
+PASS pam-history-gi-symptoms: 405729008 display  "Haematochezia"
+PASS pam-history-gi-symptoms: 8765009 display  "Haematemesis"
+PASS pam-history-gi-symptoms: 88111009 display  "Altered bowel function"
+PASS pam-history-gi-symptoms: 162031009 display  "Indigestion"
+PASS pam-history-gi-symptoms: 21522001 display  "Abdominal pain"
+PASS pam-history-gi-symptoms: 89362005 display  "Weight loss"
+PASS pam-history-scope-type: 386831001 display  "Gastroscopy"
+PASS pam-history-scope-type: 73761001 display  "Colonoscopy"
+PASS pam-history-scope-type: 427595003 display  "Capsule endoscopy"
+PASS pam-history-iron-product: 1312141000168105 display  "Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial"
+PASS pam-history-iron-product: 1086251000168104 display  "Iron (as ferric derisomaltose) 100 mg/mL injection, vial"
+PASS pam-history-ckd-stage: 431855005 display  "Chronic kidney disease stage 1"
+PASS pam-history-ckd-stage: 431856006 display  "Chronic kidney disease stage 2"
+PASS pam-history-ckd-stage: 433144002 display  "Chronic kidney disease stage 3"
+PASS pam-history-ckd-stage: 431857002 display  "Chronic kidney disease stage 4"
+PASS pam-history-ckd-stage: 433146000 display  "Chronic kidney disease stage 5"
+PASS pam-history-ckd-stage: 709044004 display  "Chronic kidney disease"
+PASS pam-history-ibd-type: 34000006 display  "Crohn's disease"
+PASS pam-history-ibd-type: 64766004 display  "Ulcerative colitis"
+PASS pam-history-ibd-type: 24526004 display  "Inflammatory bowel disease"
+
+all 85 checks passed

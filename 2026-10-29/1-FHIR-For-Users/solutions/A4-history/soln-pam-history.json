@@ -1,0 +1,2121 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "soln-pam-history",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assemble-expectation",
+      "valueCode": "assemble-child"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    }
+  ],
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-history",
+  "version": "0.2.0",
+  "name": "PAMHistory",
+  "title": "PAM module — Past medical and surgical history (full solution A4)",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-28",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 1 (synthetic demo, not for clinical use)",
+  "contained": [
+    {
+      "resourceType": "Condition",
+      "id": "PAMHistoryConditionCkdTemplate",
+      "clinicalStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+            "code": "active",
+            "display": "Active"
+          }
+        ]
+      },
+      "verificationStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+            "code": "confirmed",
+            "display": "Confirmed"
+          }
+        ]
+      },
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "problem-list-item",
+              "display": "Problem List Item"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_recordedDate": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      }
+    },
+    {
+      "resourceType": "Condition",
+      "id": "PAMHistoryConditionIbdTemplate",
+      "clinicalStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+            "code": "active",
+            "display": "Active"
+          }
+        ]
+      },
+      "verificationStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+            "code": "confirmed",
+            "display": "Confirmed"
+          }
+        ]
+      },
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "problem-list-item",
+              "display": "Problem List Item"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_recordedDate": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      }
+    },
+    {
+      "resourceType": "Condition",
+      "id": "PAMHistoryConditionCancerTemplate",
+      "clinicalStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+            "code": "active",
+            "display": "Active"
+          }
+        ]
+      },
+      "verificationStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+            "code": "confirmed",
+            "display": "Confirmed"
+          }
+        ]
+      },
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "problem-list-item",
+              "display": "Problem List Item"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_recordedDate": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      }
+    },
+    {
+      "resourceType": "Condition",
+      "id": "PAMHistoryConditionCoagTemplate",
+      "clinicalStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+            "code": "active",
+            "display": "Active"
+          }
+        ]
+      },
+      "verificationStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+            "code": "confirmed",
+            "display": "Confirmed"
+          }
+        ]
+      },
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "problem-list-item",
+              "display": "Problem List Item"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_recordedDate": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      }
+    },
+    {
+      "resourceType": "Condition",
+      "id": "PAMHistoryConditionLiverTemplate",
+      "clinicalStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+            "code": "active",
+            "display": "Active"
+          }
+        ]
+      },
+      "verificationStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+            "code": "confirmed",
+            "display": "Confirmed"
+          }
+        ]
+      },
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "problem-list-item",
+              "display": "Problem List Item"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_recordedDate": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      }
+    },
+    {
+      "resourceType": "Condition",
+      "id": "PAMHistoryNewConditionTemplate",
+      "clinicalStatus": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-history-new-condition-status').answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "verificationStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+            "code": "confirmed",
+            "display": "Confirmed"
+          }
+        ]
+      },
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "problem-list-item",
+              "display": "Problem List Item"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-history-new-condition-code').answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_onsetDateTime": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "item.where(linkId='pam-history-new-condition-onset').answer.value.toString()"
+          }
+        ]
+      },
+      "_recordedDate": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      }
+    },
+    {
+      "resourceType": "Procedure",
+      "id": "PAMHistoryNewProcedureTemplate",
+      "status": "completed",
+      "code": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-history-new-procedure-code').answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_performedDateTime": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "item.where(linkId='pam-history-new-procedure-date').answer.value.toString()"
+          }
+        ]
+      }
+    },
+    {
+      "resourceType": "Procedure",
+      "id": "PAMEndoscopyTemplate",
+      "status": "completed",
+      "category": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "103693007",
+            "display": "Diagnostic procedure"
+          }
+        ]
+      },
+      "code": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-history-scope-type').answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_performedDateTime": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "item.where(linkId='pam-history-scope-date').answer.value.toString()"
+          }
+        ]
+      },
+      "note": [
+        {
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-history-scope-result').answer.value + iif(item.where(linkId='pam-history-scope-findings').answer.value.exists(), ': ' + item.where(linkId='pam-history-scope-findings').answer.value, '')"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "resourceType": "Procedure",
+      "id": "PAMTransfusionTemplate",
+      "status": "completed",
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "116863004",
+            "display": "Transfusion of red blood cells"
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_performedDateTime": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "item.where(linkId='pam-history-transfusion-date').answer.value.toString()"
+          }
+        ]
+      },
+      "complication": [
+        {
+          "coding": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                  "valueString": "item.where(linkId='pam-history-transfusion-reaction-type').answer.value"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "description": "Solution to Track 1 scenario A4. Uses the root's shared variable sexCode (no new shared variables).",
+  "item": [
+    {
+      "linkId": "pam-history",
+      "text": "History",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "historyConditions",
+            "language": "application/x-fhir-query",
+            "expression": "Condition?patient={{%patient.id}}&category=problem-list-item"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "historyProcedures",
+            "language": "application/x-fhir-query",
+            "expression": "Procedure?patient={{%patient.id}}&_sort=-date"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "historyMedications",
+            "language": "application/x-fhir-query",
+            "expression": "MedicationStatement?patient={{%patient.id}}&status=active"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "historyAllergies",
+            "language": "application/x-fhir-query",
+            "expression": "AllergyIntolerance?patient={{%patient.id}}"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "pam-history-module",
+          "text": "Module",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            }
+          ],
+          "initial": [
+            {
+              "valueString": "pam-history|0.2.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-history-record",
+          "text": "On record",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-history-condition",
+              "text": "Conditions (problem list)",
+              "type": "group",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemPopulationContext",
+                  "valueExpression": {
+                    "name": "ConditionRow",
+                    "language": "text/fhirpath",
+                    "expression": "%historyConditions.entry.resource.where(resourceType='Condition')"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "gtable"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "repeats": true,
+              "readOnly": true,
+              "item": [
+                {
+                  "linkId": "pam-history-condition-code",
+                  "text": "Condition",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "autocomplete"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%ConditionRow.code.coding.first()"
+                      }
+                    }
+                  ],
+                  "answerValueSet": "http://snomed.info/sct/32506021000036107?fhir_vs=ecl/%3C%3C%20404684003"
+                },
+                {
+                  "linkId": "pam-history-condition-status",
+                  "text": "Status",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%ConditionRow.clinicalStatus.coding.first()"
+                      }
+                    }
+                  ],
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                        "code": "active",
+                        "display": "Active"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                        "code": "inactive",
+                        "display": "Inactive"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                        "code": "resolved",
+                        "display": "Resolved"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-condition-onset",
+                  "text": "Onset",
+                  "type": "date",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%ConditionRow.onset.toString().substring(0, 10)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-history-procedure",
+              "text": "Procedures",
+              "type": "group",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemPopulationContext",
+                  "valueExpression": {
+                    "name": "ProcedureRow",
+                    "language": "text/fhirpath",
+                    "expression": "%historyProcedures.entry.resource.where(resourceType='Procedure')"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "gtable"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "repeats": true,
+              "readOnly": true,
+              "item": [
+                {
+                  "linkId": "pam-history-procedure-code",
+                  "text": "Procedure",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "autocomplete"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%ProcedureRow.code.coding.first()"
+                      }
+                    }
+                  ],
+                  "answerValueSet": "http://snomed.info/sct/32506021000036107?fhir_vs=ecl/%3C%3C%20387713003%20OR%20%3C%3C%20423827005%20OR%20%3C%3C%20116859006"
+                },
+                {
+                  "linkId": "pam-history-procedure-date",
+                  "text": "Date",
+                  "type": "date",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%ProcedureRow.performed.toString().substring(0, 10)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-history-medication",
+              "text": "Current medications",
+              "type": "group",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemPopulationContext",
+                  "valueExpression": {
+                    "name": "MedicationRow",
+                    "language": "text/fhirpath",
+                    "expression": "%historyMedications.entry.resource.where(resourceType='MedicationStatement')"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "gtable"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "repeats": true,
+              "readOnly": true,
+              "item": [
+                {
+                  "linkId": "pam-history-medication-code",
+                  "text": "Medication",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "autocomplete"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%MedicationRow.medication.coding.first()"
+                      }
+                    }
+                  ],
+                  "answerValueSet": "http://snomed.info/sct/32506021000036107?fhir_vs=ecl/%5E%20929360061000036106%20OR%20%5E%20929360071000036103"
+                },
+                {
+                  "linkId": "pam-history-medication-dose",
+                  "text": "Dose",
+                  "type": "string",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%MedicationRow.dosage.text.first()"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-history-allergy",
+              "text": "Allergies and adverse reactions",
+              "type": "group",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemPopulationContext",
+                  "valueExpression": {
+                    "name": "AllergyRow",
+                    "language": "text/fhirpath",
+                    "expression": "%historyAllergies.entry.resource.where(resourceType='AllergyIntolerance')"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "gtable"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "repeats": true,
+              "readOnly": true,
+              "item": [
+                {
+                  "linkId": "pam-history-allergy-code",
+                  "text": "Substance",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "autocomplete"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%AllergyRow.code.coding.first()"
+                      }
+                    }
+                  ],
+                  "answerValueSet": "http://snomed.info/sct/32506021000036107?fhir_vs=ecl/%3C%3C%20105590001%20OR%20%5E%20929360061000036106"
+                },
+                {
+                  "linkId": "pam-history-allergy-reaction",
+                  "text": "Reaction",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "autocomplete"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%AllergyRow.reaction.manifestation.coding.first()"
+                      }
+                    }
+                  ],
+                  "answerValueSet": "http://snomed.info/sct/32506021000036107?fhir_vs=ecl/%3C%3C%20404684003"
+                },
+                {
+                  "linkId": "pam-history-allergy-criticality",
+                  "text": "Criticality",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                      "valueExpression": {
+                        "language": "text/fhirpath",
+                        "expression": "%AllergyRow.criticality"
+                      }
+                    }
+                  ],
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "system": "http://hl7.org/fhir/allergy-intolerance-criticality",
+                        "code": "low",
+                        "display": "Low Risk"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://hl7.org/fhir/allergy-intolerance-criticality",
+                        "code": "high",
+                        "display": "High Risk"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://hl7.org/fhir/allergy-intolerance-criticality",
+                        "code": "unable-to-assess",
+                        "display": "Unable to Assess Risk"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-history-screen",
+          "text": "Bleeding and anaemia screening",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-history-gi-group",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "pam-history-gi",
+                  "text": "Gastrointestinal symptoms or blood loss?",
+                  "type": "boolean"
+                },
+                {
+                  "linkId": "pam-history-gi-symptoms",
+                  "text": "Symptoms",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "check-box"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "repeats": true,
+                  "enableWhen": [
+                    {
+                      "question": "pam-history-gi",
+                      "operator": "=",
+                      "answerBoolean": true
+                    }
+                  ],
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "2901004",
+                        "display": "Melaena"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "405729008",
+                        "display": "Haematochezia"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "8765009",
+                        "display": "Haematemesis"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "88111009",
+                        "display": "Altered bowel function"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "162031009",
+                        "display": "Indigestion"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "21522001",
+                        "display": "Abdominal pain"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "89362005",
+                        "display": "Weight loss"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-gi-investigated",
+                  "text": "Investigated with endoscopy?",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "radio-button"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "enableWhen": [
+                    {
+                      "question": "pam-history-gi",
+                      "operator": "=",
+                      "answerBoolean": true
+                    }
+                  ],
+                  "answerOption": [
+                    {
+                      "valueString": "Yes, done"
+                    },
+                    {
+                      "valueString": "Planned / referred"
+                    },
+                    {
+                      "valueString": "Not investigated"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-scope",
+                  "text": "Endoscopy",
+                  "type": "group",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                      "extension": [
+                        {
+                          "url": "template",
+                          "valueReference": {
+                            "reference": "#PAMEndoscopyTemplate"
+                          }
+                        },
+                        {
+                          "url": "ifNoneExist",
+                          "valueString": "'patient=' + %resource.subject.reference.replace('Patient/', '') + '&code=' + item.where(linkId='pam-history-scope-type').answer.value.system + '|' + item.where(linkId='pam-history-scope-type').answer.value.code + '&date=' + item.where(linkId='pam-history-scope-date').answer.value.toString()"
+                        }
+                      ]
+                    }
+                  ],
+                  "repeats": true,
+                  "enableWhen": [
+                    {
+                      "question": "pam-history-gi-investigated",
+                      "operator": "=",
+                      "answerString": "Yes, done"
+                    }
+                  ],
+                  "item": [
+                    {
+                      "linkId": "pam-history-scope-type",
+                      "text": "Procedure",
+                      "type": "choice",
+                      "required": true,
+                      "answerOption": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "386831001",
+                            "display": "Gastroscopy"
+                          }
+                        },
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "73761001",
+                            "display": "Colonoscopy"
+                          }
+                        },
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "427595003",
+                            "display": "Capsule endoscopy"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-scope-date",
+                      "text": "Date",
+                      "type": "date"
+                    },
+                    {
+                      "linkId": "pam-history-scope-result",
+                      "text": "Result",
+                      "type": "choice",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                          "valueCodeableConcept": {
+                            "coding": [
+                              {
+                                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                                "code": "radio-button"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "answerOption": [
+                        {
+                          "valueString": "Normal"
+                        },
+                        {
+                          "valueString": "Abnormal"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-scope-findings",
+                      "text": "Findings",
+                      "type": "text",
+                      "enableWhen": [
+                        {
+                          "question": "pam-history-scope-result",
+                          "operator": "=",
+                          "answerString": "Abnormal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-gi-planned",
+                  "text": "Planned date",
+                  "type": "date",
+                  "enableWhen": [
+                    {
+                      "question": "pam-history-gi-investigated",
+                      "operator": "=",
+                      "answerString": "Planned / referred"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-history-hmb-group",
+              "type": "group",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%sexCode = 'female'"
+                  }
+                }
+              ],
+              "item": [
+                {
+                  "linkId": "pam-history-hmb",
+                  "text": "Heavy menstrual bleeding?",
+                  "type": "boolean"
+                },
+                {
+                  "linkId": "pam-history-hmb-reviewed-group",
+                  "type": "group",
+                  "enableWhen": [
+                    {
+                      "question": "pam-history-hmb",
+                      "operator": "=",
+                      "answerBoolean": true
+                    }
+                  ],
+                  "item": [
+                    {
+                      "linkId": "pam-history-hmb-reviewed",
+                      "text": "Reviewed by gynaecology?",
+                      "type": "boolean"
+                    },
+                    {
+                      "linkId": "pam-history-hmb-plan",
+                      "text": "Management plan",
+                      "type": "text",
+                      "enableWhen": [
+                        {
+                          "question": "pam-history-hmb-reviewed",
+                          "operator": "=",
+                          "answerBoolean": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-history-antithrombotic-group",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "pam-history-antithrombotic",
+                  "text": "Taking an anticoagulant or antiplatelet medicine?",
+                  "type": "boolean"
+                },
+                {
+                  "linkId": "pam-history-antithrombotic-med",
+                  "text": "Medicine",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "autocomplete"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "repeats": true,
+                  "enableWhen": [
+                    {
+                      "question": "pam-history-antithrombotic",
+                      "operator": "=",
+                      "answerBoolean": true
+                    }
+                  ],
+                  "answerValueSet": "http://snomed.info/sct/32506021000036107?fhir_vs=ecl/%5E%20929360061000036106%20%3A%20127489000%20%3D%20%28%3C%3C%20372862008%20OR%20%3C%3C%20771452004%20%29"
+                },
+                {
+                  "linkId": "pam-history-antithrombotic-plan-group",
+                  "type": "group",
+                  "enableWhen": [
+                    {
+                      "question": "pam-history-antithrombotic",
+                      "operator": "=",
+                      "answerBoolean": true
+                    }
+                  ],
+                  "item": [
+                    {
+                      "linkId": "pam-history-antithrombotic-plan",
+                      "text": "Plan before surgery",
+                      "type": "choice",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                          "valueCodeableConcept": {
+                            "coding": [
+                              {
+                                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                                "code": "radio-button"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "answerOption": [
+                        {
+                          "valueString": "Stop before surgery"
+                        },
+                        {
+                          "valueString": "Stop with bridging"
+                        },
+                        {
+                          "valueString": "Continue"
+                        },
+                        {
+                          "valueString": "Not yet decided"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-antithrombotic-stop",
+                      "text": "Last dose on",
+                      "type": "date",
+                      "enableBehavior": "any",
+                      "enableWhen": [
+                        {
+                          "question": "pam-history-antithrombotic-plan",
+                          "operator": "=",
+                          "answerString": "Stop before surgery"
+                        },
+                        {
+                          "question": "pam-history-antithrombotic-plan",
+                          "operator": "=",
+                          "answerString": "Stop with bridging"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-history-transfusion-group",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "pam-history-transfusion",
+                  "text": "Previous blood transfusion?",
+                  "type": "boolean"
+                },
+                {
+                  "linkId": "pam-history-transfusion-details",
+                  "text": "Most recent transfusion",
+                  "type": "group",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                      "extension": [
+                        {
+                          "url": "template",
+                          "valueReference": {
+                            "reference": "#PAMTransfusionTemplate"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "enableWhen": [
+                    {
+                      "question": "pam-history-transfusion",
+                      "operator": "=",
+                      "answerBoolean": true
+                    }
+                  ],
+                  "item": [
+                    {
+                      "linkId": "pam-history-transfusion-date",
+                      "text": "Date (approximate)",
+                      "type": "date"
+                    },
+                    {
+                      "linkId": "pam-history-transfusion-reaction",
+                      "text": "Any transfusion reaction?",
+                      "type": "boolean"
+                    },
+                    {
+                      "linkId": "pam-history-transfusion-reaction-type",
+                      "text": "Reaction",
+                      "type": "choice",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                          "valueCodeableConcept": {
+                            "coding": [
+                              {
+                                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                                "code": "autocomplete"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "enableWhen": [
+                        {
+                          "question": "pam-history-transfusion-reaction",
+                          "operator": "=",
+                          "answerBoolean": true
+                        }
+                      ],
+                      "answerValueSet": "http://snomed.info/sct/32506021000036107?fhir_vs=ecl/%3C%3C%2082545002"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-transfusion-consent",
+                  "text": "Would the patient accept a transfusion if needed?",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "radio-button"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "enableWhen": [
+                    {
+                      "question": "pam-history-transfusion",
+                      "operator": "exists",
+                      "answerBoolean": true
+                    }
+                  ],
+                  "answerOption": [
+                    {
+                      "valueString": "Yes"
+                    },
+                    {
+                      "valueString": "Limited consent"
+                    },
+                    {
+                      "valueString": "No"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-history-iron-group",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "pam-history-iron",
+                  "text": "Previous iron therapy?",
+                  "type": "boolean"
+                },
+                {
+                  "linkId": "pam-history-iron-route-group",
+                  "type": "group",
+                  "enableWhen": [
+                    {
+                      "question": "pam-history-iron",
+                      "operator": "=",
+                      "answerBoolean": true
+                    }
+                  ],
+                  "item": [
+                    {
+                      "linkId": "pam-history-iron-route",
+                      "text": "Route",
+                      "type": "choice",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                          "valueCodeableConcept": {
+                            "coding": [
+                              {
+                                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                                "code": "radio-button"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "answerOption": [
+                        {
+                          "valueString": "Oral"
+                        },
+                        {
+                          "valueString": "Intravenous"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-iron-product",
+                      "text": "IV iron product",
+                      "type": "choice",
+                      "enableWhen": [
+                        {
+                          "question": "pam-history-iron-route",
+                          "operator": "=",
+                          "answerString": "Intravenous"
+                        }
+                      ],
+                      "answerOption": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "1312141000168105",
+                            "display": "Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial"
+                          }
+                        },
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "1086251000168104",
+                            "display": "Iron (as ferric derisomaltose) 100 mg/mL injection, vial"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-iron-reaction-group",
+                      "type": "group",
+                      "enableWhen": [
+                        {
+                          "question": "pam-history-iron-route",
+                          "operator": "=",
+                          "answerString": "Intravenous"
+                        }
+                      ],
+                      "item": [
+                        {
+                          "linkId": "pam-history-iron-reaction",
+                          "text": "Reaction to IV iron?",
+                          "type": "boolean"
+                        },
+                        {
+                          "linkId": "pam-history-iron-reaction-details",
+                          "text": "Details",
+                          "type": "text",
+                          "enableWhen": [
+                            {
+                              "question": "pam-history-iron-reaction",
+                              "operator": "=",
+                              "answerBoolean": true
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-iron-tolerated",
+                      "text": "Oral iron tolerated?",
+                      "type": "boolean",
+                      "enableWhen": [
+                        {
+                          "question": "pam-history-iron-route",
+                          "operator": "=",
+                          "answerString": "Oral"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-history-comorbidities",
+              "text": "Conditions associated with anaemia",
+              "type": "group",
+              "item": [
+                {
+                  "linkId": "pam-history-ckd-group",
+                  "type": "group",
+                  "item": [
+                    {
+                      "linkId": "pam-history-ckd",
+                      "text": "Chronic kidney disease?",
+                      "type": "boolean"
+                    },
+                    {
+                      "linkId": "pam-history-ckd-stage",
+                      "text": "Stage",
+                      "type": "choice",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                          "extension": [
+                            {
+                              "url": "template",
+                              "valueReference": {
+                                "reference": "#PAMHistoryConditionCkdTemplate"
+                              }
+                            },
+                            {
+                              "url": "ifNoneExist",
+                              "valueString": "'patient=' + %resource.subject.reference.replace('Patient/', '') + '&code=' + answer.value.system + '|' + answer.value.code"
+                            }
+                          ]
+                        }
+                      ],
+                      "answerOption": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "431855005",
+                            "display": "Chronic kidney disease stage 1"
+                          }
+                        },
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "431856006",
+                            "display": "Chronic kidney disease stage 2"
+                          }
+                        },
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "433144002",
+                            "display": "Chronic kidney disease stage 3"
+                          }
+                        },
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "431857002",
+                            "display": "Chronic kidney disease stage 4"
+                          }
+                        },
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "433146000",
+                            "display": "Chronic kidney disease stage 5"
+                          }
+                        },
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "709044004",
+                            "display": "Chronic kidney disease"
+                          }
+                        }
+                      ],
+                      "enableWhen": [
+                        {
+                          "question": "pam-history-ckd",
+                          "operator": "=",
+                          "answerBoolean": true
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-ckd-dialysis",
+                      "text": "On dialysis?",
+                      "type": "boolean",
+                      "enableBehavior": "any",
+                      "enableWhen": [
+                        {
+                          "question": "pam-history-ckd-stage",
+                          "operator": "=",
+                          "answerCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "431857002",
+                            "display": "Chronic kidney disease stage 4"
+                          }
+                        },
+                        {
+                          "question": "pam-history-ckd-stage",
+                          "operator": "=",
+                          "answerCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "433146000",
+                            "display": "Chronic kidney disease stage 5"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-ibd-group",
+                  "type": "group",
+                  "item": [
+                    {
+                      "linkId": "pam-history-ibd",
+                      "text": "Inflammatory bowel disease?",
+                      "type": "boolean"
+                    },
+                    {
+                      "linkId": "pam-history-ibd-type",
+                      "text": "Type",
+                      "type": "choice",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                          "extension": [
+                            {
+                              "url": "template",
+                              "valueReference": {
+                                "reference": "#PAMHistoryConditionIbdTemplate"
+                              }
+                            },
+                            {
+                              "url": "ifNoneExist",
+                              "valueString": "'patient=' + %resource.subject.reference.replace('Patient/', '') + '&code=' + answer.value.system + '|' + answer.value.code"
+                            }
+                          ]
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                          "valueCodeableConcept": {
+                            "coding": [
+                              {
+                                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                                "code": "radio-button"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "answerOption": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "34000006",
+                            "display": "Crohn's disease"
+                          }
+                        },
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "64766004",
+                            "display": "Ulcerative colitis"
+                          }
+                        },
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "24526004",
+                            "display": "Inflammatory bowel disease"
+                          }
+                        }
+                      ],
+                      "enableWhen": [
+                        {
+                          "question": "pam-history-ibd",
+                          "operator": "=",
+                          "answerBoolean": true
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-cancer-group",
+                  "type": "group",
+                  "item": [
+                    {
+                      "linkId": "pam-history-cancer",
+                      "text": "Cancer?",
+                      "type": "boolean"
+                    },
+                    {
+                      "linkId": "pam-history-cancer-type",
+                      "text": "Type",
+                      "type": "choice",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                          "extension": [
+                            {
+                              "url": "template",
+                              "valueReference": {
+                                "reference": "#PAMHistoryConditionCancerTemplate"
+                              }
+                            },
+                            {
+                              "url": "ifNoneExist",
+                              "valueString": "'patient=' + %resource.subject.reference.replace('Patient/', '') + '&code=' + answer.value.system + '|' + answer.value.code"
+                            }
+                          ]
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                          "valueCodeableConcept": {
+                            "coding": [
+                              {
+                                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                                "code": "autocomplete"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "answerValueSet": "http://snomed.info/sct/32506021000036107?fhir_vs=ecl/%3C%3C%20363346000",
+                      "enableWhen": [
+                        {
+                          "question": "pam-history-cancer",
+                          "operator": "=",
+                          "answerBoolean": true
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-cancer-active",
+                      "text": "Current chemotherapy or radiotherapy?",
+                      "type": "boolean",
+                      "enableWhen": [
+                        {
+                          "question": "pam-history-cancer",
+                          "operator": "=",
+                          "answerBoolean": true
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-coag-group",
+                  "type": "group",
+                  "item": [
+                    {
+                      "linkId": "pam-history-coag",
+                      "text": "Bleeding or clotting disorder?",
+                      "type": "boolean"
+                    },
+                    {
+                      "linkId": "pam-history-coag-type",
+                      "text": "Type",
+                      "type": "choice",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                          "extension": [
+                            {
+                              "url": "template",
+                              "valueReference": {
+                                "reference": "#PAMHistoryConditionCoagTemplate"
+                              }
+                            },
+                            {
+                              "url": "ifNoneExist",
+                              "valueString": "'patient=' + %resource.subject.reference.replace('Patient/', '') + '&code=' + answer.value.system + '|' + answer.value.code"
+                            }
+                          ]
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                          "valueCodeableConcept": {
+                            "coding": [
+                              {
+                                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                                "code": "autocomplete"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "answerValueSet": "http://snomed.info/sct/32506021000036107?fhir_vs=ecl/%3C%3C%2064779008",
+                      "enableWhen": [
+                        {
+                          "question": "pam-history-coag",
+                          "operator": "=",
+                          "answerBoolean": true
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-liver-group",
+                  "type": "group",
+                  "item": [
+                    {
+                      "linkId": "pam-history-liver",
+                      "text": "Liver disease?",
+                      "type": "boolean"
+                    },
+                    {
+                      "linkId": "pam-history-liver-type",
+                      "text": "Type",
+                      "type": "choice",
+                      "extension": [
+                        {
+                          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                          "extension": [
+                            {
+                              "url": "template",
+                              "valueReference": {
+                                "reference": "#PAMHistoryConditionLiverTemplate"
+                              }
+                            },
+                            {
+                              "url": "ifNoneExist",
+                              "valueString": "'patient=' + %resource.subject.reference.replace('Patient/', '') + '&code=' + answer.value.system + '|' + answer.value.code"
+                            }
+                          ]
+                        },
+                        {
+                          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                          "valueCodeableConcept": {
+                            "coding": [
+                              {
+                                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                                "code": "autocomplete"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "answerValueSet": "http://snomed.info/sct/32506021000036107?fhir_vs=ecl/%3C%3C%20235856003",
+                      "enableWhen": [
+                        {
+                          "question": "pam-history-liver",
+                          "operator": "=",
+                          "answerBoolean": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-history-add",
+          "text": "Add to the patient's record",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-history-new-condition",
+              "text": "New condition",
+              "type": "group",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                  "extension": [
+                    {
+                      "url": "template",
+                      "valueReference": {
+                        "reference": "#PAMHistoryNewConditionTemplate"
+                      }
+                    },
+                    {
+                      "url": "ifNoneExist",
+                      "valueString": "'patient=' + %resource.subject.reference.replace('Patient/', '') + '&code=' + item.where(linkId='pam-history-new-condition-code').answer.value.system + '|' + item.where(linkId='pam-history-new-condition-code').answer.value.code"
+                    }
+                  ]
+                }
+              ],
+              "repeats": true,
+              "item": [
+                {
+                  "linkId": "pam-history-new-condition-code",
+                  "text": "Condition",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "autocomplete"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "answerValueSet": "http://snomed.info/sct/32506021000036107?fhir_vs=ecl/%3C%3C%20404684003"
+                },
+                {
+                  "linkId": "pam-history-new-condition-status",
+                  "text": "Status",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "radio-button"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                        "code": "active",
+                        "display": "Active"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                        "code": "resolved",
+                        "display": "Resolved"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-new-condition-onset",
+                  "text": "Onset",
+                  "type": "date"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-history-new-procedure",
+              "text": "New past procedure",
+              "type": "group",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                  "extension": [
+                    {
+                      "url": "template",
+                      "valueReference": {
+                        "reference": "#PAMHistoryNewProcedureTemplate"
+                      }
+                    },
+                    {
+                      "url": "ifNoneExist",
+                      "valueString": "'patient=' + %resource.subject.reference.replace('Patient/', '') + '&code=' + item.where(linkId='pam-history-new-procedure-code').answer.value.system + '|' + item.where(linkId='pam-history-new-procedure-code').answer.value.code"
+                    }
+                  ]
+                }
+              ],
+              "repeats": true,
+              "item": [
+                {
+                  "linkId": "pam-history-new-procedure-code",
+                  "text": "Procedure",
+                  "type": "choice",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                      "valueCodeableConcept": {
+                        "coding": [
+                          {
+                            "system": "http://hl7.org/fhir/questionnaire-item-control",
+                            "code": "autocomplete"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "answerValueSet": "http://snomed.info/sct/32506021000036107?fhir_vs=ecl/%3C%3C%20387713003%20OR%20%3C%3C%20423827005%20OR%20%3C%3C%20116859006"
+                },
+                {
+                  "linkId": "pam-history-new-procedure-date",
+                  "text": "Date",
+                  "type": "date"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

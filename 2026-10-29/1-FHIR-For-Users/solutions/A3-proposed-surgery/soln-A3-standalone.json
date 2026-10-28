@@ -1,0 +1,563 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "soln-A3-standalone",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "surgeryDate",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-surgery-date').answer.value"
+      }
+    }
+  ],
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A3-standalone",
+  "version": "0.2.0",
+  "name": "PAMProposedSurgeryStandalone",
+  "title": "A3 Proposed surgery — standalone test form",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-28",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 1 (synthetic demo, not for clinical use)",
+  "contained": [
+    {
+      "resourceType": "ServiceRequest",
+      "id": "PAMReferralTemplate",
+      "status": "active",
+      "intent": "order",
+      "category": [
+        {
+          "coding": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                  "valueString": "item.where(linkId='pam-referral-source').answer.value"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "3457005",
+            "display": "Patient referral"
+          }
+        ],
+        "text": "Referral to the blood management service"
+      },
+      "_priority": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "iif(%resource.repeat(item).where(linkId='pam-surgery-days').answer.value < 28, 'urgent', 'routine')"
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_authoredOn": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "item.where(linkId='pam-referral-date').answer.value.toString()"
+          }
+        ]
+      },
+      "requester": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.repeat(item).where(linkId='pam-surgery-surgeon-ref').answer.value"
+            }
+          ]
+        }
+      },
+      "performer": [
+        {
+          "reference": "Organization/pam-blood-management",
+          "display": "Blood Management Service (synthetic)"
+        }
+      ],
+      "reasonCode": [
+        {
+          "coding": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                  "valueString": "item.where(linkId='pam-referral-reason').answer.value"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "supportingInfo": [
+        {
+          "_reference": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "%resource.repeat(item).where(linkId='pam-surgery-waitlist-ref').answer.value"
+              }
+            ]
+          }
+        }
+      ],
+      "note": [
+        {
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-referral-note').answer.value"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "description": "The A3 module with the root variable it needs, so it runs on its own in the Smart Forms playground.",
+  "item": [
+    {
+      "linkId": "pam-surgery",
+      "text": "Proposed surgery",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "waitlist",
+            "language": "application/x-fhir-query",
+            "expression": "ServiceRequest?patient={{%patient.id}}&category=https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category|&status=active&_sort=occurrence&_include=ServiceRequest:requester&_include=ServiceRequest:performer"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "bmsReferral",
+            "language": "application/x-fhir-query",
+            "expression": "ServiceRequest?patient={{%patient.id}}&code=http://snomed.info/sct|3457005&_sort=-authored&_count=1"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "pam-proposed-surgery-module",
+          "text": "Module",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            }
+          ],
+          "initial": [
+            {
+              "valueString": "pam-proposed-surgery|0.2.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-surgery-waitlist-ref",
+          "text": "Waitlist entry (reference)",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%waitlist.entry.resource.where(resourceType='ServiceRequest').first().select('ServiceRequest/' + id)"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-surgery-surgeon-ref",
+          "text": "Surgeon (reference)",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%waitlist.entry.resource.where(resourceType='ServiceRequest').first().requester.reference"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-surgery-unit-ref",
+          "text": "Surgical unit (reference)",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%waitlist.entry.resource.where(resourceType='ServiceRequest').first().performer.first().reference"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-surgery-procedure",
+          "text": "Procedure",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "autocomplete"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%waitlist.entry.resource.where(resourceType='ServiceRequest').first().code.coding.where(system='http://snomed.info/sct').first()"
+              }
+            }
+          ],
+          "answerValueSet": "http://snomed.info/sct/32506021000036107?fhir_vs=ecl/%3C%3C%20387713003"
+        },
+        {
+          "linkId": "pam-surgery-surgeon",
+          "text": "Surgeon",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%waitlist.entry.resource.where(resourceType='Practitioner' and ('Practitioner/' + id) = %waitlist.entry.resource.where(resourceType='ServiceRequest').first().requester.reference).name.first().select(iif(prefix.exists(), prefix.first() + ' ', '') + given.first() + ' ' + family)"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-surgery-unit",
+          "text": "Surgical unit",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%waitlist.entry.resource.where(resourceType='Organization' and ('Organization/' + id) = %waitlist.entry.resource.where(resourceType='ServiceRequest').first().performer.first().reference).name"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-surgery-category",
+          "text": "Elective surgery category (1: within 30 days, 2: within 90 days, 3: within 365 days)",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "radio-button"
+                  }
+                ]
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%waitlist.entry.resource.where(resourceType='ServiceRequest').first().category.coding.where(system='https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category').first()"
+              }
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category",
+                "code": "1",
+                "display": "Category 1"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category",
+                "code": "2",
+                "display": "Category 2"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category",
+                "code": "3",
+                "display": "Category 3"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-surgery-date",
+          "text": "Booked surgery date",
+          "type": "date",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%waitlist.entry.resource.where(resourceType='ServiceRequest').first().occurrence.toString().substring(0, 10)"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-surgery-days",
+          "text": "Days until surgery",
+          "type": "integer",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "d",
+                "display": "days"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%surgeryDate.toString().select(365 * (substring(0,4).toInteger() - iif(substring(5,2).toInteger() <= 2, 1, 0)) + (substring(0,4).toInteger() - iif(substring(5,2).toInteger() <= 2, 1, 0)) div 4 - (substring(0,4).toInteger() - iif(substring(5,2).toInteger() <= 2, 1, 0)) div 100 + (substring(0,4).toInteger() - iif(substring(5,2).toInteger() <= 2, 1, 0)) div 400 + (153 * iif(substring(5,2).toInteger() > 2, substring(5,2).toInteger() - 3, substring(5,2).toInteger() + 9) + 2) div 5 + substring(8,2).toInteger()) - today().toString().select(365 * (substring(0,4).toInteger() - iif(substring(5,2).toInteger() <= 2, 1, 0)) + (substring(0,4).toInteger() - iif(substring(5,2).toInteger() <= 2, 1, 0)) div 4 - (substring(0,4).toInteger() - iif(substring(5,2).toInteger() <= 2, 1, 0)) div 100 + (substring(0,4).toInteger() - iif(substring(5,2).toInteger() <= 2, 1, 0)) div 400 + (153 * iif(substring(5,2).toInteger() > 2, substring(5,2).toInteger() - 3, substring(5,2).toInteger() + 9) + 2) div 5 + substring(8,2).toInteger())"
+              }
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "pam-surgery-soon",
+          "text": "Less than 4 weeks to surgery: IV iron may not take full effect in time. Consider an urgent referral (threshold to confirm with Metro North).",
+          "type": "display",
+          "enableWhen": [
+            {
+              "question": "pam-surgery-days",
+              "operator": "<",
+              "answerInteger": 28
+            }
+          ]
+        },
+        {
+          "linkId": "pam-surgery-existing-referral",
+          "text": "Previous referral to the blood management service (date, if any)",
+          "type": "date",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%bmsReferral.entry.resource.authoredOn.toString().substring(0, 10)"
+              }
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "pam-referral-make",
+          "text": "Refer the patient to the blood management service now?",
+          "type": "boolean"
+        },
+        {
+          "linkId": "pam-referral",
+          "text": "Referral to the blood management service",
+          "type": "group",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+              "extension": [
+                {
+                  "url": "template",
+                  "valueReference": {
+                    "reference": "#PAMReferralTemplate"
+                  }
+                }
+              ]
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "pam-referral-make",
+              "operator": "=",
+              "answerBoolean": true
+            }
+          ],
+          "item": [
+            {
+              "linkId": "pam-referral-date",
+              "text": "Referral date",
+              "type": "date",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "today()"
+                  }
+                }
+              ],
+              "required": true
+            },
+            {
+              "linkId": "pam-referral-source",
+              "text": "Referral source",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "required": true,
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/referral-source",
+                    "code": "surgeon",
+                    "display": "Surgeon"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/referral-source",
+                    "code": "preadmission",
+                    "display": "Pre-admission clinic"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/referral-source",
+                    "code": "anaesthetist",
+                    "display": "Anaesthetist"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/referral-source",
+                    "code": "gp",
+                    "display": "General practitioner"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-referral-reason",
+              "text": "Reason for referral",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "271737000",
+                    "display": "Anaemia"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "87522002",
+                    "display": "Iron deficiency anaemia"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "35240004",
+                    "display": "Iron deficiency"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "234347009",
+                    "display": "Anaemia of chronic disease"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-referral-note",
+              "text": "Notes for the blood management team",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

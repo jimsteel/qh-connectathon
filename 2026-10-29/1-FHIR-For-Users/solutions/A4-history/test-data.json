@@ -1,0 +1,430 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "soln-A4-patient-1",
+        "name": [
+          {
+            "use": "official",
+            "given": [
+              "Blair"
+            ],
+            "family": "Solnfour"
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1954-08-02",
+        "address": [
+          {
+            "use": "home",
+            "city": "Nundah",
+            "state": "QLD",
+            "postalCode": "4012",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/soln-A4-patient-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "soln-A4-patient-1-condition-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "433144002",
+              "display": "Chronic kidney disease stage 3"
+            }
+          ],
+          "text": "Chronic kidney disease stage 3"
+        },
+        "subject": {
+          "reference": "Patient/soln-A4-patient-1"
+        },
+        "onsetDateTime": "2021-05-10"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/soln-A4-patient-1-condition-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "soln-A4-patient-1-condition-2",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "44054006",
+              "display": "Type 2 diabetes"
+            }
+          ],
+          "text": "Type 2 diabetes"
+        },
+        "subject": {
+          "reference": "Patient/soln-A4-patient-1"
+        },
+        "onsetDateTime": "2015-03-01"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/soln-A4-patient-1-condition-2"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "soln-A4-patient-1-condition-3",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "239873007",
+              "display": "Osteoarthritis of knee"
+            }
+          ],
+          "text": "Osteoarthritis of knee"
+        },
+        "subject": {
+          "reference": "Patient/soln-A4-patient-1"
+        },
+        "onsetDateTime": "2019-11-20"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/soln-A4-patient-1-condition-3"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "soln-A4-patient-1-condition-4",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "encounter-diagnosis",
+                "display": "Encounter Diagnosis"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "87522002",
+              "display": "Iron deficiency anaemia"
+            }
+          ],
+          "text": "Iron deficiency anaemia"
+        },
+        "subject": {
+          "reference": "Patient/soln-A4-patient-1"
+        },
+        "onsetDateTime": "2026-10-01"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/soln-A4-patient-1-condition-4"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "soln-A4-patient-1-procedure-1",
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "80146002",
+              "display": "Appendicectomy"
+            }
+          ],
+          "text": "Appendicectomy"
+        },
+        "subject": {
+          "reference": "Patient/soln-A4-patient-1"
+        },
+        "performedDateTime": "1989-07-10"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/soln-A4-patient-1-procedure-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "soln-A4-patient-1-procedure-2",
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "73761001",
+              "display": "Colonoscopy"
+            }
+          ],
+          "text": "Colonoscopy"
+        },
+        "subject": {
+          "reference": "Patient/soln-A4-patient-1"
+        },
+        "performedDateTime": "2024-02-15"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/soln-A4-patient-1-procedure-2"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "soln-A4-patient-1-medication-1",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "134251000036103",
+              "display": "Apixaban 5 mg tablet"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A4-patient-1"
+        },
+        "dosage": [
+          {
+            "text": "5 mg twice daily"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/soln-A4-patient-1-medication-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "soln-A4-patient-1-medication-2",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "23358011000036102",
+              "display": "Metformin hydrochloride 500 mg tablet"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A4-patient-1"
+        },
+        "dosage": [
+          {
+            "text": "500 mg twice daily"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/soln-A4-patient-1-medication-2"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "soln-A4-patient-1-medication-3",
+        "status": "completed",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "71724000",
+              "display": "Ferrous sulfate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A4-patient-1"
+        },
+        "dosage": [
+          {
+            "text": "Stopped: not tolerated"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/soln-A4-patient-1-medication-3"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "soln-A4-patient-1-allergy-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "criticality": "high",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "764146007",
+              "display": "Penicillin"
+            }
+          ],
+          "text": "Penicillin"
+        },
+        "patient": {
+          "reference": "Patient/soln-A4-patient-1"
+        },
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "271807003",
+                    "display": "Rash"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "AllergyIntolerance/soln-A4-patient-1-allergy-1"
+      }
+    }
+  ]
+}

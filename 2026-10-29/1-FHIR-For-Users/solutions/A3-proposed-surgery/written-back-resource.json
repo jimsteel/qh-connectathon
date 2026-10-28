@@ -1,0 +1,67 @@
+{
+  "resourceType": "ServiceRequest",
+  "id": "855",
+  "meta": {
+    "versionId": "1",
+    "lastUpdated": "2026-10-28T13:51:32.000+00:00",
+    "source": "#Geq5d0ihXjdfJ1vd"
+  },
+  "status": "active",
+  "intent": "order",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/referral-source",
+          "code": "preadmission",
+          "display": "Pre-admission clinic"
+        }
+      ]
+    }
+  ],
+  "priority": "urgent",
+  "code": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "3457005",
+        "display": "Patient referral"
+      }
+    ],
+    "text": "Referral to the blood management service"
+  },
+  "subject": {
+    "reference": "Patient/soln-A3-patient-1"
+  },
+  "authoredOn": "2026-10-28",
+  "requester": {
+    "reference": "Practitioner/pam-surgeon-orthopaedics"
+  },
+  "performer": [
+    {
+      "reference": "Organization/pam-blood-management",
+      "display": "Blood Management Service (synthetic)"
+    }
+  ],
+  "reasonCode": [
+    {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "87522002",
+          "display": "Iron deficiency anaemia"
+        }
+      ]
+    }
+  ],
+  "supportingInfo": [
+    {
+      "reference": "ServiceRequest/soln-A3-patient-1-surgery"
+    }
+  ],
+  "note": [
+    {
+      "text": "Hb 98 g/L, ferritin 12 ug/L at pre-admission clinic"
+    }
+  ]
+}
