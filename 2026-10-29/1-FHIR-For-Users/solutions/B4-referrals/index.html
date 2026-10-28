@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PAM Referrals Over Time</title>
+<script src="https://cdn.jsdelivr.net/npm/fhirclient@2.6.3/build/fhir-client.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/4.1.2/plotly-cartesian.min.js"></script>
+<style>
+  :root {
+    --navy: #0A2033; --bg: #F6F8F9; --card: #FFFFFF; --text: #0A2033; --muted: #5B6B78; --line: #DCE3E8;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); }
+  header { background: var(--navy); color: #F2F6F8; padding: 16px 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; }
+  header h1 { font-size: 20px; margin: 0; font-weight: 600; }
+  header .src { font-size: 13px; color: #C7D3DC; word-break: break-all; }
+  main { padding: 20px 24px 40px; max-width: 1280px; margin: 0 auto; }
+  .bar { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; margin-bottom: 16px; }
+  label { font-size: 14px; color: var(--muted); }
+  select { font: inherit; padding: 4px 8px; margin-left: 6px; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .tile { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; }
+  .tile .n { font-size: 26px; font-weight: 600; }
+  .tile .l { font-size: 13px; color: var(--muted); }
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; min-width: 0; }
+  .card.wide { grid-column: 1 / -1; }
+  .card h2 { font-size: 16px; margin: 4px 0 0; }
+  .card .sub { font-size: 13px; color: var(--muted); margin: 2px 0 8px; }
+  .chart { height: 340px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; margin-top: 8px; }
+  th, td { text-align: right; padding: 4px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--muted); font-weight: 600; }
+  tr.total td { font-weight: 600; }
+  .scroll { overflow-x: auto; }
+  details { margin-top: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px 16px; }
+  summary { cursor: pointer; font-weight: 600; }
+  pre { background: var(--navy); color: #E1F1F5; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 13px; white-space: pre-wrap; word-break: break-all; }
+  .note { font-size: 13px; color: var(--muted); }
+  #status { font-size: 14px; color: var(--muted); }
+  #status.error { color: #B00020; }
+  @media (max-width: 520px) { main { padding: 16px; } header { padding: 16px; } .charts { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Preoperative anaemia — referrals over time (PAM 9, 10, 11)</h1>
+  <span class="src" id="source">Connecting…</span>
+</header>
+<main>
+  <div class="bar">
+    <label>Financial year
+      <select id="fy"><option value="">All</option></select>
+    </label>
+    <span id="status">Loading…</span>
+  </div>
+
+  <div class="tiles">
+    <div class="tile"><div class="n" id="t-referrals">–</div><div class="l">Referrals to blood management</div></div>
+    <div class="tile"><div class="n" id="t-waitlist">–</div><div class="l">Cases added to the surgical waitlist</div></div>
+    <div class="tile"><div class="n" id="t-rate">–</div><div class="l">Referrals per 100 waitlisted cases</div></div>
+    <div class="tile"><div class="n" id="t-diagnosed">–</div><div class="l">Referrals with an anaemia / iron diagnosis</div></div>
+  </div>
+
+  <div class="charts">
+    <div class="card"><h2>Referrals per quarter by category (PAM 9)</h2><p class="sub">Elective surgery category of the patient's waitlist entry · Australian financial-year quarters</p><div class="chart" id="by-category"></div></div>
+    <div class="card"><h2>Referrals vs waitlisted cases (PAM 10)</h2><p class="sub">Referrals to blood management and cases added to the surgical waitlist, per quarter</p><div class="chart" id="vs-waitlist"></div></div>
+    <div class="card wide"><h2>Referrals per quarter by diagnosis (PAM 11)</h2><p class="sub">The patient's diagnosis (Condition, SNOMED CT-AU) recorded for this referral, stacked</p><div class="chart" id="by-diagnosis"></div></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>Table</h2>
+    <p class="sub">The numbers behind the charts. Q1 = Jul–Sep, Q2 = Oct–Dec, Q3 = Jan–Mar, Q4 = Apr–Jun.</p>
+    <div class="scroll"><table id="table"></table></div>
+  </div>
+
+  <details>
+    <summary>How the numbers are derived from FHIR</summary>
+    <pre id="query"></pre>
+    <ul class="note">
+      <li><b>Referral:</b> ServiceRequest with code SNOMED 3457005 (Patient referral), status not
+        <code>entered-in-error</code>/<code>revoked</code>/<code>draft</code>; counted in the quarter of <code>authoredOn</code>.</li>
+      <li><b>Waitlisted case:</b> ServiceRequest with a <code>category</code> from the <code>elective-category</code> code system
+        (the surgical waitlist entry), status not entered-in-error; counted in the quarter of <code>authoredOn</code> (date placed on the list).</li>
+      <li><b>Category of a referral:</b> the <code>category</code> of the waitlist entry the referral points to with
+        <code>supportingInfo</code>; failing that, the patient's most recent waitlist entry authored on or before the referral.</li>
+      <li><b>Diagnosis of a referral:</b> the patient's Condition (SNOMED CT) with the earliest <code>recordedDate</code> on or after
+        the referral date (else the latest one before it). Conditions without a code show as "Uncoded"; no Condition at all as
+        "No anaemia diagnosis" (screened and cleared).</li>
+      <li><b>Quarters:</b> Australian financial year (1 July – 30 June); "2025–26 Q1" is Jul–Sep 2025. "All" spans the first to the
+        last quarter with a referral; waitlist entries authored outside that span are not shown.</li>
+    </ul>
+  </details>
+</main>
+
+<script>
+  const SCT = 'http://snomed.info/sct';
+  const ELECTIVE = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category';
+  const statusEl = document.getElementById('status');
+
+  const params = new URLSearchParams(location.search);
+  const openServer = params.get('server') || params.get('fhirServiceUrl');
+  const clientPromise = openServer ? Promise.resolve(FHIR.client(openServer)) : FHIR.oauth2.ready();
+
+  // '|' written as %7C: Meld's gateway rejects a raw '|'
+  const QUERIES = {
+    referrals: `ServiceRequest?code=${SCT}%7C3457005&_count=200`,
+    waitlist: `ServiceRequest?category=${ELECTIVE}%7C&_count=200`,
+    conditions: 'Condition?_count=200',
+  };
+
+  // Categorical slots in fixed order (validated palette); grey for "unknown"/"none"
+  const SLOTS = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#008300'];
+  const GREY = '#9AA7B1';
+  const CATEGORIES = [['1', 'Category 1'], ['2', 'Category 2'], ['3', 'Category 3']];
+  const DIAGNOSES = [['87522002', 'Iron deficiency anaemia'], ['35240004', 'Iron deficiency'], ['234347009', 'Anaemia of chronic disease'], ['271737000', 'Anaemia']];
+
+  const day = (s) => (s || '').slice(0, 10);
+  const ref = (r) => (r?.reference || '').split('/').pop();
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  // Australian financial-year quarter: FY starts 1 July; returns e.g. {fy: '2025–26', q: 1, key: '2025-1'}
+  function fyQuarter(date) {
+    const y = +date.slice(0, 4), m = +date.slice(5, 7);
+    const start = m >= 7 ? y : y - 1;
+    const q = m >= 7 ? Math.ceil((m - 6) / 3) : Math.ceil((m + 6) / 3);
+    return { fy: `${start}–${String(start + 1).slice(2)}`, start, q, key: `${start}-${q}`, label: `${start}–${String(start + 1).slice(2)} Q${q}` };
+  }
+  function quarterRange(keys) {
+    if (!keys.length) return [];
+    const toN = (k) => { const [s, q] = k.split('-').map(Number); return s * 4 + q - 1; };
+    const ns = keys.map(toN), out = [];
+    for (let n = Math.min(...ns); n <= Math.max(...ns); n++) {
+      const s = Math.floor(n / 4), q = (n % 4) + 1;
+      out.push({ key: `${s}-${q}`, label: `${s}–${String(s + 1).slice(2)} Q${q}`, fy: `${s}–${String(s + 1).slice(2)}` });
+    }
+    return out;
+  }
+
+  function build(data) {
+    const waitlist = data.waitlist.filter((s) => s.resourceType === 'ServiceRequest' && s.status !== 'entered-in-error' && day(s.authoredOn));
+    const waitById = Object.fromEntries(waitlist.map((s) => [s.id, s]));
+    const waitByPatient = {};
+    waitlist.forEach((s) => (waitByPatient[ref(s.subject)] ??= []).push(s));
+    const condByPatient = {};
+    data.conditions.filter((c) => c.resourceType === 'Condition' && c.verificationStatus?.coding?.[0]?.code !== 'entered-in-error')
+      .forEach((c) => (condByPatient[ref(c.subject)] ??= []).push(c));
+    const categoryOf = (s) => (s?.category || []).flatMap((c) => c.coding || []).find((c) => c.system === ELECTIVE)?.code;
+
+    const referrals = data.referrals.filter((s) => s.resourceType === 'ServiceRequest' && !['entered-in-error', 'revoked', 'draft'].includes(s.status) && day(s.authoredOn))
+      .map((s) => {
+        const pid = ref(s.subject), date = day(s.authoredOn);
+        const linked = (s.supportingInfo || []).map((r) => waitById[ref(r)]).find(Boolean);
+        const fallback = (waitByPatient[pid] || []).filter((w) => day(w.authoredOn) <= date).sort((a, b) => day(b.authoredOn).localeCompare(day(a.authoredOn)))[0];
+        const conds = (condByPatient[pid] || []).map((c) => ({ c, d: day(c.recordedDate || c.onsetDateTime || c.meta?.lastUpdated) })).sort((a, b) => a.d.localeCompare(b.d));
+        const cond = (conds.find((x) => x.d >= date) || conds[conds.length - 1])?.c;
+        const coding = cond?.code?.coding?.find((c) => c.system === SCT) || cond?.code?.coding?.[0];
+        const dx = !cond ? 'none' : coding ? coding.code : 'uncoded';
+        return { id: s.id, pid, date, ...fyQuarter(date), category: categoryOf(linked || fallback) || 'unknown', dx, dxLabel: cond?.code?.text || coding?.display || '' };
+      });
+    const waitRows = waitlist.map((s) => ({ id: s.id, date: day(s.authoredOn), ...fyQuarter(day(s.authoredOn)), category: categoryOf(s) || 'unknown' }));
+    return { referrals, waitRows };
+  }
+
+  const layout = (stack) => ({
+    barmode: stack ? 'stack' : 'group', bargap: 0.3, margin: { t: 10, r: 10, b: 60, l: 45 }, legend: { orientation: 'h', y: -0.22, traceorder: 'normal' },
+    yaxis: { title: { text: 'Count' }, gridcolor: '#E6ECF0', zeroline: false, rangemode: 'tozero' },
+    xaxis: { type: 'category' }, hovermode: 'x unified',
+    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { family: 'system-ui, sans-serif', size: 12, color: '#0A2033' },
+  });
+  const bar = (name, x, y, colour) => ({ type: 'bar', name, x, y, marker: { color: colour, line: { color: '#FFFFFF', width: 2 } }, hovertemplate: `${name}: %{y}<extra></extra>` });
+  const opts = { displayModeBar: false, responsive: true };
+
+  let cache = null;
+  function render() {
+    const fy = document.getElementById('fy').value;
+    const all = build(cache);
+    // A financial year shows its four quarters; "All" spans the quarters that have referrals, and waitlisted cases
+    // outside that span (e.g. old waitlist entries) are left out so both series cover the same period
+    const quarters = fy ? [1, 2, 3, 4].map((q) => ({ key: `${fy.slice(0, 4)}-${q}`, label: `${fy} Q${q}`, fy }))
+      : quarterRange(all.referrals.map((r) => r.key));
+    const inRange = (r) => quarters.some((q) => q.key === r.key);
+    const refs = all.referrals.filter(inRange), waits = all.waitRows.filter(inRange);
+    const x = quarters.map((q) => q.label);
+    const count = (rows, pred) => quarters.map((q) => rows.filter((r) => r.key === q.key && pred(r)).length);
+
+    // PAM 9: by category
+    const catSeries = CATEGORIES.map(([code, name], i) => ({ name, y: count(refs, (r) => r.category === code), colour: SLOTS[i] }));
+    const unknownCat = count(refs, (r) => !CATEGORIES.some(([c]) => c === r.category));
+    if (unknownCat.some(Boolean)) catSeries.push({ name: 'Unknown', y: unknownCat, colour: GREY });
+    Plotly.react('by-category', catSeries.map((s) => bar(s.name, x, s.y, s.colour)), layout(true), opts);
+
+    // PAM 10: referrals vs waitlisted cases (same unit, one axis)
+    const refN = count(refs, () => true), waitN = count(waits, () => true);
+    Plotly.react('vs-waitlist', [bar('Referrals', x, refN, SLOTS[0]), bar('Waitlisted cases', x, waitN, GREY)], layout(false), opts);
+
+    // PAM 11: by diagnosis
+    const dxSeries = DIAGNOSES.map(([code, name], i) => ({ name, y: count(refs, (r) => r.dx === code), colour: SLOTS[i] }));
+    const otherDx = refs.filter((r) => !['none', 'uncoded'].includes(r.dx) && !DIAGNOSES.some(([c]) => c === r.dx));
+    if (otherDx.length) dxSeries.push({ name: 'Other diagnosis', y: count(refs, (r) => otherDx.includes(r)), colour: SLOTS[4] });
+    const uncoded = count(refs, (r) => r.dx === 'uncoded');
+    if (uncoded.some(Boolean)) dxSeries.push({ name: 'Uncoded', y: uncoded, colour: SLOTS[5] });
+    dxSeries.push({ name: 'No anaemia diagnosis', y: count(refs, (r) => r.dx === 'none'), colour: GREY });
+    Plotly.react('by-diagnosis', dxSeries.map((s) => bar(s.name, x, s.y, s.colour)), layout(true), opts);
+
+    // Table and tiles
+    const rate = (r, w) => (w ? Math.round((100 * r) / w) : '–');
+    const rows = [...catSeries.map((s) => ({ label: `Referrals: ${s.name}`, y: s.y })), { label: 'Referrals: total', y: refN, total: true },
+      { label: 'Waitlisted cases', y: waitN, total: true }, { label: 'Referrals per 100 waitlisted', y: refN.map((r, i) => rate(r, waitN[i])) },
+      ...dxSeries.map((s) => ({ label: `Diagnosis: ${s.name}`, y: s.y }))];
+    const sum = (ys) => ys.reduce((a, b) => a + (typeof b === 'number' ? b : 0), 0);
+    document.getElementById('table').innerHTML = `<tr><th>Measure</th>${x.map((l) => `<th>${l}</th>`).join('')}<th>Total</th></tr>` +
+      rows.map((r) => `<tr class="${r.total ? 'total' : ''}"><td>${esc(r.label)}</td>${r.y.map((v) => `<td>${v}</td>`).join('')}<td>${
+        r.label.startsWith('Referrals per') ? rate(sum(refN), sum(waitN)) : sum(r.y)}</td></tr>`).join('');
+    document.getElementById('t-referrals').textContent = refs.length;
+    document.getElementById('t-waitlist').textContent = waits.length;
+    document.getElementById('t-rate').textContent = rate(refs.length, waits.length);
+    document.getElementById('t-diagnosed').textContent = refs.filter((r) => r.dx !== 'none').length;
+    statusEl.textContent = `${all.referrals.length} referrals and ${all.waitRows.length} waitlist entries read; ${waits.length} waitlist entries fall in the quarters shown`;
+    window.B4_RESULT = { fy, quarters: x, byCategory: Object.fromEntries(catSeries.map((s) => [s.name, s.y])), referrals: refN, waitlisted: waitN,
+      byDiagnosis: Object.fromEntries(dxSeries.map((s) => [s.name, s.y])) };
+  }
+
+  clientPromise.then(async (client) => {
+    const user = client.getFhirUser?.();
+    document.getElementById('source').textContent = client.state.serverUrl + (user ? ` · ${user}` : ' · open endpoint (no login)');
+    document.getElementById('query').textContent = Object.values(QUERIES).map((q) => `GET ${client.state.serverUrl}/${q.replaceAll('%7C', '|')}`).join('\n');
+    try {
+      const get = (q) => client.request(q, { pageLimit: 0, flat: true });
+      const [referrals, waitlist, conditions] = await Promise.all([get(QUERIES.referrals), get(QUERIES.waitlist), get(QUERIES.conditions)]);
+      cache = { referrals, waitlist, conditions };
+      const fys = [...new Set([...build(cache).referrals, ...build(cache).waitRows].map((r) => r.fy))].sort();
+      const sel = document.getElementById('fy');
+      fys.forEach((f) => sel.add(new Option(`FY ${f}`, f)));
+      sel.addEventListener('change', render);
+      render();
+    } catch (e) {
+      statusEl.className = 'error'; statusEl.textContent = 'Could not load referrals: ' + e.message;
+    }
+  }).catch((e) => {
+    statusEl.className = 'error';
+    statusEl.textContent = 'Not launched. Launch this app from the sandbox, or add ?server=<FHIR base URL> to read an open endpoint. (' + e.message + ')';
+  });
+</script>
+</body>
+</html>

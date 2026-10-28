@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PAM Nurse Worklist</title>
+<script src="https://cdn.jsdelivr.net/npm/fhirclient@2.6.3/build/fhir-client.min.js"></script>
+<style>
+  :root {
+    --navy: #0A2033; --teal: #00738F; --orange: #B9531A;
+    --bg: #F6F8F9; --card: #FFFFFF; --text: #0A2033; --muted: #5B6B78; --line: #DCE3E8;
+    --critical: #B00020; --warning: #8A5A00; --warning-bg: #FFF4D6; --critical-bg: #FDE7EA;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); }
+  header { background: var(--navy); color: #F2F6F8; padding: 16px 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; }
+  header h1 { font-size: 20px; margin: 0; font-weight: 600; }
+  header .src { font-size: 13px; color: #C7D3DC; word-break: break-all; }
+  main { padding: 20px 24px 40px; max-width: 1400px; margin: 0 auto; }
+  .bar { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; margin-bottom: 16px; }
+  label { font-size: 14px; color: var(--muted); }
+  select, input { font: inherit; padding: 4px 8px; margin-left: 6px; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .tile { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; }
+  .tile .n { font-size: 26px; font-weight: 600; }
+  .tile .l { font-size: 13px; color: var(--muted); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; }
+  .card h2 { font-size: 16px; margin: 4px 0 0; }
+  .card .sub { font-size: 13px; color: var(--muted); margin: 2px 0 8px; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; white-space: nowrap; }
+  td.num { text-align: right; white-space: nowrap; }
+  .note { font-size: 12px; color: var(--muted); }
+  .badge { display: inline-block; font-size: 12px; padding: 1px 6px; border-radius: 4px; white-space: nowrap; font-weight: 600; }
+  .badge.overdue { background: var(--critical-bg); color: var(--critical); }
+  .badge.soon { background: var(--warning-bg); color: var(--warning); }
+  .badge.ok { background: #E8F1F4; color: var(--muted); font-weight: 500; }
+  .low { color: var(--critical); font-weight: 600; }
+  details { margin-top: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px 16px; }
+  summary { cursor: pointer; font-weight: 600; }
+  pre { background: var(--navy); color: #E1F1F5; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 13px; white-space: pre-wrap; word-break: break-all; }
+  #status { font-size: 14px; color: var(--muted); }
+  #status.error { color: var(--critical); }
+  @media (max-width: 520px) { main { padding: 16px; } header { padding: 16px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Blood management — nurse worklist (PAM 6)</h1>
+  <span class="src" id="source">Connecting…</span>
+</header>
+<main>
+  <div class="bar">
+    <label>Care manager <select id="manager"><option value="">All</option></select></label>
+    <label>Show
+      <select id="show">
+        <option value="all">All being managed</option>
+        <option value="due">Follow-up overdue or due within 7 days</option>
+      </select>
+    </label>
+    <label>Sort by
+      <select id="sort">
+        <option value="surgery">Surgery date</option>
+        <option value="due">Follow-up due</option>
+      </select>
+    </label>
+    <label>Today <input type="date" id="today"></label>
+    <span id="status">Loading…</span>
+  </div>
+
+  <div class="tiles">
+    <div class="tile"><div class="n" id="t-managed">–</div><div class="l">Being managed (active episodes)</div></div>
+    <div class="tile"><div class="n" id="t-overdue">–</div><div class="l">Follow-ups overdue</div></div>
+    <div class="tile"><div class="n" id="t-soon">–</div><div class="l">Follow-ups due in the next 7 days</div></div>
+    <div class="tile"><div class="n" id="t-surgery">–</div><div class="l">Surgery within 14 days</div></div>
+    <div class="tile"><div class="n" id="t-noplan">–</div><div class="l">Being managed, no open follow-up</div></div>
+  </div>
+
+  <div class="card">
+    <h2>Patients being managed</h2>
+    <p class="sub">Active PAM EpisodeOfCare, soonest surgery first, with each patient's open follow-up Task.</p>
+    <div class="scroll"><table id="worklist"></table></div>
+  </div>
+
+  <div class="card" id="orphans-card" hidden>
+    <h2>Other open follow-ups</h2>
+    <p class="sub">Open Tasks not attached to an episode in the list above (e.g. the episode has been closed).</p>
+    <div class="scroll"><table id="orphans"></table></div>
+  </div>
+
+  <details>
+    <summary>How the list is derived from FHIR</summary>
+    <pre id="query"></pre>
+    <ul class="note">
+      <li><b>Being managed (PAM 6):</b> EpisodeOfCare with <code>status=active</code> and type <code>episode-type|pam</code>.
+        Patient, care manager (Practitioner) and the referral ServiceRequest come back via <code>_include</code>.
+        "Days with team" = today − <code>period.start</code>.</li>
+      <li><b>Surgery:</b> the waitlist ServiceRequest (category system <code>elective-category</code>) that the referral points to with
+        <code>supportingInfo</code>; if there is none, the patient's active waitlist entry. Date from <code>occurrenceDateTime</code>
+        (or <code>occurrencePeriod.start</code>); procedure from <code>code</code>; unit from the <code>performer</code> Organization;
+        category from <code>category</code>.</li>
+      <li><b>Follow-ups:</b> Tasks with an open status (requested, received, accepted, ready, in-progress, on-hold), matched to an
+        episode by <code>focus</code> (EpisodeOfCare), else by <code>for</code> (Patient). Due date = <code>restriction.period.end</code>
+        (what the synthetic data uses), else <code>executionPeriod.end</code> (what the draft mapping suggests). Overdue = due before today;
+        due soon = within 7 days.</li>
+      <li><b>Latest Hb / ferritin:</b> most recent Observation (LOINC 718-7 / 2276-4) per patient; flagged when below
+        120/130 g/L (F/M) or 100 µg/L.</li>
+      <li>"Today" defaults to the browser's date; set it (or <code>?today=YYYY-MM-DD</code>) to replay the synthetic data as of
+        6 Oct 2026, the date it was generated for.</li>
+    </ul>
+  </details>
+</main>
+
+<script>
+  const LOCAL = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem';
+  const LOINC = 'http://loinc.org', HB = '718-7', FERRITIN = '2276-4';
+  const OPEN_TASK = ['requested', 'received', 'accepted', 'ready', 'in-progress', 'on-hold'];
+  const statusEl = document.getElementById('status');
+
+  const params = new URLSearchParams(location.search);
+  const openServer = params.get('server') || params.get('fhirServiceUrl');
+  const clientPromise = openServer ? Promise.resolve(FHIR.client(openServer)) : FHIR.oauth2.ready();
+  const localToday = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10); };
+  document.getElementById('today').value = params.get('today') || localToday();
+
+  // '|' written as %7C: Meld's gateway rejects a raw '|'
+  const QUERIES = {
+    episodes: `EpisodeOfCare?status=active&type=${LOCAL}/episode-type%7Cpam&_include=EpisodeOfCare:patient&_include=EpisodeOfCare:care-manager&_include=EpisodeOfCare:incoming-referral&_count=200`,
+    tasks: `Task?status=${OPEN_TASK.join(',')}&_include=Task:patient&_include=Task:owner&_count=200`,
+    waitlist: (pids) => `ServiceRequest?category=${LOCAL}/elective-category%7C&subject=${pids.map((p) => 'Patient/' + p).join(',')}&_include=ServiceRequest:performer&_count=200`,
+    labs: (pids) => `Observation?code=${LOINC}%7C${HB},${LOINC}%7C${FERRITIN}&subject=${pids.map((p) => 'Patient/' + p).join(',')}&_count=500`,
+  };
+
+  const day = (s) => (s || '').slice(0, 10);
+  const ref = (r) => (r?.reference || '').split('/').pop();
+  const refType = (r) => (r?.reference || '').split('/').slice(-2, -1)[0];
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const daysBetween = (a, b) => Math.round((Date.parse(b) - Date.parse(a)) / 86400000);
+  const humanName = (r) => { const n = r?.name?.[0]; return n ? [...(n.prefix || []), ...(n.given || []), n.family].filter(Boolean).join(' ') : (r?.id || ''); };
+  const text = (cc) => cc?.text || cc?.coding?.[0]?.display || cc?.coding?.[0]?.code || '';
+  const chunks = (xs, n) => xs.reduce((a, x, i) => (i % n ? a[a.length - 1].push(x) : a.push([x]), a), []);
+  const taskDue = (t) => day(t.restriction?.period?.end || t.executionPeriod?.end || t.restriction?.period?.start);
+
+  async function fetchAll(client) {
+    const get = (q) => client.request(q, { pageLimit: 0, flat: true });
+    const [episodeBundle, taskBundle] = await Promise.all([get(QUERIES.episodes), get(QUERIES.tasks)]);
+    const pids = [...new Set(episodeBundle.filter((r) => r.resourceType === 'EpisodeOfCare').map((e) => ref(e.patient)))];
+    const waitlist = [], labs = [];
+    for (const c of chunks(pids, 20)) {
+      const [w, l] = await Promise.all([get(QUERIES.waitlist(c)), get(QUERIES.labs(c))]);
+      waitlist.push(...w); labs.push(...l);
+    }
+    return { episodeBundle, taskBundle, waitlist, labs };
+  }
+
+  function build(data, today) {
+    const byKey = {};
+    for (const r of [...data.episodeBundle, ...data.taskBundle, ...data.waitlist]) byKey[`${r.resourceType}/${r.id}`] = r;
+    const episodes = data.episodeBundle.filter((r) => r.resourceType === 'EpisodeOfCare');
+    const tasks = data.taskBundle.filter((r) => r.resourceType === 'Task' && OPEN_TASK.includes(r.status));
+    const waitlistByPatient = {};
+    data.waitlist.filter((r) => r.resourceType === 'ServiceRequest').forEach((s) => (waitlistByPatient[ref(s.subject)] ??= []).push(s));
+    const latest = {};
+    data.labs.filter((o) => o.resourceType === 'Observation' && o.valueQuantity && !['entered-in-error', 'cancelled'].includes(o.status)).forEach((o) => {
+      const code = (o.code?.coding || []).find((c) => c.system === LOINC)?.code, pid = ref(o.subject);
+      const d = day(o.effectiveDateTime || o.effectivePeriod?.start || o.issued);
+      const cur = (latest[pid] ??= {})[code];
+      if (!cur || d > cur.date) latest[pid][code] = { date: d, value: o.valueQuantity.value };
+    });
+
+    const usedTasks = new Set();
+    const rows = episodes.map((e) => {
+      const pid = ref(e.patient), patient = byKey[`Patient/${pid}`];
+      const referral = (e.referralRequest || []).map((r) => byKey[`ServiceRequest/${ref(r)}`]).find(Boolean);
+      // Surgery: the waitlist entry the referral points at, else the patient's active waitlist entry with the soonest date
+      const linked = (referral?.supportingInfo || []).map((r) => (waitlistByPatient[pid] || []).find((s) => s.id === ref(r))).find(Boolean);
+      const candidates = (waitlistByPatient[pid] || []).filter((s) => s.status === 'active')
+        .sort((a, b) => (a.occurrenceDateTime || '9999').localeCompare(b.occurrenceDateTime || '9999'));
+      const surgery = linked || candidates[0];
+      const surgeryDate = day(surgery?.occurrenceDateTime || surgery?.occurrencePeriod?.start);
+      const unit = surgery?.performer?.map((p) => byKey[`Organization/${ref(p)}`]).find(Boolean);
+      const epTasks = tasks.filter((t) => (refType(t.focus) === 'EpisodeOfCare' && ref(t.focus) === e.id) ||
+        (refType(t.focus) !== 'EpisodeOfCare' && ref(t.for) === pid)).sort((a, b) => (taskDue(a) || '9999').localeCompare(taskDue(b) || '9999'));
+      epTasks.forEach((t) => usedTasks.add(t.id));
+      const next = epTasks[0];
+      const due = next ? taskDue(next) : null;
+      const manager = byKey[`Practitioner/${ref(e.careManager)}`];
+      const age = patient?.birthDate ? Math.floor(daysBetween(patient.birthDate, today) / 365.25) : null;
+      return {
+        episodeId: e.id, patientId: pid, name: humanName(patient), sex: patient?.gender || '', age,
+        manager: manager ? humanName(manager) : '', managerId: ref(e.careManager),
+        referred: day(e.period?.start), daysWithTeam: e.period?.start ? daysBetween(day(e.period.start), today) : null,
+        surgeryDate, daysToSurgery: surgeryDate ? daysBetween(today, surgeryDate) : null,
+        procedure: text(surgery?.code), unit: unit?.name?.replace(' (synthetic)', '') || '', category: text(surgery?.category?.[0]),
+        task: next ? { id: next.id, text: next.description || text(next.code), due, status: next.status, daysToDue: due ? daysBetween(today, due) : null } : null,
+        otherTasks: epTasks.length - (next ? 1 : 0),
+        hb: latest[pid]?.[HB], ferritin: latest[pid]?.[FERRITIN],
+      };
+    });
+    const orphans = tasks.filter((t) => !usedTasks.has(t.id)).map((t) => ({
+      id: t.id, patientId: ref(t.for), name: humanName(data.taskBundle.find((r) => r.resourceType === 'Patient' && r.id === ref(t.for))),
+      text: t.description || text(t.code), due: taskDue(t), status: t.status, focus: t.focus?.reference || '',
+      owner: humanName(data.taskBundle.find((r) => r.resourceType === 'Practitioner' && r.id === ref(t.owner))),
+    }));
+    return { rows, orphans };
+  }
+
+  function dueBadge(daysToDue, due) {
+    if (daysToDue === null) return '<span class="note">no due date</span>';
+    if (daysToDue < 0) return `<span class="badge overdue">&#9888; Overdue ${-daysToDue} d</span> <span class="note">${due}</span>`;
+    if (daysToDue <= 7) return `<span class="badge soon">&#9201; Due ${daysToDue === 0 ? 'today' : 'in ' + daysToDue + ' d'}</span> <span class="note">${due}</span>`;
+    return `<span class="badge ok">Due in ${daysToDue} d</span> <span class="note">${due}</span>`;
+  }
+  const lab = (v, thr, unit) => v ? `<span class="${v.value < thr ? 'low' : ''}">${v.value}${v.value < thr ? ' &#8595;' : ''}</span> <span class="note">${unit} · ${v.date}</span>` : '–';
+
+  let cache = null;
+  function render() {
+    const today = document.getElementById('today').value || localToday();
+    const { rows, orphans } = build(cache, today);
+    const managerSel = document.getElementById('manager');
+    if (managerSel.options.length === 1) {
+      [...new Map(rows.filter((r) => r.managerId).map((r) => [r.managerId, r.manager])).entries()].sort((a, b) => a[1].localeCompare(b[1]))
+        .forEach(([id, name]) => managerSel.add(new Option(name, id)));
+    }
+    const manager = managerSel.value, show = document.getElementById('show').value, sortBy = document.getElementById('sort').value;
+    let view = rows.filter((r) => !manager || r.managerId === manager);
+    const isDue = (r) => r.task && r.task.daysToDue !== null && r.task.daysToDue <= 7;
+    // Tiles describe the selected care manager's caseload (all of it, regardless of "Show")
+    document.getElementById('t-managed').textContent = view.length;
+    document.getElementById('t-overdue').textContent = view.filter((r) => r.task?.daysToDue < 0).length;
+    document.getElementById('t-soon').textContent = view.filter((r) => r.task && r.task.daysToDue >= 0 && r.task.daysToDue <= 7).length;
+    document.getElementById('t-surgery').textContent = view.filter((r) => r.daysToSurgery !== null && r.daysToSurgery >= 0 && r.daysToSurgery <= 14).length;
+    document.getElementById('t-noplan').textContent = view.filter((r) => !r.task).length;
+    if (show === 'due') view = view.filter(isDue);
+    const key = sortBy === 'due' ? (r) => r.task?.due || '9999' : (r) => r.surgeryDate || '9999';
+    view.sort((a, b) => key(a).localeCompare(key(b)) || a.name.localeCompare(b.name));
+
+    document.getElementById('worklist').innerHTML =
+      '<tr><th>Surgery</th><th>Patient</th><th>Procedure · unit</th><th>Cat.</th><th>Referred</th><th>Care manager</th><th>Latest Hb</th><th>Latest ferritin</th><th>Follow-up</th></tr>' +
+      (view.length ? view.map((r) => `<tr data-episode="${esc(r.episodeId)}">
+        <td>${r.surgeryDate ? `<b>${r.surgeryDate}</b><br>${r.daysToSurgery < 0 ? `<span class="badge overdue">&#9888; ${-r.daysToSurgery} d ago</span>` : r.daysToSurgery <= 14 ? `<span class="badge soon">in ${r.daysToSurgery} d</span>` : `<span class="note">in ${r.daysToSurgery} d</span>`}` : '<span class="note">not booked</span>'}</td>
+        <td><b>${esc(r.name)}</b><br><span class="note">${esc(r.sex)}${r.age !== null ? ', ' + r.age : ''} · ${esc(r.patientId)}</span></td>
+        <td>${esc(r.procedure) || '–'}<br><span class="note">${esc(r.unit)}</span></td>
+        <td>${esc(r.category.replace('Category ', '')) || '–'}</td>
+        <td>${r.referred || '–'}<br><span class="note">${r.daysWithTeam ?? '–'} d with team</span></td>
+        <td>${esc(r.manager) || '–'}</td>
+        <td>${lab(r.hb, r.sex === 'male' ? 130 : 120, 'g/L')}</td>
+        <td>${lab(r.ferritin, 100, 'µg/L')}</td>
+        <td>${r.task ? `${dueBadge(r.task.daysToDue, r.task.due)}<br>${esc(r.task.text)}${r.otherTasks ? ` <span class="note">(+${r.otherTasks} more)</span>` : ''}` : '<span class="badge soon">&#9888; No follow-up planned</span>'}</td>
+      </tr>`).join('') : '<tr><td colspan="9" class="note">Nothing to show.</td></tr>');
+
+    document.getElementById('orphans-card').hidden = !orphans.length;
+    document.getElementById('orphans').innerHTML = '<tr><th>Due</th><th>Patient</th><th>Task</th><th>Owner</th><th>Focus</th></tr>' +
+      orphans.sort((a, b) => (a.due || '9999').localeCompare(b.due || '9999')).map((t) => `<tr><td>${dueBadge(t.due ? daysBetween(today, t.due) : null, t.due)}</td>
+        <td>${esc(t.name)} <span class="note">${esc(t.patientId)}</span></td><td>${esc(t.text)} <span class="note">${esc(t.status)}</span></td><td>${esc(t.owner)}</td><td class="note">${esc(t.focus)}</td></tr>`).join('');
+    statusEl.textContent = `As of ${today} · ${rows.length} active episodes, ${rows.filter((r) => r.task).length + orphans.length} open follow-ups read`;
+    window.B2_RESULT = { today, rows, view, orphans };
+  }
+
+  clientPromise.then(async (client) => {
+    const user = client.getFhirUser?.();
+    document.getElementById('source').textContent = client.state.serverUrl + (user ? ` · ${user}` : ' · open endpoint (no login)');
+    document.getElementById('query').textContent = [QUERIES.episodes, QUERIES.tasks, QUERIES.waitlist(['<each patient>']), QUERIES.labs(['<each patient>'])]
+      .map((q) => `GET ${client.state.serverUrl}/${q.replaceAll('%7C', '|')}`).join('\n');
+    try {
+      cache = await fetchAll(client);
+      for (const id of ['manager', 'show', 'sort', 'today']) document.getElementById(id).addEventListener('change', render);
+      render();
+    } catch (e) {
+      statusEl.className = 'error'; statusEl.textContent = 'Could not load the worklist: ' + e.message;
+    }
+  }).catch((e) => {
+    statusEl.className = 'error';
+    statusEl.textContent = 'Not launched. Launch this app from the sandbox, or add ?server=<FHIR base URL> to read an open endpoint. (' + e.message + ')';
+  });
+</script>
+</body>
+</html>

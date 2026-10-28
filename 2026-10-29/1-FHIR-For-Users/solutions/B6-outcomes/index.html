@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PAM Outcomes</title>
+<script src="https://cdn.jsdelivr.net/npm/fhirclient@2.6.3/build/fhir-client.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/4.1.2/plotly-cartesian.min.js"></script>
+<style>
+  :root {
+    --navy: #0A2033; --teal: #00738F; --orange: #B9531A;
+    --bg: #F6F8F9; --card: #FFFFFF; --text: #0A2033; --muted: #5B6B78; --line: #DCE3E8;
+    --initial: #86b6ef; --post: #1c5cab; --threshold: #B9531A;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); }
+  header { background: var(--navy); color: #F2F6F8; padding: 16px 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; }
+  header h1 { font-size: 20px; margin: 0; font-weight: 600; }
+  header .src { font-size: 13px; color: #C7D3DC; word-break: break-all; }
+  main { padding: 20px 24px 40px; max-width: 1280px; margin: 0 auto; }
+  .bar { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; margin-bottom: 16px; }
+  label { font-size: 14px; color: var(--muted); }
+  select { font: inherit; padding: 4px 8px; margin-left: 6px; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .tile { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; }
+  .tile .n { font-size: 26px; font-weight: 600; color: var(--text); }
+  .tile .l { font-size: 13px; color: var(--muted); }
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; min-width: 0; }
+  .card h2 { font-size: 16px; margin: 4px 0 0; }
+  .card .sub { font-size: 13px; color: var(--muted); margin: 2px 0 8px; }
+  .chart { height: 340px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; margin-top: 8px; }
+  th, td { text-align: right; padding: 4px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th:first-child, td:first-child, td.l, th.l { text-align: left; }
+  th { color: var(--muted); font-weight: 600; }
+  .scroll { overflow-x: auto; }
+  details { margin-top: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px 16px; }
+  summary { cursor: pointer; font-weight: 600; }
+  pre { background: var(--navy); color: #E1F1F5; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 13px; white-space: pre-wrap; word-break: break-all; }
+  #status { font-size: 14px; color: var(--muted); }
+  #status.error { color: #B00020; }
+  .note { font-size: 13px; color: var(--muted); }
+  @media (max-width: 520px) { main { padding: 16px; } .charts { grid-template-columns: 1fr; } header { padding: 16px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Preoperative anaemia — outcomes (PAM 15, 16)</h1>
+  <span class="src" id="source">Connecting…</span>
+</header>
+<main>
+  <div class="bar">
+    <label>Treatment date in
+      <select id="timeframe">
+        <option value="|">All</option>
+        <option value="2025-07-01|2026-06-30">FY 2025–26</option>
+        <option value="2026-07-01|2027-06-30">FY 2026–27</option>
+      </select>
+    </label>
+    <label>Patients
+      <select id="group">
+        <option value="iv">Given IV iron</option>
+        <option value="noiv">Not given IV iron</option>
+        <option value="all">All in the PAM cohort</option>
+      </select>
+    </label>
+    <label>Initial / post defined by
+      <select id="method">
+        <option value="anchor">IV iron date (else referral)</option>
+        <option value="span">Earliest vs latest result</option>
+      </select>
+    </label>
+    <span id="status">Loading…</span>
+  </div>
+
+  <div class="tiles">
+    <div class="tile"><div class="n" id="t-cohort">–</div><div class="l">Patients in view</div></div>
+    <div class="tile"><div class="n" id="t-paired">–</div><div class="l">With initial and post-treatment Hb</div></div>
+    <div class="tile"><div class="n" id="t-awaiting">–</div><div class="l">Initial Hb, no post-treatment Hb yet</div></div>
+    <div class="tile"><div class="n" id="t-hb-rise">–</div><div class="l">Median Hb change (g/L), paired</div></div>
+    <div class="tile"><div class="n" id="t-anaemic">–</div><div class="l">Anaemic: initial → post (paired)</div></div>
+    <div class="tile"><div class="n" id="t-lowferr">–</div><div class="l">Ferritin &lt;100: initial → post (paired)</div></div>
+  </div>
+
+  <div class="charts">
+    <div class="card"><h2>Haemoglobin per patient (PAM 15)</h2><p class="sub">Initial → post-treatment, paired, by sex · g/L · dashed: anaemia threshold (F 120, M 130)</p><div class="chart" id="hb-pairs"></div></div>
+    <div class="card"><h2>Ferritin per patient (PAM 16)</h2><p class="sub">Initial → post-treatment, paired, by sex · µg/L · dashed: 100 µg/L</p><div class="chart" id="ferritin-pairs"></div></div>
+    <div class="card"><h2>Haemoglobin distribution (PAM 15)</h2><p class="sub">All initial and all post-treatment results, by sex · g/L</p><div class="chart" id="hb-box"></div></div>
+    <div class="card"><h2>Ferritin distribution (PAM 16)</h2><p class="sub">All initial and all post-treatment results, by sex · µg/L</p><div class="chart" id="ferritin-box"></div></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>Summary by sex</h2>
+    <p class="sub">Medians over patients with both an initial and a post-treatment result (paired). "Below" = below the threshold.</p>
+    <div class="scroll"><table id="summary"></table></div>
+  </div>
+
+  <details>
+    <summary>Per-patient values</summary>
+    <div class="scroll"><table id="patients"></table></div>
+  </details>
+
+  <details>
+    <summary>How the numbers are derived from FHIR</summary>
+    <p>Three searches (all pages are followed):</p>
+    <pre id="query"></pre>
+    <ul class="note">
+      <li><b>Results:</b> Observation with LOINC 718-7 (haemoglobin, g/L) or 2276-4 (ferritin, µg/L), status not
+        <code>entered-in-error</code>/<code>cancelled</code>, value from <code>valueQuantity</code> (g/dL is converted to g/L),
+        date from <code>effectiveDateTime</code> (or <code>effectivePeriod.start</code>, else <code>issued</code>). Sex from the included
+        Patient's <code>gender</code>.</li>
+      <li><b>PAM cohort:</b> patients with an IV iron MedicationRequest or a PAM EpisodeOfCare (type <code>episode-type|pam</code>).
+        Patients with results but neither are left out (counted in the status line).</li>
+      <li><b>IV iron:</b> MedicationRequest whose <code>dosageInstruction.route</code> is SNOMED 47625008 (intravenous) or whose
+        medication is one of the AMT IV iron products, status not cancelled / entered-in-error / draft.
+        The <b>treatment date</b> is the earliest such <code>authoredOn</code>.</li>
+      <li><b>Initial</b> = the patient's latest result on or before the treatment date. <b>Post-treatment</b> = the latest result
+        after it. Patients not given IV iron are anchored on their PAM referral (<code>EpisodeOfCare.period.start</code>).
+        The alternative method ("earliest vs latest") is what the starter dashboard does.</li>
+      <li><b>Thresholds:</b> anaemia Hb &lt;120 g/L (female) / &lt;130 g/L (male); ferritin &lt;100 µg/L (the track's draft decision rules).</li>
+      <li><b>Timeframe</b> applies to the treatment date (or referral date) — Australian financial years.</li>
+    </ul>
+  </details>
+</main>
+
+<script>
+  const LOINC = 'http://loinc.org', HB = '718-7', FERRITIN = '2276-4', SCT = 'http://snomed.info/sct';
+  const EPISODE_TYPE = 'https://aehrc.github.io/qh-connectathon/track1/CodeSystem/episode-type';
+  const IV_ROUTE = '47625008';
+  const IV_IRON_CODES = ['1312141000168105', '1086251000168104'];  // AMT: ferric carboxymaltose, ferric derisomaltose
+  const THRESHOLD = { [HB]: { female: 120, male: 130 }, [FERRITIN]: { female: 100, male: 100 } };
+  const UNIT = { [HB]: 'g/L', [FERRITIN]: 'µg/L' };
+  const SEXES = ['female', 'male'];
+  const statusEl = document.getElementById('status');
+
+  // No-login mode: ?server=<base> (or ?fhirServiceUrl=<base>) reads an open endpoint; otherwise complete the SMART launch
+  const params = new URLSearchParams(location.search);
+  const openServer = params.get('server') || params.get('fhirServiceUrl');
+  const clientPromise = openServer ? Promise.resolve(FHIR.client(openServer)) : FHIR.oauth2.ready();
+
+  // '|' written as %7C: Meld's gateway rejects a raw '|'
+  const QUERIES = {
+    observations: `Observation?code=${LOINC}%7C${HB},${LOINC}%7C${FERRITIN}&_include=Observation:subject&_count=200`,
+    medications: 'MedicationRequest?_count=200',
+    episodes: `EpisodeOfCare?type=${EPISODE_TYPE}%7Cpam&_count=200`,
+  };
+
+  const day = (s) => (s || '').slice(0, 10);
+  const ref = (r) => (r?.reference || '').split('/').pop();
+  const median = (xs) => {
+    if (!xs.length) return null;
+    const s = [...xs].sort((a, b) => a - b), m = Math.floor(s.length / 2);
+    return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+  };
+  const fmt = (x, d = 0) => (x === null || x === undefined ? '–' : (Math.round(x * 10 ** d) / 10 ** d).toString());
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  function obsValue(o, code) {
+    const q = o.valueQuantity;
+    if (!q || typeof q.value !== 'number') return null;
+    if (code === HB && (q.code === 'g/dL' || q.unit === 'g/dL')) return q.value * 10;
+    return q.value;
+  }
+
+  function isIvIron(m) {
+    if (['cancelled', 'entered-in-error', 'draft'].includes(m.status)) return false;
+    const route = (m.dosageInstruction || []).some((d) => (d.route?.coding || []).some((c) => c.system === SCT && c.code === IV_ROUTE));
+    const product = (m.medicationCodeableConcept?.coding || []).some((c) => IV_IRON_CODES.includes(c.code));
+    return route || product;
+  }
+
+  // Builds one row per patient: sex, anchor, initial and post values for each test
+  function buildPatients(res, method) {
+    const patients = {};
+    res.observations.filter((r) => r.resourceType === 'Patient').forEach((p) => {
+      const n = p.name?.[0];
+      patients[p.id] = { id: p.id, sex: p.gender || 'unknown', name: n ? [...(n.given || []), n.family].join(' ') : p.id, series: { [HB]: [], [FERRITIN]: [] } };
+    });
+    let results = 0;
+    res.observations.filter((r) => r.resourceType === 'Observation').forEach((o) => {
+      if (['entered-in-error', 'cancelled'].includes(o.status)) return;
+      const coding = (o.code?.coding || []).find((c) => c.system === LOINC && (c.code === HB || c.code === FERRITIN));
+      const pt = patients[ref(o.subject)];
+      if (!coding || !pt) return;
+      const value = obsValue(o, coding.code);
+      const date = day(o.effectiveDateTime || o.effectivePeriod?.start || o.issued);
+      if (value === null || !date) return;
+      pt.series[coding.code].push({ date, value, id: o.id });
+      results++;
+    });
+    const ivDate = {};
+    res.medications.filter((m) => m.resourceType === 'MedicationRequest' && isIvIron(m)).forEach((m) => {
+      const pid = ref(m.subject), d = day(m.authoredOn);
+      if (d && (!ivDate[pid] || d < ivDate[pid])) ivDate[pid] = d;
+    });
+    const episode = {};
+    res.episodes.filter((e) => e.resourceType === 'EpisodeOfCare').forEach((e) => {
+      const pid = ref(e.patient), d = day(e.period?.start);
+      if (d && (!episode[pid] || d < episode[pid].start)) episode[pid] = { start: d, status: e.status };
+    });
+
+    const rows = [];
+    let outside = 0;
+    for (const pt of Object.values(patients)) {
+      const has = pt.series[HB].length || pt.series[FERRITIN].length;
+      if (!has) continue;
+      if (!ivDate[pt.id] && !episode[pt.id]) { outside++; continue; }
+      const row = { id: pt.id, name: pt.name, sex: pt.sex, group: ivDate[pt.id] ? 'iv' : 'noiv',
+        anchor: ivDate[pt.id] || episode[pt.id].start, anchorSource: ivDate[pt.id] ? 'IV iron' : 'referral',
+        episodeStatus: episode[pt.id]?.status || '–' };
+      for (const code of [HB, FERRITIN]) {
+        const s = pt.series[code].sort((a, b) => a.date.localeCompare(b.date));
+        let initial = null, post = null;
+        if (method === 'span') {
+          initial = s[0] || null;
+          post = s.length > 1 ? s[s.length - 1] : null;
+        } else {
+          const before = s.filter((x) => x.date <= row.anchor), after = s.filter((x) => x.date > row.anchor);
+          initial = before[before.length - 1] || null;
+          post = after[after.length - 1] || null;
+        }
+        row[code] = { initial, post, change: initial && post ? post.value - initial.value : null };
+      }
+      rows.push(row);
+    }
+    return { rows, outside, results };
+  }
+
+  function summarise(rows) {
+    const out = {};
+    for (const code of [HB, FERRITIN]) {
+      out[code] = {};
+      for (const sex of [...SEXES, 'all']) {
+        const rs = rows.filter((r) => sex === 'all' ? true : r.sex === sex);
+        const paired = rs.filter((r) => r[code].change !== null);
+        const below = (r, phase) => r[code][phase].value < THRESHOLD[code][r.sex === 'male' ? 'male' : 'female'];
+        out[code][sex] = {
+          withInitial: rs.filter((r) => r[code].initial).length,
+          paired: paired.length,
+          awaiting: rs.filter((r) => r[code].initial && !r[code].post).length,
+          medianInitial: median(paired.map((r) => r[code].initial.value)),
+          medianPost: median(paired.map((r) => r[code].post.value)),
+          medianChange: median(paired.map((r) => r[code].change)),
+          rose: paired.filter((r) => r[code].change > 0).length,
+          belowInitial: paired.filter((r) => below(r, 'initial')).length,
+          belowPost: paired.filter((r) => below(r, 'post')).length,
+          corrected: paired.filter((r) => below(r, 'initial') && !below(r, 'post')).length,
+        };
+      }
+    }
+    return out;
+  }
+
+  const sexLabel = (s) => s === 'female' ? 'Female' : 'Male';
+  const layoutBase = (unit) => ({
+    margin: { t: 10, r: 10, b: 40, l: 50 }, legend: { orientation: 'h', y: -0.15 }, hovermode: 'closest',
+    yaxis: { title: { text: unit }, gridcolor: '#E6ECF0', zeroline: false },
+    paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+    font: { family: 'system-ui, sans-serif', size: 12, color: '#0A2033' },
+  });
+  const thresholdShapes = (code, x0f, x1f, x0m, x1m) => [
+    ['female', x0f, x1f], ['male', x0m, x1m]].map(([sex, x0, x1]) => ({
+      type: 'line', xref: 'x', yref: 'y', x0, x1, y0: THRESHOLD[code][sex], y1: THRESHOLD[code][sex],
+      line: { color: '#B9531A', width: 1.5, dash: 'dash' } }));
+
+  // Paired "slope" chart: one line per patient from initial to post, grouped by sex
+  function pairsChart(el, rows, code) {
+    const cats = ['Female initial', 'Female post', 'Male initial', 'Male post'];
+    const lx = [], ly = [], ltext = [];
+    const pts = { initial: { x: [], y: [], text: [] }, post: { x: [], y: [], text: [] } };
+    for (const r of rows) {
+      const v = r[code];
+      if (!v.initial || !v.post || !SEXES.includes(r.sex)) continue;
+      const s = sexLabel(r.sex);
+      lx.push(`${s} initial`, `${s} post`, null); ly.push(v.initial.value, v.post.value, null);
+      const t = `${r.name} (${r.id})<br>${v.initial.value} → ${v.post.value} ${UNIT[code]} (${v.change >= 0 ? '+' : ''}${v.change})`;
+      ltext.push(t, t, null);
+      pts.initial.x.push(`${s} initial`); pts.initial.y.push(v.initial.value); pts.initial.text.push(`${r.name}<br>initial ${v.initial.value} on ${v.initial.date}`);
+      pts.post.x.push(`${s} post`); pts.post.y.push(v.post.value); pts.post.text.push(`${r.name}<br>post ${v.post.value} on ${v.post.date}`);
+    }
+    const traces = [
+      { type: 'scatter', mode: 'lines', x: lx, y: ly, text: ltext, hoverinfo: 'text', line: { color: 'rgba(91,107,120,0.45)', width: 1.5 }, showlegend: false, connectgaps: false },
+      { type: 'scatter', mode: 'markers', name: 'Initial', ...pts.initial, hoverinfo: 'text', marker: { color: '#86b6ef', size: 8, line: { color: '#fff', width: 2 } } },
+      { type: 'scatter', mode: 'markers', name: 'Post-treatment', ...pts.post, hoverinfo: 'text', marker: { color: '#1c5cab', size: 8, line: { color: '#fff', width: 2 } } },
+    ];
+    // Median per sex and phase as a short bar
+    const medShapes = [];
+    cats.forEach((c, i) => {
+      const ys = (c.endsWith('initial') ? pts.initial : pts.post);
+      const vals = ys.y.filter((_, j) => ys.x[j] === c);
+      const m = median(vals);
+      if (m !== null) medShapes.push({ type: 'line', xref: 'x', yref: 'y', x0: i - 0.25, x1: i + 0.25, y0: m, y1: m, line: { color: '#0A2033', width: 3 } });
+    });
+    const layout = layoutBase(UNIT[code]);
+    layout.xaxis = { type: 'category', categoryorder: 'array', categoryarray: cats, range: [-0.5, 3.5] };
+    layout.shapes = [...thresholdShapes(code, -0.45, 1.45, 1.55, 3.45), ...medShapes];
+    Plotly.react(el, traces, layout, { displayModeBar: false, responsive: true });
+  }
+
+  function boxChart(el, rows, code) {
+    const traces = [];
+    for (const [phase, name, colour] of [['initial', 'Initial', '#86b6ef'], ['post', 'Post-treatment', '#1c5cab']]) {
+      const x = [], y = [];
+      for (const r of rows) if (SEXES.includes(r.sex) && r[code][phase]) { x.push(sexLabel(r.sex)); y.push(r[code][phase].value); }
+      traces.push({ type: 'box', name, x, y, boxpoints: 'all', jitter: 0.4, pointpos: 0, marker: { color: colour, size: 6 }, line: { color: colour } });
+    }
+    const layout = { ...layoutBase(UNIT[code]), boxmode: 'group' };
+    layout.xaxis = { type: 'category', categoryorder: 'array', categoryarray: ['Female', 'Male'] };
+    layout.shapes = thresholdShapes(code, -0.45, 0.45, 0.55, 1.45);
+    Plotly.react(el, traces, layout, { displayModeBar: false, responsive: true });
+  }
+
+  function renderTables(rows, sum) {
+    const head = '<tr><th class="l">Test</th><th class="l">Sex</th><th>With initial</th><th>Paired</th><th>No post yet</th><th>Median initial</th><th>Median post</th><th>Median change</th><th>Rose</th><th>Below threshold: initial → post</th><th>Corrected</th></tr>';
+    let body = '';
+    for (const code of [HB, FERRITIN]) for (const sex of [...SEXES, 'all']) {
+      const s = sum[code][sex];
+      body += `<tr data-test="${code}" data-sex="${sex}"><td class="l">${code === HB ? 'Hb' : 'Ferritin'} (${UNIT[code]})</td><td class="l">${sex === 'all' ? 'All' : sexLabel(sex)}</td>
+        <td>${s.withInitial}</td><td>${s.paired}</td><td>${s.awaiting}</td><td>${fmt(s.medianInitial)}</td><td>${fmt(s.medianPost)}</td>
+        <td>${s.medianChange === null ? '–' : (s.medianChange > 0 ? '+' : '') + fmt(s.medianChange)}</td><td>${s.rose}/${s.paired}</td>
+        <td>${s.belowInitial} → ${s.belowPost}</td><td>${s.corrected}</td></tr>`;
+    }
+    document.getElementById('summary').innerHTML = head + body;
+    const cell = (v) => v ? `${v.value} <span class="note">${v.date}</span>` : '–';
+    const ch = (c) => c === null ? '–' : (c > 0 ? '+' : '') + c;
+    document.getElementById('patients').innerHTML =
+      '<tr><th class="l">Patient</th><th class="l">Sex</th><th class="l">Anchor</th><th class="l">Episode</th><th>Hb initial</th><th>Hb post</th><th>Δ</th><th>Ferritin initial</th><th>Ferritin post</th><th>Δ</th></tr>' +
+      rows.sort((a, b) => a.anchor.localeCompare(b.anchor)).map((r) => `<tr><td class="l">${esc(r.name)} <span class="note">${esc(r.id)}</span></td><td class="l">${esc(r.sex)}</td>
+        <td class="l">${r.anchor} <span class="note">${r.anchorSource}</span></td><td class="l">${esc(r.episodeStatus)}</td>
+        <td>${cell(r[HB].initial)}</td><td>${cell(r[HB].post)}</td><td>${ch(r[HB].change)}</td>
+        <td>${cell(r[FERRITIN].initial)}</td><td>${cell(r[FERRITIN].post)}</td><td>${ch(r[FERRITIN].change)}</td></tr>`).join('');
+  }
+
+  let cache = null;
+  async function fetchAll(client) {
+    const get = (q) => client.request(q, { pageLimit: 0, flat: true });
+    const [observations, medications, episodes] = await Promise.all([get(QUERIES.observations), get(QUERIES.medications), get(QUERIES.episodes)]);
+    return { observations, medications, episodes };
+  }
+
+  function render() {
+    const method = document.getElementById('method').value, group = document.getElementById('group').value;
+    const [from, to] = document.getElementById('timeframe').value.split('|');
+    const built = buildPatients(cache, method);
+    const rows = built.rows.filter((r) => (group === 'all' || r.group === group) && (!from || r.anchor >= from) && (!to || r.anchor <= to));
+    const sum = summarise(rows);
+    const all = sum[HB].all, fall = sum[FERRITIN].all;
+    document.getElementById('t-cohort').textContent = rows.length;
+    document.getElementById('t-paired').textContent = all.paired;
+    document.getElementById('t-awaiting').textContent = all.awaiting;
+    document.getElementById('t-hb-rise').textContent = all.medianChange === null ? '–' : (all.medianChange > 0 ? '+' : '') + fmt(all.medianChange);
+    document.getElementById('t-anaemic').textContent = `${all.belowInitial} → ${all.belowPost}`;
+    document.getElementById('t-lowferr').textContent = `${fall.belowInitial} → ${fall.belowPost}`;
+    pairsChart('hb-pairs', rows, HB); pairsChart('ferritin-pairs', rows, FERRITIN);
+    boxChart('hb-box', rows, HB); boxChart('ferritin-box', rows, FERRITIN);
+    renderTables(rows, sum);
+    const other = rows.filter((r) => !SEXES.includes(r.sex)).length;
+    statusEl.textContent = `${built.results} Hb/ferritin results; ${built.rows.length} PAM patients; ${built.outside} patient(s) with results but no PAM episode or IV iron left out` +
+      (other ? `; ${other} with sex other/unknown (in tables, not charts)` : '');
+    window.B6_RESULT = { method, group, from, to, rows, summary: sum, outside: built.outside, results: built.results };
+  }
+
+  clientPromise.then(async (client) => {
+    const user = client.getFhirUser?.();
+    document.getElementById('source').textContent = client.state.serverUrl + (user ? ` · ${user}` : ' · open endpoint (no login)');
+    document.getElementById('query').textContent = Object.values(QUERIES).map((q) => `GET ${client.state.serverUrl}/${q.replaceAll('%7C', '|')}`).join('\n');
+    try {
+      cache = await fetchAll(client);
+      for (const id of ['timeframe', 'group', 'method']) document.getElementById(id).addEventListener('change', render);
+      render();
+    } catch (e) {
+      statusEl.className = 'error'; statusEl.textContent = 'Could not load results: ' + e.message;
+    }
+  }).catch((e) => {
+    statusEl.className = 'error';
+    statusEl.textContent = 'Not launched. Launch this app from the sandbox, or add ?server=<FHIR base URL> to read an open endpoint. (' + e.message + ')';
+  });
+</script>
+</body>
+</html>
