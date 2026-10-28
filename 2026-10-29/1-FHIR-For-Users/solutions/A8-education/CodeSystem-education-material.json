@@ -1,0 +1,49 @@
+{
+  "resourceType": "CodeSystem",
+  "id": "soln-A8-education-material",
+  "url": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/education-material",
+  "version": "0.2.0",
+  "name": "PAMEducationMaterial",
+  "title": "PAM patient education materials (placeholder, connectathon)",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-28",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 1 (synthetic demo, not for clinical use)",
+  "content": "complete",
+  "caseSensitive": true,
+  "count": 8,
+  "concept": [
+    {
+      "code": "anaemia-surgery",
+      "display": "Anaemia and iron deficiency before surgery (patient information)"
+    },
+    {
+      "code": "pbm-surgery",
+      "display": "Patient blood management: getting ready for surgery"
+    },
+    {
+      "code": "iv-iron",
+      "display": "Intravenous (IV) iron infusion: what to expect"
+    },
+    {
+      "code": "oral-iron",
+      "display": "Oral iron: how to take iron tablets"
+    },
+    {
+      "code": "iron-diet",
+      "display": "Iron-rich foods (dietary advice)"
+    },
+    {
+      "code": "transfusion",
+      "display": "Blood transfusion: risks, benefits and alternatives"
+    },
+    {
+      "code": "video",
+      "display": "Patient education video"
+    },
+    {
+      "code": "other",
+      "display": "Other"
+    }
+  ]
+}

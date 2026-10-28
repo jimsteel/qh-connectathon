@@ -1,0 +1,1074 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "soln-pam-treatment",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assemble-expectation",
+      "valueCode": "assemble-child"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-extractAllocateId",
+      "valueString": "ivIronOrderId"
+    }
+  ],
+  "url": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-treatment",
+  "version": "0.2.0",
+  "name": "PAMTreatment",
+  "title": "PAM module — Treatment and iron dose (solution)",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-28",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 1 (synthetic demo, not for clinical use)",
+  "description": "Scenario A7 full solution: extends pam-treatment 0.1.0. Ganzoni total iron dose with dosing-weight rules, per-product infusion split, IV iron MedicationRequest (AMT value set) and day-unit infusion ServiceRequest. Needs the root's shared variables and extractAllocateId ivIronOrderId (see README).",
+  "item": [
+    {
+      "linkId": "pam-treatment",
+      "text": "Treatment",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "pam-treatment-module",
+          "text": "Module",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            }
+          ],
+          "initial": [
+            {
+              "valueString": "soln-pam-treatment|0.2.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-tx-inputs",
+          "text": "Inputs (from Patient details and Pathology)",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-tx-sex",
+              "text": "Sex",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%sexCode"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-tx-height",
+              "text": "Height",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "cm",
+                    "display": "cm"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%heightCm"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-tx-weight",
+              "text": "Actual body weight",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "kg",
+                    "display": "kg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%weightKg"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-tx-hb",
+              "text": "Latest Hb (actual Hb)",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "g/L",
+                    "display": "g/L"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%actualHb"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-tx-inputs-missing",
+              "type": "display",
+              "text": "Weight, height, sex and latest Hb are needed for the iron dose: fill them in under Patient details and Pathology.",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%weightKg.empty() or %heightCm.empty() or %sexCode.empty() or %actualHb.empty()"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-tx-ganzoni",
+          "text": "Total iron dose (Ganzoni)",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-ganzoni-intro",
+              "type": "display",
+              "text": "Total iron dose (Ganzoni) = dosing weight × (target Hb − actual Hb) × 0.24 + iron stores",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Total iron dose (Ganzoni)</b> = dosing weight (kg) × (target Hb − actual Hb) (g/L) × 0.24 + iron stores (mg)</p><p style=\"font-size:smaller\">Dosing weight: ideal body weight (Devine) if the patient weighs more than that, otherwise actual weight. Target Hb 150 g/L and iron stores 500 mg (130 g/L and 15 mg/kg under 35 kg). National Blood Authority, <i>Iron product choice and dose calculation for adults</i> (2016).</p></div>"
+                  }
+                ]
+              }
+            },
+            {
+              "linkId": "pam-ideal-weight",
+              "text": "Ideal body weight (Devine)",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "kg",
+                    "display": "kg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%idealWeight.round(1)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-dosing-weight",
+              "text": "Dosing weight",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "kg",
+                    "display": "kg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%weight.round(1)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-dosing-weight-basis",
+              "text": "Dosing weight is",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%weight.empty(), {}, iif(%idealWeight.exists() and %idealWeight < %weightKg, 'ideal body weight (actual weight is above ideal)', iif(%idealWeight.empty(), 'actual weight (no height for ideal body weight)', 'actual weight (at or below ideal)')))"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-target-hb",
+              "text": "Target Hb",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "g/L",
+                    "display": "g/L"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%targetHb"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-iron-stores",
+              "text": "Iron stores",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mg",
+                    "display": "mg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%ironStores.round(0)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-ganzoni",
+              "text": "Total iron deficit (Ganzoni)",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mg",
+                    "display": "mg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%weight.exists() and %actualHb.exists(), (%weight * iif(%actualHb < %targetHb, %targetHb - %actualHb, 0) * 0.24 + %ironStores).round(0), {})"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-ganzoni-rounded",
+              "text": "Suggested total dose (to the nearest 100 mg)",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mg",
+                    "display": "mg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "((%resource.repeat(item).where(linkId='pam-ganzoni').answer.value) / 100).round(0) * 100"
+                  }
+                }
+              ],
+              "readOnly": true
+            }
+          ]
+        },
+        {
+          "linkId": "pam-tx-plan",
+          "text": "Treatment plan",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+              "valueCodeableConcept": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/questionnaire-item-control",
+                    "code": "check-box"
+                  }
+                ]
+              }
+            }
+          ],
+          "repeats": true,
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "718520009",
+                "display": "Intravenous iron infusion"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "438911000124105",
+                "display": "Iron supplement therapy"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "1156741008",
+                "display": "Therapy using erythropoietin receptor agonist"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "116863004",
+                "display": "Transfusion of red blood cells"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-iv-iron",
+          "text": "IV iron order",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-iron-product",
+              "text": "Product (AMT)",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "drop-down"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                  "extension": [
+                    {
+                      "url": "template",
+                      "valueReference": {
+                        "reference": "#PAMIVIronTemplate"
+                      }
+                    },
+                    {
+                      "url": "fullUrl",
+                      "valueString": "'urn:uuid:' + %ivIronOrderId"
+                    }
+                  ]
+                }
+              ],
+              "answerValueSet": "http://snomed.info/sct?fhir_vs=ecl/%28%3C%20763158003%20%3A%20762949000%20%3D%20%28430077004%20OR%201172494003%29%2C%20411116001%20%3D%20%3C%3C%20129011000036109%29%20MINUS%20%28%2A%20%3A%20774158006%20%3D%20%2A%29"
+            },
+            {
+              "linkId": "pam-iron-dose-override",
+              "text": "Prescribe a different total dose from the suggested one",
+              "type": "boolean",
+              "initial": [
+                {
+                  "valueBoolean": false
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-dose-manual",
+              "text": "Total dose to prescribe",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mg",
+                    "display": "mg"
+                  }
+                }
+              ],
+              "enableWhen": [
+                {
+                  "question": "pam-iron-dose-override",
+                  "operator": "=",
+                  "answerBoolean": true
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-dose",
+              "text": "Total dose prescribed",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mg",
+                    "display": "mg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%resource.repeat(item).where(linkId='pam-iron-dose-override').answer.value = true, %resource.repeat(item).where(linkId='pam-iron-dose-manual').answer.value, %resource.repeat(item).where(linkId='pam-ganzoni-rounded').answer.value)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-iron-dose-warning",
+              "type": "display",
+              "text": "The prescribed dose is above the calculated total iron deficit (rounded to the nearest 100 mg): the cumulative dose should not exceed the deficit (NBA 2016).",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.repeat(item).where(linkId='pam-iron-dose').answer.value > %resource.repeat(item).where(linkId='pam-ganzoni-rounded').answer.value"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-max-infusion",
+              "text": "Maximum dose per infusion",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mg",
+                    "display": "mg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%resource.repeat(item).where(linkId='pam-iron-product').answer.value.display.contains('carboxymaltose'), iif(20 * %weight < 1000, (20 * %weight).floor(), 1000), iif(%resource.repeat(item).where(linkId='pam-iron-product').answer.value.display.contains('derisomaltose'), iif(20 * %weight < 1500, (20 * %weight).floor(), 1500), {}))"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-iron-infusions",
+              "text": "Number of infusions",
+              "type": "integer",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "(%resource.repeat(item).where(linkId='pam-iron-dose').answer.value / %resource.repeat(item).where(linkId='pam-iron-max-infusion').answer.value).ceiling()"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-iron-dose-1",
+              "text": "Infusion 1",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mg",
+                    "display": "mg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%resource.repeat(item).where(linkId='pam-iron-infusions').answer.value >= 1, iif((%resource.repeat(item).where(linkId='pam-iron-dose').answer.value - 0 * %resource.repeat(item).where(linkId='pam-iron-max-infusion').answer.value) < %resource.repeat(item).where(linkId='pam-iron-max-infusion').answer.value, (%resource.repeat(item).where(linkId='pam-iron-dose').answer.value - 0 * %resource.repeat(item).where(linkId='pam-iron-max-infusion').answer.value), %resource.repeat(item).where(linkId='pam-iron-max-infusion').answer.value), {})"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-iron-dose-2",
+              "text": "Infusion 2 (at least 7 days after infusion 1)",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mg",
+                    "display": "mg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.repeat(item).where(linkId='pam-iron-infusions').answer.value >= 2"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%resource.repeat(item).where(linkId='pam-iron-infusions').answer.value >= 2, iif((%resource.repeat(item).where(linkId='pam-iron-dose').answer.value - 1 * %resource.repeat(item).where(linkId='pam-iron-max-infusion').answer.value) < %resource.repeat(item).where(linkId='pam-iron-max-infusion').answer.value, (%resource.repeat(item).where(linkId='pam-iron-dose').answer.value - 1 * %resource.repeat(item).where(linkId='pam-iron-max-infusion').answer.value), %resource.repeat(item).where(linkId='pam-iron-max-infusion').answer.value), {})"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-iron-dose-3",
+              "text": "Infusion 3 (at least 7 days after infusion 2)",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mg",
+                    "display": "mg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.repeat(item).where(linkId='pam-iron-infusions').answer.value >= 3"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%resource.repeat(item).where(linkId='pam-iron-infusions').answer.value >= 3, iif((%resource.repeat(item).where(linkId='pam-iron-dose').answer.value - 2 * %resource.repeat(item).where(linkId='pam-iron-max-infusion').answer.value) < %resource.repeat(item).where(linkId='pam-iron-max-infusion').answer.value, (%resource.repeat(item).where(linkId='pam-iron-dose').answer.value - 2 * %resource.repeat(item).where(linkId='pam-iron-max-infusion').answer.value), %resource.repeat(item).where(linkId='pam-iron-max-infusion').answer.value), {})"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-iron-infusions-warning",
+              "type": "display",
+              "text": "More than three infusions: check the dose and plan the extra infusions by hand.",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.repeat(item).where(linkId='pam-iron-infusions').answer.value > 3"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-cap-note",
+              "type": "display",
+              "text": "Per-infusion maximum (Australian product information): ferric carboxymaltose 20 mg/kg up to 1000 mg, and no more than 1000 mg a week; ferric derisomaltose 20 mg/kg, single doses above 1500 mg not recommended, split doses at least a week apart. 20 mg/kg uses the dosing weight."
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "pam-tx-plan",
+              "operator": "=",
+              "answerCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "718520009",
+                "display": "Intravenous iron infusion"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-infusion",
+          "text": "Book the infusion (day unit)",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-infusion-date",
+              "text": "Requested date of the first infusion",
+              "type": "date",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                  "extension": [
+                    {
+                      "url": "template",
+                      "valueReference": {
+                        "reference": "#PAMInfusionTemplate"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-infusion-priority",
+              "text": "Priority",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+                  "valueCodeableConcept": {
+                    "coding": [
+                      {
+                        "system": "http://hl7.org/fhir/questionnaire-item-control",
+                        "code": "radio-button"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "initial": [
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/request-priority",
+                    "code": "routine",
+                    "display": "Routine"
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/request-priority",
+                    "code": "routine",
+                    "display": "Routine"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/request-priority",
+                    "code": "urgent",
+                    "display": "Urgent"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-infusion-notes",
+              "text": "Notes for the day unit",
+              "type": "text"
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "pam-tx-plan",
+              "operator": "=",
+              "answerCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "718520009",
+                "display": "Intravenous iron infusion"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "contained": [
+    {
+      "resourceType": "MedicationRequest",
+      "id": "PAMIVIronTemplate",
+      "status": "active",
+      "intent": "order",
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+              "code": "outpatient",
+              "display": "Outpatient"
+            }
+          ]
+        }
+      ],
+      "medicationCodeableConcept": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "answer.value"
+              }
+            ]
+          }
+        ],
+        "_text": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "answer.value.display"
+            }
+          ]
+        }
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_authoredOn": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      },
+      "requester": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.author.reference"
+            }
+          ]
+        }
+      },
+      "reasonCode": [
+        {
+          "coding": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                  "valueString": "%resource.repeat(item).where(linkId='pam-diagnosis').answer.value"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "note": [
+        {
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "'Total iron dose ' + %resource.repeat(item).where(linkId='pam-iron-dose').answer.value.toString() + ' mg (Ganzoni total iron deficit ' + %resource.repeat(item).where(linkId='pam-ganzoni').answer.value.toString() + ' mg: dosing weight ' + %resource.repeat(item).where(linkId='pam-dosing-weight').answer.value.toString() + ' kg, Hb ' + %resource.repeat(item).where(linkId='pam-tx-hb').answer.value.toString() + ' g/L, target ' + %resource.repeat(item).where(linkId='pam-target-hb').answer.value.toString() + ' g/L, iron stores ' + %resource.repeat(item).where(linkId='pam-iron-stores').answer.value.toString() + ' mg), in ' + %resource.repeat(item).where(linkId='pam-iron-infusions').answer.value.toString() + ' infusion(s) of at most ' + %resource.repeat(item).where(linkId='pam-iron-max-infusion').answer.value.toString() + ' mg, at least 7 days apart.'"
+              }
+            ]
+          }
+        }
+      ],
+      "dosageInstruction": [
+        {
+          "sequence": 1,
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "'Infusion 1 of ' + %resource.repeat(item).where(linkId='pam-iron-infusions').answer.value.toString() + ': ' + %resource.repeat(item).where(linkId='pam-iron-dose-1').answer.value.toString() + ' mg IV'"
+              }
+            ]
+          },
+          "route": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "47625008",
+                "display": "Intravenous route"
+              }
+            ]
+          },
+          "doseAndRate": [
+            {
+              "doseQuantity": {
+                "_value": {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                      "valueString": "%resource.repeat(item).where(linkId='pam-iron-dose-1').answer.value"
+                    }
+                  ]
+                },
+                "unit": "mg",
+                "system": "http://unitsofmeasure.org",
+                "code": "mg"
+              }
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractContext",
+              "valueString": "%resource.repeat(item).where(linkId='pam-iron-dose-2').answer"
+            }
+          ],
+          "sequence": 2,
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "'Infusion 2 of ' + %resource.repeat(item).where(linkId='pam-iron-infusions').answer.value.toString() + ': ' + %resource.repeat(item).where(linkId='pam-iron-dose-2').answer.value.toString() + ' mg IV' + ', at least 7 days after the previous infusion'"
+              }
+            ]
+          },
+          "route": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "47625008",
+                "display": "Intravenous route"
+              }
+            ]
+          },
+          "doseAndRate": [
+            {
+              "doseQuantity": {
+                "_value": {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                      "valueString": "%resource.repeat(item).where(linkId='pam-iron-dose-2').answer.value"
+                    }
+                  ]
+                },
+                "unit": "mg",
+                "system": "http://unitsofmeasure.org",
+                "code": "mg"
+              }
+            }
+          ]
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractContext",
+              "valueString": "%resource.repeat(item).where(linkId='pam-iron-dose-3').answer"
+            }
+          ],
+          "sequence": 3,
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "'Infusion 3 of ' + %resource.repeat(item).where(linkId='pam-iron-infusions').answer.value.toString() + ': ' + %resource.repeat(item).where(linkId='pam-iron-dose-3').answer.value.toString() + ' mg IV' + ', at least 7 days after the previous infusion'"
+              }
+            ]
+          },
+          "route": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "47625008",
+                "display": "Intravenous route"
+              }
+            ]
+          },
+          "doseAndRate": [
+            {
+              "doseQuantity": {
+                "_value": {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                      "valueString": "%resource.repeat(item).where(linkId='pam-iron-dose-3').answer.value"
+                    }
+                  ]
+                },
+                "unit": "mg",
+                "system": "http://unitsofmeasure.org",
+                "code": "mg"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "resourceType": "ServiceRequest",
+      "id": "PAMInfusionTemplate",
+      "status": "active",
+      "intent": "order",
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "718520009",
+            "display": "Intravenous iron infusion"
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_occurrenceDateTime": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "answer.value.toString()"
+          }
+        ]
+      },
+      "_authoredOn": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      },
+      "requester": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.author.reference"
+            }
+          ]
+        }
+      },
+      "_priority": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "%resource.repeat(item).where(linkId='pam-infusion-priority').answer.value.code"
+          }
+        ]
+      },
+      "basedOn": [
+        {
+          "_reference": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "iif(%resource.repeat(item).where(linkId='pam-iron-product').answer.value.exists(), 'urn:uuid:' + %ivIronOrderId, {})"
+              }
+            ]
+          }
+        }
+      ],
+      "quantityQuantity": {
+        "_value": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.repeat(item).where(linkId='pam-iron-infusions').answer.value"
+            }
+          ]
+        },
+        "unit": "infusions",
+        "system": "http://unitsofmeasure.org",
+        "code": "{infusions}"
+      },
+      "reasonCode": [
+        {
+          "coding": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                  "valueString": "%resource.repeat(item).where(linkId='pam-diagnosis').answer.value"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "note": [
+        {
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "iif(%resource.repeat(item).where(linkId='pam-iron-product').answer.value.exists(), %resource.repeat(item).where(linkId='pam-iron-product').answer.value.display + ': ' + 'Total iron dose ' + %resource.repeat(item).where(linkId='pam-iron-dose').answer.value.toString() + ' mg (Ganzoni total iron deficit ' + %resource.repeat(item).where(linkId='pam-ganzoni').answer.value.toString() + ' mg: dosing weight ' + %resource.repeat(item).where(linkId='pam-dosing-weight').answer.value.toString() + ' kg, Hb ' + %resource.repeat(item).where(linkId='pam-tx-hb').answer.value.toString() + ' g/L, target ' + %resource.repeat(item).where(linkId='pam-target-hb').answer.value.toString() + ' g/L, iron stores ' + %resource.repeat(item).where(linkId='pam-iron-stores').answer.value.toString() + ' mg), in ' + %resource.repeat(item).where(linkId='pam-iron-infusions').answer.value.toString() + ' infusion(s) of at most ' + %resource.repeat(item).where(linkId='pam-iron-max-infusion').answer.value.toString() + ' mg, at least 7 days apart.', {})"
+              }
+            ]
+          }
+        },
+        {
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "%resource.repeat(item).where(linkId='pam-infusion-notes').answer.value"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

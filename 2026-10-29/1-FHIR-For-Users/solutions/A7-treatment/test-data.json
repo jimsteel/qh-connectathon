@@ -1,0 +1,200 @@
+{
+ "resourceType": "Bundle",
+ "type": "transaction",
+ "entry": [
+  {
+   "resource": {
+    "resourceType": "Patient",
+    "id": "soln-A7-patient-1",
+    "name": [
+     {
+      "use": "official",
+      "given": [
+       "Iris"
+      ],
+      "family": "Ganzonitest"
+     }
+    ],
+    "gender": "female",
+    "birthDate": "1964-03-12",
+    "address": [
+     {
+      "use": "home",
+      "city": "Chermside",
+      "state": "QLD",
+      "postalCode": "4032",
+      "country": "AU"
+     }
+    ]
+   },
+   "request": {
+    "method": "PUT",
+    "url": "Patient/soln-A7-patient-1"
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Observation",
+    "id": "soln-A7-patient-1-height",
+    "status": "final",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+        "code": "vital-signs"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "8302-2",
+       "display": "Body height"
+      }
+     ],
+     "text": "Body height"
+    },
+    "subject": {
+     "reference": "Patient/soln-A7-patient-1"
+    },
+    "effectiveDateTime": "2026-10-20",
+    "valueQuantity": {
+     "value": 160,
+     "unit": "cm",
+     "system": "http://unitsofmeasure.org",
+     "code": "cm"
+    }
+   },
+   "request": {
+    "method": "PUT",
+    "url": "Observation/soln-A7-patient-1-height"
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Observation",
+    "id": "soln-A7-patient-1-weight",
+    "status": "final",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+        "code": "vital-signs"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "29463-7",
+       "display": "Body weight"
+      }
+     ],
+     "text": "Body weight"
+    },
+    "subject": {
+     "reference": "Patient/soln-A7-patient-1"
+    },
+    "effectiveDateTime": "2026-10-20",
+    "valueQuantity": {
+     "value": 82,
+     "unit": "kg",
+     "system": "http://unitsofmeasure.org",
+     "code": "kg"
+    }
+   },
+   "request": {
+    "method": "PUT",
+    "url": "Observation/soln-A7-patient-1-weight"
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Observation",
+    "id": "soln-A7-patient-1-hb",
+    "status": "final",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+        "code": "laboratory"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "718-7",
+       "display": "Hemoglobin [Mass/volume] in Blood"
+      }
+     ],
+     "text": "Hemoglobin [Mass/volume] in Blood"
+    },
+    "subject": {
+     "reference": "Patient/soln-A7-patient-1"
+    },
+    "effectiveDateTime": "2026-10-20",
+    "valueQuantity": {
+     "value": 98,
+     "unit": "g/L",
+     "system": "http://unitsofmeasure.org",
+     "code": "g/L"
+    }
+   },
+   "request": {
+    "method": "PUT",
+    "url": "Observation/soln-A7-patient-1-hb"
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Observation",
+    "id": "soln-A7-patient-1-ferritin",
+    "status": "final",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+        "code": "laboratory"
+       }
+      ]
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://loinc.org",
+       "code": "2276-4",
+       "display": "Ferritin [Mass/volume] in Serum or Plasma"
+      }
+     ],
+     "text": "Ferritin [Mass/volume] in Serum or Plasma"
+    },
+    "subject": {
+     "reference": "Patient/soln-A7-patient-1"
+    },
+    "effectiveDateTime": "2026-10-20",
+    "valueQuantity": {
+     "value": 15,
+     "unit": "µg/L",
+     "system": "http://unitsofmeasure.org",
+     "code": "ug/L"
+    }
+   },
+   "request": {
+    "method": "PUT",
+    "url": "Observation/soln-A7-patient-1-ferritin"
+   }
+  }
+ ]
+}

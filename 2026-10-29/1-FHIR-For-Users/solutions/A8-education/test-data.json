@@ -1,0 +1,116 @@
+{
+ "resourceType": "Bundle",
+ "type": "transaction",
+ "entry": [
+  {
+   "resource": {
+    "resourceType": "Patient",
+    "id": "soln-A8-patient-1",
+    "name": [
+     {
+      "use": "official",
+      "given": [
+       "Evan"
+      ],
+      "family": "Edutest"
+     }
+    ],
+    "gender": "male",
+    "birthDate": "1958-07-02",
+    "address": [
+     {
+      "use": "home",
+      "city": "Kedron",
+      "state": "QLD",
+      "postalCode": "4031",
+      "country": "AU"
+     }
+    ]
+   },
+   "request": {
+    "method": "PUT",
+    "url": "Patient/soln-A8-patient-1"
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Organization",
+    "id": "soln-A8-unit",
+    "name": "Orthopaedics (A8 test unit)"
+   },
+   "request": {
+    "method": "PUT",
+    "url": "Organization/soln-A8-unit"
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "Practitioner",
+    "id": "soln-A8-consultant",
+    "name": [
+     {
+      "use": "official",
+      "prefix": [
+       "Dr"
+      ],
+      "given": [
+       "Nora"
+      ],
+      "family": "Testsurgeon"
+     }
+    ]
+   },
+   "request": {
+    "method": "PUT",
+    "url": "Practitioner/soln-A8-consultant"
+   }
+  },
+  {
+   "resource": {
+    "resourceType": "ServiceRequest",
+    "id": "soln-A8-patient-1-surgery",
+    "status": "active",
+    "intent": "order",
+    "category": [
+     {
+      "coding": [
+       {
+        "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category",
+        "code": "2",
+        "display": "Category 2"
+       }
+      ],
+      "text": "Category 2"
+     }
+    ],
+    "code": {
+     "coding": [
+      {
+       "system": "http://snomed.info/sct",
+       "code": "609588000",
+       "display": "Total knee replacement"
+      }
+     ],
+     "text": "Total knee replacement"
+    },
+    "subject": {
+     "reference": "Patient/soln-A8-patient-1"
+    },
+    "occurrenceDateTime": "2026-12-07",
+    "authoredOn": "2026-10-01",
+    "requester": {
+     "reference": "Practitioner/soln-A8-consultant"
+    },
+    "performer": [
+     {
+      "reference": "Organization/soln-A8-unit"
+     }
+    ]
+   },
+   "request": {
+    "method": "PUT",
+    "url": "ServiceRequest/soln-A8-patient-1-surgery"
+   }
+  }
+ ]
+}
