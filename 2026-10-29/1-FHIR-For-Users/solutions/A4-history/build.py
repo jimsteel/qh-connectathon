@@ -204,7 +204,7 @@ on_record = item("pam-history-record", "On record", "group", item=[
 
 GI_SYMPTOMS = [("2901004", "Melaena"), ("405729008", "Haematochezia"), ("8765009", "Haematemesis"),
                ("88111009", "Altered bowel function"), ("162031009", "Indigestion"),
-               ("21522001", "Abdominal pain"), ("89362005", "Weight loss")]
+               ("21522001", "Abdominal pain"), ("262285001", "Weight loss")]
 SCOPES = [("386831001", "Gastroscopy"), ("73761001", "Colonoscopy"), ("427595003", "Capsule endoscopy")]
 CKD = [("431855005", "Chronic kidney disease stage 1"), ("431856006", "Chronic kidney disease stage 2"),
        ("433144002", "Chronic kidney disease stage 3"), ("431857002", "Chronic kidney disease stage 4"),

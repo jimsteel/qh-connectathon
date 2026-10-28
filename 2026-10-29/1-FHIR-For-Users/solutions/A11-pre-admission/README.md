@@ -90,8 +90,11 @@ stores it with a PUT instead.
 
 * The transfusion preference, red-meat frequency, reason and "completed by" answers use placeholder local CodeSystems
   (`https://aehrc.github.io/qh-connectathon/track1/CodeSystem/…`), like the synthetic data. Products and diets
-  use SNOMED CT-AU codes (active on Ontoserver, 28 Oct). SNOMED has no active "blood transfusion refused" concept
-  except *refused for religious reason* (708129006).
+  use SNOMED CT-AU codes (active on Ontoserver, 28 Oct). The product answers are SNOMED *procedure* concepts
+  (e.g. 116863004 *Transfusion of red blood cells*, with plain-language displays). SNOMED CT-AU does have active
+  refusal concepts (699128009 *Blood transfusion declined*, 699054003 *Administration of blood product declined*,
+  708129006 *… refused for religious reason*; A6 uses the last two), but none for "only some products", hence the
+  local transfusion-preference codes. (Corrected in review, 29 Oct.)
 * Corrections the patient makes to demographics stay in the response. Nothing writes them back to the Patient.
 * The patient's wishes are not turned into a Flag or Consent here; that is the nurse's decision (A6). The nurse module only
   pre-populates.

@@ -1074,7 +1074,7 @@
                     {
                       "valueCoding": {
                         "system": "http://snomed.info/sct",
-                        "code": "89362005",
+                        "code": "262285001",
                         "display": "Weight loss"
                       }
                     }
