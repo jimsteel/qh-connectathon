@@ -1,0 +1,98 @@
+# Concepts used by the draft mapping, the synthetic data and the solutions
+
+PASS  87522002 |Iron deficiency anaemia| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  35240004 |Iron deficiency| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  234340006 |Iron deficiency without anaemia| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  234347009 |Anaemia of chronic disease| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  271737000 |Anaemia| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  707323002 |Anaemia in chronic kidney disease| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  724556004 |Iron deficiency anaemia due to blood loss| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  1312141000168105 |Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  1086251000168104 |Iron (as ferric derisomaltose) 100 mg/mL injection, vial| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  430819007 |Ferric carboxymaltose| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  47625008 |Intravenous route| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  3457005 |Patient referral| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  718520009 |Intravenous iron infusion| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  409073007 |Education| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  311401005 |Patient education| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  708129006 |Transfusion of blood product refused for religious reason| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  699054003 |Administration of blood product declined| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  699128009 |Blood transfusion declined| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  609588000 |Total knee replacement| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  52734007 |Total hip replacement| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  50172003 |Lumbar spinal fusion| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  359571009 |Right hemicolectomy| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  4558008 |Anterior resection of rectum| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  116143008 |Total abdominal hysterectomy| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  232717009 |Coronary artery bypass graft| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  26294005 |Radical prostatectomy| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  116863004 |Transfusion of red blood cells| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  62247001 |General practitioner| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  126242007 |Red blood cells, blood product| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  256395009 |Platelet product| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  346447007 |Fresh frozen plasma| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  256401009 |Cryoprecipitate| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  789265003 |Albumin human only product| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  714569001 |Normal immunoglobulin| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  233568002 |Intraoperative blood salvage| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  438911000124105 |Iron supplement therapy| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  1156741008 |Therapy using erythropoietin receptor agonist| active  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  103693007 |Diagnostic procedure| INACTIVE  http://snomed.info/sct/32506021000036107/version/20260930
+PASS  718-7 |Hemoglobin [Mass/volume] in Blood| active  2.83
+PASS  2276-4 |Ferritin [Mass/volume] in Serum or Plasma| active  2.83
+PASS  2502-3 |Iron saturation [Mass Fraction] in Serum or Plasma| active  2.83
+PASS  14801-5 |Iron saturation [Molar fraction] in Serum or Plasma| active  2.83
+PASS  1988-5 |C reactive protein [Mass/volume] in Serum or Plasma| active  2.83
+PASS  787-2 |MCV [Entitic mean volume] in Red Blood Cells by Automated count| active  2.83
+PASS  14685-2 |Cobalamin (Vitamin B12) [Moles/volume] in Serum or Plasma| active  2.83
+PASS  14732-2 |Folate [Moles/volume] in Serum or Plasma| active  2.83
+PASS  62238-1 |Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI)/1.73 sq M| active  2.83
+PASS  98979-8 |Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI 2021)/1.73 sq M| active  2.83
+PASS  8302-2 |Body height| active  2.83
+PASS  29463-7 |Body weight| active  2.83
+PASS  39156-5 |Body mass index (BMI) [Ratio]| active  2.83
+
+# AU Core bindings (extensible): pathology code -> RCPA SPIA reporting value set
+
+PASS  718-7 in spia-pathology-reporting-1  
+PASS  2276-4 in spia-pathology-reporting-1  
+PASS  14801-5 in spia-pathology-reporting-1  
+PASS  1988-5 in spia-pathology-reporting-1  
+PASS  787-2 in spia-pathology-reporting-1  
+PASS  14685-2 in spia-pathology-reporting-1  
+PASS  14732-2 in spia-pathology-reporting-1  
+PASS  62238-1 in spia-pathology-reporting-1  
+PASS  98979-8 in spia-pathology-reporting-1  
+PASS  2502-3 NOT in spia-pathology-reporting-1  
+PASS  2284-8 NOT in spia-pathology-reporting-1  
+
+# AU Core Condition.code -> AU Clinical Condition (extensible)
+
+PASS  87522002 in clinical-condition-1  
+PASS  35240004 in clinical-condition-1  
+PASS  234340006 in clinical-condition-1  
+PASS  234347009 in clinical-condition-1  
+PASS  271737000 in clinical-condition-1  
+PASS  707323002 in clinical-condition-1  
+PASS  724556004 in clinical-condition-1  
+
+# AU Core MedicationRequest coding:amt -> Australian Medication (required)
+
+PASS  1312141000168105 in australian-medication-1  
+PASS  1086251000168104 in australian-medication-1  
+PASS  430819007 in australian-medication-1  
+
+# Hierarchy facts the mapping relies on
+
+PASS  87522002, 234347009, 707323002 are << 271737000 |Anaemia|  
+PASS  35240004 and 234340006 are NOT << 271737000  
+PASS  << 35240004 |Iron deficiency| has no descendants (IDA and 'without anaemia' are not under it)  {'35240004': 'Iron deficiency'}
+PASS  311401005 |Patient education| << 409073007 |Education|  
+
+# IV iron value sets
+
+PASS  A7 order ECL: 7 unbranded FCM / FDI injection products  7
+PASS  both synthetic-data products are in the A7 order ECL  
+PASS  proposed IV iron *detection* ECL (FCM, FDI, iron sucrose, iron polymaltose; branded too)  33 concepts
+
+ALL PASS
