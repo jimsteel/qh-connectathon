@@ -105,7 +105,7 @@
   // View 2: Hb results for the cohort; earliest = initial, latest = post-treatment (as in the PAM dashboard)
   async function view2(search, c) {
     const obs = (await PamFilters.searchScoped(search, 'Observation?code=http://loinc.org%7C718-7', c.patientIds))
-      .filter((r) => r.resourceType === 'Observation' && r.valueQuantity);
+      .filter((r) => r.resourceType === 'Observation' && r.valueQuantity && !['entered-in-error', 'cancelled'].includes(r.status));
     const pats = (await PamFilters.searchScoped(search, 'Patient?_elements=gender', c.patientIds, { param: '_id', prefix: '' }));
     const sex = Object.fromEntries(pats.map((p) => [p.id, p.gender]));
     const byPatient = {};
@@ -113,7 +113,8 @@
     const rows = { female: { n: 0, initial: [], post: [] }, male: { n: 0, initial: [], post: [] } };
     const rises = [];
     for (const [pid, list] of Object.entries(byPatient)) {
-      list.sort((a, b) => a.effectiveDateTime.localeCompare(b.effectiveDateTime));
+      const when = (o) => o.effectiveDateTime || o.effectivePeriod?.start || o.issued || '';
+      list.sort((a, b) => when(a).localeCompare(when(b)));
       const r = rows[sex[pid]]; if (!r) continue;
       r.n++; r.initial.push(list[0].valueQuantity.value);
       if (list.length > 1) { r.post.push(list.at(-1).valueQuantity.value); rises.push(list.at(-1).valueQuantity.value - list[0].valueQuantity.value); }

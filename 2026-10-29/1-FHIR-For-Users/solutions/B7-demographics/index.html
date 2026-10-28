@@ -102,12 +102,12 @@
   const params = new URLSearchParams(location.search);
   const clientPromise = params.get('server') ? Promise.resolve(FHIR.client(params.get('server'))) : FHIR.oauth2.ready();
 
+  // Whole years from the date parts (new Date('YYYY-MM-DD') is UTC, so local getters shift it a day west of UTC)
   function ageOn(birthDate, onDate) {
-    const b = new Date(birthDate), d = new Date(onDate);
-    let a = d.getFullYear() - b.getFullYear();
-    if (d.getMonth() < b.getMonth() || (d.getMonth() === b.getMonth() && d.getDate() < b.getDate())) a--;
-    return a;
+    const [by, bm = 1, bd = 1] = birthDate.slice(0, 10).split('-').map(Number), [y, m, d] = onDate.slice(0, 10).split('-').map(Number);
+    return y - by - (m < bm || (m === bm && d < bd) ? 1 : 0);
   }
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const median = (xs) => { if (!xs.length) return null; const s = [...xs].sort((a, b) => a - b), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
 
   // Pure summary, exported for verify.mjs
@@ -166,7 +166,7 @@
     }, { displayModeBar: false, responsive: true });
 
     document.querySelector('#pc-table tbody').innerHTML = pcs.map(([pc, e]) =>
-      `<tr><td>${pc}${window.QLD_POSTCODE_CENTROIDS[pc] || pc === 'unknown' ? '' : ' (not on map)'}</td><td>${[...e.suburbs].join(', ')}</td><td class="n">${e.n}</td></tr>`).join('')
+      `<tr><td>${esc(pc)}${window.QLD_POSTCODE_CENTROIDS[pc] || pc === 'unknown' ? '' : ' (not on map)'}</td><td>${esc([...e.suburbs].join(', '))}</td><td class="n">${e.n}</td></tr>`).join('')
       || '<tr><td colspan="3">No patients</td></tr>';
   }
 

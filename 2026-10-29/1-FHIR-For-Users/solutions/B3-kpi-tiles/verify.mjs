@@ -63,7 +63,11 @@ const all = await (await fetch(`${BASE}/EpisodeOfCare?_count=500&_format=json`))
 const direct = (all.entry || []).map((e) => e.resource).filter((e) => e.type?.some((t) => t.coding?.some((c) => c.code === 'pam' && c.system.endsWith('/episode-type'))));
 const days = (a, b) => (new Date(b.substring(0, 10)) - new Date(a.substring(0, 10))) / 86400000;
 const med = (xs) => { const s = [...xs].sort((a, b) => a - b); return s.length ? (s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2) : null; };
-const eduTotal = (await (await fetch(`${BASE}/Procedure?_summary=count&_format=json`)).json()).total + (await (await fetch(`${BASE}/Communication?_summary=count&_format=json`)).json()).total;
+// Education-coded Procedure / Communication anywhere on the server (other solutions' test data, e.g. A4 history
+// Procedures, is not education and must not count)
+const eduCoded = (r) => [r.code, ...(r.category ? [].concat(r.category) : [])].flatMap((cc) => cc?.coding || []).some((c) => c.system === 'http://snomed.info/sct' && ['409073007', '311401005'].includes(c.code));
+const allOf = async (t) => ((await (await fetch(`${BASE}/${t}?_count=500&_format=json`)).json()).entry || []).map((e) => e.resource);
+const eduTotal = [...await allOf('Procedure'), ...await allOf('Communication')].filter(eduCoded).length;
 
 const browser = await chromium.launch();
 const ctx = await browser.newContext({ viewport: { width: 1280, height: 1000 } });
@@ -89,7 +93,7 @@ for (const [value, name] of [['|', 'All'], ['2025-07-01|2026-06-30', 'FY 2025-26
   check(`Meld, ${name}: tiles match direct EpisodeOfCare query`, ok, `ui ${JSON.stringify(ui)} expected ${JSON.stringify(exp)}`);
   if (value === '|') await page.screenshot({ path: path.join(here, 'screenshot-meld-all.png'), fullPage: true });
 }
-check('Meld: education sessions = 0 and the "none recorded yet" note shows (server has ' + eduTotal + ' Procedure + Communication)',
+check('Meld: education sessions = 0 and the "none recorded yet" note shows (server has ' + eduTotal + ' education-coded Procedure + Communication)',
   (await tiles())['t-edu'] === '0' && eduTotal === 0 && await page.isVisible('#edu-note'));
 check('Meld: no page errors', errors.length === 0, errors.join('; '));
 

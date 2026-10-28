@@ -102,7 +102,7 @@
     bars('treatment', p.treatment, n);
     statusEl.textContent = `${n} referrals · ${resources.length} resources from 4 searches`;
     $('table').innerHTML = '<tr><th>Referral</th><th>Date</th><th>Patient</th><th>Unit</th><th>Source</th><th>Treatment</th></tr>' +
-      p.rows.sort((a, b) => a.date.localeCompare(b.date)).map((r) => `<tr><td>${esc(r.referral)}</td><td>${r.date}</td><td>${esc(r.patient)}</td><td>${esc(r.unit)}</td><td>${esc(r.source)}</td><td>${esc(r.treatment)}</td></tr>`).join('');
+      p.rows.sort((a, b) => a.date.localeCompare(b.date)).map((r) => `<tr><td>${esc(r.referral)}</td><td>${esc(r.date)}</td><td>${esc(r.patient)}</td><td>${esc(r.unit)}</td><td>${esc(r.source)}</td><td>${esc(r.treatment)}</td></tr>`).join('');
   }
 
   async function load(client) {

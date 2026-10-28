@@ -322,12 +322,12 @@
         <td>${s.belowInitial} → ${s.belowPost}</td><td>${s.corrected}</td></tr>`;
     }
     document.getElementById('summary').innerHTML = head + body;
-    const cell = (v) => v ? `${v.value} <span class="note">${v.date}</span>` : '–';
+    const cell = (v) => v ? `${esc(v.value)} <span class="note">${esc(v.date)}</span>` : '–';
     const ch = (c) => c === null ? '–' : (c > 0 ? '+' : '') + c;
     document.getElementById('patients').innerHTML =
       '<tr><th class="l">Patient</th><th class="l">Sex</th><th class="l">Anchor</th><th class="l">Episode</th><th>Hb initial</th><th>Hb post</th><th>Δ</th><th>Ferritin initial</th><th>Ferritin post</th><th>Δ</th></tr>' +
       rows.sort((a, b) => a.anchor.localeCompare(b.anchor)).map((r) => `<tr><td class="l">${esc(r.name)} <span class="note">${esc(r.id)}</span></td><td class="l">${esc(r.sex)}</td>
-        <td class="l">${r.anchor} <span class="note">${r.anchorSource}</span></td><td class="l">${esc(r.episodeStatus)}</td>
+        <td class="l">${esc(r.anchor)} <span class="note">${r.anchorSource}</span></td><td class="l">${esc(r.episodeStatus)}</td>
         <td>${cell(r[HB].initial)}</td><td>${cell(r[HB].post)}</td><td>${ch(r[HB].change)}</td>
         <td>${cell(r[FERRITIN].initial)}</td><td>${cell(r[FERRITIN].post)}</td><td>${ch(r[FERRITIN].change)}</td></tr>`).join('');
   }

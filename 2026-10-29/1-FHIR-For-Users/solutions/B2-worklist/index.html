@@ -138,6 +138,8 @@
   const refType = (r) => (r?.reference || '').split('/').slice(-2, -1)[0];
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const daysBetween = (a, b) => Math.round((Date.parse(b) - Date.parse(a)) / 86400000);
+  // Whole years, birthday-exact (floor(days / 365.25) is a year short on some birthdays)
+  const wholeYears = (b, d) => { const [by, bm = 1, bd = 1] = b.split('-').map(Number), [y, m, dd] = d.split('-').map(Number); return y - by - (m < bm || (m === bm && dd < bd) ? 1 : 0); };
   const humanName = (r) => { const n = r?.name?.[0]; return n ? [...(n.prefix || []), ...(n.given || []), n.family].filter(Boolean).join(' ') : (r?.id || ''); };
   const text = (cc) => cc?.text || cc?.coding?.[0]?.display || cc?.coding?.[0]?.code || '';
   const chunks = (xs, n) => xs.reduce((a, x, i) => (i % n ? a[a.length - 1].push(x) : a.push([x]), a), []);
@@ -187,7 +189,7 @@
       const next = epTasks[0];
       const due = next ? taskDue(next) : null;
       const manager = byKey[`Practitioner/${ref(e.careManager)}`];
-      const age = patient?.birthDate ? Math.floor(daysBetween(patient.birthDate, today) / 365.25) : null;
+      const age = patient?.birthDate ? wholeYears(patient.birthDate, today) : null;
       return {
         episodeId: e.id, patientId: pid, name: humanName(patient), sex: patient?.gender || '', age,
         manager: manager ? humanName(manager) : '', managerId: ref(e.careManager),
@@ -209,11 +211,11 @@
 
   function dueBadge(daysToDue, due) {
     if (daysToDue === null) return '<span class="note">no due date</span>';
-    if (daysToDue < 0) return `<span class="badge overdue">&#9888; Overdue ${-daysToDue} d</span> <span class="note">${due}</span>`;
-    if (daysToDue <= 7) return `<span class="badge soon">&#9201; Due ${daysToDue === 0 ? 'today' : 'in ' + daysToDue + ' d'}</span> <span class="note">${due}</span>`;
-    return `<span class="badge ok">Due in ${daysToDue} d</span> <span class="note">${due}</span>`;
+    if (daysToDue < 0) return `<span class="badge overdue">&#9888; Overdue ${-daysToDue} d</span> <span class="note">${esc(due)}</span>`;
+    if (daysToDue <= 7) return `<span class="badge soon">&#9201; Due ${daysToDue === 0 ? 'today' : 'in ' + daysToDue + ' d'}</span> <span class="note">${esc(due)}</span>`;
+    return `<span class="badge ok">Due in ${daysToDue} d</span> <span class="note">${esc(due)}</span>`;
   }
-  const lab = (v, thr, unit) => v ? `<span class="${v.value < thr ? 'low' : ''}">${v.value}${v.value < thr ? ' &#8595;' : ''}</span> <span class="note">${unit} · ${v.date}</span>` : '–';
+  const lab = (v, thr, unit) => v ? `<span class="${v.value < thr ? 'low' : ''}">${esc(v.value)}${v.value < thr ? ' &#8595;' : ''}</span> <span class="note">${unit} · ${esc(v.date)}</span>` : '–';
 
   let cache = null;
   function render() {
@@ -240,11 +242,11 @@
     document.getElementById('worklist').innerHTML =
       '<tr><th>Surgery</th><th>Patient</th><th>Procedure · unit</th><th>Cat.</th><th>Referred</th><th>Care manager</th><th>Latest Hb</th><th>Latest ferritin</th><th>Follow-up</th></tr>' +
       (view.length ? view.map((r) => `<tr data-episode="${esc(r.episodeId)}">
-        <td>${r.surgeryDate ? `<b>${r.surgeryDate}</b><br>${r.daysToSurgery < 0 ? `<span class="badge overdue">&#9888; ${-r.daysToSurgery} d ago</span>` : r.daysToSurgery <= 14 ? `<span class="badge soon">in ${r.daysToSurgery} d</span>` : `<span class="note">in ${r.daysToSurgery} d</span>`}` : '<span class="note">not booked</span>'}</td>
+        <td>${r.surgeryDate ? `<b>${esc(r.surgeryDate)}</b><br>${r.daysToSurgery < 0 ? `<span class="badge overdue">&#9888; ${-r.daysToSurgery} d ago</span>` : r.daysToSurgery <= 14 ? `<span class="badge soon">in ${r.daysToSurgery} d</span>` : `<span class="note">in ${r.daysToSurgery} d</span>`}` : '<span class="note">not booked</span>'}</td>
         <td><b>${esc(r.name)}</b><br><span class="note">${esc(r.sex)}${r.age !== null ? ', ' + r.age : ''} · ${esc(r.patientId)}</span></td>
         <td>${esc(r.procedure) || '–'}<br><span class="note">${esc(r.unit)}</span></td>
         <td>${esc(r.category.replace('Category ', '')) || '–'}</td>
-        <td>${r.referred || '–'}<br><span class="note">${r.daysWithTeam ?? '–'} d with team</span></td>
+        <td>${esc(r.referred) || '–'}<br><span class="note">${r.daysWithTeam ?? '–'} d with team</span></td>
         <td>${esc(r.manager) || '–'}</td>
         <td>${lab(r.hb, r.sex === 'male' ? 130 : 120, 'g/L')}</td>
         <td>${lab(r.ferritin, 100, 'µg/L')}</td>

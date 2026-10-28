@@ -67,7 +67,9 @@ async function load(client) {
 
   // --- Patient
   const sex = patient.gender;
-  const age = patient.birthDate ? Math.floor(L.daysBetween(patient.birthDate, TODAY) / 365.25) : null;
+  // Whole years, birthday-exact (floor(days / 365.25) is a year short on some birthdays)
+  const wholeYears = (b, d) => { const [by, bm = 1, bd = 1] = b.split('-').map(Number), [y, m, dd] = d.split('-').map(Number); return y - by - (m < bm || (m === bm && dd < bd) ? 1 : 0); };
+  const age = patient.birthDate ? wholeYears(patient.birthDate, TODAY) : null;
   $('who').textContent = `${humanName(patient)} · ${sex || 'sex not recorded'}${age != null ? ', ' + age + ' years' : ''} · born ${fmtDate(patient.birthDate)} · id ${patient.id}`;
 
   // --- Pathology and classification
