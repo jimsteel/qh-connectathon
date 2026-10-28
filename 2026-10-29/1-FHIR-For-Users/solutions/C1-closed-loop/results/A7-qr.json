@@ -1,0 +1,344 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "status": "in-progress",
+  "questionnaire": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A7-standalone|0.2.0",
+  "item": [
+    {
+      "linkId": "pam-tx-standalone-inputs",
+      "text": "Patient details and pathology (copied from modules A1 and A5)",
+      "item": [
+        {
+          "linkId": "pam-name",
+          "text": "Name",
+          "answer": [
+            {
+              "valueString": "Clara Loopdemo"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-sex",
+          "text": "Sex",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://hl7.org/fhir/administrative-gender",
+                "code": "female",
+                "display": "Female"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-height",
+          "text": "Height",
+          "answer": [
+            {
+              "valueDecimal": 165
+            }
+          ]
+        },
+        {
+          "linkId": "pam-weight",
+          "text": "Weight",
+          "answer": [
+            {
+              "valueDecimal": 68
+            }
+          ]
+        },
+        {
+          "linkId": "pam-hb",
+          "text": "Haemoglobin (Hb)",
+          "answer": [
+            {
+              "valueDecimal": 98
+            }
+          ]
+        },
+        {
+          "linkId": "pam-hb-date",
+          "text": "Date of latest Hb",
+          "answer": [
+            {
+              "valueDate": "2026-10-09"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "pam-treatment",
+      "text": "Treatment",
+      "item": [
+        {
+          "linkId": "pam-treatment-module",
+          "text": "Module",
+          "answer": [
+            {
+              "valueString": "soln-A7-standalone|0.2.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-tx-inputs",
+          "text": "Inputs (from Patient details and Pathology)",
+          "item": [
+            {
+              "linkId": "pam-tx-sex",
+              "text": "Sex",
+              "answer": [
+                {
+                  "id": "pam-tx-sex-calculatedExpression-gnNzGkzNO3-ehGbs6v_Fc",
+                  "valueString": "female"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-tx-height",
+              "text": "Height",
+              "answer": [
+                {
+                  "id": "pam-tx-height-calculatedExpression-v8cQGca1j8TwTiJFCsA1T",
+                  "valueDecimal": 165
+                }
+              ]
+            },
+            {
+              "linkId": "pam-tx-weight",
+              "text": "Actual body weight",
+              "answer": [
+                {
+                  "id": "pam-tx-weight-calculatedExpression-V9lqgxuSyp3FNHuzVr7Ox",
+                  "valueDecimal": 68
+                }
+              ]
+            },
+            {
+              "linkId": "pam-tx-hb",
+              "text": "Latest Hb (actual Hb)",
+              "answer": [
+                {
+                  "id": "pam-tx-hb-calculatedExpression-PEseyrDCZXuCF2DgcLwOA",
+                  "valueDecimal": 98
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-tx-ganzoni",
+          "text": "Total iron dose (Ganzoni)",
+          "item": [
+            {
+              "linkId": "pam-ideal-weight",
+              "text": "Ideal body weight (Devine)",
+              "answer": [
+                {
+                  "id": "pam-ideal-weight-calculatedExpression-aUdwtlZ09Vf8PiJJz_EDr",
+                  "valueDecimal": 56.8
+                }
+              ]
+            },
+            {
+              "linkId": "pam-dosing-weight",
+              "text": "Dosing weight",
+              "answer": [
+                {
+                  "id": "pam-dosing-weight-calculatedExpression-QS9ZrygK8xSDSoBQ5X5FR",
+                  "valueDecimal": 56.8
+                }
+              ]
+            },
+            {
+              "linkId": "pam-dosing-weight-basis",
+              "text": "Dosing weight is",
+              "answer": [
+                {
+                  "id": "pam-dosing-weight-basis-calculatedExpression-WZPX2lozmmvLv7qOAvYX2",
+                  "valueString": "ideal body weight (actual weight is above ideal)"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-target-hb",
+              "text": "Target Hb",
+              "answer": [
+                {
+                  "id": "pam-target-hb-calculatedExpression-My2FiOrJ2xNRYFSOZV10y",
+                  "valueDecimal": 150
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-stores",
+              "text": "Iron stores",
+              "answer": [
+                {
+                  "id": "pam-iron-stores-calculatedExpression-BjkYyULf0UNQTDQx03xOK",
+                  "valueDecimal": 500
+                }
+              ]
+            },
+            {
+              "linkId": "pam-ganzoni",
+              "text": "Total iron deficit (Ganzoni)",
+              "answer": [
+                {
+                  "id": "pam-ganzoni-calculatedExpression-bWZipx7ftt3VIAYbtyx2M",
+                  "valueDecimal": 1209
+                }
+              ]
+            },
+            {
+              "linkId": "pam-ganzoni-rounded",
+              "text": "Suggested total dose (to the nearest 100 mg)",
+              "answer": [
+                {
+                  "id": "pam-ganzoni-rounded-calculatedExpression-OehD3yYpuZ1H6yOO3TQW1",
+                  "valueDecimal": 1200
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-tx-plan",
+          "text": "Treatment plan",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "718520009",
+                "display": "Intravenous iron infusion"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-iv-iron",
+          "text": "IV iron order",
+          "item": [
+            {
+              "linkId": "pam-iron-product",
+              "text": "Product (AMT)",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "1312141000168105",
+                    "display": "Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-dose-override",
+              "text": "Prescribe a different total dose from the suggested one",
+              "answer": [
+                {
+                  "valueBoolean": false
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-dose",
+              "text": "Total dose prescribed",
+              "answer": [
+                {
+                  "id": "pam-iron-dose-calculatedExpression-HvuHw7Ra6IyDRA0gbRB89",
+                  "valueDecimal": 1200
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-max-infusion",
+              "text": "Maximum dose per infusion",
+              "answer": [
+                {
+                  "id": "pam-iron-max-infusion-calculatedExpression-cTnQxhJ_R-HdEA_Y2KYEs",
+                  "valueDecimal": 1000
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-infusions",
+              "text": "Number of infusions",
+              "answer": [
+                {
+                  "id": "pam-iron-infusions-calculatedExpression-y7-yNYvWm14EcQgyqopcZ",
+                  "valueInteger": 2
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-dose-1",
+              "text": "Infusion 1",
+              "answer": [
+                {
+                  "id": "pam-iron-dose-1-calculatedExpression-77Hy8hnEgzca0iKacI_f9",
+                  "valueDecimal": 1000
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-dose-2",
+              "text": "Infusion 2 (at least 7 days after infusion 1)",
+              "answer": [
+                {
+                  "id": "pam-iron-dose-2-calculatedExpression-BIM8rUT_go87B2dRlsP5v",
+                  "valueDecimal": 200
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-infusion",
+          "text": "Book the infusion (day unit)",
+          "item": [
+            {
+              "linkId": "pam-infusion-date",
+              "text": "Requested date of the first infusion",
+              "answer": [
+                {
+                  "valueDate": "2026-11-05"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-infusion-priority",
+              "text": "Priority",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/request-priority",
+                    "code": "routine",
+                    "display": "Routine"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-infusion-notes",
+              "text": "Notes for the day unit",
+              "answer": [
+                {
+                  "valueString": "C1 closed-loop demo"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "subject": {
+    "type": "Patient",
+    "reference": "Patient/soln-C1-patient-1",
+    "display": "Clara Loopdemo"
+  },
+  "meta": {
+    "source": "https://smartforms.csiro.au"
+  }
+}

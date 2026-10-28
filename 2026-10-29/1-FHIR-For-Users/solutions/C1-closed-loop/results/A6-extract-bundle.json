@@ -1,0 +1,117 @@
+{
+  "resourceType": "Bundle",
+  "id": "sdc-template-extract-daeacc091e33",
+  "meta": {
+    "tag": [
+      {
+        "code": "@aehrc/sdc-template-extract:generated",
+        "system": "urn:aehrc:sdc-template-extract"
+      }
+    ]
+  },
+  "type": "transaction",
+  "timestamp": "2026-10-28T13:40:59.111Z",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:b5fc7136-2a39-430c-9053-0d27fb0dde7a",
+      "resource": {
+        "resourceType": "Condition",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "encounter-diagnosis",
+                "display": "Encounter Diagnosis"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "87522002",
+              "display": "Iron deficiency anaemia"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-C1-patient-1"
+        },
+        "note": [
+          {
+            "text": "Pathway (PAM decision support): Iron deficiency anaemia: iron replacement (see Treatment)"
+          }
+        ],
+        "recordedDate": "2026-10-28T23:40:59.108+10:00"
+      },
+      "request": {
+        "method": "POST",
+        "url": "Condition"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6e34e016-95ce-4832-aa7c-c64c55c60f3f",
+      "resource": {
+        "resourceType": "Goal",
+        "lifecycleStatus": "active",
+        "description": {
+          "text": "Haemoglobin at least 130 g/L before surgery"
+        },
+        "subject": {
+          "reference": "Patient/soln-C1-patient-1"
+        },
+        "target": [
+          {
+            "measure": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "718-7",
+                  "display": "Hemoglobin [Mass/volume] in Blood"
+                }
+              ]
+            },
+            "detailQuantity": {
+              "comparator": ">=",
+              "unit": "g/L",
+              "system": "http://unitsofmeasure.org",
+              "code": "g/L",
+              "value": 130
+            },
+            "dueDate": "2026-12-10"
+          }
+        ],
+        "note": [
+          {
+            "text": "Requested by: Surgeon"
+          }
+        ],
+        "startDate": "2026-10-28"
+      },
+      "request": {
+        "method": "POST",
+        "url": "Goal"
+      }
+    }
+  ]
+}

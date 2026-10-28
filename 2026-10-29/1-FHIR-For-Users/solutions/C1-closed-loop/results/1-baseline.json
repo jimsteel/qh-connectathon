@@ -1,0 +1,80 @@
+{
+  "b4": {
+    "quarter": "2026–27 Q2",
+    "referrals": 3,
+    "waitlisted": 0,
+    "byCategory": {
+      "Category 1": 0,
+      "Category 2": 2,
+      "Category 3": 0,
+      "Unknown": 1
+    },
+    "byDiagnosis": {
+      "Iron deficiency anaemia": 1,
+      "Iron deficiency": 0,
+      "Anaemia of chronic disease": 0,
+      "Anaemia": 0,
+      "No anaemia diagnosis": 2
+    },
+    "status": "42 referrals and 43 waitlist entries read; 38 waitlist entries fall in the quarters shown",
+    "patientReferrals": [
+      {
+        "id": "soln-C1-p1-referral",
+        "date": "2026-10-14",
+        "quarter": "2026–27 Q2",
+        "category": "2",
+        "dx": "none",
+        "dxLabel": ""
+      }
+    ]
+  },
+  "b6": {
+    "defaultView": "Given IV iron, all dates, IV iron anchor",
+    "tiles": {
+      "t-cohort": "28",
+      "t-paired": "21",
+      "t-awaiting": "7",
+      "t-hb-rise": "+17",
+      "t-anaemic": "15 → 8",
+      "t-lowferr": "21 → 0"
+    },
+    "summary": {
+      "hb": {
+        "withInitial": 28,
+        "paired": 21,
+        "awaiting": 7,
+        "medianChange": 17,
+        "belowInitial": 15,
+        "belowPost": 8
+      },
+      "hbFemale": {
+        "withInitial": 15,
+        "paired": 9,
+        "awaiting": 6,
+        "medianChange": 17,
+        "belowInitial": 8,
+        "belowPost": 5
+      },
+      "ferritin": {
+        "withInitial": 28,
+        "paired": 21,
+        "awaiting": 7,
+        "medianChange": 261,
+        "belowInitial": 21,
+        "belowPost": 0
+      }
+    },
+    "patientRow": {
+      "group": "noiv",
+      "anchor": "2026-10-14",
+      "anchorSource": "referral",
+      "episode": "active",
+      "hbInitial": "98 (2026-10-09)",
+      "hbPost": null,
+      "hbChange": null,
+      "ferritinInitial": "18 (2026-10-09)",
+      "ferritinPost": null,
+      "ferritinChange": null
+    }
+  }
+}

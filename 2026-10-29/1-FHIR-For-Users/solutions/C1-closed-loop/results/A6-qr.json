@@ -1,0 +1,242 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "status": "in-progress",
+  "questionnaire": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A6-standalone|0.2.0",
+  "item": [
+    {
+      "linkId": "pam-dx-inputs",
+      "text": "Inputs (in the full form: Patient details and Pathology)",
+      "item": [
+        {
+          "linkId": "pam-sex",
+          "text": "Sex",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://hl7.org/fhir/administrative-gender",
+                "code": "female",
+                "display": "Female"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-hb",
+          "text": "Haemoglobin (Hb)",
+          "answer": [
+            {
+              "valueDecimal": 98
+            }
+          ]
+        },
+        {
+          "linkId": "pam-ferritin",
+          "text": "Ferritin",
+          "answer": [
+            {
+              "valueDecimal": 18
+            }
+          ]
+        },
+        {
+          "linkId": "pam-tsat",
+          "text": "Transferrin saturation (TSAT)",
+          "answer": [
+            {
+              "valueDecimal": 9
+            }
+          ]
+        },
+        {
+          "linkId": "pam-crp",
+          "text": "C-reactive protein (CRP)",
+          "answer": [
+            {
+              "valueDecimal": 4
+            }
+          ]
+        },
+        {
+          "linkId": "pam-mcv",
+          "text": "Mean cell volume (MCV)",
+          "answer": [
+            {
+              "valueDecimal": 76
+            }
+          ]
+        },
+        {
+          "linkId": "pam-egfr",
+          "text": "eGFR",
+          "answer": [
+            {
+              "valueDecimal": 85
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "pam-diagnosis-section",
+      "text": "Diagnosis",
+      "item": [
+        {
+          "linkId": "pam-diagnosis-module",
+          "text": "Module",
+          "answer": [
+            {
+              "valueString": "pam-diagnosis|0.2.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-anaemia",
+          "text": "Anaemia (Hb ≤ 130 g/L male, ≤ 120 g/L female)",
+          "answer": [
+            {
+              "id": "pam-anaemia-calculatedExpression-HEn2QoXm5dUHfSYTnrTrN",
+              "valueBoolean": true
+            }
+          ]
+        },
+        {
+          "linkId": "pam-anaemia-severity",
+          "text": "Anaemia severity (WHO)",
+          "answer": [
+            {
+              "id": "pam-anaemia-severity-calculatedExpression-HrGLKSqNKC_1FPnHJ15rJ",
+              "valueString": "Moderate (Hb 80–109 g/L)"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-iron-deficiency",
+          "text": "Iron deficiency (ferritin < 100 µg/L, or TSAT < 20% with ferritin 100–300 µg/L)",
+          "answer": [
+            {
+              "id": "pam-iron-deficiency-calculatedExpression-qiVHZ2YHmwXzFIrhH7OSX",
+              "valueBoolean": true
+            }
+          ]
+        },
+        {
+          "linkId": "pam-inflammation",
+          "text": "Inflammation (CRP > 10 mg/L)",
+          "answer": [
+            {
+              "id": "pam-inflammation-calculatedExpression-Rt1XRTji1vSl6ZaReKilQ",
+              "valueBoolean": false
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pathway",
+          "text": "Pathway",
+          "answer": [
+            {
+              "id": "pam-pathway-calculatedExpression-7RC1ZH1IcO0h8JcQ85D6S",
+              "valueString": "Iron deficiency anaemia: iron replacement (see Treatment)"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-diagnosis-suggested",
+          "text": "Suggested diagnosis",
+          "answer": [
+            {
+              "id": "pam-diagnosis-suggested-calculatedExpression-5J68yM8ilTi-lv6UFYc-E",
+              "valueString": "Iron deficiency anaemia (SNOMED CT 87522002)"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-diagnosis",
+          "text": "Diagnosis (confirm)",
+          "answer": [
+            {
+              "valueCoding": {
+                "system": "http://snomed.info/sct",
+                "code": "87522002",
+                "display": "Iron deficiency anaemia"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-blood-products",
+          "text": "Blood products",
+          "item": [
+            {
+              "linkId": "pam-blood-consent",
+              "text": "Consent to blood products",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/blood-product-consent",
+                    "code": "full",
+                    "display": "Consents to all blood products"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-target-hb-group",
+          "text": "Requested target haemoglobin",
+          "item": [
+            {
+              "linkId": "pam-target-hb",
+              "text": "Target Hb before surgery",
+              "answer": [
+                {
+                  "valueDecimal": 130
+                }
+              ]
+            },
+            {
+              "linkId": "pam-target-hb-gap",
+              "text": "Increase needed from the latest Hb",
+              "answer": [
+                {
+                  "id": "pam-target-hb-gap-calculatedExpression-tOgUdcdQp8Un4WJNLrBlP",
+                  "valueDecimal": 32
+                }
+              ]
+            },
+            {
+              "linkId": "pam-target-hb-by",
+              "text": "Requested by",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/target-hb-requester",
+                    "code": "surgeon",
+                    "display": "Surgeon"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-target-hb-due",
+              "text": "By (booked surgery date)",
+              "answer": [
+                {
+                  "valueDate": "2026-12-10"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "subject": {
+    "type": "Patient",
+    "reference": "Patient/soln-C1-patient-1",
+    "display": "Clara Loopdemo"
+  },
+  "meta": {
+    "source": "https://smartforms.csiro.au"
+  }
+}

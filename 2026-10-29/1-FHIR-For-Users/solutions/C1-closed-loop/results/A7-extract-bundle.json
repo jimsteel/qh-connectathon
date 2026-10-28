@@ -1,0 +1,152 @@
+{
+  "resourceType": "Bundle",
+  "id": "sdc-template-extract-00bc5f5a8eb5",
+  "meta": {
+    "tag": [
+      {
+        "code": "@aehrc/sdc-template-extract:generated",
+        "system": "urn:aehrc:sdc-template-extract"
+      }
+    ]
+  },
+  "type": "transaction",
+  "timestamp": "2026-10-28T13:42:35.149Z",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:2cb5f072-7502-4640-bc00-a2ae40064ef9",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "outpatient",
+                "display": "Outpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1312141000168105",
+              "display": "Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial"
+            }
+          ],
+          "text": "Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial"
+        },
+        "subject": {
+          "reference": "Patient/soln-C1-patient-1"
+        },
+        "note": [
+          {
+            "text": "Total iron dose 1200 mg (Ganzoni total iron deficit 1209 mg: dosing weight 56.8 kg, Hb 98 g/L, target 150 g/L, iron stores 500 mg), in 2 infusion(s) of at most 1000 mg, at least 7 days apart."
+          }
+        ],
+        "dosageInstruction": [
+          {
+            "sequence": 1,
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "47625008",
+                  "display": "Intravenous route"
+                }
+              ]
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "unit": "mg",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "mg",
+                  "value": 1000
+                }
+              }
+            ],
+            "text": "Infusion 1 of 2: 1000 mg IV"
+          },
+          {
+            "sequence": 2,
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "47625008",
+                  "display": "Intravenous route"
+                }
+              ]
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "unit": "mg",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "mg",
+                  "value": 200
+                }
+              }
+            ],
+            "text": "Infusion 2 of 2: 200 mg IV, at least 7 days after the previous infusion"
+          }
+        ],
+        "authoredOn": "2026-10-28T23:42:35.143+10:00"
+      },
+      "request": {
+        "method": "POST",
+        "url": "MedicationRequest"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1e246c3c-12fa-4546-b1ba-fced2bd1275f",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "basedOn": [
+          {
+            "reference": "urn:uuid:2cb5f072-7502-4640-bc00-a2ae40064ef9"
+          }
+        ],
+        "status": "active",
+        "intent": "order",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "718520009",
+              "display": "Intravenous iron infusion"
+            }
+          ]
+        },
+        "quantityQuantity": {
+          "unit": "infusions",
+          "system": "http://unitsofmeasure.org",
+          "code": "{infusions}",
+          "value": 2
+        },
+        "subject": {
+          "reference": "Patient/soln-C1-patient-1"
+        },
+        "note": [
+          {
+            "text": "Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial: Total iron dose 1200 mg (Ganzoni total iron deficit 1209 mg: dosing weight 56.8 kg, Hb 98 g/L, target 150 g/L, iron stores 500 mg), in 2 infusion(s) of at most 1000 mg, at least 7 days apart."
+          },
+          {
+            "text": "C1 closed-loop demo"
+          }
+        ],
+        "priority": "routine",
+        "occurrenceDateTime": "2026-11-05",
+        "authoredOn": "2026-10-28T23:42:35.147+10:00"
+      },
+      "request": {
+        "method": "POST",
+        "url": "ServiceRequest"
+      }
+    }
+  ]
+}
