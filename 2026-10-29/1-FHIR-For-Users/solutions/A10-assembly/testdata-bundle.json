@@ -1,0 +1,2658 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "soln-A10-patient-1",
+        "extension": [
+          {
+            "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+            "valueCoding": {
+              "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+              "code": "4",
+              "display": "Neither Aboriginal nor Torres Strait Islander origin"
+            }
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+            "valueBoolean": true
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MC"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/medicare-number",
+            "value": "0000099901"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "given": [
+              "Ada"
+            ],
+            "family": "Assembletest"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "07 3000 1111",
+            "use": "home"
+          },
+          {
+            "system": "phone",
+            "value": "0400 000 111",
+            "use": "mobile"
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1956-07-21",
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "12 Example Street",
+              "Unit 3"
+            ],
+            "city": "Chermside",
+            "state": "QLD",
+            "postalCode": "4032",
+            "country": "AU"
+          }
+        ],
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "el",
+                  "display": "Greek"
+                }
+              ]
+            },
+            "preferred": true
+          }
+        ],
+        "contact": [
+          {
+            "relationship": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0131",
+                    "code": "N",
+                    "display": "Next-of-Kin"
+                  }
+                ]
+              },
+              {
+                "text": "Daughter"
+              }
+            ],
+            "name": {
+              "given": [
+                "Sofia"
+              ],
+              "family": "Testdetails"
+            },
+            "telecom": [
+              {
+                "system": "phone",
+                "value": "0400 000 222",
+                "use": "mobile"
+              }
+            ]
+          }
+        ],
+        "generalPractitioner": [
+          {
+            "reference": "PractitionerRole/soln-A10-a2-role-ambrose",
+            "display": "Dr Ruth Ambrose"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/soln-A10-patient-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a1-patient-1-height-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8302-2",
+              "display": "Body height"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-03-02",
+        "valueQuantity": {
+          "value": 163,
+          "unit": "cm",
+          "system": "http://unitsofmeasure.org",
+          "code": "cm"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a1-patient-1-height-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a1-patient-1-weight-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "29463-7",
+              "display": "Body weight"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-03-02",
+        "valueQuantity": {
+          "value": 71.0,
+          "unit": "kg",
+          "system": "http://unitsofmeasure.org",
+          "code": "kg"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a1-patient-1-weight-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a1-patient-1-height-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8302-2",
+              "display": "Body height"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "valueQuantity": {
+          "value": 162,
+          "unit": "cm",
+          "system": "http://unitsofmeasure.org",
+          "code": "cm"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a1-patient-1-height-2"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a1-patient-1-weight-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "29463-7",
+              "display": "Body weight"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-09-15",
+        "valueQuantity": {
+          "value": 68.4,
+          "unit": "kg",
+          "system": "http://unitsofmeasure.org",
+          "code": "kg"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a1-patient-1-weight-2"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Organization",
+        "id": "soln-A10-a2-practice-ambrose",
+        "name": "Chermside Family Practice (synthetic)",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "07 3000 0101",
+            "use": "work"
+          }
+        ],
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "1 Test Street"
+            ],
+            "city": "Chermside",
+            "state": "QLD",
+            "postalCode": "4032",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/soln-A10-a2-practice-ambrose"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "soln-A10-a2-gp-ambrose",
+        "identifier": [
+          {
+            "system": "http://ns.electronichealth.net.au/id/medicare-provider-number",
+            "value": "0000001A"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "prefix": [
+              "Dr"
+            ],
+            "given": [
+              "Ruth"
+            ],
+            "family": "Ambrose"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/soln-A10-a2-gp-ambrose"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "soln-A10-a2-role-ambrose",
+        "active": true,
+        "practitioner": {
+          "reference": "Practitioner/soln-A10-a2-gp-ambrose",
+          "display": "Dr Ruth Ambrose"
+        },
+        "organization": {
+          "reference": "Organization/soln-A10-a2-practice-ambrose",
+          "display": "Chermside Family Practice (synthetic)"
+        },
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "62247001",
+                "display": "General practitioner"
+              }
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "07 3000 0101",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "PractitionerRole/soln-A10-a2-role-ambrose"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Organization",
+        "id": "soln-A10-a2-practice-haddad",
+        "name": "Kedron Medical Centre (synthetic)",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "07 3000 0202",
+            "use": "work"
+          }
+        ],
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "1 Test Street"
+            ],
+            "city": "Kedron",
+            "state": "QLD",
+            "postalCode": "4031",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/soln-A10-a2-practice-haddad"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "soln-A10-a2-gp-haddad",
+        "identifier": [
+          {
+            "system": "http://ns.electronichealth.net.au/id/medicare-provider-number",
+            "value": "0000002B"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "prefix": [
+              "Dr"
+            ],
+            "given": [
+              "Omar"
+            ],
+            "family": "Haddad"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/soln-A10-a2-gp-haddad"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "soln-A10-a2-role-haddad",
+        "active": true,
+        "practitioner": {
+          "reference": "Practitioner/soln-A10-a2-gp-haddad",
+          "display": "Dr Omar Haddad"
+        },
+        "organization": {
+          "reference": "Organization/soln-A10-a2-practice-haddad",
+          "display": "Kedron Medical Centre (synthetic)"
+        },
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "62247001",
+                "display": "General practitioner"
+              }
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "07 3000 0202",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "PractitionerRole/soln-A10-a2-role-haddad"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Organization",
+        "id": "soln-A10-a2-practice-tran",
+        "name": "Aspley Road Surgery (synthetic)",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "07 3000 0303",
+            "use": "work"
+          }
+        ],
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "1 Test Street"
+            ],
+            "city": "Aspley",
+            "state": "QLD",
+            "postalCode": "4034",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/soln-A10-a2-practice-tran"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "soln-A10-a2-gp-tran",
+        "identifier": [
+          {
+            "system": "http://ns.electronichealth.net.au/id/medicare-provider-number",
+            "value": "0000003C"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "prefix": [
+              "Dr"
+            ],
+            "given": [
+              "Lucy"
+            ],
+            "family": "Tran"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/soln-A10-a2-gp-tran"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "soln-A10-a2-role-tran",
+        "active": true,
+        "practitioner": {
+          "reference": "Practitioner/soln-A10-a2-gp-tran",
+          "display": "Dr Lucy Tran"
+        },
+        "organization": {
+          "reference": "Organization/soln-A10-a2-practice-tran",
+          "display": "Aspley Road Surgery (synthetic)"
+        },
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "62247001",
+                "display": "General practitioner"
+              }
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "07 3000 0303",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "PractitionerRole/soln-A10-a2-role-tran"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "soln-A10-a2-dr-attending",
+        "name": [
+          {
+            "use": "official",
+            "prefix": [
+              "Dr"
+            ],
+            "given": [
+              "Peter"
+            ],
+            "family": "Attending"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/soln-A10-a2-dr-attending"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "soln-A10-a2-patient-1-referral",
+        "status": "completed",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/referral-source",
+                "code": "gp",
+                "display": "General practitioner"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "3457005",
+              "display": "Patient referral"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "authoredOn": "2026-10-01",
+        "requester": {
+          "reference": "PractitionerRole/soln-A10-a2-role-tran",
+          "display": "Dr Lucy Tran"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/soln-A10-a2-patient-1-referral"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "soln-A10-a2-patient-1-admission",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP",
+          "display": "inpatient encounter"
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "period": {
+          "start": "2026-08-10",
+          "end": "2026-08-14"
+        },
+        "participant": [
+          {
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                    "code": "ATND",
+                    "display": "attender"
+                  }
+                ]
+              }
+            ],
+            "individual": {
+              "reference": "Practitioner/soln-A10-a2-dr-attending",
+              "display": "Dr Peter Attending"
+            }
+          },
+          {
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "62247001",
+                    "display": "General practitioner"
+                  }
+                ]
+              }
+            ],
+            "individual": {
+              "reference": "PractitionerRole/soln-A10-a2-role-haddad",
+              "display": "Dr Omar Haddad"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/soln-A10-a2-patient-1-admission"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "soln-A10-a3-patient-1-surgery",
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category",
+                "code": "2",
+                "display": "Category 2"
+              }
+            ],
+            "text": "Category 2"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "52734007",
+              "display": "Total hip replacement"
+            }
+          ],
+          "text": "Total hip replacement"
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "occurrenceDateTime": "2026-11-18",
+        "authoredOn": "2026-09-02",
+        "requester": {
+          "reference": "Practitioner/pam-surgeon-orthopaedics"
+        },
+        "performer": [
+          {
+            "reference": "Organization/pam-unit-orthopaedics"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/soln-A10-a3-patient-1-surgery"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "soln-A10-a3-patient-1-surgery-old",
+        "status": "completed",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category",
+                "code": "3",
+                "display": "Category 3"
+              }
+            ],
+            "text": "Category 3"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "80146002",
+              "display": "Appendicectomy"
+            }
+          ],
+          "text": "Appendicectomy"
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "occurrenceDateTime": "2019-05-02",
+        "authoredOn": "2019-04-20",
+        "requester": {
+          "reference": "Practitioner/pam-surgeon-colorectal"
+        },
+        "performer": [
+          {
+            "reference": "Organization/pam-unit-colorectal"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/soln-A10-a3-patient-1-surgery-old"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "soln-A10-a4-patient-1-condition-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "433144002",
+              "display": "Chronic kidney disease stage 3"
+            }
+          ],
+          "text": "Chronic kidney disease stage 3"
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "onsetDateTime": "2021-05-10"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/soln-A10-a4-patient-1-condition-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "soln-A10-a4-patient-1-condition-2",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "44054006",
+              "display": "Type 2 diabetes"
+            }
+          ],
+          "text": "Type 2 diabetes"
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "onsetDateTime": "2015-03-01"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/soln-A10-a4-patient-1-condition-2"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "soln-A10-a4-patient-1-condition-3",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item",
+                "display": "Problem List Item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "239873007",
+              "display": "Osteoarthritis of knee"
+            }
+          ],
+          "text": "Osteoarthritis of knee"
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "onsetDateTime": "2019-11-20"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/soln-A10-a4-patient-1-condition-3"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "soln-A10-a4-patient-1-condition-4",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "encounter-diagnosis",
+                "display": "Encounter Diagnosis"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "87522002",
+              "display": "Iron deficiency anaemia"
+            }
+          ],
+          "text": "Iron deficiency anaemia"
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "onsetDateTime": "2026-10-01"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/soln-A10-a4-patient-1-condition-4"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "soln-A10-a4-patient-1-procedure-1",
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "80146002",
+              "display": "Appendicectomy"
+            }
+          ],
+          "text": "Appendicectomy"
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "performedDateTime": "1989-07-10"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/soln-A10-a4-patient-1-procedure-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "soln-A10-a4-patient-1-procedure-2",
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "73761001",
+              "display": "Colonoscopy"
+            }
+          ],
+          "text": "Colonoscopy"
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "performedDateTime": "2024-02-15"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/soln-A10-a4-patient-1-procedure-2"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "soln-A10-a4-patient-1-medication-1",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "134251000036103",
+              "display": "Apixaban 5 mg tablet"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "dosage": [
+          {
+            "text": "5 mg twice daily"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/soln-A10-a4-patient-1-medication-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "soln-A10-a4-patient-1-medication-2",
+        "status": "active",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "23358011000036102",
+              "display": "Metformin hydrochloride 500 mg tablet"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "dosage": [
+          {
+            "text": "500 mg twice daily"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/soln-A10-a4-patient-1-medication-2"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "soln-A10-a4-patient-1-medication-3",
+        "status": "completed",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "71724000",
+              "display": "Ferrous sulfate"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "dosage": [
+          {
+            "text": "Stopped: not tolerated"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/soln-A10-a4-patient-1-medication-3"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "soln-A10-a4-patient-1-allergy-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "criticality": "high",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "764146007",
+              "display": "Penicillin"
+            }
+          ],
+          "text": "Penicillin"
+        },
+        "patient": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "271807003",
+                    "display": "Rash"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "AllergyIntolerance/soln-A10-a4-patient-1-allergy-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-hb-gp",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-06-03",
+        "performer": [
+          {
+            "display": "Northside Community Pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 112,
+          "unit": "g/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/L"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-hb-gp"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-ferritin-gp",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2276-4",
+              "display": "Ferritin [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-06-03",
+        "performer": [
+          {
+            "display": "Northside Community Pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 25,
+          "unit": "µg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "ug/L"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-ferritin-gp"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-tsat-gp",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2502-3",
+              "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-06-03",
+        "performer": [
+          {
+            "display": "Northside Community Pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 12,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-tsat-gp"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-crp-gp",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C reactive protein [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-06-03",
+        "performer": [
+          {
+            "display": "Northside Community Pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 4,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-crp-gp"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-hb-initial",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-08-12",
+        "performer": [
+          {
+            "display": "Hospital pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 104,
+          "unit": "g/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/L"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-hb-initial"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-ferritin-initial",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2276-4",
+              "display": "Ferritin [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-08-12",
+        "performer": [
+          {
+            "display": "Hospital pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 15,
+          "unit": "µg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "ug/L"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-ferritin-initial"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-tsat-initial",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2502-3",
+              "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-08-12",
+        "performer": [
+          {
+            "display": "Hospital pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 9,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-tsat-initial"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-crp-initial",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C reactive protein [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-08-12",
+        "performer": [
+          {
+            "display": "Hospital pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 6,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-crp-initial"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-mcv-initial",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "787-2",
+              "display": "MCV [Entitic mean volume] in Red Blood Cells by Automated count"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-08-12",
+        "performer": [
+          {
+            "display": "Hospital pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 76,
+          "unit": "fL",
+          "system": "http://unitsofmeasure.org",
+          "code": "fL"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-mcv-initial"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-b12-initial",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14685-2",
+              "display": "Cobalamin (Vitamin B12) [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-08-12",
+        "performer": [
+          {
+            "display": "Hospital pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 310,
+          "unit": "pmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "pmol/L"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-b12-initial"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-folate-initial",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "14732-2",
+              "display": "Folate [Moles/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-08-12",
+        "performer": [
+          {
+            "display": "Hospital pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 22,
+          "unit": "nmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "nmol/L"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-folate-initial"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-egfr-initial",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI)/1.73 sq M"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-08-12",
+        "performer": [
+          {
+            "display": "Hospital pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 72,
+          "unit": "mL/min/1.73 m²",
+          "system": "http://unitsofmeasure.org",
+          "code": "mL/min/{1.73_m2}"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-egfr-initial"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-hb-post",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Hemoglobin [Mass/volume] in Blood"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-09-24",
+        "performer": [
+          {
+            "display": "Hospital pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 121,
+          "unit": "g/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/L"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-hb-post"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-ferritin-post",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2276-4",
+              "display": "Ferritin [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-09-24",
+        "performer": [
+          {
+            "display": "Hospital pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 310,
+          "unit": "µg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "ug/L"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-ferritin-post"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-tsat-post",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2502-3",
+              "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-09-24",
+        "performer": [
+          {
+            "display": "Hospital pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 26,
+          "unit": "%",
+          "system": "http://unitsofmeasure.org",
+          "code": "%"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-tsat-post"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-crp-post",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C reactive protein [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-09-24",
+        "performer": [
+          {
+            "display": "Hospital pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 5,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-crp-post"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-mcv-post",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "787-2",
+              "display": "MCV [Entitic mean volume] in Red Blood Cells by Automated count"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-09-24",
+        "performer": [
+          {
+            "display": "Hospital pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 82,
+          "unit": "fL",
+          "system": "http://unitsofmeasure.org",
+          "code": "fL"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-mcv-post"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "soln-A10-a5-p1-egfr-post",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "62238-1",
+              "display": "Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI)/1.73 sq M"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "effectiveDateTime": "2026-09-24",
+        "performer": [
+          {
+            "display": "Hospital pathology (synthetic)"
+          }
+        ],
+        "valueQuantity": {
+          "value": 70,
+          "unit": "mL/min/1.73 m²",
+          "system": "http://unitsofmeasure.org",
+          "code": "mL/min/{1.73_m2}"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/soln-A10-a5-p1-egfr-post"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "soln-A10-a5-p1-iv-iron",
+        "status": "completed",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "1312141000168105",
+              "display": "Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial"
+            }
+          ],
+          "text": "Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial"
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "authoredOn": "2026-08-20",
+        "dosageInstruction": [
+          {
+            "text": "1000 mg IV",
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "47625008",
+                  "display": "Intravenous route"
+                }
+              ]
+            },
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 1000,
+                  "unit": "mg",
+                  "system": "http://unitsofmeasure.org",
+                  "code": "mg"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/soln-A10-a5-p1-iv-iron"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "soln-A10-a9-referral-1",
+        "status": "completed",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/referral-source",
+                "code": "surgeon",
+                "display": "Surgeon"
+              }
+            ],
+            "text": "Surgeon"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "3457005",
+              "display": "Patient referral"
+            }
+          ],
+          "text": "Patient referral"
+        },
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "authoredOn": "2026-09-01",
+        "performer": [
+          {
+            "reference": "Organization/pam-blood-management"
+          }
+        ],
+        "reasonCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "271737000",
+                "display": "Anaemia"
+              }
+            ],
+            "text": "Anaemia"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/soln-A10-a9-referral-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "EpisodeOfCare",
+        "id": "soln-A10-a9-episode-1",
+        "status": "active",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/episode-type",
+                "code": "pam",
+                "display": "Preoperative anaemia management"
+              }
+            ],
+            "text": "Preoperative anaemia management"
+          }
+        ],
+        "patient": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "managingOrganization": {
+          "reference": "Organization/pam-blood-management"
+        },
+        "period": {
+          "start": "2026-09-01"
+        },
+        "referralRequest": [
+          {
+            "reference": "ServiceRequest/soln-A10-a9-referral-1"
+          }
+        ],
+        "careManager": {
+          "reference": "Practitioner/pam-nurse-2"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "EpisodeOfCare/soln-A10-a9-episode-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Task",
+        "id": "soln-A10-a9-task-1",
+        "status": "completed",
+        "intent": "order",
+        "code": {
+          "coding": [
+            {
+              "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/task-type",
+              "code": "follow-up",
+              "display": "Review"
+            }
+          ],
+          "text": "Review"
+        },
+        "description": "Review referral and book IV iron",
+        "focus": {
+          "reference": "EpisodeOfCare/soln-A10-a9-episode-1"
+        },
+        "for": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "owner": {
+          "reference": "Practitioner/pam-nurse-2"
+        },
+        "authoredOn": "2026-09-01",
+        "restriction": {
+          "period": {
+            "end": "2026-09-08"
+          }
+        },
+        "note": [
+          {
+            "time": "2026-09-04",
+            "text": "Hb 104 g/L, ferritin 18 ug/L: iron deficiency anaemia. Ferric carboxymaltose 1000 mg booked for 10/09."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Task/soln-A10-a9-task-1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Task",
+        "id": "soln-A10-a9-task-2",
+        "status": "requested",
+        "intent": "order",
+        "code": {
+          "coding": [
+            {
+              "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/task-type",
+              "code": "follow-up",
+              "display": "Follow up post-treatment bloods"
+            }
+          ],
+          "text": "Follow up post-treatment bloods"
+        },
+        "description": "Follow up post-treatment bloods",
+        "focus": {
+          "reference": "EpisodeOfCare/soln-A10-a9-episode-1"
+        },
+        "for": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "owner": {
+          "reference": "Practitioner/pam-nurse-2"
+        },
+        "authoredOn": "2026-09-10",
+        "restriction": {
+          "period": {
+            "end": "2026-10-08"
+          }
+        },
+        "note": [
+          {
+            "time": "2026-09-10",
+            "text": "Infusion given 10/09, no reaction. Repeat FBC and iron studies in 4 weeks."
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Task/soln-A10-a9-task-2"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "QuestionnaireResponse",
+        "status": "completed",
+        "questionnaire": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/A11-pre-admission|0.2.0",
+        "item": [
+          {
+            "linkId": "pam-pre-admission",
+            "text": "Before your operation",
+            "item": [
+              {
+                "linkId": "pam-pre-admission-module",
+                "text": "Module",
+                "answer": [
+                  {
+                    "valueString": "pam-pre-admission|0.2.0"
+                  }
+                ]
+              },
+              {
+                "linkId": "pam-pa-about",
+                "text": "About you",
+                "item": [
+                  {
+                    "linkId": "pam-pa-name",
+                    "text": "Your name",
+                    "answer": [
+                      {
+                        "valueString": "Grace Preadmit-A11"
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-dob",
+                    "text": "Your date of birth",
+                    "answer": [
+                      {
+                        "valueDate": "1966-03-02"
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-sex",
+                    "text": "Your sex",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://hl7.org/fhir/administrative-gender",
+                          "code": "female",
+                          "display": "Female"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-medicare",
+                    "text": "Your Medicare number",
+                    "answer": [
+                      {
+                        "valueString": "0000000111"
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-phone",
+                    "text": "Best phone number to reach you",
+                    "answer": [
+                      {
+                        "valueString": "0400 000 111"
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-address",
+                    "text": "Your home address",
+                    "answer": [
+                      {
+                        "valueString": "12 Example Street, Kedron QLD 4031"
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-language",
+                    "text": "The language you prefer to speak",
+                    "answer": [
+                      {
+                        "valueString": "English"
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-interpreter",
+                    "text": "Do you need an interpreter?",
+                    "answer": [
+                      {
+                        "valueBoolean": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "linkId": "pam-pa-health",
+                "text": "Your health",
+                "item": [
+                  {
+                    "linkId": "pam-pa-told-anaemia",
+                    "text": "Has a doctor ever told you that you have low iron or anaemia (a low blood count)?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-iron-tablets",
+                    "text": "Have you taken iron tablets or iron liquid in the last year?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-iron-infusion",
+                    "text": "Have you ever had an iron drip (iron infusion)?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "N",
+                          "display": "No"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-tired",
+                    "text": "In the last month, have you felt more tired or short of breath than usual?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-bruising",
+                    "text": "Do you bruise easily, or bleed for a long time after a small cut?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "N",
+                          "display": "No"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-gut-bleeding",
+                    "text": "Have you noticed blood in your poo, black poo, or vomited blood?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "N",
+                          "display": "No"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-heavy-periods",
+                    "text": "Do you have heavy periods?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-blood-thinners",
+                    "text": "Do you take any medicine that thins your blood? (for example warfarin, apixaban (Eliquis), rivaroxaban (Xarelto), clopidogrel or aspirin)",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-blood-thinners-names",
+                    "text": "Which ones?",
+                    "answer": [
+                      {
+                        "valueString": "Aspirin 100 mg daily"
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-kidney",
+                    "text": "Has a doctor told you that you have kidney problems?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "N",
+                          "display": "No"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "linkId": "pam-pa-diet",
+                "text": "Food and diet",
+                "item": [
+                  {
+                    "linkId": "pam-pa-diet-type",
+                    "text": "Which best describes how you eat?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://snomed.info/sct",
+                          "code": "765021002",
+                          "display": "Vegetarian (no meat or fish)"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-tea-coffee",
+                    "text": "Do you usually drink tea or coffee with your meals?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-appetite",
+                    "text": "Have you lost your appetite or lost weight without trying in the last 3 months?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "N",
+                          "display": "No"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "linkId": "pam-pa-transfusion",
+                "text": "Blood transfusion",
+                "item": [
+                  {
+                    "linkId": "pam-pa-transfused-before",
+                    "text": "Have you ever had a blood transfusion?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "N",
+                          "display": "No"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-transfusion-accept",
+                    "text": "If you needed a blood transfusion during or after your operation, would you accept it?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                          "code": "some",
+                          "display": "Only some blood products"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-products",
+                    "text": "Which of these would you accept? Tick all that apply.",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://snomed.info/sct",
+                          "code": "116788004",
+                          "display": "Albumin"
+                        }
+                      },
+                      {
+                        "valueCoding": {
+                          "system": "http://snomed.info/sct",
+                          "code": "233568002",
+                          "display": "Cell salvage (your own blood, collected during the operation and given back)"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-transfusion-reason",
+                    "text": "Can you tell us why? You don't have to.",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-reason",
+                          "code": "religious",
+                          "display": "Religious beliefs (for example, Jehovah's Witness)"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-directive",
+                    "text": "Do you have an Advance Health Directive or another signed document about blood products?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "linkId": "pam-pa-talk",
+                    "text": "Would you like to talk to the blood management nurse before your operation?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                          "code": "Y",
+                          "display": "Yes"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "linkId": "pam-pa-done",
+                "text": "Finishing up",
+                "item": [
+                  {
+                    "linkId": "pam-pa-completed-by",
+                    "text": "Who filled in this form?",
+                    "answer": [
+                      {
+                        "valueCoding": {
+                          "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/form-completed-by",
+                          "code": "patient",
+                          "display": "Me (the patient)"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "id": "soln-A10-a11-qr-1",
+        "authored": "2026-10-28T09:30:00+10:00",
+        "author": {
+          "reference": "Patient/soln-A10-patient-1"
+        },
+        "source": {
+          "reference": "Patient/soln-A10-patient-1"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "QuestionnaireResponse/soln-A10-a11-qr-1"
+      }
+    }
+  ]
+}

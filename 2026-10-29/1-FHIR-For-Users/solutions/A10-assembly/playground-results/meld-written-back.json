@@ -1,0 +1,263 @@
+{
+  "Observation": [
+    {
+      "resourceType": "Observation",
+      "id": "39",
+      "meta": {
+        "versionId": "1",
+        "lastUpdated": "2026-10-28T14:42:05.000+00:00",
+        "source": "#cllgnPnyGYrQbtXH"
+      },
+      "status": "final",
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+              "code": "vital-signs",
+              "display": "Vital Signs"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "29463-7",
+            "display": "Body weight"
+          }
+        ],
+        "text": "Body weight"
+      },
+      "subject": {
+        "reference": "Patient/soln-A10-patient-1"
+      },
+      "effectiveDateTime": "2026-10-29",
+      "valueQuantity": {
+        "value": 70,
+        "unit": "kg",
+        "system": "http://unitsofmeasure.org",
+        "code": "kg"
+      }
+    }
+  ],
+  "Condition": [
+    {
+      "resourceType": "Condition",
+      "id": "40",
+      "meta": {
+        "versionId": "1",
+        "lastUpdated": "2026-10-28T14:42:05.000+00:00",
+        "source": "#cllgnPnyGYrQbtXH"
+      },
+      "clinicalStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+            "code": "active",
+            "display": "Active"
+          }
+        ]
+      },
+      "verificationStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+            "code": "confirmed",
+            "display": "Confirmed"
+          }
+        ]
+      },
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "87522002",
+            "display": "Iron deficiency anaemia"
+          }
+        ]
+      },
+      "subject": {
+        "reference": "Patient/soln-A10-patient-1"
+      },
+      "recordedDate": "2026-10-29T00:41:17.956+10:00",
+      "note": [
+        {
+          "text": "Pathway (PAM decision support): Iron deficiency anaemia: iron replacement (see Treatment)"
+        }
+      ]
+    }
+  ],
+  "MedicationRequest": [
+    {
+      "resourceType": "MedicationRequest",
+      "id": "41",
+      "meta": {
+        "versionId": "1",
+        "lastUpdated": "2026-10-28T14:42:05.000+00:00",
+        "source": "#cllgnPnyGYrQbtXH"
+      },
+      "status": "active",
+      "intent": "order",
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+              "code": "outpatient",
+              "display": "Outpatient"
+            }
+          ]
+        }
+      ],
+      "medicationCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "1312141000168105",
+            "display": "Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial"
+          }
+        ],
+        "text": "Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial"
+      },
+      "subject": {
+        "reference": "Patient/soln-A10-patient-1"
+      },
+      "authoredOn": "2026-10-29T00:41:17.965+10:00",
+      "reasonCode": [
+        {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "87522002",
+              "display": "Iron deficiency anaemia"
+            }
+          ]
+        }
+      ],
+      "note": [
+        {
+          "text": "Total iron dose 1100 mg (Ganzoni total iron deficit 1098 mg: dosing weight 54.1 kg, Hb 104 g/L, target 150 g/L, iron stores 500 mg), in 2 infusion(s) of at most 1000 mg, at least 7 days apart."
+        }
+      ],
+      "dosageInstruction": [
+        {
+          "sequence": 1,
+          "text": "Infusion 1 of 2: 1000 mg IV",
+          "route": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "47625008",
+                "display": "Intravenous route"
+              }
+            ]
+          },
+          "doseAndRate": [
+            {
+              "doseQuantity": {
+                "value": 1000,
+                "unit": "mg",
+                "system": "http://unitsofmeasure.org",
+                "code": "mg"
+              }
+            }
+          ]
+        },
+        {
+          "sequence": 2,
+          "text": "Infusion 2 of 2: 100 mg IV, at least 7 days after the previous infusion",
+          "route": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "47625008",
+                "display": "Intravenous route"
+              }
+            ]
+          },
+          "doseAndRate": [
+            {
+              "doseQuantity": {
+                "value": 100,
+                "unit": "mg",
+                "system": "http://unitsofmeasure.org",
+                "code": "mg"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "ServiceRequest": [
+    {
+      "resourceType": "ServiceRequest",
+      "id": "42",
+      "meta": {
+        "versionId": "1",
+        "lastUpdated": "2026-10-28T14:42:05.000+00:00",
+        "source": "#cllgnPnyGYrQbtXH"
+      },
+      "basedOn": [
+        {
+          "reference": "MedicationRequest/41"
+        }
+      ],
+      "status": "active",
+      "intent": "order",
+      "priority": "routine",
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "718520009",
+            "display": "Intravenous iron infusion"
+          }
+        ]
+      },
+      "quantityQuantity": {
+        "value": 2,
+        "unit": "infusions",
+        "system": "http://unitsofmeasure.org",
+        "code": "{infusions}"
+      },
+      "subject": {
+        "reference": "Patient/soln-A10-patient-1"
+      },
+      "occurrenceDateTime": "2026-11-05",
+      "authoredOn": "2026-10-29T00:41:17.981+10:00",
+      "reasonCode": [
+        {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "87522002",
+              "display": "Iron deficiency anaemia"
+            }
+          ]
+        }
+      ],
+      "note": [
+        {
+          "text": "Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial: Total iron dose 1100 mg (Ganzoni total iron deficit 1098 mg: dosing weight 54.1 kg, Hb 104 g/L, target 150 g/L, iron stores 500 mg), in 2 infusion(s) of at most 1000 mg, at least 7 days apart."
+        },
+        {
+          "text": "A10 assembled-form test"
+        }
+      ]
+    }
+  ]
+}

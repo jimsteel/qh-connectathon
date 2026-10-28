@@ -1,0 +1,3122 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "status": "in-progress",
+  "questionnaire": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-root|0.2.0-assembled",
+  "item": [
+    {
+      "linkId": "pam-tabs",
+      "text": "Preoperative anaemia management",
+      "item": [
+        {
+          "linkId": "pam-patient",
+          "text": "Patient details",
+          "item": [
+            {
+              "linkId": "pam-patient-details-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-patient-details|0.2.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-name",
+              "text": "Name",
+              "answer": [
+                {
+                  "valueString": "Ada Assembletest"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-dob",
+              "text": "Date of birth",
+              "answer": [
+                {
+                  "valueDate": "1956-07-21"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-age",
+              "text": "Age",
+              "answer": [
+                {
+                  "id": "pam-age-calculatedExpression-9_wD8PWIvsJVlnuist_SE",
+                  "valueInteger": 70
+                }
+              ]
+            },
+            {
+              "linkId": "pam-sex",
+              "text": "Sex",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "female",
+                    "display": "Female"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-medicare",
+              "text": "Medicare number",
+              "answer": [
+                {
+                  "valueString": "0000099901"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-indigenous",
+              "text": "Indigenous status",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+                    "code": "4",
+                    "display": "Neither Aboriginal nor Torres Strait Islander origin"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-interpreter",
+              "text": "Interpreter required",
+              "answer": [
+                {
+                  "valueBoolean": true
+                }
+              ]
+            },
+            {
+              "linkId": "pam-language",
+              "text": "Preferred language",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "urn:ietf:bcp:47",
+                    "code": "el",
+                    "display": "Greek"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-phone",
+              "text": "Phone",
+              "answer": [
+                {
+                  "valueString": "0400 000 111"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-address",
+              "text": "Address",
+              "item": [
+                {
+                  "linkId": "pam-addr-line",
+                  "text": "Street address",
+                  "answer": [
+                    {
+                      "valueString": "12 Example Street, Unit 3"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-addr-suburb",
+                  "text": "Suburb",
+                  "answer": [
+                    {
+                      "valueString": "Chermside"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-addr-state",
+                  "text": "State",
+                  "answer": [
+                    {
+                      "valueCoding": {
+                        "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-states-territories-1",
+                        "code": "QLD",
+                        "display": "Queensland"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-addr-postcode",
+                  "text": "Postcode",
+                  "answer": [
+                    {
+                      "valueString": "4032"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-nok",
+              "text": "Next of kin",
+              "item": [
+                {
+                  "linkId": "pam-nok-name",
+                  "text": "Name",
+                  "answer": [
+                    {
+                      "valueString": "Sofia Testdetails"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-nok-relationship",
+                  "text": "Relationship",
+                  "answer": [
+                    {
+                      "valueString": "Daughter"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-nok-phone",
+                  "text": "Phone",
+                  "answer": [
+                    {
+                      "valueString": "0400 000 222"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-hw-last",
+              "text": "Height and weight on record",
+              "answer": [
+                {
+                  "valueString": "Latest on record: 162 cm (2026-09-15), 68.4 kg (2026-09-15)"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-height",
+              "text": "Height",
+              "answer": [
+                {
+                  "valueDecimal": 162
+                }
+              ]
+            },
+            {
+              "linkId": "pam-weight",
+              "text": "Weight",
+              "answer": [
+                {
+                  "valueDecimal": 68.4
+                }
+              ]
+            },
+            {
+              "linkId": "pam-hw-date",
+              "text": "Height and weight measured on",
+              "answer": [
+                {
+                  "valueDate": "2026-10-29"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-bmi",
+              "text": "BMI",
+              "answer": [
+                {
+                  "id": "pam-bmi-calculatedExpression-xHSgsk7SCgeO8ixipAxal",
+                  "valueDecimal": 26.1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-gp",
+          "text": "GP details",
+          "item": [
+            {
+              "linkId": "pam-gp-details-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-gp-details|0.2.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-current",
+              "text": "GP on record",
+              "item": [
+                {
+                  "linkId": "pam-gp-current-name",
+                  "text": "Name",
+                  "answer": [
+                    {
+                      "valueString": "Dr Ruth Ambrose"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-gp-current-practice",
+                  "text": "Practice",
+                  "answer": [
+                    {
+                      "valueString": "Chermside Family Practice (synthetic)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-gp-current-phone",
+                  "text": "Phone",
+                  "answer": [
+                    {
+                      "valueString": "07 3000 0101"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-gp-current-provider",
+                  "text": "Provider number",
+                  "answer": [
+                    {
+                      "valueString": "0000001A"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-gp-current-ref",
+                  "text": "Reference",
+                  "answer": [
+                    {
+                      "valueString": "PractitionerRole/soln-A10-a2-role-ambrose"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-source",
+              "text": "Which GP should be recorded?",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/gp-source",
+                    "code": "current",
+                    "display": "Keep the GP on record"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-referring",
+              "text": "Referring doctor (latest referral)",
+              "item": [
+                {
+                  "linkId": "pam-gp-referring-name",
+                  "text": "Name",
+                  "answer": [
+                    {
+                      "valueString": "Dr Lucy Tran"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-gp-referring-practice",
+                  "text": "Practice",
+                  "answer": [
+                    {
+                      "valueString": "Aspley Road Surgery (synthetic)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-gp-referring-phone",
+                  "text": "Phone",
+                  "answer": [
+                    {
+                      "valueString": "07 3000 0303"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-gp-referring-provider",
+                  "text": "Provider number",
+                  "answer": [
+                    {
+                      "valueString": "0000003C"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-gp-referring-ref",
+                  "text": "Reference",
+                  "answer": [
+                    {
+                      "valueString": "PractitionerRole/soln-A10-a2-role-tran"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-gp-referring-date",
+                  "text": "Referral date",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-01"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-admission",
+              "text": "GP recorded on the latest admission",
+              "item": [
+                {
+                  "linkId": "pam-gp-admission-name",
+                  "text": "Name",
+                  "answer": [
+                    {
+                      "valueString": "Dr Omar Haddad"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-gp-admission-practice",
+                  "text": "Practice",
+                  "answer": [
+                    {
+                      "valueString": "Kedron Medical Centre (synthetic)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-gp-admission-phone",
+                  "text": "Phone",
+                  "answer": [
+                    {
+                      "valueString": "07 3000 0202"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-gp-admission-provider",
+                  "text": "Provider number",
+                  "answer": [
+                    {
+                      "valueString": "0000002B"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-gp-admission-ref",
+                  "text": "Reference",
+                  "answer": [
+                    {
+                      "valueString": "PractitionerRole/soln-A10-a2-role-haddad"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-gp-admission-date",
+                  "text": "Admitted",
+                  "answer": [
+                    {
+                      "valueDate": "2026-08-10"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-new-display",
+              "text": "GP to be recorded",
+              "answer": [
+                {
+                  "id": "pam-gp-new-display-calculatedExpression-1QmikNDI9WoXDIWh7zs04",
+                  "valueString": "Dr Ruth Ambrose"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-surgery",
+          "text": "Proposed surgery",
+          "item": [
+            {
+              "linkId": "pam-proposed-surgery-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-proposed-surgery|0.2.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-surgery-waitlist-ref",
+              "text": "Waitlist entry (reference)",
+              "answer": [
+                {
+                  "valueString": "ServiceRequest/soln-A10-a3-patient-1-surgery"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-surgery-surgeon-ref",
+              "text": "Surgeon (reference)",
+              "answer": [
+                {
+                  "valueString": "Practitioner/pam-surgeon-orthopaedics"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-surgery-unit-ref",
+              "text": "Surgical unit (reference)",
+              "answer": [
+                {
+                  "valueString": "Organization/pam-unit-orthopaedics"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-surgery-procedure",
+              "text": "Procedure",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "52734007",
+                    "display": "Total hip replacement"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-surgery-surgeon",
+              "text": "Surgeon",
+              "answer": [
+                {
+                  "valueString": "Dr Alan Pierce"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-surgery-unit",
+              "text": "Surgical unit",
+              "answer": [
+                {
+                  "valueString": "Orthopaedics (synthetic)"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-surgery-category",
+              "text": "Elective surgery category (1: within 30 days, 2: within 90 days, 3: within 365 days)",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/elective-category",
+                    "code": "2",
+                    "display": "Category 2"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-surgery-date",
+              "text": "Booked surgery date",
+              "answer": [
+                {
+                  "valueDate": "2026-11-18"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-surgery-days",
+              "text": "Days until surgery",
+              "answer": [
+                {
+                  "id": "pam-surgery-days-calculatedExpression-_Lmi81QqzLv8b8LSUyoO0",
+                  "valueInteger": 20
+                }
+              ]
+            },
+            {
+              "linkId": "pam-surgery-existing-referral",
+              "text": "Previous referral to the blood management service (date, if any)",
+              "answer": [
+                {
+                  "valueDate": "2026-10-01"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-referral",
+              "text": "Referral to the blood management service",
+              "item": [
+                {
+                  "linkId": "pam-referral-date",
+                  "text": "Referral date",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-29"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-history",
+          "text": "History",
+          "item": [
+            {
+              "linkId": "pam-history-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-history|0.2.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-history-record",
+              "text": "On record",
+              "item": [
+                {
+                  "linkId": "pam-history-condition",
+                  "text": "Conditions (problem list)",
+                  "item": [
+                    {
+                      "linkId": "pam-history-condition-code",
+                      "text": "Condition",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "433144002",
+                            "display": "Chronic kidney disease stage 3"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-condition-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                            "code": "active",
+                            "display": "Active"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-condition-onset",
+                      "text": "Onset",
+                      "answer": [
+                        {
+                          "valueDate": "2021-05-10"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-condition",
+                  "text": "Conditions (problem list)",
+                  "item": [
+                    {
+                      "linkId": "pam-history-condition-code",
+                      "text": "Condition",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "44054006",
+                            "display": "Type 2 diabetes"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-condition-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                            "code": "active",
+                            "display": "Active"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-condition-onset",
+                      "text": "Onset",
+                      "answer": [
+                        {
+                          "valueDate": "2015-03-01"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-condition",
+                  "text": "Conditions (problem list)",
+                  "item": [
+                    {
+                      "linkId": "pam-history-condition-code",
+                      "text": "Condition",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "239873007",
+                            "display": "Osteoarthritis of knee"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-condition-status",
+                      "text": "Status",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                            "code": "active",
+                            "display": "Active"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-condition-onset",
+                      "text": "Onset",
+                      "answer": [
+                        {
+                          "valueDate": "2019-11-20"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-procedure",
+                  "text": "Procedures",
+                  "item": [
+                    {
+                      "linkId": "pam-history-procedure-code",
+                      "text": "Procedure",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "73761001",
+                            "display": "Colonoscopy"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-procedure-date",
+                      "text": "Date",
+                      "answer": [
+                        {
+                          "valueDate": "2024-02-15"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-procedure",
+                  "text": "Procedures",
+                  "item": [
+                    {
+                      "linkId": "pam-history-procedure-code",
+                      "text": "Procedure",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "80146002",
+                            "display": "Appendicectomy"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-procedure-date",
+                      "text": "Date",
+                      "answer": [
+                        {
+                          "valueDate": "1989-07-10"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-medication",
+                  "text": "Current medications",
+                  "item": [
+                    {
+                      "linkId": "pam-history-medication-code",
+                      "text": "Medication",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "134251000036103",
+                            "display": "Apixaban 5 mg tablet"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-medication-dose",
+                      "text": "Dose",
+                      "answer": [
+                        {
+                          "valueString": "5 mg twice daily"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-medication",
+                  "text": "Current medications",
+                  "item": [
+                    {
+                      "linkId": "pam-history-medication-code",
+                      "text": "Medication",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "23358011000036102",
+                            "display": "Metformin hydrochloride 500 mg tablet"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-medication-dose",
+                      "text": "Dose",
+                      "answer": [
+                        {
+                          "valueString": "500 mg twice daily"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-history-allergy",
+                  "text": "Allergies and adverse reactions",
+                  "item": [
+                    {
+                      "linkId": "pam-history-allergy-code",
+                      "text": "Substance",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "764146007",
+                            "display": "Penicillin"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-allergy-reaction",
+                      "text": "Reaction",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://snomed.info/sct",
+                            "code": "271807003",
+                            "display": "Rash"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-history-allergy-criticality",
+                      "text": "Criticality",
+                      "answer": [
+                        {
+                          "valueCoding": {
+                            "system": "http://hl7.org/fhir/allergy-intolerance-criticality",
+                            "code": "high",
+                            "display": "High Risk"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-patient-reported",
+          "text": "Patient-reported (pre-admission form)",
+          "item": [
+            {
+              "linkId": "pam-patient-reported-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-patient-reported|0.2.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pr-source",
+              "text": "Patient's form",
+              "answer": [
+                {
+                  "valueString": "Completed 2026-10-28 (QuestionnaireResponse/soln-A10-a11-qr-1)"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pr-transfusion-accept",
+              "text": "Would accept a blood transfusion",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "https://aehrc.github.io/qh-connectathon/track1/CodeSystem/transfusion-preference",
+                    "code": "some",
+                    "display": "Only some blood products"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pr-products",
+              "text": "Blood products the patient would accept",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "116788004",
+                    "display": "Albumin"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "233568002",
+                    "display": "Cell salvage (your own blood, collected during the operation and given back)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pr-directive",
+              "text": "Advance Health Directive about blood products",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pr-iron-infusion",
+              "text": "Previous iron infusion",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "N",
+                    "display": "No"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pr-blood-thinners",
+              "text": "Blood thinners (patient-reported)",
+              "answer": [
+                {
+                  "valueString": "Yes: Aspirin 100 mg daily"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pr-diet",
+              "text": "Diet",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "765021002",
+                    "display": "Vegetarian (no meat or fish)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pr-talk",
+              "text": "Wants to talk to the blood management nurse",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                    "code": "Y",
+                    "display": "Yes"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pathology",
+          "text": "Pathology",
+          "item": [
+            {
+              "linkId": "pam-pathology-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-pathology|0.2.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-latest",
+              "text": "Latest results",
+              "item": [
+                {
+                  "linkId": "pam-hb",
+                  "text": "Haemoglobin (Hb)",
+                  "answer": [
+                    {
+                      "valueDecimal": 121
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hb-date",
+                  "text": "Haemoglobin: collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-09-24"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-ferritin",
+                  "text": "Ferritin",
+                  "answer": [
+                    {
+                      "valueDecimal": 310
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-ferritin-date",
+                  "text": "Ferritin: collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-09-24"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-tsat",
+                  "text": "Transferrin saturation (TSAT)",
+                  "answer": [
+                    {
+                      "valueDecimal": 26
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-tsat-date",
+                  "text": "Transferrin saturation: collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-09-24"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-crp",
+                  "text": "C-reactive protein (CRP)",
+                  "answer": [
+                    {
+                      "valueDecimal": 5
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-crp-date",
+                  "text": "C-reactive protein: collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-09-24"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-mcv",
+                  "text": "Mean cell volume (MCV)",
+                  "answer": [
+                    {
+                      "valueDecimal": 82
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-mcv-date",
+                  "text": "Mean cell volume: collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-09-24"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-b12",
+                  "text": "Vitamin B12",
+                  "answer": [
+                    {
+                      "valueDecimal": 310
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-b12-date",
+                  "text": "Vitamin B12: collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-08-12"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-folate",
+                  "text": "Folate (serum)",
+                  "answer": [
+                    {
+                      "valueDecimal": 22
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-folate-date",
+                  "text": "Folate: collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-08-12"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-egfr",
+                  "text": "eGFR",
+                  "answer": [
+                    {
+                      "valueDecimal": 70
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-egfr-date",
+                  "text": "eGFR: collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-09-24"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-compare",
+              "text": "Initial vs post-treatment",
+              "item": [
+                {
+                  "linkId": "pam-path-treatment-date",
+                  "text": "Most recent IV iron order",
+                  "answer": [
+                    {
+                      "valueDate": "2026-08-20"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hb-compare",
+                  "text": "Haemoglobin (Hb)",
+                  "item": [
+                    {
+                      "linkId": "pam-hb-initial",
+                      "text": "Initial",
+                      "answer": [
+                        {
+                          "valueDecimal": 104
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-hb-initial-date",
+                      "text": "Initial: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-12"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-hb-post",
+                      "text": "Post-treatment",
+                      "answer": [
+                        {
+                          "valueDecimal": 121
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-hb-post-date",
+                      "text": "Post-treatment: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-09-24"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-hb-change",
+                      "text": "Change",
+                      "answer": [
+                        {
+                          "id": "pam-hb-change-calculatedExpression-h-nfth8o__wRGvClGwN0O",
+                          "valueDecimal": 17
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-ferritin-compare",
+                  "text": "Ferritin",
+                  "item": [
+                    {
+                      "linkId": "pam-ferritin-initial",
+                      "text": "Initial",
+                      "answer": [
+                        {
+                          "valueDecimal": 15
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-ferritin-initial-date",
+                      "text": "Initial: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-12"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-ferritin-post",
+                      "text": "Post-treatment",
+                      "answer": [
+                        {
+                          "valueDecimal": 310
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-ferritin-post-date",
+                      "text": "Post-treatment: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-09-24"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-ferritin-change",
+                      "text": "Change",
+                      "answer": [
+                        {
+                          "id": "pam-ferritin-change-calculatedExpression-uJCaB12Sw_OfyRSAxygPC",
+                          "valueDecimal": 295
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-tsat-compare",
+                  "text": "Transferrin saturation (TSAT)",
+                  "item": [
+                    {
+                      "linkId": "pam-tsat-initial",
+                      "text": "Initial",
+                      "answer": [
+                        {
+                          "valueDecimal": 9
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-tsat-initial-date",
+                      "text": "Initial: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-12"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-tsat-post",
+                      "text": "Post-treatment",
+                      "answer": [
+                        {
+                          "valueDecimal": 26
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-tsat-post-date",
+                      "text": "Post-treatment: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-09-24"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-tsat-change",
+                      "text": "Change",
+                      "answer": [
+                        {
+                          "id": "pam-tsat-change-calculatedExpression-viGLsMkHSaCKQetzEHPy1",
+                          "valueDecimal": 17
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-crp-compare",
+                  "text": "C-reactive protein (CRP)",
+                  "item": [
+                    {
+                      "linkId": "pam-crp-initial",
+                      "text": "Initial",
+                      "answer": [
+                        {
+                          "valueDecimal": 6
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-crp-initial-date",
+                      "text": "Initial: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-12"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-crp-post",
+                      "text": "Post-treatment",
+                      "answer": [
+                        {
+                          "valueDecimal": 5
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-crp-post-date",
+                      "text": "Post-treatment: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-09-24"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-crp-change",
+                      "text": "Change",
+                      "answer": [
+                        {
+                          "id": "pam-crp-change-calculatedExpression-ohQr09Yk3UplUxU7fXFEe",
+                          "valueDecimal": -1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-mcv-compare",
+                  "text": "Mean cell volume (MCV)",
+                  "item": [
+                    {
+                      "linkId": "pam-mcv-initial",
+                      "text": "Initial",
+                      "answer": [
+                        {
+                          "valueDecimal": 76
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-mcv-initial-date",
+                      "text": "Initial: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-12"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-mcv-post",
+                      "text": "Post-treatment",
+                      "answer": [
+                        {
+                          "valueDecimal": 82
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-mcv-post-date",
+                      "text": "Post-treatment: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-09-24"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-mcv-change",
+                      "text": "Change",
+                      "answer": [
+                        {
+                          "id": "pam-mcv-change-calculatedExpression-NTNVuPQ_torQS5MhXjMko",
+                          "valueDecimal": 6
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-b12-compare",
+                  "text": "Vitamin B12",
+                  "item": [
+                    {
+                      "linkId": "pam-b12-initial",
+                      "text": "Initial",
+                      "answer": [
+                        {
+                          "valueDecimal": 310
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-b12-initial-date",
+                      "text": "Initial: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-12"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-folate-compare",
+                  "text": "Folate (serum)",
+                  "item": [
+                    {
+                      "linkId": "pam-folate-initial",
+                      "text": "Initial",
+                      "answer": [
+                        {
+                          "valueDecimal": 22
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-folate-initial-date",
+                      "text": "Initial: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-12"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-egfr-compare",
+                  "text": "eGFR",
+                  "item": [
+                    {
+                      "linkId": "pam-egfr-initial",
+                      "text": "Initial",
+                      "answer": [
+                        {
+                          "valueDecimal": 72
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-egfr-initial-date",
+                      "text": "Initial: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-08-12"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-egfr-post",
+                      "text": "Post-treatment",
+                      "answer": [
+                        {
+                          "valueDecimal": 70
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-egfr-post-date",
+                      "text": "Post-treatment: collected",
+                      "answer": [
+                        {
+                          "valueDate": "2026-09-24"
+                        }
+                      ]
+                    },
+                    {
+                      "linkId": "pam-egfr-change",
+                      "text": "Change",
+                      "answer": [
+                        {
+                          "id": "pam-egfr-change-calculatedExpression-1upNSnSHlJSy6WHHbMiJ8",
+                          "valueDecimal": -2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-09-24"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "C-reactive protein (CRP)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 5
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "mg/L"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "After"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Hospital pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-09-24"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "eGFR"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 70
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "mL/min/1.73 m²"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "After"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Hospital pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-09-24"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Ferritin"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 310
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "µg/L"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "After"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Hospital pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-09-24"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Transferrin saturation (TSAT)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 26
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "%"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "After"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Hospital pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-09-24"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Mean cell volume (MCV)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 82
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "fL"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "After"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Hospital pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-09-24"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Haemoglobin (Hb)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 121
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "g/L"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "After"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Hospital pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-08-12"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Transferrin saturation (TSAT)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 9
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "%"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "Before"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Hospital pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-08-12"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Mean cell volume (MCV)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 76
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "fL"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "Before"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Hospital pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-08-12"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Haemoglobin (Hb)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 104
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "g/L"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "Before"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Hospital pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-08-12"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "eGFR"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 72
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "mL/min/1.73 m²"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "Before"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Hospital pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-08-12"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Ferritin"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 15
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "µg/L"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "Before"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Hospital pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-08-12"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Vitamin B12"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 310
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "pmol/L"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "Before"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Hospital pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-08-12"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Folate (serum)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 22
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "nmol/L"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "Before"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Hospital pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-08-12"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "C-reactive protein (CRP)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 6
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "mg/L"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "Before"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Hospital pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-06-03"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Ferritin"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 25
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "µg/L"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "Before"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Northside Community Pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-06-03"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Haemoglobin (Hb)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 112
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "g/L"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "Before"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Northside Community Pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-06-03"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "C-reactive protein (CRP)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 4
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "mg/L"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "Before"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Northside Community Pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-path-history",
+              "text": "All results (newest first)",
+              "item": [
+                {
+                  "linkId": "pam-hist-date",
+                  "text": "Collected",
+                  "answer": [
+                    {
+                      "valueDate": "2026-06-03"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-test",
+                  "text": "Test",
+                  "answer": [
+                    {
+                      "valueString": "Transferrin saturation (TSAT)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-value",
+                  "text": "Result",
+                  "answer": [
+                    {
+                      "valueDecimal": 12
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-unit",
+                  "text": "Unit",
+                  "answer": [
+                    {
+                      "valueString": "%"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-phase",
+                  "text": "Before / after IV iron",
+                  "answer": [
+                    {
+                      "valueString": "Before"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-hist-lab",
+                  "text": "Laboratory",
+                  "answer": [
+                    {
+                      "valueString": "Northside Community Pathology (synthetic)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-diagnosis-section",
+          "text": "Diagnosis",
+          "item": [
+            {
+              "linkId": "pam-diagnosis-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-diagnosis|0.2.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-anaemia",
+              "text": "Anaemia (Hb ≤ 130 g/L male, ≤ 120 g/L female)",
+              "answer": [
+                {
+                  "id": "pam-anaemia-calculatedExpression-oV_dhufQcsVVlly_05BPH",
+                  "valueBoolean": false
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-deficiency",
+              "text": "Iron deficiency (ferritin < 100 µg/L, or TSAT < 20% with ferritin 100–300 µg/L)",
+              "answer": [
+                {
+                  "id": "pam-iron-deficiency-calculatedExpression-Zu33bwuwWD9hmbrRf4YF7",
+                  "valueBoolean": false
+                }
+              ]
+            },
+            {
+              "linkId": "pam-inflammation",
+              "text": "Inflammation (CRP > 10 mg/L)",
+              "answer": [
+                {
+                  "id": "pam-inflammation-calculatedExpression-MpHXLigYkGIao9wD3TXjY",
+                  "valueBoolean": false
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pathway",
+              "text": "Pathway",
+              "answer": [
+                {
+                  "id": "pam-pathway-calculatedExpression-OmfTkWTXQMa35qIw4DmbU",
+                  "valueString": "No anaemia or iron deficiency: no blood management intervention needed"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-diagnosis-suggested",
+              "text": "Suggested diagnosis",
+              "answer": [
+                {
+                  "id": "pam-diagnosis-suggested-calculatedExpression-OvusjbLF_ngZd3etaDCIc",
+                  "valueString": "None: no anaemia or iron deficiency"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-target-hb-group",
+              "text": "Requested target haemoglobin",
+              "item": [
+                {
+                  "linkId": "pam-target-hb-due",
+                  "text": "By (booked surgery date)",
+                  "answer": [
+                    {
+                      "valueDate": "2026-11-18"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-treatment",
+          "text": "Treatment",
+          "item": [
+            {
+              "linkId": "pam-treatment-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-treatment|0.2.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-tx-inputs",
+              "text": "Inputs (from Patient details and Pathology)",
+              "item": [
+                {
+                  "linkId": "pam-tx-sex",
+                  "text": "Sex",
+                  "answer": [
+                    {
+                      "id": "pam-tx-sex-calculatedExpression-Wm-7hFKbweGJx7lXtYI0I",
+                      "valueString": "female"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-tx-height",
+                  "text": "Height",
+                  "answer": [
+                    {
+                      "id": "pam-tx-height-calculatedExpression-9rgeSclmbkmrZtWE89nsh",
+                      "valueDecimal": 162
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-tx-weight",
+                  "text": "Actual body weight",
+                  "answer": [
+                    {
+                      "id": "pam-tx-weight-calculatedExpression-uaJCnL-Yj04rSRSUxuz1r",
+                      "valueDecimal": 68.4
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-tx-hb",
+                  "text": "Latest Hb (actual Hb)",
+                  "answer": [
+                    {
+                      "id": "pam-tx-hb-calculatedExpression-eQ5T_yzhEMz-Ibp_TgzE8",
+                      "valueDecimal": 121
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-tx-ganzoni",
+              "text": "Total iron dose (Ganzoni)",
+              "item": [
+                {
+                  "linkId": "pam-ideal-weight",
+                  "text": "Ideal body weight (Devine)",
+                  "answer": [
+                    {
+                      "id": "pam-ideal-weight-calculatedExpression-qIEsv6zFAuWPLTJiTxwuV",
+                      "valueDecimal": 54.1
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-dosing-weight",
+                  "text": "Dosing weight",
+                  "answer": [
+                    {
+                      "id": "pam-dosing-weight-calculatedExpression-tqaqhGwft1_MjFeEXsD_z",
+                      "valueDecimal": 54.1
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-dosing-weight-basis",
+                  "text": "Dosing weight is",
+                  "answer": [
+                    {
+                      "id": "pam-dosing-weight-basis-calculatedExpression-Qmgazc0RWUGTBYjQoaE0a",
+                      "valueString": "ideal body weight (actual weight is above ideal)"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-ganzoni-target-hb",
+                  "text": "Target Hb",
+                  "answer": [
+                    {
+                      "id": "pam-ganzoni-target-hb-calculatedExpression-uhcWnSrBqgo9CA76UBUBm",
+                      "valueDecimal": 150
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-iron-stores",
+                  "text": "Iron stores",
+                  "answer": [
+                    {
+                      "id": "pam-iron-stores-calculatedExpression-DWofWDPMNsNDCiSBhvc2W",
+                      "valueDecimal": 500
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-ganzoni",
+                  "text": "Total iron deficit (Ganzoni)",
+                  "answer": [
+                    {
+                      "id": "pam-ganzoni-calculatedExpression-gmAlsWJ5_uKJxwLcOf6Cj",
+                      "valueDecimal": 877
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-ganzoni-rounded",
+                  "text": "Suggested total dose (to the nearest 100 mg)",
+                  "answer": [
+                    {
+                      "id": "pam-ganzoni-rounded-calculatedExpression-yoyu3qsoJ9zvcNRFVB_B_",
+                      "valueDecimal": 900
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iv-iron",
+              "text": "IV iron order",
+              "item": [
+                {
+                  "linkId": "pam-iron-dose-override",
+                  "text": "Prescribe a different total dose from the suggested one",
+                  "answer": [
+                    {
+                      "valueBoolean": false
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-iron-dose",
+                  "text": "Total dose prescribed",
+                  "answer": [
+                    {
+                      "id": "pam-iron-dose-calculatedExpression-OWWhhEjATy1wB8ObLnqUD",
+                      "valueDecimal": 900
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-infusion",
+              "text": "Book the infusion (day unit)",
+              "item": [
+                {
+                  "linkId": "pam-infusion-priority",
+                  "text": "Priority",
+                  "answer": [
+                    {
+                      "valueCoding": {
+                        "system": "http://hl7.org/fhir/request-priority",
+                        "code": "routine",
+                        "display": "Routine"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-education",
+          "text": "Patient education",
+          "item": [
+            {
+              "linkId": "pam-education-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-education|0.2.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-edu-patient",
+              "text": "Patient",
+              "answer": [
+                {
+                  "valueString": "Ada Assembletest"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-edu-unit",
+              "text": "Surgical unit",
+              "answer": [
+                {
+                  "valueString": "Orthopaedics (synthetic)"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-edu-consultant",
+              "text": "Consultant",
+              "answer": [
+                {
+                  "valueString": "Dr Alan Pierce"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-edu-procedure",
+              "text": "Proposed surgery",
+              "answer": [
+                {
+                  "valueString": "Total hip replacement"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-edu-surgery-ref",
+              "text": "Waitlist entry",
+              "answer": [
+                {
+                  "valueString": "ServiceRequest/soln-A10-a3-patient-1-surgery"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-edu-date",
+              "text": "Date education given",
+              "answer": [
+                {
+                  "valueDate": "2026-10-29"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-follow-up",
+          "text": "Follow-up and status",
+          "item": [
+            {
+              "linkId": "pam-follow-up-module",
+              "text": "Module",
+              "answer": [
+                {
+                  "valueString": "pam-follow-up|0.2.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-fu-episode-id",
+              "text": "EpisodeOfCare id",
+              "answer": [
+                {
+                  "valueString": "soln-A10-a9-episode-1"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-fu-care-manager",
+              "text": "Care manager (reference)",
+              "answer": [
+                {
+                  "valueString": "Practitioner/pam-nurse-2"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-fu-open-task-id",
+              "text": "Open follow-up Task id",
+              "answer": [
+                {
+                  "valueString": "soln-A10-a9-task-2"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-fu-history",
+              "text": "So far",
+              "item": [
+                {
+                  "linkId": "pam-fu-referral-date",
+                  "text": "Referred to the blood management team on",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-01"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-fu-current-status",
+                  "text": "Status before this review",
+                  "answer": [
+                    {
+                      "valueCoding": {
+                        "system": "http://hl7.org/fhir/episode-of-care-status",
+                        "code": "active",
+                        "display": "Being managed"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-fu-open-task-due",
+                  "text": "Open follow-up was due on",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-08"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-fu-previous-notes",
+                  "text": "Previous follow-up notes",
+                  "answer": [
+                    {
+                      "valueString": "2026-09-04: Hb 104 g/L, ferritin 18 ug/L: iron deficiency anaemia. Ferric carboxymaltose 1000 mg booked for 10/09.\n2026-09-10: Infusion given 10/09, no reaction. Repeat FBC and iron studies in 4 weeks."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-fu-review",
+              "text": "This review",
+              "item": [
+                {
+                  "linkId": "pam-fu-review-date",
+                  "text": "Review date",
+                  "answer": [
+                    {
+                      "valueDate": "2026-10-29"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-fu-days",
+                  "text": "Days with the blood management team",
+                  "answer": [
+                    {
+                      "id": "pam-fu-days-calculatedExpression-PwbWbR9LF5jN2-JEf1i1y",
+                      "valueInteger": 28
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-fu-status",
+                  "text": "Status after this review",
+                  "answer": [
+                    {
+                      "valueCoding": {
+                        "system": "http://hl7.org/fhir/episode-of-care-status",
+                        "code": "active",
+                        "display": "Being managed"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-fu-next",
+              "text": "Next follow-up",
+              "item": [
+                {
+                  "linkId": "pam-fu-task-type",
+                  "text": "Follow-up",
+                  "answer": [
+                    {
+                      "valueString": "Follow up post-treatment bloods"
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-fu-weeks",
+                  "text": "Follow up in (weeks)",
+                  "answer": [
+                    {
+                      "valueInteger": 4
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-fu-due",
+                  "text": "Follow-up due",
+                  "answer": [
+                    {
+                      "id": "pam-fu-due-calculatedExpression-rMffUZ-ozQ01_EYb9JfwW",
+                      "valueDate": "2026-11-26"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "subject": {
+    "type": "Patient",
+    "reference": "Patient/soln-A10-patient-1",
+    "display": "Ada Assembletest"
+  },
+  "meta": {
+    "source": "https://smartforms.csiro.au"
+  }
+}

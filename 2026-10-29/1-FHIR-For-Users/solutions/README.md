@@ -20,7 +20,7 @@ Strand D (REDCap) was skipped on purpose.
 | A7 | [A7-treatment](A7-treatment/) | verified | Ganzoni iron dose; MedicationRequest and infusion ServiceRequest |
 | A8 | [A8-education](A8-education/) | verified | Education delivered; Procedure / Communication |
 | A9 | [A9-follow-up](A9-follow-up/) | verified | Days with the team, follow-up due; Task and EpisodeOfCare status |
-| A10 | [A10-assembly](A10-assembly/) | see folder | The full PAM form assembled from the solution modules |
+| A10 | [A10-assembly](A10-assembly/) | verified | The full PAM form (`soln-pam-assembled`) assembled from the modules with a new root (`soln-pam-root`) |
 | A11 | [A11-pre-admission](A11-pre-admission/) | verified | Patient-facing form; nurse forms pre-populate from its QuestionnaireResponse |
 | B1 | [B1-patient-summary](B1-patient-summary/) | partly verified | Patient app: the nurse's summary of the launch patient |
 | B2 | [B2-worklist](B2-worklist/) | partly verified | Worklist: patients being managed, follow-ups due |

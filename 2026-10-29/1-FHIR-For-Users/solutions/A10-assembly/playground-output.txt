@@ -1,0 +1,40 @@
+PASS A1 patient details  name ["Ada Assembletest"], sex female, weight [68.4], BMI [26.1]
+PASS A2 GP details  ["Dr Ruth Ambrose"], referring ["Dr Lucy Tran"]
+PASS A3 proposed surgery  ["Total hip replacement"] on ["2026-11-18"], [20] days
+PASS A4 history  conditions ["Chronic kidney disease stage 3","Type 2 diabetes","Osteoarthritis of knee"]
+PASS A11 patient-reported  ["Only some blood products"] ["Albumin","Cell salvage (your own blood, collected during the operation and given back)"]
+PASS A5 pathology  Hb [121], ferritin [310], initial Hb [104]
+PASS A6 diagnosis (root variables from A1 sex + A5 results)  anaemia [false], ID [false], suggested ["None: no anaemia or iron deficiency"]
+PASS A6 target-Hb due date = A6 surgery query  ["2026-11-18"]
+PASS A7 Ganzoni (root variables from A1 height/weight/sex + A5 Hb)  IBW [54.1], target [150] (renamed linkId), deficit [877], rounded [900]
+PASS A8 education  ["Total hip replacement"], ["Dr Alan Pierce"]
+PASS A9 follow-up  ["soln-A10-a9-episode-1"], open task ["soln-A10-a9-task-2"]
+PASS no item answered twice by two modules (pam-target-hb only from A6)  []
+shot 01-patient-details.png
+shot 02-gp-details.png
+shot 03-proposed-surgery.png
+shot 04-history.png
+shot 05-patient-reported-pre-admission-form.png
+shot 06-pathology.png
+shot 07-diagnosis.png
+shot 08-treatment.png
+shot 09-patient-education.png
+shot 10-follow-up-and-status.png
+PASS what-if: Hb 104, ferritin 15 -> A6 iron deficiency anaemia  ["Iron deficiency anaemia (SNOMED CT 87522002)"]
+PASS what-if: A7 Ganzoni follows  deficit [1098], rounded [1100]
+shot 11-what-if-diagnosis.png
+shot 12-treatment-order.png
+PASS order: dose 1100 split 1000 + 100  dose [1100]: [1000] + [100]
+shot 13-extracted-bundle.png
+extracted: POST Observation, POST Condition, POST MedicationRequest, POST ServiceRequest, POST Task
+PASS extract A1: weight Observation 70 kg  {"unit":"kg","system":"http://unitsofmeasure.org","code":"kg","value":70}
+PASS extract A6: Condition 87522002  Iron deficiency anaemia
+PASS extract A7: MedicationRequest, reasonCode from the A6 module  [{"coding":[{"system":"http://snomed.info/sct","code":"87522002","display":"Iron deficiency anaemia"}]}]
+PASS extract A7: ServiceRequest basedOn the MedicationRequest (root-level extractAllocateId)  urn:uuid:4ec07b6a-ec97-4f41-bbff-5415be87f04c vs urn:uuid:4ec07b6a-ec97-4f41-bbff-5415be87f04c
+PASS everything extracted is about the test patient
+shot 14-write-back-dialog.png
+PASS write back  WRITE BACK (5 ENTRIES): Write back to https://gw.interop.community/QHConnectathon2026/open successful. See Network tab for response
+PASS on Meld: weight Observation, Condition, MedicationRequest, booking ServiceRequest  Observation 1, Condition 1, MedicationRequest 1, ServiceRequest 1
+PASS on Meld: ServiceRequest.basedOn resolved to the MedicationRequest  MedicationRequest/41
+
+ALL PASS

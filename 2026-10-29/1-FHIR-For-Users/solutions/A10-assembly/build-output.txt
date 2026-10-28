@@ -1,0 +1,104 @@
+# A10 build 2026-10-28T14:37:53.731Z
+
+## Modules
+OK    A1   soln-pam-patient-details   https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-patient-details|0.2.0  (A1-patient-details/pam-patient-details.json)
+OK    A2   soln-pam-gp-details        https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-gp-details|0.2.0  (A2-gp-details/pam-gp-details.json)
+OK    A3   soln-pam-proposed-surgery  https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-proposed-surgery|0.2.0  (A3-proposed-surgery/soln-pam-proposed-surgery.json)
+OK    A4   soln-pam-history           https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-history|0.2.0  (A4-history/soln-pam-history.json)
+OK    A11  soln-A11-nurse-import      https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-patient-reported|0.2.0  (A11-pre-admission/A11-nurse-import.json)
+OK    A5   soln-pam-pathology         https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-pathology|0.2.0  (A5-pathology/soln-pam-pathology.json)
+OK    A6   soln-pam-diagnosis         https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-diagnosis|0.2.0  (A6-diagnosis/soln-pam-diagnosis.json)
+OK    A7   soln-pam-treatment         https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-treatment|0.2.0  (A7-treatment/soln-pam-treatment.json)
+      changed in the assembly (A7): linkId pam-target-hb -> pam-ganzoni-target-hb (3 occurrences)
+      changed in the assembly (A7): hidden pam-treatment-module value soln-pam-treatment|0.2.0 -> pam-treatment|0.2.0
+OK    A8   soln-pam-education         https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-education|0.2.0  (A8-education/soln-pam-education.json)
+      changed in the assembly (A8): hidden pam-education-module value soln-pam-education|0.2.0 -> pam-education|0.2.0
+OK    A9   soln-pam-follow-up         https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-follow-up|0.2.0  (A9-follow-up/pam-follow-up.json)
+
+## linkIds
+341 linkIds in the modules, all unique
+
+## Variable and context names
+46 module-level names, 22 root variables: no duplicates found
+
+## Contained resources (templates)
+      A1   PAMHeightTemplate
+      A1   PAMWeightTemplate
+      A2   PAMGpPatchTemplate
+      A2   PAMGpPractitionerTemplate
+      A2   PAMGpRoleTemplate
+      A3   PAMReferralTemplate
+      A4   PAMHistoryConditionCkdTemplate
+      A4   PAMHistoryConditionIbdTemplate
+      A4   PAMHistoryConditionCancerTemplate
+      A4   PAMHistoryConditionCoagTemplate
+      A4   PAMHistoryConditionLiverTemplate
+      A4   PAMHistoryNewConditionTemplate
+      A4   PAMHistoryNewProcedureTemplate
+      A4   PAMEndoscopyTemplate
+      A4   PAMTransfusionTemplate
+      A5   PAMExternalResultTemplate
+      A6   PAMDiagnosisTemplate
+      A6   PAMOtherDiagnosisTemplate
+      A6   PAMBloodProductFlagTemplate
+      A6   PAMTargetHbGoalTemplate
+      A7   PAMIVIronTemplate
+      A7   PAMInfusionTemplate
+      A8   PAMEducationProcedureTemplate
+      A8   PAMEducationCommunicationTemplate
+      A9   PAMCompletePreviousTaskPatch
+      A9   PAMFollowUpTaskTemplate
+      A9   PAMEpisodeStatusPatch
+
+## Module-level extensions lifted to the root
+      sdc-questionnaire-extractAllocateId ivIronOrderId  (A7)
+      sdc-questionnaire-extractAllocateId eduProcedureId  (A8)
+
+## Variables used vs defined
+A1   root variables: dob, weightKg, heightCm
+A2   root variables: (none)
+A3   root variables: surgeryDate
+A4   root variables: sexCode
+A11  root variables: (none)
+A5   root variables: (none)
+A6   root variables: anaemia, hb, ironDeficiency, inflammation, pathway, mcv, egfr, suggestedDxCode
+A7   root variables: sexCode, heightCm, weightKg, actualHb, idealWeight, weight, targetHb, ironStores
+A8   root variables: (none)
+A9   root variables: (none)
+
+## Root variables vs the standalone forms
+5 standalone forms: every root-level variable they define has the same expression here
+
+## Assemble
+assembled: 10 sections (pam-patient, pam-gp, pam-surgery, pam-history, pam-patient-reported, pam-pathology, pam-diagnosis-section, pam-treatment, pam-education, pam-follow-up), 342 linkIds, 27 contained, 22 root-level variables
+
+## Root variables and who needs them
+
+| Variable | Needed by (directly) | Needed by (through another root variable) | Source |
+|---|---|---|---|
+| `sexCode` | A4, A7 | A6 | 0.1.0 root |
+| `dob` | A1 | — | 0.1.0 root |
+| `heightCm` | A1, A7 | — | 0.1.0 root |
+| `weightKg` | A1, A7 | — | 0.1.0 root |
+| `hb` | A6 | A7 | 0.1.0 root |
+| `ferritin` | — | A6 | 0.1.0 root |
+| `tsat` | — | A6 | 0.1.0 root |
+| `crp` | — | A6 | 0.1.0 root |
+| `mcv` | A6 | — | new (A6) |
+| `egfr` | A6 | — | new (A6) |
+| `surgeryDate` | A3 | — | new (A3) |
+| `hbThreshold` | — | A6 | changed (A6 proposal; 0.1.0 used 120 for any non-male sex) |
+| `anaemia` | A6 | — | new (A6) |
+| `ironDeficiency` | A6 | — | new (A6) |
+| `inflammation` | A6 | — | new (A6) |
+| `pathway` | A6 | — | new (A6) |
+| `suggestedDxCode` | A6 | — | new (A6) |
+| `actualHb` | A7 | — | 0.1.0 root |
+| `idealWeight` | A7 | — | 0.1.0 root |
+| `weight` | A7 | — | changed (A7: actual weight when there is no height) |
+| `targetHb` | A7 | — | changed (A7: 35 kg rule on actual body weight) |
+| `ironStores` | A7 | — | changed (A7: 35 kg rule on actual body weight) |
+| `ivIronOrderId` (extractAllocateId) | A7 | — | lifted from the module (the assembler drops it) |
+| `eduProcedureId` (extractAllocateId) | A8 | — | lifted from the module (the assembler drops it) |
+
+RESULT: OK, no unresolved clashes

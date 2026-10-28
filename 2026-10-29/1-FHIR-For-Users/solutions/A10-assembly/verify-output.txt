@@ -1,0 +1,58 @@
+## Structure
+PASS linkIds unique  342 linkIds
+PASS every enableWhen.question exists
+PASS every linkId='…' read by an expression exists  113 linkIds read (9 of them pam-pa-* items of the A11 patient form, all found there)
+PASS renamed pam-target-hb -> pam-ganzoni-target-hb: nothing reads the old linkId expecting the treatment item
+PASS contained ids unique  27 contained
+PASS every "#id" reference resolves  27 references
+PASS every contained resource is used
+PASS root variables and extractAllocateIds carried into the assembled form  24 extensions
+PASS A1 module item tree assembled unchanged (pam-patient)
+PASS A1 template PAMHeightTemplate carried over unchanged
+PASS A1 template PAMWeightTemplate carried over unchanged
+PASS A2 module item tree assembled unchanged (pam-gp)
+PASS A2 template PAMGpPatchTemplate carried over unchanged
+PASS A2 template PAMGpPractitionerTemplate carried over unchanged
+PASS A2 template PAMGpRoleTemplate carried over unchanged
+PASS A3 module item tree assembled unchanged (pam-surgery)
+PASS A3 template PAMReferralTemplate carried over unchanged
+PASS A4 module item tree assembled unchanged (pam-history)
+PASS A4 template PAMHistoryConditionCkdTemplate carried over unchanged
+PASS A4 template PAMHistoryConditionIbdTemplate carried over unchanged
+PASS A4 template PAMHistoryConditionCancerTemplate carried over unchanged
+PASS A4 template PAMHistoryConditionCoagTemplate carried over unchanged
+PASS A4 template PAMHistoryConditionLiverTemplate carried over unchanged
+PASS A4 template PAMHistoryNewConditionTemplate carried over unchanged
+PASS A4 template PAMHistoryNewProcedureTemplate carried over unchanged
+PASS A4 template PAMEndoscopyTemplate carried over unchanged
+PASS A4 template PAMTransfusionTemplate carried over unchanged
+PASS A11 module item tree assembled unchanged (pam-patient-reported)
+PASS A5 module item tree assembled unchanged (pam-pathology)
+PASS A5 template PAMExternalResultTemplate carried over unchanged
+PASS A6 module item tree assembled unchanged (pam-diagnosis-section)
+PASS A6 template PAMDiagnosisTemplate carried over unchanged
+PASS A6 template PAMOtherDiagnosisTemplate carried over unchanged
+PASS A6 template PAMBloodProductFlagTemplate carried over unchanged
+PASS A6 template PAMTargetHbGoalTemplate carried over unchanged
+PASS A7 module item tree assembled unchanged (pam-treatment)
+PASS A7 template PAMIVIronTemplate carried over unchanged
+PASS A7 template PAMInfusionTemplate carried over unchanged
+PASS A8 module item tree assembled unchanged (pam-education)
+PASS A8 template PAMEducationProcedureTemplate carried over unchanged
+PASS A8 template PAMEducationCommunicationTemplate carried over unchanged
+PASS A9 module item tree assembled unchanged (pam-follow-up)
+PASS A9 template PAMCompletePreviousTaskPatch carried over unchanged
+PASS A9 template PAMFollowUpTaskTemplate carried over unchanged
+PASS A9 template PAMEpisodeStatusPatch carried over unchanged
+
+## Variables in scope and FHIRPath evaluation
+PASS every FHIRPath expression parses  406 expressions
+PASS every %variable is defined in scope
+PASS every FHIRPath expression evaluates without error (fhirpath.js, R4)  406 evaluations, 295 non-empty
+PASS fhirpath.js = playground for calculated / pre-populated answers  148 items compared
+PASS cross-module: sexCode (A1) + hb/ferritin/tsat/crp (A5) -> pathway (A6)  sex ["female"], Hb [121], pathway ["none"]
+PASS cross-module: height/weight (A1) + Hb (A5) -> Ganzoni inputs (A7)  weight [54.13999999999999], target [150], stores [500]
+PASS cross-module: surgeryDate (A3)  ["2026-11-18"]
+wrote fixtures-xfhirquery.json (27 responses)
+
+ALL PASS
