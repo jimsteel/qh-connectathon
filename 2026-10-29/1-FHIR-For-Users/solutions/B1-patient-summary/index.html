@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PAM patient summary</title>
+<script src="https://cdn.jsdelivr.net/npm/fhirclient@2.6.3/build/fhir-client.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/4.1.2/plotly-cartesian.min.js"></script>
+<script src="config.js"></script>
+<script src="logic.js"></script>
+<style>
+  :root {
+    --navy: #0A2033; --teal: #00738F; --orange: #B9531A; --red: #B00020; --green: #2E7D32; --amber: #8A6100;
+    --bg: #F6F8F9; --card: #FFFFFF; --text: #0A2033; --muted: #5B6B78; --line: #DCE3E8;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); }
+  header { background: var(--navy); color: #F2F6F8; padding: 14px 24px; }
+  header h1 { font-size: 20px; margin: 0; font-weight: 600; }
+  header #who { font-size: 14px; color: #C7D3DC; margin-top: 4px; }
+  main { padding: 20px 24px 40px; max-width: 1200px; margin: 0 auto; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .tile, .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; min-width: 0; }
+  .tile .l { font-size: 13px; color: var(--muted); }
+  .tile .n { font-size: 26px; font-weight: 600; color: var(--teal); margin: 2px 0; }
+  .tile .d { font-size: 14px; }
+  .tone { display: inline-block; font-size: 13px; font-weight: 600; padding: 2px 8px; border-radius: 10px; border: 1px solid currentColor; }
+  .tone.serious { color: var(--red); } .tone.warning { color: var(--amber); } .tone.good { color: var(--green); } .tone.unknown { color: var(--muted); }
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; margin-bottom: 16px; }
+  .card h2 { font-size: 16px; margin: 4px 0 2px; }
+  .sub { font-size: 13px; color: var(--muted); margin: 0 0 8px; }
+  .chart { height: 300px; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; margin-bottom: 16px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 13px; }
+  #other th { width: 32%; }
+  .flag { color: var(--red); font-weight: 600; }
+  .muted { color: var(--muted); font-size: 13px; }
+  .error { color: var(--red); white-space: pre-wrap; }
+  details { margin-top: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px 16px; }
+  summary { cursor: pointer; font-weight: 600; }
+  pre { background: var(--navy); color: #E1F1F5; padding: 12px; border-radius: 6px; font-size: 13px; white-space: pre-wrap; word-break: break-all; }
+  @media (max-width: 520px) { main { padding: 16px; } .charts, .grid2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Preoperative anaemia: patient summary</h1>
+  <div id="who">Connecting…</div>
+</header>
+<main>
+  <div id="message"></div>
+  <div class="tiles">
+    <div class="tile"><div class="l">Pathway (latest results)</div><div class="d" id="t-pathway">–</div></div>
+    <div class="tile"><div class="l">Days to surgery</div><div class="n" id="t-days">–</div><div class="d" id="t-surgery"></div></div>
+    <div class="tile"><div class="l">With the blood management team</div><div class="n" id="t-episode">–</div><div class="d" id="t-episode-d"></div></div>
+    <div class="tile"><div class="l">Treatments ordered</div><div class="n" id="t-treat">–</div><div class="d" id="t-treat-d"></div></div>
+  </div>
+
+  <div class="charts">
+    <div class="card"><h2>Haemoglobin</h2><p class="sub" id="hb-sub">g/L · LOINC 718-7</p><div class="chart" id="hb-chart"></div></div>
+    <div class="card"><h2>Ferritin</h2><p class="sub">µg/L · LOINC 2276-4 · iron deficiency below 100</p><div class="chart" id="ferritin-chart"></div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card"><h2>Pathology</h2><p class="sub">Earliest (at referral) and latest result of each test</p><div id="labs"></div></div>
+    <div class="card"><h2>Pathway classification</h2><p class="sub">Calculated from the results with the track's draft decision rules</p><div id="classes"></div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card"><h2>Treatments</h2><p class="sub">MedicationRequest, newest first</p><div id="treatments"></div></div>
+    <div class="card"><h2>Surgery, diagnosis and follow-up</h2><p class="sub">ServiceRequest, Condition, Task</p><div id="other"></div></div>
+  </div>
+
+  <details>
+    <summary>The FHIR queries behind this page</summary>
+    <pre id="queries"></pre>
+  </details>
+  <p class="muted" id="source"></p>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

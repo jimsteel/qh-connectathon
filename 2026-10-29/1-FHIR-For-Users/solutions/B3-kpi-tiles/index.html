@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PAM Headline Numbers</title>
+<script src="https://cdn.jsdelivr.net/npm/fhirclient@2.6.3/build/fhir-client.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/4.1.2/plotly-cartesian.min.js"></script>
+<script src="calc.js"></script>
+<style>
+  :root {
+    --navy: #0A2033; --teal: #00738F; --orange: #B9531A;
+    --bg: #F6F8F9; --card: #FFFFFF; --text: #0A2033; --muted: #5B6B78; --line: #DCE3E8;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); }
+  header { background: var(--navy); color: #F2F6F8; padding: 16px 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; }
+  header h1 { font-size: 20px; margin: 0; font-weight: 600; }
+  header .src { font-size: 13px; color: #C7D3DC; }
+  main { padding: 20px 24px 40px; max-width: 1280px; margin: 0 auto; }
+  .bar { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; margin-bottom: 16px; }
+  label { font-size: 14px; color: var(--muted); }
+  select { font: inherit; padding: 4px 8px; margin-left: 6px; }
+  h2.group { font-size: 14px; color: var(--muted); font-weight: 600; margin: 8px 0 8px; text-transform: uppercase; letter-spacing: .03em; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .tile { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; }
+  .tile .n { font-size: 32px; font-weight: 600; color: var(--teal); }
+  .tile .l { font-size: 14px; color: var(--text); }
+  .tile .s { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; min-width: 0; }
+  .card h2 { font-size: 16px; margin: 4px 0 0; }
+  .card .sub { font-size: 13px; color: var(--muted); margin: 2px 0 8px; }
+  .chart { height: 300px; }
+  .note { font-size: 13px; color: var(--orange); margin: 6px 0 0; }
+  details { margin-top: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px 16px; }
+  summary { cursor: pointer; font-weight: 600; }
+  pre { background: var(--navy); color: #E1F1F5; padding: 12px; border-radius: 6px; font-size: 13px; white-space: pre-wrap; word-break: break-all; }
+  table { border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 4px 12px 4px 0; border-bottom: 1px solid var(--line); }
+  #status { font-size: 14px; color: var(--muted); }
+  #status.error { color: #B00020; }
+  @media (max-width: 520px) { main { padding: 16px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Preoperative anaemia — headline numbers</h1>
+  <span class="src" id="source">Connecting…</span>
+</header>
+<main>
+  <div class="bar">
+    <label>Referred in
+      <select id="timeframe">
+        <option value="2025-07-01|2026-06-30">FY 2025–26</option>
+        <option value="2026-07-01|">FY 2026–27 to date</option>
+        <option value="|" selected>All</option>
+      </select>
+    </label>
+    <span id="status">Loading…</span>
+  </div>
+
+  <h2 class="group">Patients (PAM 6)</h2>
+  <div class="tiles">
+    <div class="tile"><div class="n" id="t-referred">–</div><div class="l">Referred</div><div class="s">EpisodeOfCare started in the timeframe</div></div>
+    <div class="tile"><div class="n" id="t-managed">–</div><div class="l">Being managed</div><div class="s">Episode status active (or planned, waitlist, on hold)</div></div>
+    <div class="tile"><div class="n" id="t-cleared">–</div><div class="l">Cleared</div><div class="s">Episode status finished</div></div>
+  </div>
+
+  <h2 class="group">Time with the team (PAM 7)</h2>
+  <div class="tiles">
+    <div class="tile"><div class="n" id="t-days">–</div><div class="l">Median days with the team</div><div class="s">Cleared patients: referral to clearance</div></div>
+    <div class="tile"><div class="n" id="t-days-active">–</div><div class="l">Median days so far</div><div class="s">Patients still being managed</div></div>
+  </div>
+
+  <h2 class="group">Education (PAM 8 / 8a)</h2>
+  <div class="tiles">
+    <div class="tile"><div class="n" id="t-edu">–</div><div class="l">Education sessions</div><div class="s" id="t-edu-s">Procedure / Communication coded as education</div></div>
+    <div class="tile"><div class="n" id="t-edu-month">–</div><div class="l">Sessions per month (average)</div><div class="s" id="t-edu-month-s"></div></div>
+  </div>
+  <div class="card">
+    <h2>Education sessions per month (PAM 8a)</h2>
+    <p class="sub">By the session date, for patients with a PAM episode</p>
+    <div class="chart" id="edu-chart"></div>
+    <p class="note" id="edu-note" hidden>No education sessions are recorded on this server yet: the synthetic data has none, and they appear once the
+      Patient Education module (A8) writes them back as a Procedure or Communication coded SNOMED CT 409073007 |Education| or 311401005 |Patient education|.</p>
+  </div>
+
+  <details>
+    <summary>The FHIR queries behind these numbers</summary>
+    <pre id="query"></pre>
+    <table id="table"></table>
+  </details>
+</main>
+
+<script>
+  const K = window.PamKpi;
+  const statusEl = document.getElementById('status');
+  const params = new URLSearchParams(location.search);
+  // Optional ?today=YYYY-MM-DD fixes "today" for "days so far" (demos and tests)
+  const TODAY = params.get('today') || new Date().toLocaleDateString('en-CA');
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n, dp = 0) => (n == null ? '–' : Number(n).toFixed(dp));
+
+  // ?server=<FHIR base> reads an open endpoint without SMART (for testing); otherwise complete the SMART launch
+  const clientPromise = params.get('server') ? Promise.resolve(FHIR.client(params.get('server'))) : FHIR.oauth2.ready();
+  let resources = null;
+
+  function render() {
+    const [from, to] = $('timeframe').value.split('|');
+    const k = K.kpis(resources, from, to, TODAY);
+    $('t-referred').textContent = k.referred;
+    $('t-managed').textContent = k.managed;
+    $('t-cleared').textContent = k.cleared;
+    $('t-days').textContent = fmt(k.medianDaysCleared);
+    $('t-days-active').textContent = fmt(k.medianDaysManaged);
+    $('t-edu').textContent = k.education;
+    $('t-edu-s').textContent = `${k.patientsEducated} patient${k.patientsEducated === 1 ? '' : 's'} · Procedure / Communication coded as education`;
+    const nMonths = Object.keys(k.perMonth).length;
+    $('t-edu-month').textContent = fmt(k.educationPerMonth, 1);
+    $('t-edu-month-s').textContent = `over ${nMonths} month${nMonths === 1 ? '' : 's'}`;
+    $('edu-note').hidden = k.education > 0;
+
+    const months = Object.keys(k.perMonth);
+    const label = (m) => new Date(m + '-01T00:00:00').toLocaleDateString('en-AU', { month: 'short', year: '2-digit' });
+    Plotly.react('edu-chart', [{
+      type: 'bar', x: months.map(label), y: Object.values(k.perMonth), marker: { color: '#00738F' },
+      hovertemplate: '%{x}: <b>%{y}</b> sessions<extra></extra>',
+    }], {
+      margin: { t: 10, r: 10, b: 40, l: 40 }, bargap: 0.3, showlegend: false,
+      xaxis: { type: 'category', tickangle: 0 }, yaxis: { title: { text: 'sessions' }, rangemode: 'tozero', dtick: Math.max(...Object.values(k.perMonth), 0) <= 5 ? 1 : null, gridcolor: '#E6ECF0', zeroline: false },
+      paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { family: 'system-ui, sans-serif', size: 12, color: '#0A2033' },
+    }, { displayModeBar: false, responsive: true });
+    $('table').innerHTML = '<tr><th>Month</th><th>Sessions</th></tr>' + months.map((m) => `<tr><td>${m}</td><td>${k.perMonth[m]}</td></tr>`).join('');
+  }
+
+  async function load(client) {
+    $('query').textContent = Object.values(K.QUERIES).map((q) => `GET ${client.state.serverUrl}/${q.replaceAll('%7C', '|')}`).join('\n');
+    statusEl.className = ''; statusEl.textContent = 'Loading…';
+    try {
+      const results = await Promise.all(Object.values(K.QUERIES).map((q) => client.request(q, { pageLimit: 0, flat: true })));
+      resources = results.flat();
+      render();
+      statusEl.textContent = `${resources.length} resources from ${results.length} searches · today = ${TODAY}`;
+    } catch (e) {
+      statusEl.className = 'error'; statusEl.textContent = 'Could not load: ' + e.message;
+    }
+  }
+
+  clientPromise.then((client) => {
+    const user = client.getFhirUser?.();
+    $('source').textContent = client.state.serverUrl + (user ? ` · ${user}` : ' · open endpoint (no login)');
+    $('timeframe').addEventListener('change', () => resources && render());
+    load(client);
+  }).catch((e) => {
+    statusEl.className = 'error';
+    statusEl.textContent = 'Not launched. Launch this app from the sandbox, or add ?server=<FHIR base URL> to read an open endpoint. (' + e.message + ')';
+  });
+</script>
+</body>
+</html>

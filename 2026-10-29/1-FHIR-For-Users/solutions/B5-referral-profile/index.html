@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PAM Referral Profile</title>
+<script src="https://cdn.jsdelivr.net/npm/fhirclient@2.6.3/build/fhir-client.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/4.1.2/plotly-cartesian.min.js"></script>
+<script src="calc.js"></script>
+<style>
+  :root {
+    --navy: #0A2033; --teal: #00738F; --orange: #B9531A;
+    --bg: #F6F8F9; --card: #FFFFFF; --text: #0A2033; --muted: #5B6B78; --line: #DCE3E8;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); }
+  header { background: var(--navy); color: #F2F6F8; padding: 16px 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; }
+  header h1 { font-size: 20px; margin: 0; font-weight: 600; }
+  header .src { font-size: 13px; color: #C7D3DC; }
+  main { padding: 20px 24px 40px; max-width: 1280px; margin: 0 auto; }
+  .bar { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; margin-bottom: 16px; }
+  label { font-size: 14px; color: var(--muted); }
+  select { font: inherit; padding: 4px 8px; margin-left: 6px; }
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; min-width: 0; }
+  .card h2 { font-size: 16px; margin: 4px 0 0; }
+  .card .sub { font-size: 13px; color: var(--muted); margin: 2px 0 8px; }
+  .chart { height: 280px; }
+  details { margin-top: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px 16px; }
+  summary { cursor: pointer; font-weight: 600; }
+  pre { background: var(--navy); color: #E1F1F5; padding: 12px; border-radius: 6px; font-size: 13px; white-space: pre-wrap; word-break: break-all; }
+  .tablewrap { overflow-x: auto; }
+  table { border-collapse: collapse; font-size: 14px; width: 100%; }
+  th, td { text-align: left; padding: 4px 12px 4px 0; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); }
+  #status { font-size: 14px; color: var(--muted); }
+  #status.error { color: #B00020; }
+  @media (max-width: 520px) { main { padding: 16px; } .charts { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Preoperative anaemia — referral profile</h1>
+  <span class="src" id="source">Connecting…</span>
+</header>
+<main>
+  <div class="bar">
+    <label>Referred in
+      <select id="timeframe">
+        <option value="2025-07-01|2026-06-30">FY 2025–26</option>
+        <option value="2026-07-01|">FY 2026–27 to date</option>
+        <option value="|" selected>All</option>
+      </select>
+    </label>
+    <span id="status">Loading…</span>
+  </div>
+
+  <div class="charts">
+    <div class="card"><h2>Surgical unit (PAM 12)</h2><p class="sub">Referrals by the unit of the planned surgery</p><div class="chart" id="unit"></div></div>
+    <div class="card"><h2>Referral source (PAM 13)</h2><p class="sub">Who referred the patient to blood management</p><div class="chart" id="source-chart"></div></div>
+    <div class="card"><h2>Recommended treatment (PAM 14)</h2><p class="sub">Latest treatment ordered after the referral</p><div class="chart" id="treatment"></div></div>
+  </div>
+
+  <details>
+    <summary>The FHIR queries and the data behind these charts</summary>
+    <pre id="query"></pre>
+    <div class="tablewrap"><table id="table"></table></div>
+  </details>
+</main>
+
+<script>
+  const P = window.PamReferrals;
+  const statusEl = document.getElementById('status');
+  const params = new URLSearchParams(location.search);
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  const clientPromise = params.get('server') ? Promise.resolve(FHIR.client(params.get('server'))) : FHIR.oauth2.ready();
+  let resources = null;
+
+  // One series per chart (no legend: the title names it); bars biggest first, count and share at the bar end
+  function bars(el, tally, total) {
+    const labels = tally.map(([k]) => k), counts = tally.map(([, n]) => n);
+    const pct = counts.map((n) => (total ? Math.round((100 * n) / total) : 0));
+    Plotly.react(el, [{
+      type: 'bar', orientation: 'h', y: labels, x: counts, marker: { color: labels.map((l) => (l === P.NOT_RECORDED ? '#A9B6C0' : '#00738F')) },
+      text: counts.map((n, i) => `${n} (${pct[i]}%)`), textposition: 'outside', cliponaxis: false,
+      customdata: pct, hovertemplate: '%{y}: <b>%{x}</b> referrals (%{customdata}%)<extra></extra>',
+    }], {
+      margin: { t: 6, r: 70, b: 30, l: 10 }, bargap: 0.35, showlegend: false,
+      yaxis: { autorange: 'reversed', automargin: true, ticksuffix: '  ' },
+      xaxis: { rangemode: 'tozero', gridcolor: '#E6ECF0', zeroline: false, dtick: Math.max(...counts, 0) <= 10 ? 2 : null },
+      paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { family: 'system-ui, sans-serif', size: 12, color: '#0A2033' },
+    }, { displayModeBar: false, responsive: true });
+  }
+
+  function render() {
+    const [from, to] = $('timeframe').value.split('|');
+    const p = P.profile(resources, from, to);
+    const n = p.rows.length;
+    bars('unit', p.unit, n);
+    bars('source-chart', p.source, n);
+    bars('treatment', p.treatment, n);
+    statusEl.textContent = `${n} referrals · ${resources.length} resources from 4 searches`;
+    $('table').innerHTML = '<tr><th>Referral</th><th>Date</th><th>Patient</th><th>Unit</th><th>Source</th><th>Treatment</th></tr>' +
+      p.rows.sort((a, b) => a.date.localeCompare(b.date)).map((r) => `<tr><td>${esc(r.referral)}</td><td>${r.date}</td><td>${esc(r.patient)}</td><td>${esc(r.unit)}</td><td>${esc(r.source)}</td><td>${esc(r.treatment)}</td></tr>`).join('');
+  }
+
+  async function load(client) {
+    $('query').textContent = Object.values(P.QUERIES).map((q) => `GET ${client.state.serverUrl}/${q.replaceAll('%7C', '|')}`).join('\n');
+    statusEl.className = ''; statusEl.textContent = 'Loading…';
+    try {
+      const results = await Promise.all(Object.values(P.QUERIES).map((q) => client.request(q, { pageLimit: 0, flat: true })));
+      resources = results.flat();
+      render();
+    } catch (e) {
+      statusEl.className = 'error'; statusEl.textContent = 'Could not load: ' + e.message;
+    }
+  }
+
+  clientPromise.then((client) => {
+    const user = client.getFhirUser?.();
+    $('source').textContent = client.state.serverUrl + (user ? ` · ${user}` : ' · open endpoint (no login)');
+    $('timeframe').addEventListener('change', () => resources && render());
+    load(client);
+  }).catch((e) => {
+    statusEl.className = 'error';
+    statusEl.textContent = 'Not launched. Launch this app from the sandbox, or add ?server=<FHIR base URL> to read an open endpoint. (' + e.message + ')';
+  });
+</script>
+</body>
+</html>

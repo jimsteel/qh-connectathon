@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>PAM referral profile — launching</title>
+<script src="https://cdn.jsdelivr.net/npm/fhirclient@2.6.3/build/fhir-client.min.js"></script></head>
+<body>
+<p>Launching…</p>
+<script>
+  // Register with launch URI .../B5-referral-profile/launch.html and redirect URI .../B5-referral-profile/ (see README)
+  const CLIENT_ID = 'PUT-YOUR-CLIENT-ID-HERE';
+  FHIR.oauth2.authorize({
+    clientId: CLIENT_ID,
+    // A population view: user-level read access (SMART v1 scopes for Meld); 'launch' only for an EHR launch
+    scope: (new URLSearchParams(location.search).has('launch') ? 'launch ' : '') + 'openid fhirUser online_access user/*.read',
+    redirectUri: './'
+  });
+</script>
+</body>
+</html>
