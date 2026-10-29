@@ -202,3 +202,9 @@ Rebuild after a module changes:
 * Not tested: a SMART EHR launch of the Smart Forms app with the root form (`-assembled` lookup), and
   saving the QuestionnaireResponse.
 * Left on Meld: `Questionnaire/soln-pam-root`, `Questionnaire/soln-pam-assembled`. Test data deleted.
+
+## AU Core 2.0.0 (29 Oct 2026)
+
+Rebuilt with the AU Core changes of A1, A4, A5 and A7 (the assembled form now has the `user` launch context too). All its templates: **0 errors** against AU Core 2.0.0 / AU Base (see the scenario READMEs). `testdata-bundle.json` regenerated (TSAT 14801-5); `verify.mjs` gives `%user` = Practitioner/pam-nurse-1 and `fixtures-xfhirquery.json` was refreshed with `--live` (test data loaded, then removed with `meld.py clean`). `playground-results/` are from the earlier run.
+
+Extracted resources were validated with the HL7 FHIR validator against `hl7.fhir.au.core#2.0.0` (Ontoserver, SNOMED CT-AU), profile given explicitly; templates don't set `meta.profile` (Meld fails a PUT that carries one, HAPI-0389). Extraction: `@aehrc/sdc-template-extract` 1.0.16 on a response answering every item.

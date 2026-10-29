@@ -108,3 +108,9 @@ Automated: `./load.sh && node verify.mjs && node playground.mjs && ./cleanup.sh`
   `$expand?url=` without encoding it, and Ontoserver then reads a `|` as the canonical|version separator
   ("Invalid version format for SNOMED"). This was found and fixed while testing A4's autocompletes.
 * `playground.mjs` writes to the open endpoint (one ServiceRequest) and deletes it again.
+
+## AU Core 2.0.0 (29 Oct 2026)
+
+Referral ServiceRequest → AU Base ServiceRequest (no AU Core profile): **0 errors**, no change. Warning: the local `referral-source` CodeSystem isn't published, so the validator can't check it.
+
+Extracted resources were validated with the HL7 FHIR validator against `hl7.fhir.au.core#2.0.0` (Ontoserver, SNOMED CT-AU), profile given explicitly; templates don't set `meta.profile` (Meld fails a PUT that carries one, HAPI-0389). Extraction: `@aehrc/sdc-template-extract` 1.0.16 on a response answering every item.

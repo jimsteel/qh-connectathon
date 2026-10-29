@@ -153,3 +153,9 @@ node playground.mjs                                         # needs the test pat
 * `requester` is only filled when the QuestionnaireResponse has an `author` (a SMART launch with
   a practitioner user). The playground has none.
 * Not tested: launching the module from Meld's launcher, and the assembled form in Smart Forms.
+
+## AU Core 2.0.0 (29 Oct 2026)
+
+MedicationRequest → AU Core MedicationRequest, infusion ServiceRequest → AU Base ServiceRequest: **0 errors**. Changed: AU Core needs `MedicationRequest.requester` (1..1), and `QuestionnaireResponse.author` is empty in the playground. New items in `pam-iv-iron`: *Prescriber* (`pam-iron-prescriber`, pre-populated from the `user` launch context: `%user` name) and hidden `pam-iron-prescriber-ref` (`%user` reference). `requester` = that reference (else `QuestionnaireResponse.author`) with the name as `display`; without a launch user the typed name alone is the requester. The module and standalone declare the `user` launch context (Practitioner); in the playground pick a user in the launch settings. `verify.mjs` checks both cases. Warnings: `{infusions}` UCUM annotation in `quantityQuantity`.
+
+Extracted resources were validated with the HL7 FHIR validator against `hl7.fhir.au.core#2.0.0` (Ontoserver, SNOMED CT-AU), profile given explicitly; templates don't set `meta.profile` (Meld fails a PUT that carries one, HAPI-0389). Extraction: `@aehrc/sdc-template-extract` 1.0.16 on a response answering every item.

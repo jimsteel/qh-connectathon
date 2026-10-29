@@ -23,6 +23,22 @@
       ]
     },
     {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "user"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Practitioner"
+        }
+      ]
+    },
+    {
       "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-extractAllocateId",
       "valueString": "ivIronOrderId"
     }
@@ -632,6 +648,38 @@
               "linkId": "pam-iron-cap-note",
               "type": "display",
               "text": "Per-infusion maximum (Australian product information): ferric carboxymaltose 20 mg/kg up to 1000 mg, and no more than 1000 mg a week; ferric derisomaltose 20 mg/kg, single doses above 1500 mg not recommended, split doses at least a week apart. 20 mg/kg uses the dosing weight."
+            },
+            {
+              "linkId": "pam-iron-prescriber",
+              "text": "Prescriber",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%user.name.first().given.first() + ' ' + %user.name.first().family"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-prescriber-ref",
+              "text": "Prescriber reference",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%user.resourceType + '/' + %user.id"
+                  }
+                }
+              ]
             }
           ],
           "enableWhen": [
@@ -793,7 +841,15 @@
           "extension": [
             {
               "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
-              "valueString": "%resource.author.reference"
+              "valueString": "iif(%resource.repeat(item).where(linkId='pam-iron-prescriber-ref').answer.value.exists(), %resource.repeat(item).where(linkId='pam-iron-prescriber-ref').answer.value, %resource.author.reference)"
+            }
+          ]
+        },
+        "_display": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.repeat(item).where(linkId='pam-iron-prescriber').answer.value"
             }
           ]
         }
@@ -995,7 +1051,15 @@
           "extension": [
             {
               "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
-              "valueString": "%resource.author.reference"
+              "valueString": "iif(%resource.repeat(item).where(linkId='pam-iron-prescriber-ref').answer.value.exists(), %resource.repeat(item).where(linkId='pam-iron-prescriber-ref').answer.value, %resource.author.reference)"
+            }
+          ]
+        },
+        "_display": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.repeat(item).where(linkId='pam-iron-prescriber').answer.value"
             }
           ]
         }

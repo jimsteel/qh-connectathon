@@ -15,7 +15,7 @@ LOINC, UCUM, SCT = "http://loinc.org", "http://unitsofmeasure.org", "http://snom
 LABS = {  # key: (code, LOINC display, UCUM, unit display)
     "hb": ("718-7", "Hemoglobin [Mass/volume] in Blood", "g/L", "g/L"),
     "ferritin": ("2276-4", "Ferritin [Mass/volume] in Serum or Plasma", "ug/L", "µg/L"),
-    "tsat": ("2502-3", "Iron saturation [Mass Fraction] in Serum or Plasma", "%", "%"),
+    "tsat": ("14801-5", "Iron saturation [Molar fraction] in Serum or Plasma", "%", "%"),
     "crp": ("1988-5", "C reactive protein [Mass/volume] in Serum or Plasma", "mg/L", "mg/L"),
     "mcv": ("787-2", "MCV [Entitic mean volume] in Red Blood Cells by Automated count", "fL", "fL"),
     "b12": ("14685-2", "Cobalamin (Vitamin B12) [Moles/volume] in Serum or Plasma", "pmol/L", "pmol/L"),

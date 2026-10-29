@@ -1,4 +1,4 @@
-# A10 build 2026-10-28T14:37:53.731Z
+# A10 build 2026-10-29T05:30:15.930Z
 
 ## Modules
 OK    A1   soln-pam-patient-details   https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-patient-details|0.2.0  (A1-patient-details/pam-patient-details.json)
@@ -16,7 +16,7 @@ OK    A8   soln-pam-education         https://aehrc.github.io/qh-connectathon/tr
 OK    A9   soln-pam-follow-up         https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-follow-up|0.2.0  (A9-follow-up/pam-follow-up.json)
 
 ## linkIds
-341 linkIds in the modules, all unique
+343 linkIds in the modules, all unique
 
 ## Variable and context names
 46 module-level names, 22 root variables: no duplicates found
@@ -68,9 +68,10 @@ A9   root variables: (none)
 
 ## Root variables vs the standalone forms
 5 standalone forms: every root-level variable they define has the same expression here
+launchContext from A7 added to the root
 
 ## Assemble
-assembled: 10 sections (pam-patient, pam-gp, pam-surgery, pam-history, pam-patient-reported, pam-pathology, pam-diagnosis-section, pam-treatment, pam-education, pam-follow-up), 342 linkIds, 27 contained, 22 root-level variables
+assembled: 10 sections (pam-patient, pam-gp, pam-surgery, pam-history, pam-patient-reported, pam-pathology, pam-diagnosis-section, pam-treatment, pam-education, pam-follow-up), 344 linkIds, 27 contained, 22 root-level variables
 
 ## Root variables and who needs them
 

@@ -151,3 +151,9 @@ Not verified: the SMART-launched Smart Forms app; behaviour with real (non-synth
   the Condition; Condition has no `evidence` links to the Observations.
 * Writing back twice creates duplicate Conditions / Flags / Goals (no identifiers or conditional
   updates); an existing Flag is not pre-populated or ended.
+
+## AU Core 2.0.0 (29 Oct 2026)
+
+Conditions → AU Core Condition: **0 errors**; Flag and Goal have no AU profile, validated as base R4: **0 errors**. No template change. The standalone form's TSAT query reads **14801-5** and 2502-3; `test-data.json` uses 14801-5.
+
+Extracted resources were validated with the HL7 FHIR validator against `hl7.fhir.au.core#2.0.0` (Ontoserver, SNOMED CT-AU), profile given explicitly; templates don't set `meta.profile` (Meld fails a PUT that carries one, HAPI-0389). Extraction: `@aehrc/sdc-template-extract` 1.0.16 on a response answering every item.

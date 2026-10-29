@@ -122,6 +122,10 @@ PATIENT_CONTEXT = ext(f"{SDC}/sdc-questionnaire-launchContext", extension=[
     {"url": "name", "valueCoding": {"system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext", "code": "patient"}},
     {"url": "type", "valueCode": "Patient"},
 ])
+USER_CONTEXT = ext(f"{SDC}/sdc-questionnaire-launchContext", extension=[
+    {"url": "name", "valueCoding": {"system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext", "code": "user"}},
+    {"url": "type", "valueCode": "Practitioner"},
+])
 CHILD = ext(f"{SDC}/sdc-questionnaire-assemble-expectation", valueCode="assemble-child")
 ALLOCATE_ORDER_ID = ext(f"{SDC}/sdc-questionnaire-extractAllocateId", valueString="ivIronOrderId")
 
@@ -232,6 +236,11 @@ order = item("pam-iv-iron", "IV iron order", "group", item=[
     display("pam-iron-cap-note", "Per-infusion maximum (Australian product information): ferric carboxymaltose 20 mg/kg "
             "up to 1000 mg, and no more than 1000 mg a week; ferric derisomaltose 20 mg/kg, single doses above 1500 mg not "
             "recommended, split doses at least a week apart. 20 mg/kg uses the dosing weight."),
+    # AU Core MedicationRequest.requester is 1..1: the launch user (%user) if there is one, else the name typed in
+    item("pam-iron-prescriber", "Prescriber", "string",
+         initial("%user.name.first().given.first() + ' ' + %user.name.first().family")),
+    item("pam-iron-prescriber-ref", "Prescriber reference", "string", hidden(),
+         initial("%user.resourceType + '/' + %user.id")),
 ], **iv_enable)
 
 booking = item("pam-infusion", "Book the infusion (day unit)", "group", item=[
@@ -251,6 +260,9 @@ TREATMENT = item("pam-treatment", "Treatment", "group", item=[
 
 
 # --- templates --------------------------------------------------------------------------------
+PRESCRIBER_REF = answer("pam-iron-prescriber-ref")
+REQUESTER = {"_reference": tv(f"iif({PRESCRIBER_REF}.exists(), {PRESCRIBER_REF}, %resource.author.reference)"),
+             "_display": tv(answer("pam-iron-prescriber"))}
 REASON = f"%resource.repeat(item).where(linkId='pam-diagnosis').answer.value"
 NOTE = (f"'Total iron dose ' + {DOSE}.toString() + ' mg (Ganzoni total iron deficit ' + {GANZONI}.toString()"
         f" + ' mg: dosing weight ' + {answer('pam-dosing-weight')}.toString() + ' kg, Hb ' + %resource.repeat(item)"
@@ -280,7 +292,7 @@ med_template = {
     "medicationCodeableConcept": {"coding": [tv("answer.value")], "_text": tv("answer.value.display")},
     "subject": {"_reference": tv("%resource.subject.reference")},
     "_authoredOn": tv("now().toString()"),
-    "requester": {"_reference": tv("%resource.author.reference")},
+    "requester": REQUESTER,
     "reasonCode": [{"coding": [tv(REASON)]}],
     "note": [{"_text": tv(NOTE)}],
     "dosageInstruction": [dosage(1), dosage(2), dosage(3)],
@@ -292,7 +304,7 @@ infusion_template = {
     "subject": {"_reference": tv("%resource.subject.reference")},
     "_occurrenceDateTime": tv("answer.value.toString()"),
     "_authoredOn": tv("now().toString()"),
-    "requester": {"_reference": tv("%resource.author.reference")},
+    "requester": REQUESTER,
     "_priority": tv(f"{answer('pam-infusion-priority')}.code"),
     "basedOn": [{"_reference": tv(f"iif({PRODUCT}.exists(), 'urn:uuid:' + %ivIronOrderId, {{}})")}],
     "quantityQuantity": {"_value": tv(N), "unit": "infusions", "system": UCUM, "code": "{infusions}"},
@@ -312,7 +324,7 @@ def questionnaire(id_, url, name, title, items, extensions, contained, descripti
 
 module = questionnaire(
     "soln-pam-treatment", f"{BASE}/pam-treatment", "PAMTreatment", "PAM module — Treatment and iron dose (solution)",
-    [TREATMENT], [CHILD, PATIENT_CONTEXT, ALLOCATE_ORDER_ID], [med_template, infusion_template],
+    [TREATMENT], [CHILD, PATIENT_CONTEXT, USER_CONTEXT, ALLOCATE_ORDER_ID], [med_template, infusion_template],
     "Scenario A7 full solution: extends pam-treatment 0.1.0. Ganzoni total iron dose with dosing-weight rules, "
     "per-product infusion split, IV iron MedicationRequest (AMT value set) and day-unit infusion ServiceRequest. "
     "Needs the root's shared variables and extractAllocateId ivIronOrderId (see README).")
@@ -338,7 +350,7 @@ standalone = questionnaire(
     "soln-A7-standalone", f"{BASE}/A7-standalone", "PAMTreatmentStandalone",
     "A7 Treatment + Ganzoni — standalone test form",
     [standalone_inputs, json.loads(json.dumps(TREATMENT))],
-    [PATIENT_CONTEXT, ALLOCATE_ORDER_ID] + ROOT_VARIABLES, [med_template, infusion_template],
+    [PATIENT_CONTEXT, USER_CONTEXT, ALLOCATE_ORDER_ID] + ROOT_VARIABLES, [med_template, infusion_template],
     "Standalone test form for scenario A7: the soln-pam-treatment module plus the input items and root variables it needs.")
 standalone["item"][1]["item"][0]["initial"] = [{"valueString": f"soln-A7-standalone|{VERSION}"}]
 

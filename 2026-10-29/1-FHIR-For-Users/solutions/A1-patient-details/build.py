@@ -139,13 +139,15 @@ ROOT_VARIABLES = [
 ]
 
 
-def vital_template(tid, code, display, value_link, ucum):
-    """Observation template; context = the pam-height / pam-weight answer item."""
+def vital_template(tid, code, display, value_link, ucum, sct):
+    """Observation template; context = the pam-height / pam-weight answer item.
+    Conforms to AU Core 2.0.0 Body Height / Body Weight, which need the SNOMED CT code as well as LOINC."""
     return {
         "resourceType": "Observation", "id": tid, "status": "final",
         "category": [{"coding": [{"system": "http://terminology.hl7.org/CodeSystem/observation-category",
                                   "code": "vital-signs", "display": "Vital Signs"}]}],
-        "code": {"coding": [{"system": LOINC, "code": code, "display": display}], "text": display},
+        "code": {"coding": [{"system": LOINC, "code": code, "display": display},
+                            {"system": "http://snomed.info/sct", "code": sct[0], "display": sct[1]}], "text": display},
         "subject": {"_reference": tev(TEMPLATE_EXPR["subject"])},
         "_effectiveDateTime": tev(TEMPLATE_EXPR["effective"]),
         "valueQuantity": {"_value": tev(TEMPLATE_EXPR["value"]), "unit": ucum, "system": UCUM, "code": ucum},
@@ -219,8 +221,8 @@ def module():
         "description": "Scenario A1 reference solution: extends the starter pam-patient-details module. "
                        "Needs the root form's shared variables dob, heightCm and weightKg.",
         "contained": [
-            vital_template("PAMHeightTemplate", "8302-2", "Body height", "pam-height", "cm"),
-            vital_template("PAMWeightTemplate", "29463-7", "Body weight", "pam-weight", "kg"),
+            vital_template("PAMHeightTemplate", "8302-2", "Body height", "pam-height", "cm", ("50373000", "Body height measure")),
+            vital_template("PAMWeightTemplate", "29463-7", "Body weight", "pam-weight", "kg", ("27113001", "Body weight")),
         ],
         "item": [group],
     }

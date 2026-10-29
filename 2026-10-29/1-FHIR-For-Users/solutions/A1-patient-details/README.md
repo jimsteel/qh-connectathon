@@ -85,3 +85,9 @@ playground's patient picker sets `%patient`; the app's "save as final" uses the 
 
 `Questionnaire/soln-pam-patient-details`, `Questionnaire/soln-A1-standalone`. Test data was deleted
 (`./cleanup.sh`); `./load.sh` recreates it.
+
+## AU Core 2.0.0 (29 Oct 2026)
+
+Body height / weight Observations → AU Core Body Height / Body Weight: **0 errors**. Changed: the code now carries SNOMED CT `50373000` *Body height measure* / `27113001` *Body weight* next to the LOINC code (AU Core requires both).
+
+Extracted resources were validated with the HL7 FHIR validator against `hl7.fhir.au.core#2.0.0` (Ontoserver, SNOMED CT-AU), profile given explicitly; templates don't set `meta.profile` (Meld fails a PUT that carries one, HAPI-0389). Extraction: `@aehrc/sdc-template-extract` 1.0.16 on a response answering every item.

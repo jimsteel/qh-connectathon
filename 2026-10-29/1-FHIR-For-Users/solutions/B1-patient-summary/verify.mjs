@@ -67,7 +67,7 @@ for (const pid of ['pam-demo', 'pam-034', 'pam-012', 'pam-008', 'pam-004']) {
   const obs = await fhir(`Observation?patient=${pid}&_count=200`);
   const hb = obs.filter((o) => o.code.coding.some((x) => x.code === '718-7')).sort((a, b) => a.effectiveDateTime.localeCompare(b.effectiveDateTime));
   const fer = obs.filter((o) => o.code.coding.some((x) => x.code === '2276-4')).sort((a, b) => a.effectiveDateTime.localeCompare(b.effectiveDateTime));
-  const tsat = obs.filter((o) => o.code.coding.some((x) => x.code === '2502-3')).sort((a, b) => a.effectiveDateTime.localeCompare(b.effectiveDateTime));
+  const tsat = obs.filter((o) => o.code.coding.some((x) => ['14801-5', '2502-3'].includes(x.code))).sort((a, b) => a.effectiveDateTime.localeCompare(b.effectiveDateTime));
   const crp = obs.filter((o) => o.code.coding.some((x) => x.code === '1988-5')).sort((a, b) => a.effectiveDateTime.localeCompare(b.effectiveDateTime));
   const last = (xs) => xs.at(-1)?.valueQuantity.value;
   const expected = L.classify({ sex: pat.gender, hb: last(hb), ferritin: last(fer), tsat: last(tsat), crp: last(crp) }).pathway;

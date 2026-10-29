@@ -131,3 +131,9 @@ node playground.mjs
 * The educator isn't asked for when there's no author. A "given by" item could be added.
 * The surgery query takes the most recently authored waitlist entry. A patient with several open
   entries gets the latest.
+
+## AU Core 2.0.0 (29 Oct 2026)
+
+Procedure → AU Core Procedure: **0 errors**; Communication (no AU profile) as base R4: **0 errors**. No change. `performer` / `sender` still come from `QuestionnaireResponse.author` only (not required by AU Core); a *given by* item from `%user` as in A7 would fill them in the playground.
+
+Extracted resources were validated with the HL7 FHIR validator against `hl7.fhir.au.core#2.0.0` (Ontoserver, SNOMED CT-AU), profile given explicitly; templates don't set `meta.profile` (Meld fails a PUT that carries one, HAPI-0389). Extraction: `@aehrc/sdc-template-extract` 1.0.16 on a response answering every item.

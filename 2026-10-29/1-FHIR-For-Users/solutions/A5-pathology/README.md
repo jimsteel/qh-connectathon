@@ -37,7 +37,7 @@ LOINC codes and units:
 |---|---|---|
 | Haemoglobin | 718-7 | g/L |
 | Ferritin | 2276-4 | ug/L (µg/L) |
-| Transferrin saturation | 2502-3 | % |
+| Transferrin saturation | 14801-5 (also reads 2502-3, the code used before the AU Core switch) | % |
 | CRP | 1988-5 | mg/L |
 | MCV | 787-2 | fL |
 | Vitamin B12 | 14685-2 (moles/volume) | pmol/L |
@@ -122,3 +122,9 @@ Not verified: the SMART-launched Smart Forms app (only the playground); LHC-Form
   duplicates.
 * The playground shows the history table squeezed next to its JSON editor (scroll sideways); the
   Smart Forms app uses the full width.
+
+## AU Core 2.0.0 (29 Oct 2026)
+
+External-result Observation → AU Core Pathology Result: **0 errors** (warning: no `performer` when no lab is entered). Changed: TSAT is LOINC **14801-5** *Iron saturation [Molar fraction] in Serum or Plasma* (in the RCPA SPIA value set AU Core binds to); pre-population still also reads 2502-3 for older data. `test-data.json` regenerated. `playground-results/` are from the earlier run (2502-3).
+
+Extracted resources were validated with the HL7 FHIR validator against `hl7.fhir.au.core#2.0.0` (Ontoserver, SNOMED CT-AU), profile given explicitly; templates don't set `meta.profile` (Meld fails a PUT that carries one, HAPI-0389). Extraction: `@aehrc/sdc-template-extract` 1.0.16 on a response answering every item.

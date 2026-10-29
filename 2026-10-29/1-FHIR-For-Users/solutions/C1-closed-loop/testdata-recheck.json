@@ -109,11 +109,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/soln-C1-patient-1"

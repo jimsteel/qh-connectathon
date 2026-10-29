@@ -370,7 +370,7 @@ templates = [
      "subject": SUBJECT,
      "_performedDateTime": tpl_value(child("pam-history-new-procedure-date") + ".toString()")},
     {"resourceType": "Procedure", "id": "PAMEndoscopyTemplate", "status": "completed",
-     "category": {"coding": [coding(SCT, "103693007", "Diagnostic procedure")]},
+     "category": {"coding": [coding(SCT, "386053000", "Evaluation procedure")]},
      "code": {"coding": [tpl_value(child("pam-history-scope-type"))]},
      "subject": SUBJECT,
      "_performedDateTime": tpl_value(child("pam-history-scope-date") + ".toString()"),

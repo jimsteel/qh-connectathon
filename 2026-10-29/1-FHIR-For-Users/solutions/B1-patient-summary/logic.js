@@ -4,9 +4,11 @@
   const LOINC = {
     hb: '718-7',        // Hemoglobin [Mass/volume] in Blood, g/L
     ferritin: '2276-4', // Ferritin [Mass/volume] in Serum or Plasma, ug/L
-    tsat: '2502-3',     // Iron saturation [Mass Fraction] in Serum or Plasma, %
+    tsat: '14801-5',    // Iron saturation [Molar fraction] in Serum or Plasma, % (RCPA SPIA / AU Core)
     crp: '1988-5',      // C reactive protein [Mass/volume] in Serum or Plasma, mg/L
   };
+  // Older codes still read: TSAT 2502-3 (Iron saturation [Mass Fraction]), used before the AU Core switch
+  const LOINC_ALSO = { '2502-3': 'tsat' };
   // Anaemia: Hb below 130 g/L (male) or 120 g/L (female). Other / unknown sex: the female threshold
   // is NOT assumed; we say we can't classify Hb without a sex.
   const HB_THRESHOLD = { male: 130, female: 120 };
@@ -21,7 +23,7 @@
       if (o.resourceType !== 'Observation' || o.valueQuantity?.value == null) continue;
       if (['entered-in-error', 'cancelled'].includes(o.status)) continue;
       const loinc = (o.code?.coding || []).find((c) => c.system === 'http://loinc.org')?.code;
-      const key = Object.keys(LOINC).find((k) => LOINC[k] === loinc);
+      const key = Object.keys(LOINC).find((k) => LOINC[k] === loinc) || LOINC_ALSO[loinc];
       if (!key) continue;
       out[key].push({ date: dateOf(o), value: o.valueQuantity.value, unit: o.valueQuantity.unit || o.valueQuantity.code, id: o.id });
     }
@@ -81,6 +83,6 @@
     return Math.round((d(b) - d(a)) / 86400000);
   }
 
-  const api = { LOINC, HB_THRESHOLD, FERRITIN_LOW, FERRITIN_HIGH, TSAT_LOW, CRP_HIGH, seriesByTest, classify, valuesAt, initialValues, daysBetween };
+  const api = { LOINC, LOINC_ALSO, HB_THRESHOLD, FERRITIN_LOW, FERRITIN_HIGH, TSAT_LOW, CRP_HIGH, seriesByTest, classify, valuesAt, initialValues, daysBetween };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.PamLogic = api;
 })(this);

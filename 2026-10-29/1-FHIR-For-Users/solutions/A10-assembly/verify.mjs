@@ -125,6 +125,7 @@ async function getJson(url) {
   return fixtures[url];
 }
 const patient = await getJson(`Patient/${P}`);
+const user = await getJson('Practitioner/pam-nurse-1');   // the `user` launch context (A7 Prescriber)
 
 // QR items by linkId, in document order (first instance used as the item's context)
 const qrItems = {};
@@ -166,7 +167,7 @@ for (const s of fpStrings) {
 
 console.log('');
 console.log('## Variables in scope and FHIRPath evaluation');
-const baseEnv = { resource: QR, rootResource: QR, context: QR, questionnaire: Q, patient, ucum: 'http://unitsofmeasure.org', sct: 'http://snomed.info/sct', loinc: 'http://loinc.org' };
+const baseEnv = { resource: QR, rootResource: QR, context: QR, questionnaire: Q, patient, user, ucum: 'http://unitsofmeasure.org', sct: 'http://snomed.info/sct', loinc: 'http://loinc.org' };
 const allocIds = Q.extension.filter((e) => e.url === EXT.allocateId).map((e) => e.valueString);
 for (const a of allocIds) baseEnv[a] = `urn:uuid:test-${a}`;
 const scopeErrors = [];

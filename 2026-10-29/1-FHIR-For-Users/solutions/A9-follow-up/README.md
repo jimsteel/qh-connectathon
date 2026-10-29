@@ -107,3 +107,9 @@ On a real PAM patient (read only), for example `pam-032`, the queries return its
 * The Task write-back gets a server-assigned id (POST). Those Tasks reference only the test patient and are
   deleted by the scripts.
 * The module hasn't been run through `$assemble` with the other modules (that is A10). Its variable names are unique.
+
+## AU Core 2.0.0 (29 Oct 2026)
+
+Task and EpisodeOfCare (no AU Core / AU Base profile) as base R4: **0 errors**, no change. Warnings: local `task-type` / `episode-type` CodeSystems aren't published. The status PATCHes are Parameters, not profiled.
+
+Extracted resources were validated with the HL7 FHIR validator against `hl7.fhir.au.core#2.0.0` (Ontoserver, SNOMED CT-AU), profile given explicitly; templates don't set `meta.profile` (Meld fails a PUT that carries one, HAPI-0389). Extraction: `@aehrc/sdc-template-extract` 1.0.16 on a response answering every item.

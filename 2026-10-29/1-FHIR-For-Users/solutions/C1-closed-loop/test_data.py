@@ -32,7 +32,7 @@ RECHECK = "2026-11-25"      # post-treatment bloods (generator: 21-35 days after
 LABS = {  # key: (LOINC, display, UCUM, unit text)
     "hb": ("718-7", "Hemoglobin [Mass/volume] in Blood", "g/L", "g/L"),
     "ferritin": ("2276-4", "Ferritin [Mass/volume] in Serum or Plasma", "ug/L", "µg/L"),
-    "tsat": ("2502-3", "Iron saturation [Mass Fraction] in Serum or Plasma", "%", "%"),
+    "tsat": ("14801-5", "Iron saturation [Molar fraction] in Serum or Plasma", "%", "%"),
     "crp": ("1988-5", "C reactive protein [Mass/volume] in Serum or Plasma", "mg/L", "mg/L"),
     "mcv": ("787-2", "MCV [Entitic mean volume] in Red Blood Cells by Automated count", "fL", "fL"),
     "egfr": ("62238-1", "Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by "

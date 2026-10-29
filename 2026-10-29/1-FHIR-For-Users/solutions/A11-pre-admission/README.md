@@ -99,3 +99,7 @@ stores it with a PUT instead.
 * The patient's wishes are not turned into a Flag or Consent here; that is the nurse's decision (A6). The nurse module only
   pre-populates.
 * The Questionnaire isn't split into pages for mobile. Smart Forms renders groups as cards.
+
+## AU Core 2.0.0 (29 Oct 2026)
+
+No template extraction (the write-back is the QuestionnaireResponse), so nothing to conform; no change.

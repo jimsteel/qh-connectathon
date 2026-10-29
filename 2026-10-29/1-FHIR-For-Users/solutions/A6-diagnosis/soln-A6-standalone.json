@@ -159,7 +159,7 @@
           "valueExpression": {
             "name": "latestTsat",
             "language": "application/x-fhir-query",
-            "expression": "Observation?code=http://loinc.org|2502-3&patient={{%patient.id}}&_sort=-date&_count=1"
+            "expression": "Observation?code=http://loinc.org|14801-5,http://loinc.org|2502-3&patient={{%patient.id}}&_sort=-date&_count=1"
           }
         },
         {

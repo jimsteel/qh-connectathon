@@ -226,7 +226,7 @@ mod = module("diagnosis", "Diagnosis and decision support", top, contained=templ
 
 # --- Standalone: root variables + the inputs the module needs (sex and pathology), editable ---------
 TESTS = [("hb", "718-7", "Haemoglobin (Hb)", "g/L", "g/L"), ("ferritin", "2276-4", "Ferritin", "ug/L", "µg/L"),
-         ("tsat", "2502-3", "Transferrin saturation (TSAT)", "%", "%"),
+         ("tsat", f"14801-5,{LOINC}|2502-3", "Transferrin saturation (TSAT)", "%", "%"),  # 2502-3: older data
          ("crp", "1988-5", "C-reactive protein (CRP)", "mg/L", "mg/L"),
          ("mcv", "787-2", "Mean cell volume (MCV)", "fL", "fL"),
          ("egfr", f"62238-1,{LOINC}|98979-8", "eGFR", "mL/min/{1.73_m2}", "mL/min/1.73 m²")]

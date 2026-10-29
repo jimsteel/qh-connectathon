@@ -44,7 +44,7 @@ check('extends-0.1.0', kept.every((l) => modLinkIds.includes(l)), `keeps the 0.1
 // Shared root variable names used by the module exist in the 0.1.0 root
 const rootNames = new Set(root.extension.filter((e) => e.valueExpression).map((e) => e.valueExpression.name));
 const used = new Set([...JSON.stringify(module_).matchAll(/%([a-zA-Z]+)/g)].map((m) => m[1]));
-const sdcBuiltins = new Set(['resource', 'patient', 'ivIronOrderId', 'context']);
+const sdcBuiltins = new Set(['resource', 'patient', 'user', 'ivIronOrderId', 'context']);
 const missingVars = [...used].filter((n) => !rootNames.has(n) && !sdcBuiltins.has(n));
 check('root-variables', missingVars.length === 0, missingVars.length ? `not on the root: ${missingVars}` : `uses root variables ${[...used].filter((n) => rootNames.has(n)).join(', ')}`);
 walkQ(standalone.item, (it) => (it.enableWhen || []).forEach((ew) => check(`enableWhen-${it.linkId}`, linkIds.includes(ew.question), `-> ${ew.question}`)));
@@ -84,7 +84,8 @@ const CASES = [
 function entered(c) {
   const e = { 'pam-sex': [{ system: 'http://hl7.org/fhir/administrative-gender', code: c.sex, display: c.sex }],
     'pam-weight': [c.weight], 'pam-hb': [c.hb], 'pam-tx-plan': [IV], 'pam-iron-product': [PRODUCTS[c.product]],
-    'pam-infusion-date': ['2026-11-03'], 'pam-infusion-notes': ['Prefers mornings'] };
+    'pam-infusion-date': ['2026-11-03'], 'pam-infusion-notes': ['Prefers mornings'],
+    'pam-iron-prescriber': ['Megan Hart'], 'pam-iron-prescriber-ref': ['Practitioner/pam-nurse-1'] };
   if (c.height !== undefined) e['pam-height'] = [c.height];
   if (c.manual !== undefined) { e['pam-iron-dose-override'] = [true]; e['pam-iron-dose-manual'] = [c.manual]; }
   return e;
@@ -124,7 +125,9 @@ if (BASE !== 'offline') {
     const pid = 'soln-A7-patient-1';
     const patient = await (await fetch(`${BASE}/Patient/${pid}`, { headers: { Accept: 'application/fhir+json' } })).json();
     if (patient.resourceType !== 'Patient') throw new Error(`no ${pid} on ${BASE} (load test-data.json)`);
-    const env = { patient: [patient] };
+    // user launch context (the Prescriber items): a Practitioner from the starter data
+    const user = await (await fetch(`${BASE}/Practitioner/pam-nurse-1`, { headers: { Accept: 'application/fhir+json' } })).json();
+    const env = { patient: [patient], user: [user] };
     for (const v of standalone.item[0].extension.filter((x) => x.valueExpression.language === 'application/x-fhir-query')) {
       env[v.valueExpression.name] = [await runQuery(BASE, v.valueExpression.expression, pid)];
       evaluated.add(v.valueExpression.expression);
@@ -134,7 +137,7 @@ if (BASE !== 'offline') {
       const ie = it.extension?.find((x) => x.url.endsWith('initialExpression'));
       if (ie) got[it.linkId] = evaluate(patient, ie.valueExpression.expression, env)[0];
     });
-    const want = { 'pam-name': 'Iris Ganzonitest', 'pam-sex': 'female', 'pam-height': 160, 'pam-weight': 82, 'pam-hb': 98, 'pam-hb-date': '2026-10-20' };
+    const want = { 'pam-name': 'Iris Ganzonitest', 'pam-sex': 'female', 'pam-height': 160, 'pam-weight': 82, 'pam-hb': 98, 'pam-hb-date': '2026-10-20', 'pam-iron-prescriber': 'Megan Hart', 'pam-iron-prescriber-ref': 'Practitioner/pam-nurse-1' };
     const bad = Object.keys(want).filter((k) => got[k] !== want[k]);
     check('prepopulation', bad.length === 0, bad.length ? `got ${JSON.stringify(got)}` : JSON.stringify(got));
   } catch (e) { fail('prepopulation', e.message); }
@@ -164,6 +167,15 @@ if (!extractLib) {
     JSON.stringify(m?.medicationCodeableConcept));
   const doses = (m?.dosageInstruction || []).map((d) => `${d.sequence}:${d.doseAndRate?.[0]?.doseQuantity?.value}${d.doseAndRate?.[0]?.doseQuantity?.code}`);
   check('extract-dosage', JSON.stringify(doses) === JSON.stringify(['1:1000mg', '2:200mg']), `${doses.join(', ')}; "${m?.dosageInstruction?.[1]?.text}"`);
+  // AU Core MedicationRequest.requester (1..1): the Prescriber items (pre-populated from %user)
+  check('extract-requester', m?.requester?.reference === 'Practitioner/pam-nurse-1' && m.requester.display === 'Megan Hart'
+    && sr?.resource?.requester?.reference === 'Practitioner/pam-nurse-1', JSON.stringify(m?.requester));
+  {
+    const e = entered(CASES[0]); delete e['pam-iron-prescriber-ref']; e['pam-iron-prescriber'] = ['Dr Typed Name'];
+    const b = await run(buildResponse(standalone, e).qr);
+    const r = b.entry.find((x) => x.resource.resourceType === 'MedicationRequest').resource.requester;
+    check('extract-requester-typed', r?.display === 'Dr Typed Name' && !r.reference, `no launch user: ${JSON.stringify(r)}`);
+  }
   check('extract-note', /^Total iron dose 1200 mg \(Ganzoni total iron deficit 1153 mg/.test(m?.note?.[0]?.text || ''), m?.note?.[0]?.text);
   const s = sr?.resource;
   check('extract-servicerequest', s?.code?.coding?.[0]?.code === '718520009' && s.occurrenceDateTime === '2026-11-03' && s.priority === 'routine' && s.quantityQuantity?.value === 2,

@@ -160,3 +160,9 @@ Automated: `./load.sh && node verify.mjs && node playground.mjs && ./cleanup.sh`
   * The endoscopy result goes in `Procedure.note`, not `outcome`.
   * The transfusion code is fixed to red cells.
 * The module was not run inside the assembled root form (the root already has `sexCode`).
+
+## AU Core 2.0.0 (29 Oct 2026)
+
+Conditions → AU Core Condition, Procedures → AU Core Procedure: **0 errors**. Changed: the endoscopy Procedure's `category` was SNOMED `103693007` *Diagnostic procedure*, now inactive; it is now `386053000` *Evaluation procedure* (its SNOMED historical association). `extracted-bundle.json` / `written-back-resources.json` are the earlier playground run and still show the old code.
+
+Extracted resources were validated with the HL7 FHIR validator against `hl7.fhir.au.core#2.0.0` (Ontoserver, SNOMED CT-AU), profile given explicitly; templates don't set `meta.profile` (Meld fails a PUT that carries one, HAPI-0389). Extraction: `@aehrc/sdc-template-extract` 1.0.16 on a response answering every item.

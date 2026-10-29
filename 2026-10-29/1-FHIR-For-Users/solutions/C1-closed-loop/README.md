@@ -204,3 +204,7 @@ Nothing left by this scenario. The end of `node demo.mjs` runs `meld.py clean` (
 references `Patient/soln-C1-patient-1`, found by type searches and `$everything`, then the Patient) and
 `meld.py check` (searches 12 resource types by patient, plus `$everything`: 0 left). Uses the existing
 `soln-A6-standalone` and `soln-A7-standalone` Questionnaires; creates no Questionnaires of its own.
+
+## TSAT code (29 Oct 2026)
+
+`test_data.py` now writes TSAT as LOINC 14801-5 (AU Core / RCPA SPIA) and the bundles were regenerated. The `soln-C1-…` data already on Meld, if any, still has 2502-3 until reloaded.

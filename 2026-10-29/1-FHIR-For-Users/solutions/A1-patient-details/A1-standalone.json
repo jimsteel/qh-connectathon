@@ -74,6 +74,11 @@
             "system": "http://loinc.org",
             "code": "8302-2",
             "display": "Body height"
+          },
+          {
+            "system": "http://snomed.info/sct",
+            "code": "50373000",
+            "display": "Body height measure"
           }
         ],
         "text": "Body height"
@@ -130,6 +135,11 @@
           {
             "system": "http://loinc.org",
             "code": "29463-7",
+            "display": "Body weight"
+          },
+          {
+            "system": "http://snomed.info/sct",
+            "code": "27113001",
             "display": "Body weight"
           }
         ],

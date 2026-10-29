@@ -22,7 +22,8 @@ HERE = Path(__file__).parent
 TESTS = [
     ("hb", ["718-7"], "Haemoglobin (Hb)", "g/L", "g/L", "Hemoglobin [Mass/volume] in Blood"),
     ("ferritin", ["2276-4"], "Ferritin", "ug/L", "µg/L", "Ferritin [Mass/volume] in Serum or Plasma"),
-    ("tsat", ["2502-3"], "Transferrin saturation (TSAT)", "%", "%", "Iron saturation [Mass Fraction] in Serum or Plasma"),
+    # TSAT: 14801-5 (in the RCPA SPIA value set AU Core binds to); 2502-3 still read for older data
+    ("tsat", ["14801-5", "2502-3"], "Transferrin saturation (TSAT)", "%", "%", "Iron saturation [Molar fraction] in Serum or Plasma"),
     ("crp", ["1988-5"], "C-reactive protein (CRP)", "mg/L", "mg/L", "C reactive protein [Mass/volume] in Serum or Plasma"),
     ("mcv", ["787-2"], "Mean cell volume (MCV)", "fL", "fL", "MCV [Entitic mean volume] in Red Blood Cells by Automated count"),
     ("b12", ["14685-2"], "Vitamin B12", "pmol/L", "pmol/L", "Cobalamin (Vitamin B12) [Moles/volume] in Serum or Plasma"),

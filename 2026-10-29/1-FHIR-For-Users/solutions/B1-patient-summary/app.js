@@ -38,7 +38,7 @@ async function load(client) {
   const pid = client.patient.id;
   $('source').textContent = 'FHIR server: ' + client.state.serverUrl + ' · today = ' + TODAY;
   // '|' as %7C: Meld rejects a raw '|'
-  const loinc = Object.values(L.LOINC).map((c) => 'http://loinc.org%7C' + c).join(',');
+  const loinc = [...Object.values(L.LOINC), ...Object.keys(L.LOINC_ALSO)].map((c) => 'http://loinc.org%7C' + c).join(',');
   const queries = {
     patient: `Patient/${pid}`,
     obs: `Observation?patient=${pid}&code=${loinc}&_count=200`,

@@ -153,3 +153,9 @@ modified-only extract).
 `Questionnaire/soln-pam-gp-details`, `Questionnaire/soln-A2-standalone`. All test data was deleted (`./cleanup.sh`);
 `./load.sh` recreates it. Stray resources created by early tests (Practitioner 78 / 781, PractitionerRole 79 / 782,
 server-assigned ids) were deleted.
+
+## AU Core 2.0.0 (29 Oct 2026)
+
+Practitioner → AU Core Practitioner, PractitionerRole → AU Core PractitionerRole: **0 errors**, no change. The Patient PATCH (`generalPractitioner`) is a Parameters resource, not profiled; its target types are the ones AU Core Patient allows.
+
+Extracted resources were validated with the HL7 FHIR validator against `hl7.fhir.au.core#2.0.0` (Ontoserver, SNOMED CT-AU), profile given explicitly; templates don't set `meta.profile` (Meld fails a PUT that carries one, HAPI-0389). Extraction: `@aehrc/sdc-template-extract` 1.0.16 on a response answering every item.

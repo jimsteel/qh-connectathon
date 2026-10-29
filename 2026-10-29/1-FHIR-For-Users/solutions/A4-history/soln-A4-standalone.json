@@ -468,8 +468,8 @@
         "coding": [
           {
             "system": "http://snomed.info/sct",
-            "code": "103693007",
-            "display": "Diagnostic procedure"
+            "code": "386053000",
+            "display": "Evaluation procedure"
           }
         ]
       },
