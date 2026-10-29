@@ -180,7 +180,10 @@
   }
 
   async function load(client, filters) {
-    const search = (q) => client.request(q, { pageLimit: 0, flat: true });
+    // The SMART launcher's proxy (launch.smarthealthit.org) collapses '//' in a query string:
+    // send each system's scheme encoded. Meld accepts it either way.
+    const proxySafe = (q) => q.replaceAll('://', '%3A%2F%2F');
+    const search = (q) => client.request(proxySafe(q), { pageLimit: 0, flat: true });
     statusEl.className = ''; statusEl.textContent = 'Loading…';
     document.getElementById('summary').textContent = PamFilters.describe(filters);
     try {

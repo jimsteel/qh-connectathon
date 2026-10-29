@@ -50,7 +50,10 @@ async function load(client) {
   };
   $('queries').textContent = Object.values(queries).map((q) => 'GET ' + client.state.serverUrl + '/' + q.replaceAll('%7C', '|')).join('\n');
 
-  const get = (q) => client.request(q, { pageLimit: 0, flat: true }).catch((e) => { console.warn(q, e); return { error: e }; });
+  // The SMART launcher's proxy (launch.smarthealthit.org) collapses '//' in a query string:
+  // send each system's scheme encoded. Meld accepts it either way.
+  const proxySafe = (q) => q.replaceAll('://', '%3A%2F%2F');
+  const get = (q) => client.request(proxySafe(q), { pageLimit: 0, flat: true }).catch((e) => { console.warn(q, e); return { error: e }; });
   const [patient, obs, sr, meds, episodes, conditions, tasks] = await Promise.all(Object.values(queries).map(get));
   if (patient.error) throw patient.error;
 

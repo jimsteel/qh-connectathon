@@ -334,7 +334,10 @@
 
   let cache = null;
   async function fetchAll(client) {
-    const get = (q) => client.request(q, { pageLimit: 0, flat: true });
+    // The SMART launcher's proxy (launch.smarthealthit.org) collapses '//' in a query string:
+    // send each system's scheme encoded. Meld accepts it either way.
+    const proxySafe = (q) => q.replaceAll('://', '%3A%2F%2F');
+    const get = (q) => client.request(proxySafe(q), { pageLimit: 0, flat: true });
     const [observations, medications, episodes] = await Promise.all([get(QUERIES.observations), get(QUERIES.medications), get(QUERIES.episodes)]);
     return { observations, medications, episodes };
   }

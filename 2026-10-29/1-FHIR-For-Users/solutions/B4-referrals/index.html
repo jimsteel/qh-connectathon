@@ -228,7 +228,10 @@
     document.getElementById('source').textContent = client.state.serverUrl + (user ? ` · ${user}` : ' · open endpoint (no login)');
     document.getElementById('query').textContent = Object.values(QUERIES).map((q) => `GET ${client.state.serverUrl}/${q.replaceAll('%7C', '|')}`).join('\n');
     try {
-      const get = (q) => client.request(q, { pageLimit: 0, flat: true });
+      // The SMART launcher's proxy (launch.smarthealthit.org) collapses '//' in a query string:
+      // send each system's scheme encoded. Meld accepts it either way.
+      const proxySafe = (q) => q.replaceAll('://', '%3A%2F%2F');
+      const get = (q) => client.request(proxySafe(q), { pageLimit: 0, flat: true });
       const [referrals, waitlist, conditions] = await Promise.all([get(QUERIES.referrals), get(QUERIES.waitlist), get(QUERIES.conditions)]);
       cache = { referrals, waitlist, conditions };
       const fys = [...new Set([...build(cache).referrals, ...build(cache).waitRows].map((r) => r.fy))].sort();

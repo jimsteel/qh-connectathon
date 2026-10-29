@@ -109,7 +109,10 @@
     $('query').textContent = Object.values(P.QUERIES).map((q) => `GET ${client.state.serverUrl}/${q.replaceAll('%7C', '|')}`).join('\n');
     statusEl.className = ''; statusEl.textContent = 'Loading…';
     try {
-      const results = await Promise.all(Object.values(P.QUERIES).map((q) => client.request(q, { pageLimit: 0, flat: true })));
+      // The SMART launcher's proxy (launch.smarthealthit.org) collapses '//' in a query string:
+      // send each system's scheme encoded. Meld accepts it either way.
+      const proxySafe = (q) => q.replaceAll('://', '%3A%2F%2F');
+      const results = await Promise.all(Object.values(P.QUERIES).map((q) => client.request(proxySafe(q), { pageLimit: 0, flat: true })));
       resources = results.flat();
       render();
     } catch (e) {
