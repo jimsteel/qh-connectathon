@@ -37,6 +37,25 @@ Strand D (REDCap) was skipped on purpose.
 "Partly verified" for the B apps means no-login mode was tested against Meld but an EHR launch was
 not (no client IDs were registered).
 
+## Try the apps (no Meld registration)
+
+The apps are on GitHub Pages at `https://jimsteel.github.io/qh-connectathon/2026-10-29/1-FHIR-For-Users/solutions/`.
+These links launch each one through the [SMART launcher](https://launch.smarthealthit.org)'s
+`remote-launch` endpoint, which proxies to the Meld open endpoint, so no client ID is needed.
+They launch as nurse `pam-nurse-1` with patient `pam-001`; change `patient=` in the link for B1.
+The launcher's proxy collapses `//` in query strings, so the apps send systems as `http%3A%2F%2F…`.
+
+| ID | Launch |
+|---|---|
+| B1 | [Patient summary](https://launch.smarthealthit.org/remote-launch?fhir_server=https%3A%2F%2Fgw.interop.community%2FQHConnectathon2026%2Fopen&launch_uri=https%3A%2F%2Fjimsteel.github.io%2Fqh-connectathon%2F2026-10-29%2F1-FHIR-For-Users%2Fsolutions%2FB1-patient-summary%2F&fhir_ver=4&patient=pam-001&provider=pam-nurse-1) |
+| B2 | [Worklist](https://launch.smarthealthit.org/remote-launch?fhir_server=https%3A%2F%2Fgw.interop.community%2FQHConnectathon2026%2Fopen&launch_uri=https%3A%2F%2Fjimsteel.github.io%2Fqh-connectathon%2F2026-10-29%2F1-FHIR-For-Users%2Fsolutions%2FB2-worklist%2Flaunch.html&fhir_ver=4&patient=pam-001&provider=pam-nurse-1) |
+| B3 | [Headline numbers](https://launch.smarthealthit.org/remote-launch?fhir_server=https%3A%2F%2Fgw.interop.community%2FQHConnectathon2026%2Fopen&launch_uri=https%3A%2F%2Fjimsteel.github.io%2Fqh-connectathon%2F2026-10-29%2F1-FHIR-For-Users%2Fsolutions%2FB3-kpi-tiles%2Flaunch.html&fhir_ver=4&patient=pam-001&provider=pam-nurse-1) |
+| B4 | [Referrals over time](https://launch.smarthealthit.org/remote-launch?fhir_server=https%3A%2F%2Fgw.interop.community%2FQHConnectathon2026%2Fopen&launch_uri=https%3A%2F%2Fjimsteel.github.io%2Fqh-connectathon%2F2026-10-29%2F1-FHIR-For-Users%2Fsolutions%2FB4-referrals%2Flaunch.html&fhir_ver=4&patient=pam-001&provider=pam-nurse-1) |
+| B5 | [Referral profile](https://launch.smarthealthit.org/remote-launch?fhir_server=https%3A%2F%2Fgw.interop.community%2FQHConnectathon2026%2Fopen&launch_uri=https%3A%2F%2Fjimsteel.github.io%2Fqh-connectathon%2F2026-10-29%2F1-FHIR-For-Users%2Fsolutions%2FB5-referral-profile%2Flaunch.html&fhir_ver=4&patient=pam-001&provider=pam-nurse-1) |
+| B6 | [Outcomes](https://launch.smarthealthit.org/remote-launch?fhir_server=https%3A%2F%2Fgw.interop.community%2FQHConnectathon2026%2Fopen&launch_uri=https%3A%2F%2Fjimsteel.github.io%2Fqh-connectathon%2F2026-10-29%2F1-FHIR-For-Users%2Fsolutions%2FB6-outcomes%2Flaunch.html&fhir_ver=4&patient=pam-001&provider=pam-nurse-1) |
+| B7 | [Demographics](https://launch.smarthealthit.org/remote-launch?fhir_server=https%3A%2F%2Fgw.interop.community%2FQHConnectathon2026%2Fopen&launch_uri=https%3A%2F%2Fjimsteel.github.io%2Fqh-connectathon%2F2026-10-29%2F1-FHIR-For-Users%2Fsolutions%2FB7-demographics%2Flaunch.html&fhir_ver=4&patient=pam-001&provider=pam-nurse-1) |
+| B8 | [Shared filters](https://launch.smarthealthit.org/remote-launch?fhir_server=https%3A%2F%2Fgw.interop.community%2FQHConnectathon2026%2Fopen&launch_uri=https%3A%2F%2Fjimsteel.github.io%2Fqh-connectathon%2F2026-10-29%2F1-FHIR-For-Users%2Fsolutions%2FB8-filters%2Flaunch.html&fhir_ver=4&patient=pam-001&provider=pam-nurse-1) |
+
 ## Reviews
 
 * [REVIEW-strand-A.md](REVIEW-strand-A.md): cross-module issues (linkId clash, consent coded three
