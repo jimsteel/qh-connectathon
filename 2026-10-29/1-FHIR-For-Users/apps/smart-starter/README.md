@@ -54,7 +54,9 @@ Edit in the browser (pencil icon) or clone and push. Every commit to `main` repu
 ## Gotchas on Meld
 
 * Write `|` in searches as **`%7C`** (`code=http://loinc.org%7C718-7`). A raw `|` gets HTTP 400,
-  which the browser reports as a CORS error.
+  which the browser reports as a CORS error. Testing through
+  [launch.smarthealthit.org](https://launch.smarthealthit.org)? Its proxy also turns `//` into `/`,
+  so encode the whole value: `'code=' + encodeURIComponent('http://loinc.org|718-7')`.
 * **Launch with a patient selected**, or Meld's launcher stops on a blank page.
 * **SMART v1 scopes only** (`patient/*.read`, not `patient/*.rs`).
 * Redirect URIs must match **exactly**, trailing `/` included.

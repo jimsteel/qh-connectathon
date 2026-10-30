@@ -58,7 +58,7 @@
           "valueExpression": {
             "name": "latestTsat",
             "language": "application/x-fhir-query",
-            "expression": "Observation?code=http://loinc.org|2502-3&patient={{%patient.id}}&_sort=-date&_count=1"
+            "expression": "Observation?code=http://loinc.org|14801-5&patient={{%patient.id}}&_sort=-date&_count=1"
           }
         },
         {
@@ -230,7 +230,7 @@
                 {
                   "valueCoding": {
                     "system": "http://loinc.org",
-                    "code": "2502-3",
+                    "code": "14801-5",
                     "display": "Transferrin saturation (TSAT)"
                   }
                 },
@@ -290,14 +290,25 @@
       "code": {
         "coding": [
           {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
-                "valueString": "item.where(linkId='pam-ext-test').answer.value"
-              }
-            ]
+            "system": "http://loinc.org",
+            "_code": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                  "valueString": "item.where(linkId='pam-ext-test').answer.value.code"
+                }
+              ]
+            }
           }
-        ]
+        ],
+        "_text": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "item.where(linkId='pam-ext-test').answer.value.display"
+            }
+          ]
+        }
       },
       "subject": {
         "_reference": {
@@ -331,7 +342,7 @@
           "extension": [
             {
               "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
-              "valueString": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'ug/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))"
+              "valueString": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'ug/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '14801-5', '%', 'mg/L')))"
             }
           ]
         },
@@ -339,7 +350,7 @@
           "extension": [
             {
               "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
-              "valueString": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'µg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))"
+              "valueString": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'µg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '14801-5', '%', 'mg/L')))"
             }
           ]
         }

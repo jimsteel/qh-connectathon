@@ -101,8 +101,10 @@
 
   function buildQuery(timeframe) {
     const [from, to] = timeframe.split('|');
-    // '|' written as %7C: some gateways (Meld) reject a raw '|' in the query string
-    let q = `Observation?code=http://loinc.org%7C${LOINC_HB},http://loinc.org%7C${LOINC_FERRITIN}`;
+    // Encode each system|code: Meld rejects a raw '|', and the launch.smarthealthit.org proxy
+    // collapses an unencoded '//'
+    const code = (c) => encodeURIComponent(`http://loinc.org|${c}`);
+    let q = `Observation?code=${code(LOINC_HB)},${code(LOINC_FERRITIN)}`;
     if (from) q += `&date=${from}`;
     if (to) q += `&date=${to}`;
     return q + '&_include=Observation:subject&_count=200';
@@ -161,7 +163,7 @@
 
   async function load(client) {
     const query = buildQuery(document.getElementById('timeframe').value);
-    document.getElementById('query').textContent = `GET ${client.state.serverUrl}/${query.replaceAll('%7C', '|')}`;
+    document.getElementById('query').textContent = `GET ${client.state.serverUrl}/${decodeURIComponent(query)}`;
     statusEl.className = ''; statusEl.textContent = 'Loading…';
     try {
       const resources = await client.request(query, { pageLimit: 0, flat: true });

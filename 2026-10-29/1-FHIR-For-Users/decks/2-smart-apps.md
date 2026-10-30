@@ -530,8 +530,8 @@ FHIR.oauth2.init({ clientId: cfg.clientId, scope: cfg.scope })   // from config.
 
 async function showHb(client) {
   const hb = await client.request(
-    'Observation?code=http://loinc.org%7C718-7&patient=' + client.patient.id + '&_sort=-date',
-    { flat: true });
+    'Observation?code=' + encodeURIComponent('http://loinc.org|718-7') +
+    '&patient=' + client.patient.id + '&_sort=-date', { flat: true });
   // ...one table row per Observation: date, value and unit, id
 }
 ```
@@ -579,7 +579,7 @@ Optional live demo (guide section 5): launch from Meld with a patient selected. 
 <div>
 
 ### `|` → `%7C`
-A raw `|` in a query gets **HTTP 400** with no CORS headers: the browser says **CORS error**. fhirclient doesn't encode it. Write `%7C`.
+A raw `|` in a query gets **HTTP 400** with no CORS headers: the browser says **CORS error**. fhirclient doesn't encode it. Write `%7C`, or `encodeURIComponent('http://loinc.org|718-7')` (needed through launch.smarthealthit.org).
 
 </div>
 

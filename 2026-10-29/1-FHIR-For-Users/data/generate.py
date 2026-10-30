@@ -7,12 +7,15 @@ uses PUT with fixed ids, so loading it again updates rather than duplicates.
     python3 generate.py            # writes pam-synthetic-bundle.json
     ./load.sh [FHIR base URL]      # posts it to the sandbox
 
-Resource mapping follows ../FHIR-Mapping-DRAFT.md.
+Resource mapping follows ../FHIR-Mapping-DRAFT.md. au_core.py then adds what AU Core 2.0.0 needs
+(profiles, IHI/HPI-I/HPI-O, Indigenous status, ...) without changing anything generated here.
 """
 import json
 import random
 from datetime import date, timedelta
 from pathlib import Path
+
+from au_core import upgrade as au_core_upgrade
 
 SEED = 20261008
 N_PATIENTS = 40
@@ -52,7 +55,7 @@ def local(cs, code, display):
 LABS = {
     "hb": ("718-7", "Hemoglobin [Mass/volume] in Blood", "g/L", "g/L"),
     "ferritin": ("2276-4", "Ferritin [Mass/volume] in Serum or Plasma", "ug/L", "µg/L"),
-    "tsat": ("2502-3", "Iron saturation [Mass Fraction] in Serum or Plasma", "%", "%"),
+    "tsat": ("14801-5", "Iron saturation [Molar fraction] in Serum or Plasma", "%", "%"),  # RCPA SPIA code
     "crp": ("1988-5", "C reactive protein [Mass/volume] in Serum or Plasma", "mg/L", "mg/L"),
 }
 
@@ -111,7 +114,7 @@ unit_refs = {
 
 def practitioner(pid, given, family, role):
     return add({"resourceType": "Practitioner", "id": pid,
-                "name": [{"use": "official", "prefix": [role] if role else [], "given": [given], "family": family}]})
+                "name": [{"use": "official"} | ({"prefix": [role]} if role else {}) | {"given": [given], "family": family}]})
 
 
 nurses = [practitioner(f"pam-nurse-{i}", g, f, None)
@@ -206,9 +209,8 @@ for n in range(1, N_PATIENTS + 1):
         "category": [local("referral-source", *source)],
         "code": coding(SCT, "3457005", "Patient referral"), "subject": patient,
         "authoredOn": referral.isoformat(), "requester": surgeons[unit], "performer": [service],
-        "reasonCode": [coding(SCT, "271737000", "Anaemia")] if profile != "none" else [],
         "supportingInfo": [waitlist],
-    })
+    } | ({"reasonCode": [coding(SCT, "271737000", "Anaemia")]} if profile != "none" else {}))
 
     # Diagnosis
     if profile != "none":
@@ -280,6 +282,7 @@ for n in range(1, N_PATIENTS + 1):
             "restriction": {"period": {"end": due.isoformat()}},
         })
 
+au_core_upgrade(entries)
 bundle = {"resourceType": "Bundle", "type": "transaction", "entry": entries}
 out = Path(__file__).with_name("pam-synthetic-bundle.json")
 out.write_text(json.dumps(bundle, indent=1, ensure_ascii=False) + "\n")

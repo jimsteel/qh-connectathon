@@ -152,8 +152,21 @@
     "context": "qr:sample",
     "expected": [
       { "system": "http://loinc.org", "code": "718-7", "display": "Haemoglobin (Hb)" }
-    ],
-    "inForm": { "file": "pathology-walkthrough.json", "text": "item.where(linkId='pam-ext-test').answer.value" }
+    ]
+  },
+  {
+    "id": "ext-code-code",
+    "expression": "item.where(linkId='pam-ext-test').answer.value.code",
+    "context": "qr:sample",
+    "expected": ["718-7"],
+    "inForm": { "file": "pathology-walkthrough.json", "text": "item.where(linkId='pam-ext-test').answer.value.code" }
+  },
+  {
+    "id": "ext-code-text",
+    "expression": "item.where(linkId='pam-ext-test').answer.value.display",
+    "context": "qr:sample",
+    "expected": ["Haemoglobin (Hb)"],
+    "inForm": { "file": "pathology-walkthrough.json", "text": "item.where(linkId='pam-ext-test').answer.value.display" }
   },
   {
     "id": "ext-value",
@@ -164,17 +177,17 @@
   },
   {
     "id": "ext-unit",
-    "expression": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'µg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))",
+    "expression": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'µg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '14801-5', '%', 'mg/L')))",
     "context": "qr:sample",
     "expected": ["g/L"],
-    "inForm": { "file": "pathology-walkthrough.json", "text": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'µg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))" }
+    "inForm": { "file": "pathology-walkthrough.json", "text": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'µg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '14801-5', '%', 'mg/L')))" }
   },
   {
     "id": "ext-ucum-code",
-    "expression": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'ug/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))",
+    "expression": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'ug/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '14801-5', '%', 'mg/L')))",
     "context": "qr:sample",
     "expected": ["g/L"],
-    "inForm": { "file": "pathology-walkthrough.json", "text": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'ug/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))" }
+    "inForm": { "file": "pathology-walkthrough.json", "text": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'ug/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '14801-5', '%', 'mg/L')))" }
   },
   {
     "id": "ext-date",

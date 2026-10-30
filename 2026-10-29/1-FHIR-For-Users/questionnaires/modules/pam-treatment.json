@@ -21,6 +21,22 @@
           "valueCode": "Patient"
         }
       ]
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "user"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Practitioner"
+        }
+      ]
     }
   ],
   "url": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-treatment",
@@ -188,6 +204,38 @@
                   }
                 }
               ]
+            },
+            {
+              "linkId": "pam-iron-prescriber",
+              "text": "Prescriber",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%user.name.first().given.first() + ' ' + %user.name.first().family"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-prescriber-ref",
+              "text": "Prescriber reference",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%user.resourceType + '/' + %user.id"
+                  }
+                }
+              ]
             }
           ]
         },
@@ -242,6 +290,24 @@
             "valueString": "now().toString()"
           }
         ]
+      },
+      "requester": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "item.where(linkId='pam-iron-prescriber-ref').answer.value"
+            }
+          ]
+        },
+        "_display": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "item.where(linkId='pam-iron-prescriber').answer.value"
+            }
+          ]
+        }
       },
       "dosageInstruction": [
         {

@@ -421,9 +421,9 @@ In the form these become `%latestHb.entry.resource.value.value` and
 
 | Expression | Result | Screenshot |
 |---|---|---|
-| `item.where(linkId='pam-ext-test').answer.value` | Coding `http://loinc.org` `718-7` Haemoglobin (Hb) | `writeback/01-fhirpath-lab-ext-code.png` |
+| `item.where(linkId='pam-ext-test').answer.value` | Coding `http://loinc.org` `718-7` Haemoglobin (Hb). The template takes its `.code` and `.display` (→ `code.text`), so the Observation passes AU Core | `writeback/01-fhirpath-lab-ext-code.png` |
 | `item.where(linkId='pam-ext-value').answer.value` | `98` | `writeback/02-fhirpath-lab-ext-value.png` |
-| `iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'µg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))` | `g/L` | `writeback/03-fhirpath-lab-ext-unit.png` |
+| `iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'µg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '14801-5', '%', 'mg/L')))` | `g/L` | `writeback/03-fhirpath-lab-ext-unit.png` |
 | `item.where(linkId='pam-ext-date').answer.value.toString()` | `2026-10-27` | `writeback/04-fhirpath-lab-ext-date.png` |
 | `%resource.subject.reference` | `"Patient/pam-demo"` | `writeback/05-fhirpath-lab-ext-subject.png` |
 
@@ -486,9 +486,11 @@ Write-back, continuing from 6:
    extracted bundle.* (The other entries: Observation-based, Definition-based are greyed out,
    StructureMap-based struck through, plus *Template-based $extract (modified only)*.)
 9. **ADVANCED PROPS** (right panel header) → tab **EXTRACT** → **TemplateExtractResult**: a
-   `transaction` Bundle with one `POST Observation`: LOINC 718-7, subject `Patient/pam-demo`,
+   `transaction` Bundle with one `POST Observation` (conforms to AU Core Pathology Result):
+   LOINC 718-7 (no display; *Haemoglobin (Hb)* in `code.text`), subject `Patient/pam-demo`,
    valueQuantity 98 g/L (UCUM), `effectiveDateTime` `2026-10-27`
-   (`img/writeback/08-playground-extracted-bundle.png`).
+   (`img/writeback/08-playground-extracted-bundle.png`; taken before the AU Core change, so it still
+   shows the label as `coding.display`).
    The **QR** tab shows the QuestionnaireResponse (same content as `examples/sample-qr.json`;
    see Surprises 7).
 10. **REVIEW WRITE BACK ITEMS** (bottom right) → dialog *Select items to write back to patient

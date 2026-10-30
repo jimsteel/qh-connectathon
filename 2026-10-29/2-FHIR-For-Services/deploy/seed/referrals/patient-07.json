@@ -366,6 +366,585 @@
         "method": "PUT",
         "url": "Task/qhc-task-0008"
       }
+    },
+    {
+      "fullUrl": "urn:uuid:encounter-qhc-path-enc-0007",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "qhc-path-enc-0007",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-encounter"
+          ]
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "serviceType": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "788007007",
+              "display": "General practice service"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/qhc-pat-07"
+        },
+        "participant": [
+          {
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                    "code": "PPRF",
+                    "display": "primary performer"
+                  }
+                ]
+              }
+            ],
+            "individual": {
+              "reference": "PractitionerRole/qhc-role-5",
+              "display": "Dr Okoro"
+            }
+          }
+        ],
+        "period": {
+          "start": "2026-10-05T10:00:00+10:00",
+          "end": "2026-10-05T10:15:00+10:00"
+        },
+        "serviceProvider": {
+          "reference": "Organization/qhc-org-ref5",
+          "display": "Toowoomba Range Medical"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/qhc-path-enc-0007"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:task-qhc-path-taskgroup-0007",
+      "resource": {
+        "resourceType": "Task",
+        "id": "qhc-path-taskgroup-0007",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-task-group"
+          ],
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org.au/CodeSystem/resource-tag",
+              "code": "fulfilment-task-group"
+            }
+          ]
+        },
+        "groupIdentifier": {
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "PGN"
+              }
+            ],
+            "text": "Placer Group Number"
+          },
+          "system": "http://ns.electronichealth.net.au/id/hpio-scoped/order/1.0/8003629900000056",
+          "value": "LAB-QHC-0007",
+          "assigner": {
+            "reference": "Organization/qhc-org-ref5",
+            "display": "Toowoomba Range Medical"
+          }
+        },
+        "status": "completed",
+        "intent": "order",
+        "priority": "routine",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/CodeSystem/task-code",
+              "code": "fulfill"
+            }
+          ]
+        },
+        "for": {
+          "reference": "Patient/qhc-pat-07"
+        },
+        "authoredOn": "2026-10-05T10:15:00+10:00",
+        "lastModified": "2026-10-08T16:30:00+10:00",
+        "requester": {
+          "reference": "PractitionerRole/qhc-role-5",
+          "display": "Dr Okoro"
+        },
+        "owner": {
+          "reference": "Organization/qhc-org-path2",
+          "type": "Organization",
+          "identifier": {
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629900000221"
+          },
+          "display": "Brigalow Pathology Laboratories"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Task/qhc-path-taskgroup-0007"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:servicerequest-qhc-path-sr-0007-01",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "qhc-path-sr-0007-01",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-servicerequest-path"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-displaysequence",
+            "valueInteger": 1
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "PLAC",
+                  "display": "Placer Identifier"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hpio-scoped/order/1.0/8003629900000056",
+            "value": "LAB-QHC-0007-01",
+            "assigner": {
+              "display": "Toowoomba Range Medical"
+            }
+          }
+        ],
+        "requisition": {
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "PGN",
+                "display": "Placer Group Number"
+              }
+            ]
+          },
+          "system": "http://ns.electronichealth.net.au/id/hpio-scoped/order/1.0/8003629900000056",
+          "value": "LAB-QHC-0007",
+          "assigner": {
+            "display": "Toowoomba Range Medical"
+          }
+        },
+        "status": "completed",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "108252007",
+                "display": "Laboratory procedure"
+              }
+            ]
+          }
+        ],
+        "priority": "routine",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "63476009",
+              "display": "Prostate specific antigen measurement"
+            }
+          ],
+          "text": "PSA"
+        },
+        "subject": {
+          "reference": "Patient/qhc-pat-07"
+        },
+        "encounter": {
+          "reference": "Encounter/qhc-path-enc-0007"
+        },
+        "authoredOn": "2026-10-05T10:15:00+10:00",
+        "requester": {
+          "reference": "PractitionerRole/qhc-role-5",
+          "display": "Dr Okoro"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/qhc-path-sr-0007-01"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:task-qhc-path-task-0007-01",
+      "resource": {
+        "resourceType": "Task",
+        "id": "qhc-path-task-0007-01",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-task-diagnosticrequest"
+          ],
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org.au/CodeSystem/resource-tag",
+              "code": "fulfilment-task"
+            }
+          ]
+        },
+        "groupIdentifier": {
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "PGN"
+              }
+            ],
+            "text": "Placer Group Number"
+          },
+          "system": "http://ns.electronichealth.net.au/id/hpio-scoped/order/1.0/8003629900000056",
+          "value": "LAB-QHC-0007",
+          "assigner": {
+            "reference": "Organization/qhc-org-ref5",
+            "display": "Toowoomba Range Medical"
+          }
+        },
+        "status": "completed",
+        "intent": "order",
+        "priority": "routine",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/CodeSystem/task-code",
+              "code": "fulfill"
+            }
+          ]
+        },
+        "for": {
+          "reference": "Patient/qhc-pat-07"
+        },
+        "authoredOn": "2026-10-05T10:15:00+10:00",
+        "lastModified": "2026-10-08T16:30:00+10:00",
+        "requester": {
+          "reference": "PractitionerRole/qhc-role-5",
+          "display": "Dr Okoro"
+        },
+        "owner": {
+          "reference": "Organization/qhc-org-path2",
+          "type": "Organization",
+          "identifier": {
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629900000221"
+          },
+          "display": "Brigalow Pathology Laboratories"
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "PLAC",
+                  "display": "Placer Identifier"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hpio-scoped/order/1.0/8003629900000056",
+            "value": "LAB-QHC-0007-01",
+            "assigner": {
+              "reference": "Organization/qhc-org-ref5",
+              "display": "Toowoomba Range Medical"
+            }
+          }
+        ],
+        "partOf": [
+          {
+            "reference": "Task/qhc-path-taskgroup-0007"
+          }
+        ],
+        "focus": {
+          "reference": "ServiceRequest/qhc-path-sr-0007-01"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Task/qhc-path-task-0007-01"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:condition-qhc-ps-cond-07-1",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "qhc-ps-cond-07-1",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                "code": "problem-list-item"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "266569009",
+              "display": "Benign prostatic hyperplasia"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/qhc-pat-07"
+        },
+        "onsetDateTime": "2022-01-25"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/qhc-ps-cond-07-1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:allergyintolerance-qhc-ps-alg-07-1",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "qhc-ps-alg-07-1",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/core/StructureDefinition/au-core-allergyintolerance"
+          ]
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+              "code": "confirmed"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387458008",
+              "display": "Aspirin"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/qhc-pat-07"
+        },
+        "recordedDate": "2026-10-01",
+        "type": "allergy",
+        "category": [
+          "medication"
+        ],
+        "criticality": "high",
+        "onsetDateTime": "1999",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "39579001",
+                    "display": "Anaphylaxis"
+                  }
+                ]
+              }
+            ],
+            "severity": "severe"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "AllergyIntolerance/qhc-ps-alg-07-1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:medicationrequest-qhc-ps-mr-07-1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "qhc-ps-mr-07-1",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
+          ]
+        },
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "765922006",
+              "display": "Tamsulosin hydrochloride 400 microgram prolonged-release oral capsule"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/qhc-pat-07"
+        },
+        "authoredOn": "2022-01-25",
+        "requester": {
+          "reference": "PractitionerRole/qhc-role-5",
+          "display": "Dr Okoro"
+        },
+        "dosageInstruction": [
+          {
+            "text": "One capsule orally once daily after the same meal each day",
+            "timing": {
+              "repeat": {
+                "frequency": 1,
+                "period": 1,
+                "periodUnit": "d"
+              }
+            },
+            "route": {
+              "coding": [
+                {
+                  "system": "http://snomed.info/sct",
+                  "code": "26643006",
+                  "display": "Oral route"
+                }
+              ]
+            },
+            "asNeededBoolean": false
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/qhc-ps-mr-07-1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:procedure-qhc-ps-proc-07-1",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "qhc-ps-proc-07-1",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/core/StructureDefinition/au-core-procedure"
+          ]
+        },
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "44558001",
+              "display": "Repair of inguinal hernia"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/qhc-pat-07"
+        },
+        "performedDateTime": "2012-11-08"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/qhc-ps-proc-07-1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:observation-qhc-ps-lab-07-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "qhc-ps-lab-07-1",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "108252007",
+                "display": "Laboratory procedure"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2857-1",
+              "display": "Prostate specific Ag [Mass/volume] in Serum or Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/qhc-pat-07"
+        },
+        "effectiveDateTime": "2026-10-05",
+        "valueQuantity": {
+          "value": 3.9,
+          "unit": "ug/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "ug/L"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/qhc-ps-lab-07-1"
+      }
     }
   ]
 }

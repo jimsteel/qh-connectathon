@@ -32,7 +32,9 @@ Base profiles: AU Core where one exists, otherwise AU Base / core FHIR R4.
 |---|---|
 | Haemoglobin | 718-7 |
 | Ferritin | 2276-4 |
-| Transferrin saturation, CRP, MCV, B12, folate, eGFR | *to confirm* |
+| Transferrin saturation (TSAT) | 14801-5 (RCPA SPIA; was 2502-3 before AU Core) |
+| CRP | 1988-5 |
+| MCV, B12, folate, eGFR | *to confirm* |
 
 Diagnoses and procedures: SNOMED CT-AU. Medications: AMT. All available on
 [Ontoserver](https://r4.ontoserver.csiro.au/fhir).

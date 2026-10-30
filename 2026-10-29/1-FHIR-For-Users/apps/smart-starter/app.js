@@ -41,9 +41,10 @@ async function showPatient(client) {
 }
 
 async function showHb(client) {
-  // '|' between system and code must be sent as %7C: Meld rejects a raw '|' with HTTP 400.
+  // Encode the system|code value: Meld rejects a raw '|' (HTTP 400), and the
+  // launch.smarthealthit.org proxy collapses an unencoded '//'.
   const hb = await client.request(
-    'Observation?code=http://loinc.org%7C718-7&patient=' + client.patient.id + '&_sort=-date',
+    'Observation?code=' + encodeURIComponent('http://loinc.org|718-7') + '&patient=' + client.patient.id + '&_sort=-date',
     { flat: true });
   if (!hb.length) { show('hb', 'No Hb results.'); return; }
   show('hb', '<table><tr><th>Date</th><th>Hb</th><th>Id</th></tr>' + hb.map(o =>

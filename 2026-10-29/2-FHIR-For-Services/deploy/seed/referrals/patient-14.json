@@ -548,6 +548,605 @@
         "method": "PUT",
         "url": "Appointment/qhc-appt-0016"
       }
+    },
+    {
+      "fullUrl": "urn:uuid:encounter-qhc-path-enc-0015",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "qhc-path-enc-0015",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-encounter"
+          ]
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "ambulatory"
+        },
+        "serviceType": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "700232004",
+              "display": "General medical service"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/qhc-pat-14"
+        },
+        "participant": [
+          {
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                    "code": "PPRF",
+                    "display": "primary performer"
+                  }
+                ]
+              }
+            ],
+            "individual": {
+              "reference": "PractitionerRole/qhc-role-6",
+              "display": "Dr Whitfield"
+            }
+          }
+        ],
+        "period": {
+          "start": "2026-10-18T10:00:00+10:00",
+          "end": "2026-10-18T10:15:00+10:00"
+        },
+        "serviceProvider": {
+          "reference": "Organization/qhc-org-ref6",
+          "display": "Bayside Community Hospital Outpatients"
+        },
+        "reasonCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "84229001",
+                "display": "Fatigue"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/qhc-path-enc-0015"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:coverage-qhc-cov-14",
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "qhc-cov-14",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-coverage"
+          ]
+        },
+        "status": "active",
+        "beneficiary": {
+          "reference": "Patient/qhc-pat-14"
+        },
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/coverage-selfpay",
+              "code": "pay",
+              "display": "Pay"
+            }
+          ]
+        },
+        "payor": [
+          {
+            "reference": "Patient/qhc-pat-14"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Coverage/qhc-cov-14"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:task-qhc-path-taskgroup-0015",
+      "resource": {
+        "resourceType": "Task",
+        "id": "qhc-path-taskgroup-0015",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-task-group"
+          ],
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org.au/CodeSystem/resource-tag",
+              "code": "fulfilment-task-group"
+            }
+          ]
+        },
+        "groupIdentifier": {
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "PGN"
+              }
+            ],
+            "text": "Placer Group Number"
+          },
+          "system": "http://ns.electronichealth.net.au/id/hpio-scoped/order/1.0/8003629900000064",
+          "value": "LAB-QHC-0015",
+          "assigner": {
+            "reference": "Organization/qhc-org-ref6",
+            "display": "Bayside Community Hospital Outpatients"
+          }
+        },
+        "status": "on-hold",
+        "statusReason": {
+          "text": "Awaiting patient attendance for collection."
+        },
+        "intent": "order",
+        "priority": "routine",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/CodeSystem/task-code",
+              "code": "fulfill"
+            }
+          ]
+        },
+        "for": {
+          "reference": "Patient/qhc-pat-14"
+        },
+        "authoredOn": "2026-10-18T10:15:00+10:00",
+        "lastModified": "2026-10-19T09:00:00+10:00",
+        "requester": {
+          "reference": "PractitionerRole/qhc-role-6",
+          "display": "Dr Whitfield"
+        },
+        "owner": {
+          "reference": "Organization/qhc-org-path3",
+          "type": "Organization",
+          "identifier": {
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629900000239"
+          },
+          "display": "Moreton Clinical Pathology"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Task/qhc-path-taskgroup-0015"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:servicerequest-qhc-path-sr-0015-01",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "qhc-path-sr-0015-01",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-servicerequest-path"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-displaysequence",
+            "valueInteger": 1
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/request-statusReason",
+            "valueCodeableConcept": {
+              "text": "Awaiting patient attendance for collection."
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "PLAC",
+                  "display": "Placer Identifier"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hpio-scoped/order/1.0/8003629900000064",
+            "value": "LAB-QHC-0015-01",
+            "assigner": {
+              "display": "Bayside Community Hospital Outpatients"
+            }
+          }
+        ],
+        "requisition": {
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "PGN",
+                "display": "Placer Group Number"
+              }
+            ]
+          },
+          "system": "http://ns.electronichealth.net.au/id/hpio-scoped/order/1.0/8003629900000064",
+          "value": "LAB-QHC-0015",
+          "assigner": {
+            "display": "Bayside Community Hospital Outpatients"
+          }
+        },
+        "status": "on-hold",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "108252007",
+                "display": "Laboratory procedure"
+              }
+            ]
+          }
+        ],
+        "priority": "routine",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "269821003",
+              "display": "Serum ferritin measurement"
+            }
+          ],
+          "text": "Ferritin"
+        },
+        "subject": {
+          "reference": "Patient/qhc-pat-14"
+        },
+        "encounter": {
+          "reference": "Encounter/qhc-path-enc-0015"
+        },
+        "authoredOn": "2026-10-18T10:15:00+10:00",
+        "requester": {
+          "reference": "PractitionerRole/qhc-role-6",
+          "display": "Dr Whitfield"
+        },
+        "reasonCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "84229001",
+                "display": "Fatigue"
+              }
+            ]
+          }
+        ],
+        "insurance": [
+          {
+            "reference": "Coverage/qhc-cov-14"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/qhc-path-sr-0015-01"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:task-qhc-path-task-0015-01",
+      "resource": {
+        "resourceType": "Task",
+        "id": "qhc-path-task-0015-01",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-task-diagnosticrequest"
+          ],
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org.au/CodeSystem/resource-tag",
+              "code": "fulfilment-task"
+            }
+          ]
+        },
+        "groupIdentifier": {
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "PGN"
+              }
+            ],
+            "text": "Placer Group Number"
+          },
+          "system": "http://ns.electronichealth.net.au/id/hpio-scoped/order/1.0/8003629900000064",
+          "value": "LAB-QHC-0015",
+          "assigner": {
+            "reference": "Organization/qhc-org-ref6",
+            "display": "Bayside Community Hospital Outpatients"
+          }
+        },
+        "status": "on-hold",
+        "statusReason": {
+          "text": "Awaiting patient attendance for collection."
+        },
+        "intent": "order",
+        "priority": "routine",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/CodeSystem/task-code",
+              "code": "fulfill"
+            }
+          ]
+        },
+        "for": {
+          "reference": "Patient/qhc-pat-14"
+        },
+        "authoredOn": "2026-10-18T10:15:00+10:00",
+        "lastModified": "2026-10-19T09:00:00+10:00",
+        "requester": {
+          "reference": "PractitionerRole/qhc-role-6",
+          "display": "Dr Whitfield"
+        },
+        "owner": {
+          "reference": "Organization/qhc-org-path3",
+          "type": "Organization",
+          "identifier": {
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629900000239"
+          },
+          "display": "Moreton Clinical Pathology"
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "PLAC",
+                  "display": "Placer Identifier"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hpio-scoped/order/1.0/8003629900000064",
+            "value": "LAB-QHC-0015-01",
+            "assigner": {
+              "reference": "Organization/qhc-org-ref6",
+              "display": "Bayside Community Hospital Outpatients"
+            }
+          }
+        ],
+        "partOf": [
+          {
+            "reference": "Task/qhc-path-taskgroup-0015"
+          }
+        ],
+        "focus": {
+          "reference": "ServiceRequest/qhc-path-sr-0015-01"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Task/qhc-path-task-0015-01"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:servicerequest-qhc-path-sr-0015-02",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "qhc-path-sr-0015-02",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-servicerequest-path"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-displaysequence",
+            "valueInteger": 2
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/request-statusReason",
+            "valueCodeableConcept": {
+              "text": "Awaiting patient attendance for collection."
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "PLAC",
+                  "display": "Placer Identifier"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hpio-scoped/order/1.0/8003629900000064",
+            "value": "LAB-QHC-0015-02",
+            "assigner": {
+              "display": "Bayside Community Hospital Outpatients"
+            }
+          }
+        ],
+        "requisition": {
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "PGN",
+                "display": "Placer Group Number"
+              }
+            ]
+          },
+          "system": "http://ns.electronichealth.net.au/id/hpio-scoped/order/1.0/8003629900000064",
+          "value": "LAB-QHC-0015",
+          "assigner": {
+            "display": "Bayside Community Hospital Outpatients"
+          }
+        },
+        "status": "on-hold",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "108252007",
+                "display": "Laboratory procedure"
+              }
+            ]
+          }
+        ],
+        "priority": "routine",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "26604007",
+              "display": "Full blood count"
+            }
+          ],
+          "text": "FBC"
+        },
+        "subject": {
+          "reference": "Patient/qhc-pat-14"
+        },
+        "encounter": {
+          "reference": "Encounter/qhc-path-enc-0015"
+        },
+        "authoredOn": "2026-10-18T10:15:00+10:00",
+        "requester": {
+          "reference": "PractitionerRole/qhc-role-6",
+          "display": "Dr Whitfield"
+        },
+        "reasonCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "84229001",
+                "display": "Fatigue"
+              }
+            ]
+          }
+        ],
+        "insurance": [
+          {
+            "reference": "Coverage/qhc-cov-14"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/qhc-path-sr-0015-02"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:task-qhc-path-task-0015-02",
+      "resource": {
+        "resourceType": "Task",
+        "id": "qhc-path-task-0015-02",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-task-diagnosticrequest"
+          ],
+          "tag": [
+            {
+              "system": "http://terminology.hl7.org.au/CodeSystem/resource-tag",
+              "code": "fulfilment-task"
+            }
+          ]
+        },
+        "groupIdentifier": {
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "PGN"
+              }
+            ],
+            "text": "Placer Group Number"
+          },
+          "system": "http://ns.electronichealth.net.au/id/hpio-scoped/order/1.0/8003629900000064",
+          "value": "LAB-QHC-0015",
+          "assigner": {
+            "reference": "Organization/qhc-org-ref6",
+            "display": "Bayside Community Hospital Outpatients"
+          }
+        },
+        "status": "on-hold",
+        "statusReason": {
+          "text": "Awaiting patient attendance for collection."
+        },
+        "intent": "order",
+        "priority": "routine",
+        "code": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/CodeSystem/task-code",
+              "code": "fulfill"
+            }
+          ]
+        },
+        "for": {
+          "reference": "Patient/qhc-pat-14"
+        },
+        "authoredOn": "2026-10-18T10:15:00+10:00",
+        "lastModified": "2026-10-19T09:00:00+10:00",
+        "requester": {
+          "reference": "PractitionerRole/qhc-role-6",
+          "display": "Dr Whitfield"
+        },
+        "owner": {
+          "reference": "Organization/qhc-org-path3",
+          "type": "Organization",
+          "identifier": {
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629900000239"
+          },
+          "display": "Moreton Clinical Pathology"
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "PLAC",
+                  "display": "Placer Identifier"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hpio-scoped/order/1.0/8003629900000064",
+            "value": "LAB-QHC-0015-02",
+            "assigner": {
+              "reference": "Organization/qhc-org-ref6",
+              "display": "Bayside Community Hospital Outpatients"
+            }
+          }
+        ],
+        "partOf": [
+          {
+            "reference": "Task/qhc-path-taskgroup-0015"
+          }
+        ],
+        "focus": {
+          "reference": "ServiceRequest/qhc-path-sr-0015-02"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Task/qhc-path-task-0015-02"
+      }
     }
   ]
 }

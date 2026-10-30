@@ -18,7 +18,7 @@ with the referral status tracked through a Task until the appointment is confirm
 |---|---|---|
 | **Referrer** (Placer) | GP or hospital clinician system that searches the directory, raises the referral and books | Participant clients (CIS, test harness, Postman/Bruno collections) |
 | **Provider Directory** | Source of truth for organisations, services, locations, practitioner roles and endpoints | QH Provider Directory server supplemented by ADHA [SIT](https://sit.healthconnect.digitalhealth.gov.au/adha/hcd-api-router/api/v1/fhir/) |
-| **Referral Server** | Holds ServiceRequest, Task, supporting resources, Schedule/Slot/Appointment | HAPI FHIR instance loaded with the QH referrals IG (plus AU Core / AU eRequesting) |
+| **Referral Server** | Holds ServiceRequest, Task, supporting resources, Schedule/Slot/Appointment | HAPI FHIR instance loaded with the [QH referrals IG](https://aehrc.github.io/radiology-referral/) plus AU Core / AU eRequesting |
 | **Imaging Provider** (Filler) | RIS/booking system that triages referrals, publishes availability and confirms bookings | Participant RIS or a simulator |
 | *Patient app (stretch)* | Lets the patient view the referral and self-book | Participant app |
 
@@ -149,4 +149,5 @@ The referrer polls the Task and Appointment, or subscribes. It must display the 
 | B-04 | Either | Cancel and rebook | Appointment cancelled, Slot freed, new booking linked |
 | S-01 | Referrer | Track status to Booked | Task businessStatus shown correctly |
 | X-01 | Stretch | HC PD Bulk `$export` + polling | NDJSON retrieved, status polling honoured |
+| P-01 | Referrer (stretch) | AU PS `Patient/[id]/$summary` on the Referral Server | 200, `document` Bundle declaring `au-ps-bundle`; allergies, medications and problems sections present; seeded history appears |
 

@@ -48,5 +48,11 @@ Smart Forms finds the pre-assembled version (`0.1.0-assembled`) on the forms ser
   modules — `$assemble` rejects duplicates.
 * Extraction is template-based: the template is a contained resource in the module, referenced
   by `sdc-questionnaire-templateExtract` on the item that fills it.
+* Extracted resources conform to **AU Core 2.0.0** (`hl7.fhir.au.core#2.0.0`): Pathology Result
+  Observation, Condition, MedicationRequest (checked with the HL7 validator). They don't claim it in
+  `meta.profile`: Meld fails a PUT that carries one (HAPI-0389). Pathology `code` is the LOINC code with the form's label
+  in `code.text` (the labels aren't LOINC display names). AU Core needs `MedicationRequest.requester`:
+  the Treatment module pre-populates *Prescriber* from the `user` launch context (`%user`); without
+  a user, the name typed in becomes `requester.display`.
 * Each module has a hidden `pam-<module>-module` item with an initial value, so its section exists
   in the response from the start.

@@ -6,6 +6,22 @@
    "resource": {
     "resourceType": "Organization",
     "id": "pam-blood-management",
+    "identifier": [
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+         "code": "NOI",
+         "display": "National Organisation Identifier"
+        }
+       ],
+       "text": "HPI-O"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+      "value": "8003629900000015"
+     }
+    ],
     "name": "Blood Management Service (synthetic)",
     "type": [
      {
@@ -99,10 +115,25 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-nurse-1",
+    "identifier": [
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NPI",
+         "display": "National provider identifier"
+        }
+       ],
+       "text": "HPI-I"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+      "value": "8003619900000016"
+     }
+    ],
     "name": [
      {
       "use": "official",
-      "prefix": [],
       "given": [
        "Megan"
       ],
@@ -119,10 +150,25 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-nurse-2",
+    "identifier": [
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NPI",
+         "display": "National provider identifier"
+        }
+       ],
+       "text": "HPI-I"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+      "value": "8003619900000024"
+     }
+    ],
     "name": [
      {
       "use": "official",
-      "prefix": [],
       "given": [
        "Priya"
       ],
@@ -139,10 +185,25 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-nurse-3",
+    "identifier": [
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NPI",
+         "display": "National provider identifier"
+        }
+       ],
+       "text": "HPI-I"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+      "value": "8003619900000032"
+     }
+    ],
     "name": [
      {
       "use": "official",
-      "prefix": [],
       "given": [
        "Tom"
       ],
@@ -159,6 +220,22 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-surgeon-orthopaedics",
+    "identifier": [
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NPI",
+         "display": "National provider identifier"
+        }
+       ],
+       "text": "HPI-I"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+      "value": "8003619900000040"
+     }
+    ],
     "name": [
      {
       "use": "official",
@@ -181,6 +258,22 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-surgeon-colorectal",
+    "identifier": [
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NPI",
+         "display": "National provider identifier"
+        }
+       ],
+       "text": "HPI-I"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+      "value": "8003619900000057"
+     }
+    ],
     "name": [
      {
       "use": "official",
@@ -203,6 +296,22 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-surgeon-gynaecology",
+    "identifier": [
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NPI",
+         "display": "National provider identifier"
+        }
+       ],
+       "text": "HPI-I"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+      "value": "8003619900000065"
+     }
+    ],
     "name": [
      {
       "use": "official",
@@ -225,6 +334,22 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-surgeon-cardiothoracic",
+    "identifier": [
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NPI",
+         "display": "National provider identifier"
+        }
+       ],
+       "text": "HPI-I"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+      "value": "8003619900000073"
+     }
+    ],
     "name": [
      {
       "use": "official",
@@ -247,6 +372,22 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-surgeon-urology",
+    "identifier": [
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NPI",
+         "display": "National provider identifier"
+        }
+       ],
+       "text": "HPI-I"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+      "value": "8003619900000081"
+     }
+    ],
     "name": [
      {
       "use": "official",
@@ -269,6 +410,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-001",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -287,6 +442,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000011"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000017"
      }
     ],
     "name": [
@@ -296,6 +465,13 @@
        "Tom"
       ],
       "family": "Quinn"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1001",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -338,6 +514,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -380,6 +561,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -508,11 +694,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-001"
@@ -660,6 +846,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-001-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -670,11 +861,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-001-surgery"
      }
     ]
    },
@@ -905,11 +1091,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-001"
@@ -1015,6 +1201,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-002",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "2",
+       "display": "Torres Strait Islander but not Aboriginal origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -1033,6 +1233,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000021"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000025"
      }
     ],
     "name": [
@@ -1042,6 +1256,13 @@
        "Nina"
       ],
       "family": "Dawson"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1002",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -1084,6 +1305,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -1126,6 +1352,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -1254,11 +1485,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-002"
@@ -1406,6 +1637,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-002-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -1416,11 +1652,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-002-surgery"
      }
     ]
    },
@@ -1651,11 +1882,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-002"
@@ -1761,6 +1992,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-003",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -1779,6 +2024,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000031"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000033"
      }
     ],
     "name": [
@@ -1788,6 +2047,13 @@
        "Olivia"
       ],
       "family": "Ito"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1003",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -1830,6 +2096,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -1872,6 +2143,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -2000,11 +2276,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-003"
@@ -2152,6 +2428,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-003-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -2162,11 +2443,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-003-surgery"
      }
     ]
    },
@@ -2397,11 +2673,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-003"
@@ -2507,6 +2783,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-004",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": true
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -2525,6 +2815,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000041"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000041"
      }
     ],
     "name": [
@@ -2536,6 +2840,13 @@
       "family": "Nguyen"
      }
     ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1004",
+      "use": "home"
+     }
+    ],
     "gender": "female",
     "birthDate": "1961-06-19",
     "address": [
@@ -2545,6 +2856,21 @@
       "state": "QLD",
       "postalCode": "4020",
       "country": "AU"
+     }
+    ],
+    "communication": [
+     {
+      "language": {
+       "coding": [
+        {
+         "system": "urn:ietf:bcp:47",
+         "code": "vi",
+         "display": "Vietnamese"
+        }
+       ],
+       "text": "Vietnamese"
+      },
+      "preferred": true
      }
     ]
    },
@@ -2576,6 +2902,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -2618,6 +2949,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -2746,11 +3082,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-004"
@@ -2898,7 +3234,6 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
-    "reasonCode": [],
     "supportingInfo": [
      {
       "reference": "ServiceRequest/pam-004-surgery"
@@ -2955,6 +3290,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-005",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -2973,6 +3322,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000051"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000058"
      }
     ],
     "name": [
@@ -2982,6 +3345,13 @@
        "Chloe"
       ],
       "family": "Reid"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1005",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -3024,6 +3394,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -3066,6 +3441,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -3194,11 +3574,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-005"
@@ -3346,7 +3726,6 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
-    "reasonCode": [],
     "supportingInfo": [
      {
       "reference": "ServiceRequest/pam-005-surgery"
@@ -3403,6 +3782,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-006",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -3421,6 +3814,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000061"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000066"
      }
     ],
     "name": [
@@ -3430,6 +3837,13 @@
        "Pia"
       ],
       "family": "Young"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1006",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -3472,6 +3886,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -3514,6 +3933,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -3642,11 +4066,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-006"
@@ -3794,7 +4218,6 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
-    "reasonCode": [],
     "supportingInfo": [
      {
       "reference": "ServiceRequest/pam-006-surgery"
@@ -3851,6 +4274,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-007",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -3869,6 +4306,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000071"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000074"
      }
     ],
     "name": [
@@ -3878,6 +4329,13 @@
        "Eli"
       ],
       "family": "Young"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1007",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -3920,6 +4378,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -3962,6 +4425,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -4090,11 +4558,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-007"
@@ -4242,6 +4710,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-007-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -4252,11 +4725,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-007-surgery"
      }
     ]
    },
@@ -4487,11 +4955,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-007"
@@ -4597,6 +5065,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-008",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -4615,6 +5097,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000081"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000082"
      }
     ],
     "name": [
@@ -4624,6 +5120,13 @@
        "Alice"
       ],
       "family": "Dawson"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1008",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -4666,6 +5169,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -4708,6 +5216,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -4836,11 +5349,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-008"
@@ -4988,6 +5501,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-008-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -4998,11 +5516,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-008-surgery"
      }
     ]
    },
@@ -5174,11 +5687,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-008"
@@ -5284,6 +5797,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-009",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -5302,6 +5829,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000091"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000090"
      }
     ],
     "name": [
@@ -5311,6 +5852,13 @@
        "Max"
       ],
       "family": "Dawson"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1009",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -5353,6 +5901,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -5395,6 +5948,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -5523,11 +6081,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-009"
@@ -5675,7 +6233,6 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
-    "reasonCode": [],
     "supportingInfo": [
      {
       "reference": "ServiceRequest/pam-009-surgery"
@@ -5732,6 +6289,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-010",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": true
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -5750,6 +6321,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000101"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000108"
      }
     ],
     "name": [
@@ -5761,6 +6346,13 @@
       "family": "Patel"
      }
     ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1010",
+      "use": "home"
+     }
+    ],
     "gender": "female",
     "birthDate": "1978-07-24",
     "address": [
@@ -5770,6 +6362,21 @@
       "state": "QLD",
       "postalCode": "4031",
       "country": "AU"
+     }
+    ],
+    "communication": [
+     {
+      "language": {
+       "coding": [
+        {
+         "system": "urn:ietf:bcp:47",
+         "code": "hi",
+         "display": "Hindi"
+        }
+       ],
+       "text": "Hindi"
+      },
+      "preferred": true
      }
     ]
    },
@@ -5801,6 +6408,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -5843,6 +6455,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -5971,11 +6588,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-010"
@@ -6123,6 +6740,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-010-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -6133,11 +6755,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-010-surgery"
      }
     ]
    },
@@ -6368,11 +6985,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-010"
@@ -6478,6 +7095,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-011",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -6496,6 +7127,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000111"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000116"
      }
     ],
     "name": [
@@ -6505,6 +7150,13 @@
        "Finn"
       ],
       "family": "Jensen"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1011",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -6547,6 +7199,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -6589,6 +7246,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -6717,11 +7379,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-011"
@@ -6869,6 +7531,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-011-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -6879,11 +7546,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-011-surgery"
      }
     ]
    },
@@ -7114,11 +7776,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-011"
@@ -7224,6 +7886,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-012",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -7242,6 +7918,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000121"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000124"
      }
     ],
     "name": [
@@ -7251,6 +7941,13 @@
        "Grace"
       ],
       "family": "Brooks"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1012",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -7293,6 +7990,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -7335,6 +8037,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -7463,11 +8170,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-012"
@@ -7615,6 +8322,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-012-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -7625,11 +8337,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-012-surgery"
      }
     ]
    },
@@ -7860,11 +8567,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-012"
@@ -7970,6 +8677,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-013",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -7988,6 +8709,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000131"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000132"
      }
     ],
     "name": [
@@ -7997,6 +8732,13 @@
        "Dana"
       ],
       "family": "Evans"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1013",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -8039,6 +8781,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -8081,6 +8828,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -8209,11 +8961,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-013"
@@ -8361,6 +9113,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-013-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -8371,11 +9128,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-013-surgery"
      }
     ]
    },
@@ -8606,11 +9358,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-013"
@@ -8716,6 +9468,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-014",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -8734,6 +9500,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000141"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000140"
      }
     ],
     "name": [
@@ -8743,6 +9523,13 @@
        "Nina"
       ],
       "family": "Brooks"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1014",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -8785,6 +9572,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -8827,6 +9619,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -8955,11 +9752,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-014"
@@ -9107,6 +9904,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-014-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -9117,11 +9919,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-014-surgery"
      }
     ]
    },
@@ -9293,11 +10090,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-014"
@@ -9403,6 +10200,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-015",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -9421,6 +10232,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000151"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000157"
      }
     ],
     "name": [
@@ -9430,6 +10255,13 @@
        "Eli"
       ],
       "family": "Ito"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1015",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -9472,6 +10304,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -9514,6 +10351,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -9642,11 +10484,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-015"
@@ -9794,6 +10636,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-015-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -9804,11 +10651,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-015-surgery"
      }
     ]
    },
@@ -9980,11 +10822,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-015"
@@ -10090,6 +10932,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-016",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -10108,6 +10964,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000161"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000165"
      }
     ],
     "name": [
@@ -10117,6 +10987,13 @@
        "Liam"
       ],
       "family": "Evans"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1016",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -10159,6 +11036,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -10201,6 +11083,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -10329,11 +11216,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-016"
@@ -10481,7 +11368,6 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
-    "reasonCode": [],
     "supportingInfo": [
      {
       "reference": "ServiceRequest/pam-016-surgery"
@@ -10538,6 +11424,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-017",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -10556,6 +11456,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000171"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000173"
      }
     ],
     "name": [
@@ -10565,6 +11479,13 @@
        "Oscar"
       ],
       "family": "Usman"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1017",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -10607,6 +11528,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -10649,6 +11575,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -10777,11 +11708,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-017"
@@ -10929,7 +11860,6 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
-    "reasonCode": [],
     "supportingInfo": [
      {
       "reference": "ServiceRequest/pam-017-surgery"
@@ -10986,6 +11916,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-018",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -11004,6 +11948,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000181"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000181"
      }
     ],
     "name": [
@@ -11013,6 +11971,13 @@
        "Ravi"
       ],
       "family": "Singh"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1018",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -11055,6 +12020,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -11097,6 +12067,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -11225,11 +12200,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-018"
@@ -11377,6 +12352,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-018-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -11387,11 +12367,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-018-surgery"
      }
     ]
    },
@@ -11622,11 +12597,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-018"
@@ -11732,6 +12707,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-019",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -11750,6 +12739,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000191"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000199"
      }
     ],
     "name": [
@@ -11759,6 +12762,13 @@
        "Hannah"
       ],
       "family": "Usman"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1019",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -11801,6 +12811,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -11843,6 +12858,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -11971,11 +12991,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-019"
@@ -12123,6 +13143,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-019-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -12133,11 +13158,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-019-surgery"
      }
     ]
    },
@@ -12368,11 +13388,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-019"
@@ -12478,6 +13498,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-020",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "1",
+       "display": "Aboriginal but not Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -12496,6 +13530,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000201"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000207"
      }
     ],
     "name": [
@@ -12505,6 +13553,13 @@
        "Sophie"
       ],
       "family": "Anderson"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1020",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -12547,6 +13602,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -12589,6 +13649,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -12717,11 +13782,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-020"
@@ -12869,6 +13934,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-020-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -12879,11 +13949,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-020-surgery"
      }
     ]
    },
@@ -13114,11 +14179,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-020"
@@ -13224,6 +14289,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-021",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -13242,6 +14321,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000211"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000215"
      }
     ],
     "name": [
@@ -13251,6 +14344,13 @@
        "Ivan"
       ],
       "family": "Chen"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1021",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -13293,6 +14393,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -13335,6 +14440,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -13463,11 +14573,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-021"
@@ -13615,6 +14725,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-021-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -13625,11 +14740,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-021-surgery"
      }
     ]
    },
@@ -13860,11 +14970,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-021"
@@ -13970,6 +15080,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-022",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -13988,6 +15112,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000221"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000223"
      }
     ],
     "name": [
@@ -13997,6 +15135,13 @@
        "Tom"
       ],
       "family": "Chen"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1022",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -14039,6 +15184,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -14081,6 +15231,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -14209,11 +15364,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-022"
@@ -14361,6 +15516,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-022-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -14371,11 +15531,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-022-surgery"
      }
     ]
    },
@@ -14606,11 +15761,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-022"
@@ -14716,6 +15871,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-023",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -14734,6 +15903,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000231"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000231"
      }
     ],
     "name": [
@@ -14743,6 +15926,13 @@
        "Pia"
       ],
       "family": "Walsh"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1023",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -14785,6 +15975,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -14827,6 +16022,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -14955,11 +16155,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-023"
@@ -15107,6 +16307,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-023-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -15117,11 +16322,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-023-surgery"
      }
     ]
    },
@@ -15352,11 +16552,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-023"
@@ -15462,6 +16662,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-024",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -15480,6 +16694,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000241"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000249"
      }
     ],
     "name": [
@@ -15489,6 +16717,13 @@
        "George"
       ],
       "family": "Hughes"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1024",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -15531,6 +16766,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -15573,6 +16813,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -15701,11 +16946,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-024"
@@ -15853,6 +17098,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-024-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -15863,11 +17113,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-024-surgery"
      }
     ]
    },
@@ -16098,11 +17343,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-024"
@@ -16208,6 +17453,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-025",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": true
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -16226,6 +17485,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000251"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000256"
      }
     ],
     "name": [
@@ -16237,6 +17510,13 @@
       "family": "Lam"
      }
     ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1025",
+      "use": "home"
+     }
+    ],
     "gender": "male",
     "birthDate": "1968-12-20",
     "address": [
@@ -16246,6 +17526,21 @@
       "state": "QLD",
       "postalCode": "4012",
       "country": "AU"
+     }
+    ],
+    "communication": [
+     {
+      "language": {
+       "coding": [
+        {
+         "system": "urn:ietf:bcp:47",
+         "code": "yue",
+         "display": "Cantonese"
+        }
+       ],
+       "text": "Cantonese"
+      },
+      "preferred": true
      }
     ]
    },
@@ -16277,6 +17572,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -16319,6 +17619,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -16447,11 +17752,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-025"
@@ -16599,7 +17904,6 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
-    "reasonCode": [],
     "supportingInfo": [
      {
       "reference": "ServiceRequest/pam-025-surgery"
@@ -16656,6 +17960,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-026",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -16674,6 +17992,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000261"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000264"
      }
     ],
     "name": [
@@ -16683,6 +18015,13 @@
        "Dev"
       ],
       "family": "O'Brien"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1026",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -16725,6 +18064,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -16767,6 +18111,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -16895,11 +18244,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-026"
@@ -17047,6 +18396,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-026-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -17057,11 +18411,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-026-surgery"
      }
     ]
    },
@@ -17292,11 +18641,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-026"
@@ -17402,6 +18751,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-027",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -17420,6 +18783,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000271"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000272"
      }
     ],
     "name": [
@@ -17429,6 +18806,13 @@
        "Paul"
       ],
       "family": "O'Brien"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1027",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -17471,6 +18855,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -17513,6 +18902,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -17641,11 +19035,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-027"
@@ -17793,6 +19187,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-027-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -17803,11 +19202,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-027-surgery"
      }
     ]
    },
@@ -17979,11 +19373,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-027"
@@ -18089,6 +19483,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-028",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -18107,6 +19515,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000281"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000280"
      }
     ],
     "name": [
@@ -18116,6 +19538,13 @@
        "Zara"
       ],
       "family": "Dawson"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1028",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -18158,6 +19587,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -18200,6 +19634,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -18328,11 +19767,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-028"
@@ -18480,6 +19919,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-028-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -18490,11 +19934,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-028-surgery"
      }
     ]
    },
@@ -18725,11 +20164,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-028"
@@ -18835,6 +20274,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-029",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -18853,6 +20306,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000291"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000298"
      }
     ],
     "name": [
@@ -18862,6 +20329,13 @@
        "Eli"
       ],
       "family": "Fraser"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1029",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -18904,6 +20378,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -18946,6 +20425,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -19074,11 +20558,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-029"
@@ -19226,6 +20710,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-029-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -19236,11 +20725,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-029-surgery"
      }
     ]
    },
@@ -19471,11 +20955,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-029"
@@ -19581,6 +21065,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-030",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "9",
+       "display": "Not stated/inadequately described"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -19599,6 +21097,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000301"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000306"
      }
     ],
     "name": [
@@ -19608,6 +21120,13 @@
        "Sam"
       ],
       "family": "Reid"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1030",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -19650,6 +21169,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -19692,6 +21216,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -19820,11 +21349,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-030"
@@ -19972,6 +21501,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-030-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -19982,11 +21516,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-030-surgery"
      }
     ]
    },
@@ -20217,11 +21746,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-030"
@@ -20327,6 +21856,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-031",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -20345,6 +21888,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000311"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000314"
      }
     ],
     "name": [
@@ -20354,6 +21911,13 @@
        "Ivan"
       ],
       "family": "Hughes"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1031",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -20396,6 +21960,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -20438,6 +22007,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -20566,11 +22140,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-031"
@@ -20718,6 +22292,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-031-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -20728,11 +22307,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-031-surgery"
      }
     ]
    },
@@ -20963,11 +22537,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-031"
@@ -21073,6 +22647,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-032",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -21091,6 +22679,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000321"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000322"
      }
     ],
     "name": [
@@ -21100,6 +22702,13 @@
        "Isla"
       ],
       "family": "Taylor"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1032",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -21142,6 +22751,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -21184,6 +22798,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -21312,11 +22931,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-032"
@@ -21464,6 +23083,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-032-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -21474,11 +23098,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-032-surgery"
      }
     ]
    },
@@ -21683,6 +23302,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-033",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "3",
+       "display": "Both Aboriginal and Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -21701,6 +23334,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000331"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000330"
      }
     ],
     "name": [
@@ -21710,6 +23357,13 @@
        "Paul"
       ],
       "family": "Kelly"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1033",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -21752,6 +23406,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -21794,6 +23453,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -21922,11 +23586,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-033"
@@ -22074,6 +23738,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-033-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -22084,11 +23753,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-033-surgery"
      }
     ]
    },
@@ -22319,11 +23983,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-033"
@@ -22429,6 +24093,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-034",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -22447,6 +24125,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000341"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000348"
      }
     ],
     "name": [
@@ -22456,6 +24148,13 @@
        "Grace"
       ],
       "family": "Jensen"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1034",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -22498,6 +24197,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -22540,6 +24244,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -22668,11 +24377,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-034"
@@ -22820,6 +24529,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-034-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -22830,11 +24544,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-034-surgery"
      }
     ]
    },
@@ -23039,6 +24748,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-035",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -23057,6 +24780,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000351"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000355"
      }
     ],
     "name": [
@@ -23066,6 +24803,13 @@
        "Chloe"
       ],
       "family": "Brooks"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1035",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -23108,6 +24852,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -23150,6 +24899,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -23278,11 +25032,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-035"
@@ -23430,6 +25184,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-035-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -23440,11 +25199,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-035-surgery"
      }
     ]
    },
@@ -23649,6 +25403,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-036",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -23667,6 +25435,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000361"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000363"
      }
     ],
     "name": [
@@ -23676,6 +25458,13 @@
        "Dana"
       ],
       "family": "Walsh"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1036",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -23718,6 +25507,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -23760,6 +25554,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -23888,11 +25687,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-036"
@@ -24040,6 +25839,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-036-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -24050,11 +25854,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-036-surgery"
      }
     ]
    },
@@ -24259,6 +26058,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-037",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -24277,6 +26090,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000371"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000371"
      }
     ],
     "name": [
@@ -24286,6 +26113,13 @@
        "Ravi"
       ],
       "family": "Vu"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1037",
+      "use": "home"
      }
     ],
     "gender": "male",
@@ -24328,6 +26162,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -24370,6 +26209,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -24498,11 +26342,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-037"
@@ -24650,6 +26494,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-037-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -24660,11 +26509,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-037-surgery"
      }
     ]
    },
@@ -24869,6 +26713,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-038",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": true
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -24887,6 +26745,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000381"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000389"
      }
     ],
     "name": [
@@ -24898,6 +26770,13 @@
       "family": "Ito"
      }
     ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1038",
+      "use": "home"
+     }
+    ],
     "gender": "male",
     "birthDate": "1973-04-17",
     "address": [
@@ -24907,6 +26786,21 @@
       "state": "QLD",
       "postalCode": "4032",
       "country": "AU"
+     }
+    ],
+    "communication": [
+     {
+      "language": {
+       "coding": [
+        {
+         "system": "urn:ietf:bcp:47",
+         "code": "ja",
+         "display": "Japanese"
+        }
+       ],
+       "text": "Japanese"
+      },
+      "preferred": true
      }
     ]
    },
@@ -24938,6 +26832,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -24980,6 +26879,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -25108,11 +27012,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-038"
@@ -25260,6 +27164,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-038-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -25270,11 +27179,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-038-surgery"
      }
     ]
    },
@@ -25420,6 +27324,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-039",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": true
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -25438,6 +27356,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000391"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000397"
      }
     ],
     "name": [
@@ -25449,6 +27381,13 @@
       "family": "Gupta"
      }
     ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1039",
+      "use": "home"
+     }
+    ],
     "gender": "female",
     "birthDate": "1969-03-27",
     "address": [
@@ -25458,6 +27397,21 @@
       "state": "QLD",
       "postalCode": "4034",
       "country": "AU"
+     }
+    ],
+    "communication": [
+     {
+      "language": {
+       "coding": [
+        {
+         "system": "urn:ietf:bcp:47",
+         "code": "hi",
+         "display": "Hindi"
+        }
+       ],
+       "text": "Hindi"
+      },
+      "preferred": true
      }
     ]
    },
@@ -25489,6 +27443,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -25531,6 +27490,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -25659,11 +27623,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-039"
@@ -25811,6 +27775,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-039-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -25821,11 +27790,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-039-surgery"
      }
     ]
    },
@@ -26030,6 +27994,20 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-040",
+    "extension": [
+     {
+      "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+      "valueCoding": {
+       "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+       "code": "4",
+       "display": "Neither Aboriginal nor Torres Strait Islander origin"
+      }
+     },
+     {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired",
+      "valueBoolean": false
+     }
+    ],
     "identifier": [
      {
       "system": "https://aehrc.github.io/qh-connectathon/track1/patient-id",
@@ -26048,6 +28026,20 @@
       },
       "system": "http://ns.electronichealth.net.au/id/medicare-number",
       "value": "0000000401"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "NI",
+         "display": "National unique individual identifier"
+        }
+       ],
+       "text": "IHI"
+      },
+      "system": "http://ns.electronichealth.net.au/id/hi/ihi/1.0",
+      "value": "8003609900000405"
      }
     ],
     "name": [
@@ -26057,6 +28049,13 @@
        "Nina"
       ],
       "family": "Morgan"
+     }
+    ],
+    "telecom": [
+     {
+      "system": "phone",
+      "value": "07 5550 1040",
+      "use": "home"
      }
     ],
     "gender": "female",
@@ -26099,6 +28098,11 @@
        "system": "http://loinc.org",
        "code": "8302-2",
        "display": "Body height"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "50373000",
+       "display": "Body height measure"
       }
      ],
      "text": "Body height"
@@ -26141,6 +28145,11 @@
       {
        "system": "http://loinc.org",
        "code": "29463-7",
+       "display": "Body weight"
+      },
+      {
+       "system": "http://snomed.info/sct",
+       "code": "27113001",
        "display": "Body weight"
       }
      ],
@@ -26269,11 +28278,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-040"
@@ -26421,6 +28430,11 @@
       "reference": "Organization/pam-blood-management"
      }
     ],
+    "supportingInfo": [
+     {
+      "reference": "ServiceRequest/pam-040-surgery"
+     }
+    ],
     "reasonCode": [
      {
       "coding": [
@@ -26431,11 +28445,6 @@
        }
       ],
       "text": "Anaemia"
-     }
-    ],
-    "supportingInfo": [
-     {
-      "reference": "ServiceRequest/pam-040-surgery"
      }
     ]
    },

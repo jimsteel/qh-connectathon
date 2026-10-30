@@ -244,8 +244,9 @@ href="https://sit.healthconnect.digitalhealth.gov.au/adha/hcd-api-router/api/v1/
 <td><strong>Referral Server</strong></td>
 <td>Holds ServiceRequest, Task, supporting resources,
 Schedule/Slot/Appointment</td>
-<td>HAPI FHIR instance loaded with the QH referrals IG (plus AU Core /
-AU eRequesting)</td>
+<td>HAPI FHIR instance loaded with the <a
+href="https://aehrc.github.io/radiology-referral/">QH referrals IG</a>
+plus AU Core / AU eRequesting</td>
 </tr>
 <tr>
 <td><strong>Imaging Provider</strong> (Filler)</td>
@@ -519,6 +520,12 @@ requested</td>
 <td>Stretch</td>
 <td>HC PD Bulk <code>$export</code> + polling</td>
 <td>NDJSON retrieved, status polling honoured</td>
+</tr>
+<tr>
+<td>P-01</td>
+<td>Referrer (stretch)</td>
+<td>AU PS <code>Patient/[id]/$summary</code> on the Referral Server</td>
+<td>200, <code>document</code> Bundle declaring <code>au-ps-bundle</code>; allergies, medications and problems sections present; seeded history appears</td>
 </tr>
 </tbody>
 </table>

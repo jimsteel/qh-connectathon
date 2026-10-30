@@ -171,14 +171,14 @@ Track status through to **Booked**; report return closes the Task (stretch).
 
 ## Standards in scope
 
-- **AU Core** — Patient, Practitioner, PractitionerRole, Organization, Condition, Observation
-- **AU eRequesting** — imaging ServiceRequest, Group + fulfilment Task (baseline to align with)
-- **QH FHIR Referrals IG** — QH extensions: referral category, urgency, facility identifiers *(version TBC)*
-- **ADHA Provider Directory IG** — directory resources and search *(spec pending)*
+- **[AU Core](https://build.fhir.org/ig/hl7au/au-fhir-core/)** — Patient, Practitioner, PractitionerRole, Organization, Condition, Observation
+- **[AU eRequesting](https://build.fhir.org/ig/hl7au/au-fhir-erequesting/)** — imaging ServiceRequest, Group + fulfilment Task (baseline to align with)
+- **[QH FHIR Referrals IG](https://aehrc.github.io/radiology-referral/)** — QH extensions: referral category, urgency, facility identifiers
+- **[ADHA Provider Directory IG](https://implementer.digitalhealth.gov.au/fhir/hcpd/26.0.0/index.html)** — directory resources and search 
 - **FHIR R4 Scheduling** — Schedule, Slot, Appointment
 - *Bulk Data Access IG* — Qld Health Provider Directory on FHIR `$export` (stretch)
 
-> Profiles for this scenario: the **Radiology Referral and Booking IG** — `github.com/aehrc/radiology-referral` (builds on AU eRequesting 1.0.1).
+> Profiles for this scenario: the **Radiology Referral and Booking IG** — `github.com/aehrc/radiology-referral` (builds on AU eRequesting 1.0.1) can be viewed [here](https://aehrc.github.io/radiology-referral).
 
 ---
 
@@ -249,6 +249,8 @@ Track status through to **Booked**; report return closes the Task (stretch).
 Repository: `github.com/aehrc/qh-connectathon` → `2026-10-29/2-FHIR-For-Services`
 
 IG: `github.com/aehrc/radiology-referral`
+
+IG Build: `https://aehrc.github.io/radiology-referral/`
 
 Referrer app: `ui.efiq.hospservices.net`
 

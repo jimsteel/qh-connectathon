@@ -22,7 +22,7 @@ The rest of the dashboard is scaffolding for scenarios B1–B9.
 * Scopes: `launch openid fhirUser profile online_access user/*.read`
 * Put the client ID in `launch.html` (`CLIENT_ID`) and redeploy with `../deploy-pages.sh`.
 
-Note: `|` in search parameters is sent as `%7C` because Meld's gateway rejects a raw `|`.
+Note: each `system|code` is sent fully encoded (`encodeURIComponent`): Meld's gateway rejects a raw `|`, and the launch.smarthealthit.org proxy collapses an unencoded `//`.
 
 ## Known issues (worth a connectathon discussion)
 

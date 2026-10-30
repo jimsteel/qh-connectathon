@@ -1,0 +1,1871 @@
+{
+  "info": {
+    "name": "QH Connectathon Track 2: Radiology Referral",
+    "description": "Requests for the FHIR in Queensland Health Connectathon, Track 2 (FHIR for Services): discover an imaging service, create a referral, triage, book and track.\n\n1. Import this collection and one of the two environments.\n2. Run the folders in order (1 to 6; 6 is a stretch), or use the Collection Runner. Folder 9 cleans up what you created.\n3. Read the guide: https://aehrc.github.io/qh-connectathon/track2/QH-Track2-API-Guide.html\n\nAll data is fictional. Pre-seeded ids (`qhd-*` directory, `qhc-*` referral) are used as defaults, so every folder also works on its own.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1 Discover (Provider Directory)",
+      "description": "Scenario step 1, test cases D-01 to D-03 and X-01. Targets the **directory** server (`{{directoryUrl}}`). Every request carries `X-Request-ID` (set by the collection pre-request script). Search parameters are Day-1 assumptions until the ADHA HCPD technical specification is published.",
+      "item": [
+        {
+          "name": "D-01 Search imaging services (CT, QLD)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{directoryUrl}}/HealthcareService?service-type=http://snomed.info/sct|310128004&location.address-state=QLD&_include=HealthcareService:location&_include=HealthcareService:organization&_count=10",
+              "host": [
+                "{{directoryUrl}}"
+              ],
+              "path": [
+                "HealthcareService"
+              ],
+              "query": [
+                {
+                  "key": "service-type",
+                  "value": "http://snomed.info/sct|310128004"
+                },
+                {
+                  "key": "location.address-state",
+                  "value": "QLD"
+                },
+                {
+                  "key": "_include",
+                  "value": "HealthcareService:location"
+                },
+                {
+                  "key": "_include",
+                  "value": "HealthcareService:organization"
+                },
+                {
+                  "key": "_count",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Find CT services in Queensland and bring back the Location and Organization in the same Bundle. 310128004 = Computed tomography service. Saves the first HealthcareService id for the next requests."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('searchset Bundle', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b.resourceType).to.eql('Bundle');",
+                  "  pm.expect(b.type).to.eql('searchset');",
+                  "  pm.expect((b.entry || []).length).to.be.least(1);",
+                  "});",
+                  "const hs = pm.response.json().entry.map(e => e.resource).find(r => r.resourceType === 'HealthcareService');",
+                  "if (hs) { pm.collectionVariables.set('healthcareServiceId', hs.id);",
+                  "  pm.collectionVariables.set('organizationId', hs.providedBy.reference.split('/')[1]); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "D-01 Paging (_count=2, follow Bundle.link next)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{directoryUrl}}/HealthcareService?service-type=http://snomed.info/sct|310128004&_count=2",
+              "host": [
+                "{{directoryUrl}}"
+              ],
+              "path": [
+                "HealthcareService"
+              ],
+              "query": [
+                {
+                  "key": "service-type",
+                  "value": "http://snomed.info/sct|310128004"
+                },
+                {
+                  "key": "_count",
+                  "value": "2"
+                }
+              ]
+            },
+            "description": "Request a small page, then copy `Bundle.link[relation=next].url` into your client. The test stores the next link in `{{nextPageUrl}}`; use the 'Follow next link' request."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('searchset Bundle', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b.resourceType).to.eql('Bundle');",
+                  "  pm.expect(b.type).to.eql('searchset');",
+                  "  pm.expect((b.entry || []).length).to.be.least(1);",
+                  "});",
+                  "const nxt = (pm.response.json().link || []).find(l => l.relation === 'next');",
+                  "pm.test('has a next link', () => pm.expect(nxt).to.exist);",
+                  "if (nxt) pm.collectionVariables.set('nextPageUrl', nxt.url);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "D-01 Follow next link",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{nextPageUrl}}",
+            "description": "Follows the `next` link saved by the previous request."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('searchset Bundle', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b.resourceType).to.eql('Bundle');",
+                  "  pm.expect(b.type).to.eql('searchset');",
+                  "  pm.expect((b.entry || []).length).to.be.least(1);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "D-02 Resolve service, organization and endpoints",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{directoryUrl}}/HealthcareService?_id={{healthcareServiceId}}&_include=HealthcareService:endpoint&_include=HealthcareService:organization&_include=HealthcareService:location",
+              "host": [
+                "{{directoryUrl}}"
+              ],
+              "path": [
+                "HealthcareService"
+              ],
+              "query": [
+                {
+                  "key": "_id",
+                  "value": "{{healthcareServiceId}}"
+                },
+                {
+                  "key": "_include",
+                  "value": "HealthcareService:endpoint"
+                },
+                {
+                  "key": "_include",
+                  "value": "HealthcareService:organization"
+                },
+                {
+                  "key": "_include",
+                  "value": "HealthcareService:location"
+                }
+              ]
+            },
+            "description": "One round trip from the chosen HealthcareService to its Organization, Location and **Endpoint** resources. Read `Endpoint.address` and `Endpoint.payloadType` to learn how to reach the receiving server. Note: the seeded `Endpoint.address` values are in-cluster URLs (`*.svc.cluster.local`), so use the public referral URL from the environment instead."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('searchset Bundle', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b.resourceType).to.eql('Bundle');",
+                  "  pm.expect(b.type).to.eql('searchset');",
+                  "  pm.expect((b.entry || []).length).to.be.least(1);",
+                  "});",
+                  "pm.test('an Endpoint came back', () =>",
+                  "  pm.expect(pm.response.json().entry.some(e => e.resource.resourceType === 'Endpoint')).to.be.true);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "D-02 Organization with its endpoints",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{directoryUrl}}/Organization?_id={{organizationId}}&_include=Organization:endpoint",
+              "host": [
+                "{{directoryUrl}}"
+              ],
+              "path": [
+                "Organization"
+              ],
+              "query": [
+                {
+                  "key": "_id",
+                  "value": "{{organizationId}}"
+                },
+                {
+                  "key": "_include",
+                  "value": "Organization:endpoint"
+                }
+              ]
+            },
+            "description": "Endpoint has no `organization` search parameter in R4. Reach it through the owning resource with `_include`."
+          }
+        },
+        {
+          "name": "D-02 Locations in a town, with their services",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{directoryUrl}}/Location?address-city=Cairns&_revinclude=HealthcareService:location",
+              "host": [
+                "{{directoryUrl}}"
+              ],
+              "path": [
+                "Location"
+              ],
+              "query": [
+                {
+                  "key": "address-city",
+                  "value": "Cairns"
+                },
+                {
+                  "key": "_revinclude",
+                  "value": "HealthcareService:location"
+                }
+              ]
+            },
+            "description": "Location search by town, with every HealthcareService that is delivered there."
+          }
+        },
+        {
+          "name": "D-03 Referrer PractitionerRole (HPI-I / HPI-O)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{directoryUrl}}/PractitionerRole?organization=Organization/{{organizationId}}&_include=PractitionerRole:practitioner&_include=PractitionerRole:organization",
+              "host": [
+                "{{directoryUrl}}"
+              ],
+              "path": [
+                "PractitionerRole"
+              ],
+              "query": [
+                {
+                  "key": "organization",
+                  "value": "Organization/{{organizationId}}"
+                },
+                {
+                  "key": "_include",
+                  "value": "PractitionerRole:practitioner"
+                },
+                {
+                  "key": "_include",
+                  "value": "PractitionerRole:organization"
+                }
+              ]
+            },
+            "description": "Look up practitioner roles for an organisation. HPI-I is on the Practitioner identifier, HPI-O on the Organization identifier."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('searchset Bundle', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b.resourceType).to.eql('Bundle');",
+                  "  pm.expect(b.type).to.eql('searchset');",
+                  "  pm.expect((b.entry || []).length).to.be.least(1);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "X-01 (stretch) Bulk export kick-off",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Prefer",
+                "value": "respond-async"
+              },
+              {
+                "key": "Accept",
+                "value": "application/fhir+json"
+              }
+            ],
+            "url": {
+              "raw": "{{directoryUrl}}/$export?_type=HealthcareService&_typeFilter=HealthcareService%3Fservice-type%3D310128004&_outputFormat=application/fhir%2Bndjson",
+              "host": [
+                "{{directoryUrl}}"
+              ],
+              "path": [
+                "$export"
+              ],
+              "query": [
+                {
+                  "key": "_type",
+                  "value": "HealthcareService"
+                },
+                {
+                  "key": "_typeFilter",
+                  "value": "HealthcareService%3Fservice-type%3D310128004"
+                },
+                {
+                  "key": "_outputFormat",
+                  "value": "application/fhir%2Bndjson"
+                }
+              ]
+            },
+            "description": "Asynchronous bulk export of the CT services. Expect `202 Accepted` with a `Content-Location` header. The test saves it in `{{exportStatusUrl}}`."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [202]', () => pm.expect([202]).to.include(pm.response.code));",
+                  "const loc = pm.response.headers.get('Content-Location');",
+                  "if (loc) pm.collectionVariables.set('exportStatusUrl', loc);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "X-01 (stretch) Poll export status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{exportStatusUrl}}",
+            "description": "`202` while running (honour `Retry-After`), `200` with an `output[].url` list when finished. Download each `url` as NDJSON."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200, 202]', () => pm.expect([200, 202]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2 Create the referral (Referral Server)",
+      "description": "Scenario step 2, test cases R-01 and R-02. Targets the **referral** server (`{{referralUrl}}`).",
+      "item": [
+        {
+          "name": "Capability statement",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/metadata?_summary=true",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "metadata"
+              ],
+              "query": [
+                {
+                  "key": "_summary",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Smoke check that the referral server is up and shows its FHIR version."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200]', () => pm.expect([200]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R-01 Create the referral (transaction Bundle)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/fhir+json"
+              }
+            ],
+            "url": "{{referralUrl}}",
+            "description": "One transaction creating Patient, eGFR Observation, ServiceRequest, the Group Task and the fulfilment Task, linked with `urn:uuid:` references. The referrer is `PractitionerRole/qhc-role-1` and the receiving service is the seeded Tropic Coast Health Service. All resources are tagged with `{{runId}}` so you can clean up. The ids of what was created are saved to collection variables for the following requests.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"Bundle\",\n  \"type\": \"transaction\",\n  \"entry\": [\n    {\n      \"fullUrl\": \"urn:uuid:11111111-0000-4000-8000-000000000001\",\n      \"resource\": {\n        \"resourceType\": \"Patient\",\n        \"meta\": {\n          \"tag\": [\n            {\n              \"system\": \"urn:qh-connectathon:postman\",\n              \"code\": \"{{runId}}\"\n            }\n          ]\n        },\n        \"identifier\": [\n          {\n            \"system\": \"urn:qh-connectathon:postman-patient\",\n            \"value\": \"{{runId}}\"\n          }\n        ],\n        \"name\": [\n          {\n            \"family\": \"Postmantest\",\n            \"given\": [\n              \"Fictional\"\n            ]\n          }\n        ],\n        \"gender\": \"other\",\n        \"birthDate\": \"1968-04-02\"\n      },\n      \"request\": {\n        \"method\": \"POST\",\n        \"url\": \"Patient\"\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:11111111-0000-4000-8000-000000000002\",\n      \"resource\": {\n        \"resourceType\": \"Observation\",\n        \"meta\": {\n          \"tag\": [\n            {\n              \"system\": \"urn:qh-connectathon:postman\",\n              \"code\": \"{{runId}}\"\n            }\n          ]\n        },\n        \"status\": \"final\",\n        \"category\": [\n          {\n            \"coding\": [\n              {\n                \"system\": \"http://terminology.hl7.org/CodeSystem/observation-category\",\n                \"code\": \"laboratory\"\n              }\n            ]\n          }\n        ],\n        \"code\": {\n          \"coding\": [\n            {\n              \"system\": \"http://loinc.org\",\n              \"code\": \"98979-8\"\n            }\n          ],\n          \"text\": \"eGFR\"\n        },\n        \"subject\": {\n          \"reference\": \"urn:uuid:11111111-0000-4000-8000-000000000001\"\n        },\n        \"effectiveDateTime\": \"{{today}}\",\n        \"valueQuantity\": {\n          \"value\": 82,\n          \"unit\": \"mL/min/1.73m2\",\n          \"system\": \"http://unitsofmeasure.org\",\n          \"code\": \"mL/min/{1.73_m2}\"\n        }\n      },\n      \"request\": {\n        \"method\": \"POST\",\n        \"url\": \"Observation\"\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:11111111-0000-4000-8000-000000000003\",\n      \"resource\": {\n        \"resourceType\": \"ServiceRequest\",\n        \"meta\": {\n          \"profile\": [\n            \"http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/referral-servicerequest\"\n          ],\n          \"tag\": [\n            {\n              \"system\": \"urn:qh-connectathon:postman\",\n              \"code\": \"{{runId}}\"\n            }\n          ]\n        },\n        \"identifier\": [\n          {\n            \"system\": \"http://aehrc.csiro.au/fhir/radiology-referral/sid/placer-group-number\",\n            \"value\": \"{{runId}}-1\"\n          }\n        ],\n        \"requisition\": {\n          \"type\": {\n            \"coding\": [\n              {\n                \"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n                \"code\": \"PGN\"\n              }\n            ]\n          },\n          \"system\": \"http://aehrc.csiro.au/fhir/radiology-referral/sid/placer-group-number\",\n          \"value\": \"{{runId}}\"\n        },\n        \"status\": \"active\",\n        \"intent\": \"order\",\n        \"category\": [\n          {\n            \"coding\": [\n              {\n                \"system\": \"http://snomed.info/sct\",\n                \"code\": \"3457005\",\n                \"display\": \"Patient referral\"\n              }\n            ]\n          },\n          {\n            \"coding\": [\n              {\n                \"system\": \"http://snomed.info/sct\",\n                \"code\": \"363679005\",\n                \"display\": \"Imaging\"\n              }\n            ]\n          }\n        ],\n        \"priority\": \"routine\",\n        \"code\": {\n          \"coding\": [\n            {\n              \"system\": \"http://snomed.info/sct\",\n              \"code\": \"432370003\",\n              \"display\": \"CT of abdomen and pelvis with contrast\"\n            }\n          ],\n          \"text\": \"CT abdomen and pelvis with contrast\"\n        },\n        \"subject\": {\n          \"reference\": \"urn:uuid:11111111-0000-4000-8000-000000000001\"\n        },\n        \"authoredOn\": \"{{now}}\",\n        \"requester\": {\n          \"reference\": \"PractitionerRole/qhc-role-1\",\n          \"display\": \"Dr Chen\"\n        },\n        \"performer\": [\n          {\n            \"reference\": \"Organization/qhc-org-fill1\",\n            \"type\": \"Organization\",\n            \"identifier\": {\n              \"system\": \"http://ns.electronichealth.net.au/id/hi/hpio/1.0\",\n              \"value\": \"8003629999000017\"\n            },\n            \"display\": \"Tropic Coast Health Service\"\n          }\n        ],\n        \"supportingInfo\": [\n          {\n            \"reference\": \"urn:uuid:11111111-0000-4000-8000-000000000002\"\n          }\n        ],\n        \"note\": [\n          {\n            \"text\": \"Created from the Track 2 Postman collection. Fictional data.\"\n          }\n        ]\n      },\n      \"request\": {\n        \"method\": \"POST\",\n        \"url\": \"ServiceRequest\"\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:11111111-0000-4000-8000-000000000004\",\n      \"resource\": {\n        \"resourceType\": \"Task\",\n        \"meta\": {\n          \"profile\": [\n            \"http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-task-group\"\n          ],\n          \"tag\": [\n            {\n              \"system\": \"urn:qh-connectathon:postman\",\n              \"code\": \"{{runId}}\"\n            }\n          ]\n        },\n        \"groupIdentifier\": {\n          \"type\": {\n            \"coding\": [\n              {\n                \"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n                \"code\": \"PGN\"\n              }\n            ]\n          },\n          \"system\": \"http://aehrc.csiro.au/fhir/radiology-referral/sid/placer-group-number\",\n          \"value\": \"{{runId}}\"\n        },\n        \"status\": \"requested\",\n        \"intent\": \"order\",\n        \"code\": {\n          \"coding\": [\n            {\n              \"system\": \"http://hl7.org/fhir/CodeSystem/task-code\",\n              \"code\": \"fulfill\"\n            }\n          ]\n        },\n        \"for\": {\n          \"reference\": \"urn:uuid:11111111-0000-4000-8000-000000000001\"\n        },\n        \"authoredOn\": \"{{now}}\",\n        \"requester\": {\n          \"reference\": \"PractitionerRole/qhc-role-1\"\n        },\n        \"owner\": {\n          \"reference\": \"Organization/qhc-org-fill1\"\n        }\n      },\n      \"request\": {\n        \"method\": \"POST\",\n        \"url\": \"Task\"\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:11111111-0000-4000-8000-000000000005\",\n      \"resource\": {\n        \"resourceType\": \"Task\",\n        \"meta\": {\n          \"profile\": [\n            \"http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/referral-task\"\n          ],\n          \"tag\": [\n            {\n              \"system\": \"urn:qh-connectathon:postman\",\n              \"code\": \"{{runId}}\"\n            },\n            {\n              \"system\": \"http://terminology.hl7.org.au/CodeSystem/resource-tag\",\n              \"code\": \"fulfilment-task\"\n            }\n          ]\n        },\n        \"identifier\": [\n          {\n            \"system\": \"http://aehrc.csiro.au/fhir/radiology-referral/sid/placer-group-number\",\n            \"value\": \"{{runId}}-1\"\n          }\n        ],\n        \"groupIdentifier\": {\n          \"type\": {\n            \"coding\": [\n              {\n                \"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n                \"code\": \"PGN\"\n              }\n            ]\n          },\n          \"system\": \"http://aehrc.csiro.au/fhir/radiology-referral/sid/placer-group-number\",\n          \"value\": \"{{runId}}\"\n        },\n        \"partOf\": [\n          {\n            \"reference\": \"urn:uuid:11111111-0000-4000-8000-000000000004\"\n          }\n        ],\n        \"status\": \"requested\",\n        \"intent\": \"order\",\n        \"priority\": \"routine\",\n        \"code\": {\n          \"coding\": [\n            {\n              \"system\": \"http://hl7.org/fhir/CodeSystem/task-code\",\n              \"code\": \"fulfill\"\n            }\n          ]\n        },\n        \"focus\": {\n          \"reference\": \"urn:uuid:11111111-0000-4000-8000-000000000003\"\n        },\n        \"for\": {\n          \"reference\": \"urn:uuid:11111111-0000-4000-8000-000000000001\"\n        },\n        \"authoredOn\": \"{{now}}\",\n        \"requester\": {\n          \"reference\": \"PractitionerRole/qhc-role-1\"\n        },\n        \"owner\": {\n          \"reference\": \"Organization/qhc-org-fill1\"\n        }\n      },\n      \"request\": {\n        \"method\": \"POST\",\n        \"url\": \"Task\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200, 201]', () => pm.expect([200, 201]).to.include(pm.response.code));",
+                  "const out = pm.response.json();",
+                  "const loc = {};",
+                  "(out.entry || []).forEach(e => { const [t, id] = e.response.location.split('/_history')[0].split('/').slice(-2); loc[t] = loc[t] || []; loc[t].push(id); });",
+                  "pm.test('all resources created', () => pm.expect(Object.keys(loc)).to.include.members(['Patient', 'ServiceRequest', 'Task']));",
+                  "pm.collectionVariables.set('patientId', loc.Patient[0]);",
+                  "pm.collectionVariables.set('observationId', loc.Observation[0]);",
+                  "// remembered separately so folder 9 can only ever delete what this run created, never seeded data",
+                  "pm.collectionVariables.set('createdPatientId', loc.Patient[0]);",
+                  "pm.collectionVariables.set('createdObservationId', loc.Observation[0]);",
+                  "pm.collectionVariables.set('createdServiceRequestId', loc.ServiceRequest[0]);",
+                  "pm.collectionVariables.set('createdGroupTaskId', loc.Task[0]);",
+                  "pm.collectionVariables.set('createdTaskId', loc.Task[1]);",
+                  "pm.collectionVariables.set('serviceRequestId', loc.ServiceRequest[0]);",
+                  "// the second Task in the Bundle is the fulfilment Task",
+                  "pm.collectionVariables.set('groupTaskId', loc.Task[0]);",
+                  "pm.collectionVariables.set('taskId', loc.Task[1]);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R-01 Validate the ServiceRequest against the IG",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/fhir+json"
+              }
+            ],
+            "url": {
+              "raw": "{{referralUrl}}/ServiceRequest/$validate",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "ServiceRequest",
+                "$validate"
+              ]
+            },
+            "description": "Asks the server to validate a ServiceRequest against `referral-servicerequest`. Errors fail the test; warnings are fine. (Tip: the profile is claimed in `meta.profile`.)",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"ServiceRequest\",\n  \"meta\": {\n    \"profile\": [\n      \"http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/referral-servicerequest\"\n    ]\n  },\n  \"identifier\": [\n    {\n      \"system\": \"http://aehrc.csiro.au/fhir/radiology-referral/sid/placer-group-number\",\n      \"value\": \"validate-1\"\n    }\n  ],\n  \"requisition\": {\n    \"type\": {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n          \"code\": \"PGN\"\n        }\n      ]\n    },\n    \"system\": \"http://aehrc.csiro.au/fhir/radiology-referral/sid/placer-group-number\",\n    \"value\": \"validate\"\n  },\n  \"status\": \"active\",\n  \"intent\": \"order\",\n  \"category\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://snomed.info/sct\",\n          \"code\": \"3457005\"\n        }\n      ]\n    },\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://snomed.info/sct\",\n          \"code\": \"363679005\"\n        }\n      ]\n    }\n  ],\n  \"priority\": \"routine\",\n  \"code\": {\n    \"coding\": [\n      {\n        \"system\": \"http://snomed.info/sct\",\n        \"code\": \"432370003\"\n      }\n    ]\n  },\n  \"subject\": {\n    \"reference\": \"Patient/qhc-pat-01\"\n  },\n  \"authoredOn\": \"{{now}}\",\n  \"requester\": {\n    \"reference\": \"PractitionerRole/qhc-role-1\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200]', () => pm.expect([200]).to.include(pm.response.code));",
+                  "const errs = (pm.response.json().issue || []).filter(i => ['error', 'fatal'].includes(i.severity));",
+                  "pm.test('no validation errors', () => pm.expect(errs.map(i => i.diagnostics)).to.eql([]));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "R-02 Referral with its supporting information",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/ServiceRequest?_id={{serviceRequestId}}&_include=ServiceRequest:supporting-info&_include=ServiceRequest:patient",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "ServiceRequest"
+              ],
+              "query": [
+                {
+                  "key": "_id",
+                  "value": "{{serviceRequestId}}"
+                },
+                {
+                  "key": "_include",
+                  "value": "ServiceRequest:supporting-info"
+                },
+                {
+                  "key": "_include",
+                  "value": "ServiceRequest:patient"
+                }
+              ]
+            },
+            "description": "Reads back the referral you created, with the eGFR Observation and Patient in the same Bundle. A contrast study should always carry an eGFR."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('searchset Bundle', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b.resourceType).to.eql('Bundle');",
+                  "  pm.expect(b.type).to.eql('searchset');",
+                  "  pm.expect((b.entry || []).length).to.be.least(1);",
+                  "});",
+                  "pm.test('eGFR Observation is present', () =>",
+                  "  pm.expect(pm.response.json().entry.some(e => e.resource.resourceType === 'Observation')).to.be.true);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Browse the seeded referrals",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/ServiceRequest?status=active&_count=10&_sort=-_lastUpdated",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "ServiceRequest"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "active"
+                },
+                {
+                  "key": "_count",
+                  "value": "10"
+                },
+                {
+                  "key": "_sort",
+                  "value": "-_lastUpdated"
+                }
+              ]
+            },
+            "description": "The server is pre-loaded with 22 fictional referrals for 20 patients. Use these if you only want to read."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('searchset Bundle', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b.resourceType).to.eql('Bundle');",
+                  "  pm.expect(b.type).to.eql('searchset');",
+                  "  pm.expect((b.entry || []).length).to.be.least(1);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3 Triage (Imaging Provider / filler)",
+      "description": "Scenario step 3, test cases T-01 and T-02. The filler finds new work and moves the Task through its states. These use JSON Patch so you do not need to resend the whole Task.",
+      "item": [
+        {
+          "name": "T-01 Find new work for a filler",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Task?owner={{fillerOrgId}}&status=requested&_include=Task:focus",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Task"
+              ],
+              "query": [
+                {
+                  "key": "owner",
+                  "value": "{{fillerOrgId}}"
+                },
+                {
+                  "key": "status",
+                  "value": "requested"
+                },
+                {
+                  "key": "_include",
+                  "value": "Task:focus"
+                }
+              ]
+            },
+            "description": "New Tasks for one filler organisation, with the focus ServiceRequest. Seeded filler: `qhc-org-fill1`. Note: the Group Task has no `focus`; the fulfilment Task does."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('searchset Bundle', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b.resourceType).to.eql('Bundle');",
+                  "  pm.expect(b.type).to.eql('searchset');",
+                  "  pm.expect((b.entry || []).length).to.be.least(1);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "T-02 Accept the Task",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json-patch+json"
+              }
+            ],
+            "url": {
+              "raw": "{{referralUrl}}/Task/{{taskId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Task",
+                "{{taskId}}"
+              ]
+            },
+            "description": "Task `requested` to `accepted`. Run request R-01 first so `{{taskId}}` is set.",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"op\": \"replace\",\n    \"path\": \"/status\",\n    \"value\": \"accepted\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200]', () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test('accepted', () => pm.expect(pm.response.json().status).to.eql('accepted'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "T-02 Put on hold with a coded reason",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json-patch+json"
+              }
+            ],
+            "url": {
+              "raw": "{{referralUrl}}/Task/{{taskId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Task",
+                "{{taskId}}"
+              ]
+            },
+            "description": "Variant: `on-hold` with a `statusReason`, as in the contrast-allergy storyline ('contrast allergy, please confirm'). Resend the Accept request afterwards to continue the flow.",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"op\": \"replace\",\n    \"path\": \"/status\",\n    \"value\": \"on-hold\"\n  },\n  {\n    \"op\": \"add\",\n    \"path\": \"/statusReason\",\n    \"value\": {\n      \"coding\": [\n        {\n          \"system\": \"http://snomed.info/sct\",\n          \"code\": \"293637006\",\n          \"display\": \"Allergy to contrast media\"\n        }\n      ],\n      \"text\": \"Contrast allergy: please confirm with the patient before booking\"\n    }\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200]', () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test('on-hold', () => pm.expect(pm.response.json().status).to.eql('on-hold'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "T-02 Reject with a reason",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json-patch+json"
+              }
+            ],
+            "url": {
+              "raw": "{{referralUrl}}/Task/{{taskId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Task",
+                "{{taskId}}"
+              ]
+            },
+            "description": "Variant: `rejected`. Use on a throwaway referral, because a rejected Task is final.",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"op\": \"replace\",\n    \"path\": \"/status\",\n    \"value\": \"rejected\"\n  },\n  {\n    \"op\": \"add\",\n    \"path\": \"/statusReason\",\n    \"value\": {\n      \"text\": \"Service does not offer this study\"\n    }\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200]', () => pm.expect([200]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4 Availability and booking",
+      "description": "Scenario steps 4 and 5, test cases B-01 to B-04. Run **2 Create the referral** first. The server does **not** stop two Appointments being created against one Slot, so a booking client must re-read the Slot and check `status=free` immediately before it books (see B-03).",
+      "item": [
+        {
+          "name": "B-01 Filler publishes a Schedule",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/fhir+json"
+              }
+            ],
+            "url": {
+              "raw": "{{referralUrl}}/Schedule/pm-{{runId}}-sched",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Schedule",
+                "pm-{{runId}}-sched"
+              ]
+            },
+            "description": "A Schedule for a CT service. Uses a client-assigned id so the call is idempotent.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"Schedule\",\n  \"id\": \"pm-{{runId}}-sched\",\n  \"meta\": {\n    \"profile\": [\n      \"http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-schedule\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"urn:qh-connectathon:postman\",\n        \"code\": \"{{runId}}\"\n      }\n    ]\n  },\n  \"active\": true,\n  \"serviceType\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://snomed.info/sct\",\n          \"code\": \"310128004\",\n          \"display\": \"Computed tomography service\"\n        }\n      ]\n    }\n  ],\n  \"actor\": [\n    {\n      \"reference\": \"HealthcareService/qhc-hcs-f1-ct\",\n      \"display\": \"Cairns CT\"\n    }\n  ],\n  \"planningHorizon\": {\n    \"start\": \"{{now}}\",\n    \"end\": \"{{in30Days}}\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200, 201]', () => pm.expect([200, 201]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "B-01 Filler publishes a free Slot",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/fhir+json"
+              }
+            ],
+            "url": {
+              "raw": "{{referralUrl}}/Slot/pm-{{runId}}-slot",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Slot",
+                "pm-{{runId}}-slot"
+              ]
+            },
+            "description": "A 30 minute free Slot, one week from now.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"Slot\",\n  \"id\": \"pm-{{runId}}-slot\",\n  \"meta\": {\n    \"profile\": [\n      \"http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"urn:qh-connectathon:postman\",\n        \"code\": \"{{runId}}\"\n      }\n    ]\n  },\n  \"serviceType\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://snomed.info/sct\",\n          \"code\": \"310128004\",\n          \"display\": \"Computed tomography service\"\n        }\n      ]\n    }\n  ],\n  \"schedule\": {\n    \"reference\": \"Schedule/pm-{{runId}}-sched\"\n  },\n  \"status\": \"free\",\n  \"start\": \"{{slotStart}}\",\n  \"end\": \"{{slotEnd}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const d = new Date(); d.setUTCDate(d.getUTCDate() + 7); d.setUTCHours(0, 0, 0, 0);",
+                  "const iso = h => new Date(d.getTime() + h * 3600e3).toISOString();",
+                  "pm.collectionVariables.set('slotStart', iso(9));",
+                  "pm.collectionVariables.set('slotEnd', iso(9.5));",
+                  "pm.collectionVariables.set('slotId', 'pm-' + pm.collectionVariables.get('runId') + '-slot');"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200, 201]', () => pm.expect([200, 201]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "B-01 Referrer searches free Slots",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Slot?schedule=Schedule/pm-{{runId}}-sched&status=free&start=ge{{today}}&service-type=http://snomed.info/sct|310128004",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Slot"
+              ],
+              "query": [
+                {
+                  "key": "schedule",
+                  "value": "Schedule/pm-{{runId}}-sched"
+                },
+                {
+                  "key": "status",
+                  "value": "free"
+                },
+                {
+                  "key": "start",
+                  "value": "ge{{today}}"
+                },
+                {
+                  "key": "service-type",
+                  "value": "http://snomed.info/sct|310128004"
+                }
+              ]
+            },
+            "description": "Free Slots for the schedule, from today, by service type. To search a seeded provider instead use `schedule=Schedule/qhc-sched-f1-ct` or `schedule.actor=HealthcareService/qhc-hcs-f1-ct` (seeded slots are free on 4 and 5 Nov 2026)."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('searchset Bundle', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b.resourceType).to.eql('Bundle');",
+                  "  pm.expect(b.type).to.eql('searchset');",
+                  "  pm.expect((b.entry || []).length).to.be.least(1);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "B-02 Referrer proposes an Appointment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/fhir+json"
+              }
+            ],
+            "url": {
+              "raw": "{{referralUrl}}/Appointment",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Appointment"
+              ]
+            },
+            "description": "Creates a `proposed` Appointment on the Slot, linked to the ServiceRequest through `basedOn`.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"Appointment\",\n  \"meta\": {\n    \"profile\": [\n      \"http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/referral-appointment\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"urn:qh-connectathon:postman\",\n        \"code\": \"{{runId}}\"\n      }\n    ]\n  },\n  \"status\": \"proposed\",\n  \"serviceType\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://snomed.info/sct\",\n          \"code\": \"310128004\",\n          \"display\": \"Computed tomography service\"\n        }\n      ]\n    }\n  ],\n  \"created\": \"{{today}}\",\n  \"start\": \"{{slotStart}}\",\n  \"end\": \"{{slotEnd}}\",\n  \"slot\": [\n    {\n      \"reference\": \"Slot/{{slotId}}\"\n    }\n  ],\n  \"basedOn\": [\n    {\n      \"reference\": \"ServiceRequest/{{serviceRequestId}}\"\n    }\n  ],\n  \"participant\": [\n    {\n      \"actor\": {\n        \"reference\": \"Patient/{{patientId}}\"\n      },\n      \"status\": \"accepted\"\n    },\n    {\n      \"actor\": {\n        \"reference\": \"HealthcareService/qhc-hcs-f1-ct\"\n      },\n      \"status\": \"accepted\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [201]', () => pm.expect([201]).to.include(pm.response.code));",
+                  "pm.collectionVariables.set('appointmentId', pm.response.json().id);",
+                  "pm.collectionVariables.set('createdAppointmentId', pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "B-02 Filler confirms: Appointment booked",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json-patch+json"
+              }
+            ],
+            "url": {
+              "raw": "{{referralUrl}}/Appointment/{{appointmentId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Appointment",
+                "{{appointmentId}}"
+              ]
+            },
+            "description": "Appointment `proposed` to `booked`.",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"op\": \"replace\",\n    \"path\": \"/status\",\n    \"value\": \"booked\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200]', () => pm.expect([200]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "B-02 Filler confirms: Slot busy",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json-patch+json"
+              }
+            ],
+            "url": {
+              "raw": "{{referralUrl}}/Slot/{{slotId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Slot",
+                "{{slotId}}"
+              ]
+            },
+            "description": "Slot `free` to `busy`. This is the filler's job; the server does not do it for you.",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"op\": \"replace\",\n    \"path\": \"/status\",\n    \"value\": \"busy\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200]', () => pm.expect([200]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "B-02 Filler confirms: Task in-progress / booked",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json-patch+json"
+              }
+            ],
+            "url": {
+              "raw": "{{referralUrl}}/Task/{{taskId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Task",
+                "{{taskId}}"
+              ]
+            },
+            "description": "Task to `in-progress` with business status `service-booked`. If you ran an on-hold or reject request, re-run **R-01** for a fresh Task.",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"op\": \"replace\",\n    \"path\": \"/status\",\n    \"value\": \"in-progress\"\n  },\n  {\n    \"op\": \"add\",\n    \"path\": \"/businessStatus\",\n    \"value\": {\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org.au/CodeSystem/task-business-status\",\n          \"code\": \"service-booked\"\n        }\n      ]\n    }\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200]', () => pm.expect([200]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "B-03 Check the Slot before booking (taken Slot)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Slot/{{slotId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Slot",
+                "{{slotId}}"
+              ]
+            },
+            "description": "After B-02 the Slot is `busy`. A well behaved referrer reads it and stops here. Creating a second Appointment against this Slot would currently succeed (no server-side conflict check), so the check belongs in your client."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200]', () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test('slot is busy', () => pm.expect(pm.response.json().status).to.eql('busy'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "B-04 Cancel the Appointment",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json-patch+json"
+              }
+            ],
+            "url": {
+              "raw": "{{referralUrl}}/Appointment/{{appointmentId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Appointment",
+                "{{appointmentId}}"
+              ]
+            },
+            "description": "Appointment to `cancelled`, with a cancellation reason.",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"op\": \"replace\",\n    \"path\": \"/status\",\n    \"value\": \"cancelled\"\n  },\n  {\n    \"op\": \"add\",\n    \"path\": \"/cancelationReason\",\n    \"value\": {\n      \"text\": \"Patient requested a different time\"\n    }\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200]', () => pm.expect([200]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "B-04 Free the Slot again",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json-patch+json"
+              }
+            ],
+            "url": {
+              "raw": "{{referralUrl}}/Slot/{{slotId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Slot",
+                "{{slotId}}"
+              ]
+            },
+            "description": "Slot back to `free`.",
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"op\": \"replace\",\n    \"path\": \"/status\",\n    \"value\": \"free\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200]', () => pm.expect([200]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "B-04 Rebook on a second Slot",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/fhir+json"
+              }
+            ],
+            "url": {
+              "raw": "{{referralUrl}}/Slot/pm-{{runId}}-slot2",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Slot",
+                "pm-{{runId}}-slot2"
+              ]
+            },
+            "description": "Publishes a second free Slot an hour later; then re-run **B-02 Referrer proposes an Appointment** after pointing `{{slotId}}` at it (set it in the collection variables).",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resourceType\": \"Slot\",\n  \"id\": \"pm-{{runId}}-slot2\",\n  \"meta\": {\n    \"profile\": [\n      \"http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot\"\n    ],\n    \"tag\": [\n      {\n        \"system\": \"urn:qh-connectathon:postman\",\n        \"code\": \"{{runId}}\"\n      }\n    ]\n  },\n  \"serviceType\": [\n    {\n      \"coding\": [\n        {\n          \"system\": \"http://snomed.info/sct\",\n          \"code\": \"310128004\",\n          \"display\": \"Computed tomography service\"\n        }\n      ]\n    }\n  ],\n  \"schedule\": {\n    \"reference\": \"Schedule/pm-{{runId}}-sched\"\n  },\n  \"status\": \"free\",\n  \"start\": \"{{slot2Start}}\",\n  \"end\": \"{{slot2End}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const s = new Date(pm.collectionVariables.get('slotStart'));",
+                  "pm.collectionVariables.set('slot2Start', new Date(s.getTime() + 3600e3).toISOString());",
+                  "pm.collectionVariables.set('slot2End', new Date(s.getTime() + 5400e3).toISOString());"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200, 201]', () => pm.expect([200, 201]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "5 Track status",
+      "description": "Scenario step 6, test case S-01. The referrer reads the Task and Appointment and displays status and businessStatus.",
+      "item": [
+        {
+          "name": "S-01 Task state for the referral",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Task?focus=ServiceRequest/{{serviceRequestId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Task"
+              ],
+              "query": [
+                {
+                  "key": "focus",
+                  "value": "ServiceRequest/{{serviceRequestId}}"
+                }
+              ]
+            },
+            "description": "The fulfilment Task for the referral. After the B-02 confirmations it reads `in-progress` / `service-booked`."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('searchset Bundle', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b.resourceType).to.eql('Bundle');",
+                  "  pm.expect(b.type).to.eql('searchset');",
+                  "  pm.expect((b.entry || []).length).to.be.least(1);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "S-01 Appointments for the referral",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Appointment?based-on=ServiceRequest/{{serviceRequestId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Appointment"
+              ],
+              "query": [
+                {
+                  "key": "based-on",
+                  "value": "ServiceRequest/{{serviceRequestId}}"
+                }
+              ]
+            },
+            "description": "All Appointments raised against the referral, any status."
+          }
+        },
+        {
+          "name": "S-01 Seeded example: booked appointments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Appointment?status=booked&_count=5",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Appointment"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "booked"
+                },
+                {
+                  "key": "_count",
+                  "value": "5"
+                }
+              ]
+            },
+            "description": "Read-only: appointments already booked in the seed data (`qhc-appt-*`)."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('searchset Bundle', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b.resourceType).to.eql('Bundle');",
+                  "  pm.expect(b.type).to.eql('searchset');",
+                  "  pm.expect((b.entry || []).length).to.be.least(1);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "6 Patient summary",
+      "description": "Stretch, test case P-01. The Referral Server produces an AU Patient Summary (AU PS) document on demand with `Patient/[id]/$summary` (HAPI IPS module with the AU PS plugin). Seeded patients 01, 02, 04 to 07, 10 to 13 and 17 to 20 carry conditions, allergies, medications, procedures and results; the others return placeholder sections.",
+      "item": [
+        {
+          "name": "P-01 Patient summary (rich history)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Patient/qhc-pat-01/$summary",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Patient",
+                "qhc-pat-01",
+                "$summary"
+              ]
+            },
+            "description": "AU PS document for a seeded patient with history. The first call after a server restart can take around ten seconds."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('AU PS document Bundle', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(pm.response.code).to.eql(200);",
+                  "  pm.expect(b.resourceType).to.eql('Bundle');",
+                  "  pm.expect(b.type).to.eql('document');",
+                  "  pm.expect(b.meta.profile).to.include('http://hl7.org.au/fhir/ps/StructureDefinition/au-ps-bundle');",
+                  "  pm.expect(b.entry[0].resource.resourceType).to.eql('Composition');",
+                  "});",
+                  "pm.test('required sections and seeded history present', () => {",
+                  "  const sections = pm.response.json().entry[0].resource.section.map(s => s.title);",
+                  "  ['Allergies and Intolerances', 'Medication List', 'Problem List'].forEach(t => pm.expect(sections).to.include(t));",
+                  "  const types = pm.response.json().entry.map(e => e.resource.resourceType);",
+                  "  ['Condition', 'AllergyIntolerance', 'MedicationRequest'].forEach(t => pm.expect(types).to.include(t));",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "P-01 Patient summary (no history: placeholders)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Patient/qhc-pat-03/$summary",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Patient",
+                "qhc-pat-03",
+                "$summary"
+              ]
+            },
+            "description": "A seeded patient with no clinical history: the required sections are still present, each with one generated 'no information' entry."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200]', () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test('required sections still present', () => {",
+                  "  const sections = pm.response.json().entry[0].resource.section.map(s => s.title);",
+                  "  ['Allergies and Intolerances', 'Medication List', 'Problem List'].forEach(t => pm.expect(sections).to.include(t));",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "9 Clean up",
+      "description": "Deletes everything this run created, by id (the server refuses a conditional delete that matches more than one resource). Run it after a full pass. A 400 or 404 only means that item was never created or is already gone.",
+      "item": [
+        {
+          "name": "Delete Appointment",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Appointment/{{createdAppointmentId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Appointment",
+                "{{createdAppointmentId}}"
+              ]
+            },
+            "description": "Deletes Appointment."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200, 204, 400, 404]', () => pm.expect([200, 204, 400, 404]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete second Slot",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Slot/pm-{{runId}}-slot2",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Slot",
+                "pm-{{runId}}-slot2"
+              ]
+            },
+            "description": "Deletes second Slot."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200, 204, 400, 404]', () => pm.expect([200, 204, 400, 404]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Slot",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Slot/pm-{{runId}}-slot",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Slot",
+                "pm-{{runId}}-slot"
+              ]
+            },
+            "description": "Deletes Slot."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200, 204, 400, 404]', () => pm.expect([200, 204, 400, 404]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Schedule",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Schedule/pm-{{runId}}-sched",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Schedule",
+                "pm-{{runId}}-sched"
+              ]
+            },
+            "description": "Deletes Schedule."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200, 204, 400, 404]', () => pm.expect([200, 204, 400, 404]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete fulfilment Task",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Task/{{createdTaskId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Task",
+                "{{createdTaskId}}"
+              ]
+            },
+            "description": "Deletes fulfilment Task."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200, 204, 400, 404]', () => pm.expect([200, 204, 400, 404]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Group Task",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Task/{{createdGroupTaskId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Task",
+                "{{createdGroupTaskId}}"
+              ]
+            },
+            "description": "Deletes Group Task."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200, 204, 400, 404]', () => pm.expect([200, 204, 400, 404]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete ServiceRequest",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/ServiceRequest/{{createdServiceRequestId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "ServiceRequest",
+                "{{createdServiceRequestId}}"
+              ]
+            },
+            "description": "Deletes ServiceRequest."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200, 204, 400, 404]', () => pm.expect([200, 204, 400, 404]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete eGFR Observation",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Observation/{{createdObservationId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Observation",
+                "{{createdObservationId}}"
+              ]
+            },
+            "description": "Deletes eGFR Observation."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200, 204, 400, 404]', () => pm.expect([200, 204, 400, 404]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Patient",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{referralUrl}}/Patient/{{createdPatientId}}",
+              "host": [
+                "{{referralUrl}}"
+              ],
+              "path": [
+                "Patient",
+                "{{createdPatientId}}"
+              ]
+            },
+            "description": "Deletes Patient."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is one of [200, 204, 400, 404]', () => pm.expect([200, 204, 400, 404]).to.include(pm.response.code));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Every directory request must carry X-Request-ID (UUID v4); sending it everywhere is harmless.",
+          "pm.request.headers.upsert({ key: 'X-Request-ID', value: pm.variables.replaceIn('{{$guid}}') });",
+          "pm.request.headers.upsert({ key: 'Accept', value: 'application/fhir+json' });",
+          "const c = pm.collectionVariables;",
+          "if (!c.get('runId')) c.set('runId', 'pm' + Date.now().toString(36));",
+          "const now = new Date();",
+          "c.set('now', now.toISOString());",
+          "c.set('today', now.toISOString().slice(0, 10));",
+          "c.set('in30Days', new Date(now.getTime() + 30 * 864e5).toISOString());"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "runId",
+      "value": ""
+    },
+    {
+      "key": "now",
+      "value": ""
+    },
+    {
+      "key": "today",
+      "value": ""
+    },
+    {
+      "key": "in30Days",
+      "value": ""
+    },
+    {
+      "key": "healthcareServiceId",
+      "value": "qhd-hcs-01"
+    },
+    {
+      "key": "organizationId",
+      "value": "qhd-org-01"
+    },
+    {
+      "key": "fillerOrgId",
+      "value": "qhc-org-fill1"
+    },
+    {
+      "key": "patientId",
+      "value": "qhc-pat-01"
+    },
+    {
+      "key": "serviceRequestId",
+      "value": "qhc-sr-0001"
+    },
+    {
+      "key": "taskId",
+      "value": "qhc-task-0001"
+    },
+    {
+      "key": "groupTaskId",
+      "value": "qhc-taskgroup-0001"
+    },
+    {
+      "key": "slotId",
+      "value": ""
+    },
+    {
+      "key": "slotStart",
+      "value": ""
+    },
+    {
+      "key": "slotEnd",
+      "value": ""
+    },
+    {
+      "key": "slot2Start",
+      "value": ""
+    },
+    {
+      "key": "slot2End",
+      "value": ""
+    },
+    {
+      "key": "appointmentId",
+      "value": ""
+    },
+    {
+      "key": "createdPatientId",
+      "value": ""
+    },
+    {
+      "key": "createdObservationId",
+      "value": ""
+    },
+    {
+      "key": "createdServiceRequestId",
+      "value": ""
+    },
+    {
+      "key": "createdGroupTaskId",
+      "value": ""
+    },
+    {
+      "key": "createdTaskId",
+      "value": ""
+    },
+    {
+      "key": "createdAppointmentId",
+      "value": ""
+    },
+    {
+      "key": "observationId",
+      "value": "qhc-egfr-0001"
+    },
+    {
+      "key": "nextPageUrl",
+      "value": ""
+    },
+    {
+      "key": "exportStatusUrl",
+      "value": ""
+    }
+  ]
+}

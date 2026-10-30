@@ -136,11 +136,11 @@ One repeat makes one Observation; three results typed in give three Observations
 
 ---
 
-<style scoped>pre, pre code { font-size: 15px; }</style>
+<style scoped>pre, pre code { font-size: 14px; }</style>
 
 ## The template: a contained Observation (1/2)
 
-In the Questionnaire's `contained` list. Answer-dependent parts carry a **`templateExtractValue`** FHIRPath:
+In the Questionnaire's `contained` list. Answers fill parts with a **`templateExtractValue`** FHIRPath:
 
 ```json
 {
@@ -149,9 +149,12 @@ In the Questionnaire's `contained` list. Answer-dependent parts carry a **`templ
   "status": "final",
   "category": [ { "coding": [ { "system": "http://terminology.hl7.org/CodeSystem/observation-category",
                                 "code": "laboratory", "display": "Laboratory" } ] } ],
-  "code": { "coding": [ { "extension": [ {
+  "code": { "coding": [ { "system": "http://loinc.org", "_code": { "extension": [ {
     "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
-    "valueString": "item.where(linkId='pam-ext-test').answer.value" } ] } ] },
+    "valueString": "item.where(linkId='pam-ext-test').answer.value.code" } ] } } ],
+    "_text": { "extension": [ {
+    "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+    "valueString": "item.where(linkId='pam-ext-test').answer.value.display" } ] } },
   "subject": { "_reference": { "extension": [ {
     "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
     "valueString": "%resource.subject.reference" } ] } },
@@ -164,8 +167,9 @@ In the Questionnaire's `contained` list. Answer-dependent parts carry a **`templ
 
 <!--
 This is an ordinary Observation with holes in it. Fixed parts (status, category) are just written in.
+The extracted Observation conforms to AU Core 2.0.0 Pathology Result (checked with the HL7 validator; not claimed in meta.profile).
 The parts that come from answers carry an extension holding a FHIRPath expression.
-Code comes from the chosen test, subject from the QR, date from the Collected answer. Value and unit are next.
+Code: the LOINC code of the chosen test, and its label as code.text (the label isn't LOINC's display name, so it can't go in coding.display), subject from the QR, date from the Collected answer. Value and unit are next.
 -->
 
 ---
@@ -181,10 +185,10 @@ Code comes from the chosen test, subject from the QR, date from the Collected an
   "system": "http://unitsofmeasure.org",
   "_code": { "extension": [ {
     "url": <span class="nb">"http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",</span>
-    "valueString": <span class="nb">"iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'718-7',</span> 'g/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'2276-4',</span> 'ug/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'2502-3',</span> '%', 'mg/L')))" } ] },
+    "valueString": <span class="nb">"iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'718-7',</span> 'g/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'2276-4',</span> 'ug/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'14801-5',</span> '%', 'mg/L')))" } ] },
   "_unit": { "extension": [ {
     "url": <span class="nb">"http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",</span>
-    "valueString": <span class="nb">"iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'718-7',</span> 'g/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'2276-4',</span> 'µg/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'2502-3',</span> '%', 'mg/L')))" } ] }
+    "valueString": <span class="nb">"iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'718-7',</span> 'g/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'2276-4',</span> 'µg/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'14801-5',</span> '%', 'mg/L')))" } ] }
 }</code></pre>
 
 - `system` is fixed (UCUM). `_code` gives the UCUM code (`ug/L`), `_unit` the display (`µg/L`): they differ only for ferritin.
@@ -229,7 +233,7 @@ In FHIR JSON a **primitive** (string, decimal, code, dateTime...) can't hold an 
 
 </div>
 
-- In the template the primitive has **no value yet**, only the extension that computes it: `_value`, `_code`, `_unit`, `_reference`, `_effectiveDateTime`.
+- In the template the primitive has **no value yet**, only the extension that computes it: `_value`, `_code`, `_unit`, `_text`, `_reference`, `_effectiveDateTime`.
 - A **complex** element (a `Coding`) takes the extension directly: `"coding": [ { "extension": [...] } ]`. The answer's whole Coding replaces it.
 - The extract removes the `templateExtractValue` extensions and fills in the values.
 
@@ -348,14 +352,14 @@ Result: a **Coding**
   "display": "Haemoglobin (Hb)" }
 ```
 
-It becomes `code.coding[0]` of the Observation.
+The template uses its `.code` (→ `code.coding[0].code`, system LOINC) and `.display` (→ `code.text`).
 
 </div>
 
 </div>
 
 <!--
-First expression: the test. The answer is a whole Coding, and it replaces the coding in the template as-is.
+First expression: the test. The answer is a whole Coding; the template takes its code and its display (as code.text), because our label 'Haemoglobin (Hb)' isn't LOINC's display name and AU Core validation flags that.
 Cue: Guide §3 step 3, row 1. Paste the code expression, ▶. Expect a Coding with LOINC 718-7, Haemoglobin (Hb).
 Fallback screenshot: img/writeback/01-fhirpath-lab-ext-code.png.
 -->
@@ -413,11 +417,11 @@ Cue: Guide §3 step 3, row 2. Expect 98. Fallback: img/writeback/02-fhirpath-lab
 
 Paste the `_unit` expression:
 
-<pre class="wrap"><code><span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'718-7',</span> 'g/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'2276-4',</span> 'µg/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'2502-3',</span> '%', 'mg/L')))</code></pre>
+<pre class="wrap"><code><span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'718-7',</span> 'g/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'2276-4',</span> 'µg/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'14801-5',</span> '%', 'mg/L')))</code></pre>
 
 Result: **`g/L`** (String).
 
-Hb → g/L, ferritin → µg/L, TSAT `2502-3` → %, else mg/L (as in the real module). `_code` is the same with `ug/L`.
+Hb → g/L, ferritin → µg/L, TSAT `14801-5` → %, else mg/L (as in the real module). `_code` is the same with `ug/L`.
 
 </div>
 
@@ -599,7 +603,7 @@ Expect one POST Observation, 98 g/L, 2026-10-27. Fallback: img/writeback/08-play
   "entry": [ {
     "resource": {
       "resourceType": "Observation",
-      "code": { "coding": [ { "system": "http://loinc.org", "code": "718-7", "display": "Haemoglobin (Hb)" } ] },
+      "code": { "coding": [ { "system": "http://loinc.org", "code": "718-7" } ], "text": "Haemoglobin (Hb)" },
       "subject": { "reference": "Patient/pam-demo" },
       "valueQuantity": { "system": "http://unitsofmeasure.org", "value": 98, "unit": "g/L", "code": "g/L" },
       "effectiveDateTime": "2026-10-27"
@@ -707,13 +711,13 @@ A Condition for the chosen diagnosis (SNOMED CT-AU), with fixed clinical/verific
 
 ### A7 Treatment → MedicationRequest
 `questionnaires/modules/pam-treatment.json`, group `pam-iv-iron`, template `#PAMIVIronTemplate`.
-Fixed status, intent and IV route; medication from the chosen product; dose (`doseQuantity` in mg); `subject` and `authoredOn` computed.
+Fixed status, intent and IV route; medication from the chosen product; dose (`doseQuantity` in mg); `subject` and `authoredOn` computed; `requester` from the Prescriber item (pre-populated from `%user`).
 
 </div>
 
 </div>
 
-The real `pam-pathology.json` has the same `PAMExternalResultTemplate` as our walkthrough. A6 and A7 are starting points: test new expressions in fhirpath-lab first.
+The real `pam-pathology.json` has the same `PAMExternalResultTemplate` as our walkthrough. All three templates make resources that conform to **AU Core 2.0.0**. A6 and A7 are starting points: test new expressions in fhirpath-lab first.
 
 <!--
 Same pattern scales up. A6 makes a Condition from the diagnosis choice, A7 a MedicationRequest for IV iron.

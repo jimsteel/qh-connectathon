@@ -42,6 +42,7 @@ Daniel Foulkes (AEHRC) · Joern Guy Suess (AEHRC)
 | [`Services-Track-Two-Day-Agenda.md`](Services-Track-Two-Day-Agenda.md) | The block-level two-day agenda (AM / Mid / PM / Close) extracted from the scenario proposal. |
 | [`2026-09-28-Services-Track-Discussion-Recap.md`](2026-09-28-Services-Track-Discussion-Recap.md) | Recap, decisions, action items and ideas from the 28 Sep 2026 planning meeting. |
 | [`Track2-KickOff-Deck.md`](Track2-KickOff-Deck.md) / `.pptx` | Kick-off slide deck (Marp source + rendered editable PowerPoint). |
+| [`api/`](api/QH-Track2-API-Guide.md) | **API guide** for participants, with the downloadable Postman collection + environments and the fhir-frog TestScript library. Rebuild with `api/build.sh`. |
 | [`slides/`](slides/) | Slide build: `Makefile`, PlantUML diagram sources, and build output. |
 | [`ig/`](ig/) | The **Radiology Referral and Booking IG** ([aehrc/radiology-referral](https://github.com/aehrc/radiology-referral)) as a git submodule, tracking its `main` branch. |
 | `Daniel Joern Guy Paul Michael O/` | Working materials: EOI insights, early thoughts, meeting notes, and the external-service-access investigation. |

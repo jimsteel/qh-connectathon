@@ -104,6 +104,10 @@ PATIENT_CONTEXT = ext(f"{SDC}/sdc-questionnaire-launchContext", extension=[
     {"url": "name", "valueCoding": {"system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext", "code": "patient"}},
     {"url": "type", "valueCode": "Patient"},
 ])
+USER_CONTEXT = ext(f"{SDC}/sdc-questionnaire-launchContext", extension=[
+    {"url": "name", "valueCoding": {"system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext", "code": "user"}},
+    {"url": "type", "valueCode": "Practitioner"},
+])
 CHILD = ext(f"{SDC}/sdc-questionnaire-assemble-expectation", valueCode="assemble-child")
 ROOT = ext(f"{SDC}/sdc-questionnaire-assemble-expectation", valueCode="assemble-root")
 
@@ -121,7 +125,7 @@ def latest_obs(var, code):
     return query(var, f"Observation?code={LOINC}|{code}&patient={{{{%patient.id}}}}&_sort=-date&_count=1")
 
 
-def module(slug, title, top_item, contained=None):
+def module(slug, title, top_item, contained=None, contexts=()):
     # Hidden item with an initial value, so the section exists in the response from the start.
     # Works around a Smart Forms renderer bug: calculated answers in a section with no answers yet
     # are written to a throwaway group and lost.
@@ -133,7 +137,7 @@ def module(slug, title, top_item, contained=None):
     q = {
         "resourceType": "Questionnaire",
         "id": f"pam-{slug}",
-        "extension": [CHILD, PATIENT_CONTEXT],
+        "extension": [CHILD, PATIENT_CONTEXT, *contexts],
         "url": f"{BASE}/pam-{slug}",
         "version": VERSION,
         "name": "PAM" + "".join(w.capitalize() for w in slug.split("-")),
@@ -148,6 +152,9 @@ def module(slug, title, top_item, contained=None):
         q["contained"] = contained
     return q
 
+
+# Templates: the extracted resources conform to AU Core 2.0.0 (Pathology Result Observation, Condition,
+# MedicationRequest) without claiming it in meta.profile (Meld rejects PUTs with meta.profile: HAPI-0389).
 
 # --- Modules --------------------------------------------------------------------------------
 
@@ -209,12 +216,14 @@ modules.append(module("history", "Past medical and surgical history", {
 
 # Pathology (demo 1: latest Hb, ferritin, TSAT and CRP; demo 2: Observation write-back)
 PATH_TESTS = [("hb", "718-7", "Haemoglobin (Hb)", "g/L"), ("ferritin", "2276-4", "Ferritin", "ug/L"),
-              ("tsat", "2502-3", "Transferrin saturation (TSAT)", "%"), ("crp", "1988-5", "C-reactive protein (CRP)", "mg/L")]
+              ("tsat", "14801-5", "Transferrin saturation (TSAT)", "%"), ("crp", "1988-5", "C-reactive protein (CRP)", "mg/L")]
 UNIT_DISPLAY = {"ug/L": "µg/L"}
 obs_template = {
     "resourceType": "Observation", "id": "PAMExternalResultTemplate", "status": "final",
     "category": [{"coding": [coding("http://terminology.hl7.org/CodeSystem/observation-category", "laboratory", "Laboratory")]}],
-    "code": {"coding": [tpl_value("item.where(linkId='pam-ext-test').answer.value")]},
+    # LOINC code without the answer's display (the form's labels aren't LOINC display names); label in text
+    "code": {"coding": [{"system": LOINC, "_code": tpl_value("item.where(linkId='pam-ext-test').answer.value.code")}],
+             "_text": tpl_value("item.where(linkId='pam-ext-test').answer.value.display")},
     "subject": {"_reference": tpl_value("%resource.subject.reference")},
     "_effectiveDateTime": tpl_value("item.where(linkId='pam-ext-date').answer.value.toString()"),
     "valueQuantity": {
@@ -223,17 +232,17 @@ obs_template = {
         "_code": tpl_value(
             "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', "
             "iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'ug/L', "
-            "iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))"),
+            "iif(item.where(linkId='pam-ext-test').answer.value.code = '14801-5', '%', 'mg/L')))"),
         "_unit": tpl_value(
             "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', "
             "iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'µg/L', "
-            "iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))"),
+            "iif(item.where(linkId='pam-ext-test').answer.value.code = '14801-5', '%', 'mg/L')))"),
     },
 }
 modules.append(module("pathology", "Pathology results", {
     "linkId": "pam-pathology", "text": "Pathology", "type": "group",
     "extension": [latest_obs("latestHb", "718-7"), latest_obs("latestFerritin", "2276-4"),
-                  latest_obs("latestTsat", "2502-3"), latest_obs("latestCrp", "1988-5")],
+                  latest_obs("latestTsat", "14801-5"), latest_obs("latestCrp", "1988-5")],
     "item": [
         item(f"pam-{k}", text, "decimal", unit(u, UNIT_DISPLAY.get(u)),
              initial(f"%latest{k.capitalize()}.entry.resource.value.value"))
@@ -295,6 +304,9 @@ med_template = {
     "medicationCodeableConcept": {"coding": [tpl_value("item.where(linkId='pam-iron-product').answer.value")]},
     "subject": {"_reference": tpl_value("%resource.subject.reference")},
     "_authoredOn": tpl_value("now().toString()"),
+    # AU Core requester is 1..1: the launch user (%user) if there is one, else the name typed in
+    "requester": {"_reference": tpl_value("item.where(linkId='pam-iron-prescriber-ref').answer.value"),
+                  "_display": tpl_value("item.where(linkId='pam-iron-prescriber').answer.value")},
     "dosageInstruction": [{
         "route": {"coding": [coding(SCT, "47625008", "Intravenous route")]},
         "doseAndRate": [{"doseQuantity": {
@@ -318,6 +330,11 @@ modules.append(module("treatment", "Treatment and iron dose", {
                     ("1312141000168105", "Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial"),
                     ("1086251000168104", "Iron (as ferric derisomaltose) 100 mg/mL injection, vial")]]),
             item("pam-iron-dose", "Prescribed dose", "decimal", unit("mg")),
+            item("pam-iron-prescriber", "Prescriber", "string",
+                 initial("%user.name.first().given.first() + ' ' + %user.name.first().family")),
+            item("pam-iron-prescriber-ref", "Prescriber reference", "string",
+                 ext("http://hl7.org/fhir/StructureDefinition/questionnaire-hidden", valueBoolean=True),
+                 initial("%user.resourceType + '/' + %user.id")),
         ]),
         todo("pam-treatment-todo", "A7", "the rest of Treatment", [
             "Confirm the dosing-weight rule against the REDCap specification",
@@ -325,7 +342,7 @@ modules.append(module("treatment", "Treatment and iron dose", {
             "AMT value set from Ontoserver; oral iron, ESA and transfusion options",
         ]),
     ],
-}, contained=[med_template]))
+}, contained=[med_template], contexts=[USER_CONTEXT]))
 
 modules.append(module("education", "Patient education", {
     "linkId": "pam-education", "text": "Patient education", "type": "group",
