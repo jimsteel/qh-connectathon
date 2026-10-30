@@ -1,7 +1,7 @@
 {
   "terminologyServerUrl": "https://r4.ontoserver.csiro.au/fhir",
   "formsServerUrl": "https://gw.interop.community/QHConnectathon2026/open",
-  "defaultClientId": "PUT-YOUR-CLIENT-ID-HERE",
+  "defaultClientId": "6c342842-1df8-4b7b-ad7d-8cd3207b77d2",
   "launchScopes": "launch openid fhirUser online_access patient/*.read patient/*.write user/*.read",
   "registeredClientIdsUrl": null,
   "launchQuestionnaire": "https://aehrc.github.io/qh-connectathon/track1/solutions/Questionnaire/pam-root|0.2.0-assembled",
