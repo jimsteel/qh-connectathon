@@ -34,8 +34,10 @@ Strand D (REDCap) was skipped on purpose.
 | C1 | [C1-closed-loop](C1-closed-loop/) | verified | A6 + A7 in Smart Forms → write-back → B4 and B6 update |
 | C2 | [C2-mapping-review](C2-mapping-review/) | verified | Critique of `FHIR-Mapping-DRAFT.md`, with decisions for the leads |
 
-"Partly verified" for the B apps means no-login mode was tested against Meld but an EHR launch was
-not (no client IDs were registered).
+"Partly verified" for the B apps means no-login mode was tested against Meld but an EHR launch
+from Meld wasn't. B1–B8 are now registered in the `QHConnectathon2026` Meld sandbox (30 Oct 2026),
+with their client IDs in `B1-patient-summary/config.js` and each app's `launch.html`; launch them
+from Meld's app list.
 
 ## Try the apps (no Meld registration)
 
