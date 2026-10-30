@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/qh-connectathon/2026-10-29/1-FHIR-For-Users/solutions/smart-forms/logo.svg" />
+    <link rel="apple-touch-icon" href="/qh-connectathon/2026-10-29/1-FHIR-For-Users/solutions/smart-forms/logo.svg" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <meta name="theme-color" content="#000000" />
+    <title>Smart Forms</title>
+
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" crossorigin="anonymous" href="https://rsms.me/inter/inter.css" />
+    <script>
+      // Some FHIR gateways (e.g. Meld) reject a raw '|' in the query string with a 400 that has no
+      // CORS headers. Browsers don't encode '|', so encode it for every request (token|system, url|version).
+      (function () {
+        var originalFetch = window.fetch.bind(window);
+        function encodePipes(url) {
+          var q = url.indexOf('?');
+          return q !== -1 && url.indexOf('|', q) !== -1 ? url.slice(0, q) + url.slice(q).replace(/\|/g, '%7C') : url;
+        }
+        window.fetch = function (input, init) {
+          if (input instanceof Request) {
+            var url = encodePipes(input.url);
+            if (url !== input.url) input = new Request(url, input);
+          } else {
+            input = encodePipes(String(input));
+          }
+          return originalFetch(input, init);
+        };
+      })();
+    </script>
+    <script type="module" crossorigin src="/qh-connectathon/2026-10-29/1-FHIR-For-Users/solutions/smart-forms/assets/index-DiBlS12l.js"></script>
+    <link rel="stylesheet" crossorigin href="/qh-connectathon/2026-10-29/1-FHIR-For-Users/solutions/smart-forms/assets/index-Bc6vjs7g.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
